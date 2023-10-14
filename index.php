@@ -22,7 +22,7 @@
     </header>
     <main>
         <div class="container">
-            <?php include "./user/signup.php" ?>
+            <?php include "./user/home.php" ?>
         </div>
     </main>
     <footer>

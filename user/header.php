@@ -1,5 +1,5 @@
 <!-- Start: Navbar Centered Links -->
-<nav class="navbar navbar-expand-md sticky-top navbar-shrink py-3 navbar-light" id="mainNav">
+<nav class="navbar navbar-expand-md sticky-top navbar-shrink py-3 navbar-light mb-5" id="mainNav">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="">
             <!-- Logo -->
@@ -9,9 +9,9 @@
         <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" href="">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="">Services</a></li>
-                <li class="nav-item"><a class="nav-link" href="">Projects</a></li>
+                <li class="nav-item"><a class="nav-link" href="">Trang chủ</a></li>
+                <li class="nav-item"><a class="nav-link" href="">Lịch thi</a></li>
+                <li class="nav-item"><a class="nav-link" href="">Thi thử</a></li>
                 <li class="nav-item"><a class="nav-link" href="">Pricing</a></li>
                 <li class="nav-item"><a class="nav-link" href="">Contacts</a></li>
             </ul>
