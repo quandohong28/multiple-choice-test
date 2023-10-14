@@ -36,6 +36,9 @@
                     case 'practice':
                         include "./user/practice.php";
                         break;
+                    case 'official':
+                        include "./user/official.php";
+                        break;
                     case 'login':
                         include "./user/login.php";
                         break;
