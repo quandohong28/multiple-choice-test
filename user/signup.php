@@ -18,7 +18,7 @@
 							<div class="mb-3"><button class="btn btn-sm btn-primary shadow d-block w-100" type="submit">Sign up</button>
 							</div>
 						</form>
-						<p class="text-muted">Already have an account? <a href="">Log in</a></p>
+						<p class="text-muted">Bạn đã có tài khoản? <a href="">Đăng nhập</a></p>
 					</div>
 				</div>
 			</div>

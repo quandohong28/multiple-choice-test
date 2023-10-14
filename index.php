@@ -23,7 +23,39 @@
     </header>
     <main>
         <div class="container">
-            <?php include "./user/home.php" ?>
+
+            <?php
+            if ($_GET['act']) {
+                switch ($_GET['act']) {
+                    case 'home':
+                        include "./user/home.php";
+                        break;
+                    case 'schedule':
+                        include "./user/schedule.php";
+                        break;
+                    case 'practice':
+                        include "./user/practice.php";
+                        break;
+                    case 'login':
+                        include "./user/login.php";
+                        break;
+                    case 'logout':
+                        include "./user/logout.php";
+                        break;
+                    case 'signup':
+                        include "./user/signup.php";
+                        break;
+                    case 'admin':
+                        header("location: ./admin?act=home");
+                        break;
+                    default:
+                        include "./user/home.php";
+                        break;
+                }
+            } else {
+                include "./user/home.php";
+            }
+            ?>
         </div>
     </main>
     <footer>

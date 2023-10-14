@@ -3,11 +3,11 @@
     <div class="p-4 py-lg-5">
         <div class="row justify-content-center"><!-- Start: Services -->
             <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
-                <h3 class="fs-6 fw-bold">Services</h3>
+                <h3 class="fs-6 fw-bold">Sinh viên</h3>
                 <ul class="list-unstyled">
-                    <li><a href="#">Web design</a></li>
-                    <li><a href="#">Development</a></li>
-                    <li><a href="#">Hosting</a></li>
+                    <li><a href="#">Lịch thi</a></li>
+                    <li><a href="#">Đề thi</a></li>
+                    <li><a href="#">Điểm</a></li>
                 </ul>
             </div><!-- End: Services --><!-- Start: About -->
             <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
@@ -19,10 +19,10 @@
                 </ul>
             </div><!-- End: About --><!-- Start: Careers -->
             <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
-                <h3 class="fs-6 fw-bold">Careers</h3>
+                <h3 class="fs-6 fw-bold">Hỗ trợ</h3>
                 <ul class="list-unstyled">
-                    <li><a href="#">Job openings</a></li>
-                    <li><a href="#">Employee success</a></li>
+                    <li><a href="#">Điểm</a></li>
+                    <li><a href="#">Báo lỗi bộ câu hỏi</a></li>
                     <li><a href="#">Benefits</a></li>
                 </ul>
             </div><!-- End: Careers --><!-- Start: Social Icons -->
@@ -35,6 +35,9 @@
                         </svg></span><span>Brand</span></div>
                 <p class="text-muted">Sem eleifend donec molestie, integer quisque orci aliquam.</p>
             </div><!-- End: Social Icons -->
+        </div>
+        <div>
+            <a href="?act=admin">Truy cập trang dành cho <span class="badge bg-primary">Quản trị viên</span></a>
         </div>
         <hr>
         <div class="text-muted d-flex justify-content-between align-items-center pt-3">

@@ -19,20 +19,22 @@
 </head>
 
 <body>
-    <header>
-        <?php include "./header.php" ?>
-    </header>
-    <main>
-        <div class="d-flex">
-            <?php include "./sidebar.php" ?>
-            <?php include "./dashboard.php" ?>
-        </div>
-        <?php include "./logoutmodal.php" ?>
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-    </main>
+    <div class="d-flex">
+        <?php include "./sidebar.php" ?>
+        <section>
+            <header>
+                <?php include "./header.php" ?>
+            </header>
+            <main>
+                <?php include "./dashboard.php" ?>
+                <?php include "./logoutmodal.php" ?>
+                <!-- Scroll to Top Button-->
+                <a class="scroll-to-top rounded" href="#">
+                    <i class="fas fa-angle-up"></i>
+                </a>
+            </main>
+        </section>
+    </div>
     <footer>
         <?php include "./footer.php" ?>
     </footer>
