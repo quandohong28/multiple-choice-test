@@ -19,7 +19,7 @@
         <form class="py-5 p-lg-5" method="post">
             <div class="row row-cols-1 row-cols-md-2 mx-auto" style="max-width: 900px;">
 
-                <label class="col mb-5">
+                <label class="col mb-5 ">
                     <div class="card shadow-sm">
                         <div class="card-body shadow rounded px-md-5">
                             <input class="me-2" type="radio" name="anwser" id="">
