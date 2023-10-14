@@ -48,6 +48,9 @@
                     case 'signup':
                         include "./user/signup.php";
                         break;
+                    case 'profile':
+                        include "./user/profile.php";
+                        break;
                     case 'admin':
                         header("location: ./admin?act=home");
                         break;
