@@ -1,5 +1,5 @@
 <section><!-- Start: Features Cards -->
-    <div class="container bg-primary-gradient pb-5 pt-4 rounded">
+    <div class="container bg-primary-gradient pb-5 pt-4 mb-5 rounded">
         <div class="d-flex justify-content-between mb-5">
             <div class="d-flex align-items-center gap-3">
                 <a class="bg-white p-3">30:13</a>
@@ -64,8 +64,16 @@
             </div>
             <button class="col-2 btn btn-sm btn-primary d-flex gap-2 align-items-center justify-content-center">
                 Tiếp theo<i class="fa-solid fa-arrow-right"></i></span>
-                
+
             </button>
         </div>
     </div><!-- End: Features Cards -->
+
+    <!-- <div class="container bg-primary-gradient p-5 rounded ">
+        <div class="row gap-3">
+            <?php for ($i = 0; $i <= 30; $i++) : ?>
+                <button class="col bg-success btn btn-sm text-light">1</button>
+            <?php endfor ?>
+        </div>
+    </div> -->
 </section>

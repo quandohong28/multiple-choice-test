@@ -1,5 +1,5 @@
 <section><!-- Start: Features Cards -->
-    <div class="container bg-primary-gradient py-5">
+    <div class="bg-primary-gradient py-5">
         <div class="row">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
                 <p class="fw-bold">
