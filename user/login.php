@@ -2,8 +2,8 @@
 	<div class="p-5">
 		<div class="row mb-4 mb-lg-5">
 			<div class="col-md-8 col-xl-6 text-center mx-auto">
-				<p class="fw-bold text-success mb-2">Login</p>
-				<h2 class="fw-bold">Welcome back</h2>
+				<p class="fw-bold text-success mb-2">Đăng nhập</p>
+				<h2 class="fw-bold">Chào mừng</h2>
 			</div>
 		</div>
 		<div class="row d-flex justify-content-center">
@@ -16,13 +16,12 @@
 							</svg></div>
 						<form method="post" data-bs-theme="light">
 							<div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
-							<div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password">
+							<div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Mật khẩu">
 							</div>
-							<div class="mb-3"><button class="btn btn-primary shadow d-block w-100" type="submit">Log
-									in</button>
+							<div class="mb-3"><button class="btn btn-primary shadow d-block w-100" type="submit">Đăng nhập</button>
 							</div>
 						</form>
-						<p class="text-muted">Forgot your password?</p>
+						<p class="text-muted">Bạn quên mật khẩu?</p>
 					</div>
 				</div>
 			</div>

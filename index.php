@@ -9,11 +9,12 @@
 
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css?h=a36b09c30de7308fcdcc873e9287b73a">
     <link rel="stylesheet" href="./assets/css/styles.min.css?h=5623086526452171cd4d963de7cb2c74">
     <!-- CSS thuần -->
     <link rel="stylesheet" href="./assets/css/user.css">
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -22,7 +23,45 @@
     </header>
     <main>
         <div class="container">
-            <?php include "./user/home.php" ?>
+
+            <?php
+            if ($_GET['act']) {
+                switch ($_GET['act']) {
+                    case 'home':
+                        include "./user/home.php";
+                        break;
+                    case 'schedule':
+                        include "./user/schedule.php";
+                        break;
+                    case 'practice_exam':
+                        include "./user/practice_exam.php";
+                        break;
+                    case 'official_exam':
+                        include "./user/official_exam.php";
+                        break;
+                    case 'login':
+                        include "./user/login.php";
+                        break;
+                    case 'logout':
+                        include "./user/logout.php";
+                        break;
+                    case 'signup':
+                        include "./user/signup.php";
+                        break;
+                    case 'profile':
+                        include "./user/profile.php";
+                        break;
+                    case 'admin':
+                        header("location: ./admin?act=home");
+                        break;
+                    default:
+                        include "./user/home.php";
+                        break;
+                }
+            } else {
+                include "./user/home.php";
+            }
+            ?>
         </div>
     </main>
     <footer>
