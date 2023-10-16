@@ -33,11 +33,11 @@
                     case 'schedule':
                         include "./user/schedule.php";
                         break;
-                    case 'practice':
-                        include "./user/practice.php";
+                    case 'practice_exam':
+                        include "./user/practice_exam.php";
                         break;
-                    case 'test':
-                        include "./user/test.php";
+                    case 'official_exam':
+                        include "./user/official_exam.php";
                         break;
                     case 'login':
                         include "./user/login.php";

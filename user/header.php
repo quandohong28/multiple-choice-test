@@ -11,7 +11,7 @@
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item"><a class="nav-link active" href="?act=home">Trang chủ</a></li>
                 <li class="nav-item"><a class="nav-link" href="?act=schedule">Lịch thi</a></li>
-                <li class="nav-item"><a class="nav-link" href="?act=practice">Thi thử</a></li>
+                <li class="nav-item"><a class="nav-link" href="?act=practice_exam">Thi thử</a></li>
                 <li class="nav-item"><a class="nav-link" href="?act=support">Hỗ trợ</a></li>
                 <li class="nav-item"><a class="nav-link" href="?act=result">Điểm</a></li>
             </ul>
