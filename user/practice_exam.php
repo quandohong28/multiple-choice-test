@@ -14,53 +14,45 @@
                     <ul class="list-unstyled ps-0">
                         <li class="mb-1">
                             <button class="btn btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
-                                Home
+                                Tất cả
                             </button>
-                            <div class="collapse" id="home-collapse">
+                            <div class="collapse ps-5 show" id="home-collapse">
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="#" class="link-dark">Overview</a></li>
-                                    <li><a href="#" class="link-dark">Updates</a></li>
-                                    <li><a href="#" class="link-dark">Reports</a></li>
+                                    <li><a href="#" class="link-dark">Toán rời rạc</a></li>
+                                    <li><a href="#" class="link-dark">Cấu trúc dữ liệu và giải thuật</a></li>
+                                    <li><a href="#" class="link-dark">C++</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li class="mb-1">
-                            <button class="btn btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                                Dashboard
+                            <button class="btn">
+                                Mới cập nhật
                             </button>
-                            <div class="collapse" id="dashboard-collapse">
-                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="#" class="link-dark">Overview</a></li>
-                                    <li><a href="#" class="link-dark">Weekly</a></li>
-                                    <li><a href="#" class="link-dark">Monthly</a></li>
-                                    <li><a href="#" class="link-dark">Annually</a></li>
-                                </ul>
-                            </div>
                         </li>
                         <li class="mb-1">
                             <button class="btn btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                                Orders
+                                Đang làm
                             </button>
-                            <div class="collapse" id="orders-collapse">
+                            <div class="collapse ps-5" id="orders-collapse">
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="#" class="link-dark">New</a></li>
-                                    <li><a href="#" class="link-dark">Processed</a></li>
-                                    <li><a href="#" class="link-dark">Shipped</a></li>
-                                    <li><a href="#" class="link-dark">Returned</a></li>
+                                    <li><a href="#" class="link-dark">Danh sách những bài thi thử đang làm dở...</a></li>
+                                    <li><a href="#" class="link-dark">Danh sách những bài thi thử đang làm dở...</a></li>
+                                    <li><a href="#" class="link-dark">Danh sách những bài thi thử đang làm dở...</a></li>
+                                    <li><a href="#" class="link-dark">Danh sách những bài thi thử đang làm dở...</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li class="border-top my-3"></li>
                         <li class="mb-1">
                             <button class="btn btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
-                                Account
+                                Level
                             </button>
-                            <div class="collapse" id="account-collapse">
+                            <div class="collapse ps-5" id="account-collapse">
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="#" class="link-dark">New...</a></li>
-                                    <li><a href="#" class="link-dark">Profile</a></li>
-                                    <li><a href="#" class="link-dark">Settings</a></li>
-                                    <li><a href="#" class="link-dark">Sign out</a></li>
+                                    <li><a href="#" class="link-dark">Dễ</a></li>
+                                    <li><a href="#" class="link-dark">Trung bình</a></li>
+                                    <li><a href="#" class="link-dark">Khó</a></li>
+                                    <li><a href="#" class="link-dark">Ác quỷ</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -69,7 +61,10 @@
             </div>
             <div class="col-md-9">
                 <form class="form mb-4">
-                    <input type="search" class="form-control form-control-sm" placeholder="Tìm kiếm..." id="datatable-search-input">
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control" placeholder="Tìm kiếm..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-primary" type="button" id="button-addon2">Tìm kiếm</button>
+                    </div>
                 </form>
                 <div class="row gy-4 mb-5">
                     <?php for ($i = 0; $i < 10; $i++) : ?>
