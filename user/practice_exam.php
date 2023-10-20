@@ -1,13 +1,10 @@
 <section><!-- Start: Features Cards -->
-
-
-    <div class="row">
-        <div class="col-md-8 col-xl-6 text-center mx-auto mb-5">
-            <h3 class="fw-bold">Đăng ký thi thử</h3>
-        </div>
-    </div>
     <div class="container bg-primary-gradient p-lg-5 p-sm-2 mb-5">
-
+        <div class="row">
+            <div class="col-md-8 col-xl-6 text-center mx-auto mb-5">
+                <h3 class="fw-bold">Đăng ký thi thử</h3>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-3">
                 <div class="flex-shrink-0 p-3">
