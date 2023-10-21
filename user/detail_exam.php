@@ -1,27 +1,4 @@
-<style>
-    article {
-        width: 100%;
-        height: 100%;
-    }  
-    
-    .main {
-        margin: 0 auto;
-        width: 80%; 
-        height: 100%;
-    } 
 
-    .main > .title {
-        margin-top: 30px;
-    } 
-
-    .detail {
-        margin-top: 20px;
-    }
-    ul {
-        list-style-type: none;
-    }
-
-</style>
 </head>
 <body>
 <article>
@@ -180,3 +157,16 @@
         </div>
     </div>
 </article>
+<section><!-- Start: Features Cards -->
+
+    <div class="row">
+        <div class="col-md-8 col-xl-6 text-center mx-auto mb-5">
+            <h3 class="fw-bold">Kết quả bài thi</h3>
+        </div>
+    </div>
+    <div class="container bg-primary-gradient p-lg-5 p-sm-2 mb-5">
+        
+    </div>
+
+
+</section>

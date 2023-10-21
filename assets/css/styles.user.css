@@ -1,0 +1,19 @@
+.nav-item.result:hover {
+    border-radius: 5px;
+    background-color: #007bff;
+    margin: 0;
+    padding: 0;
+}   
+/* Ẩn tất cả các iframe */
+.iframe-container {
+    display: none;
+    }
+
+/* Hiển thị iframe khi có lớp active */
+.active-iframe {
+display: block;
+}
+
+.underlined {
+    text-decoration: underline;
+}

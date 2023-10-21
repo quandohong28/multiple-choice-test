@@ -38,6 +38,15 @@
                     case 'official_exam':
                         include "./user/official_exam.php";
                         break;
+                    case 'result' :
+                        include "./user/result.php";
+                        break;
+                    case 'detai_exam' :
+                        include "./user/detai_exam.php";
+                        break;
+                    case 'detail_exam':
+                        include "./user/detail_exam.php";
+                        break;
                     case 'login':
                         include "./user/login.php";
                         break;
@@ -55,7 +64,7 @@
                         break;
                     default:
                         include "./user/home.php";
-                        break;
+                        break; 
                 }
             } else {
                 include "./user/home.php";
