@@ -9,7 +9,7 @@
         <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link active" href="?act=home">Trang chủ</a></li>
+                <li class="nav-item"><a class="nav-link" href="?act=home">Trang chủ</a></li>
                 <li class="nav-item"><a class="nav-link" href="?act=schedule">Lịch thi</a></li>
                 <li class="nav-item"><a class="nav-link" href="?act=practice_exam">Thi thử</a></li>
                 <li class="nav-item"><a class="nav-link" href="?act=support">Hỗ trợ</a></li>
@@ -41,3 +41,4 @@
         </div>
     </div>
 </nav><!-- End: Navbar Centered Links -->
+
