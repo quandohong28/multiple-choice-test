@@ -1,5 +1,5 @@
 <!-- Start: Navbar Centered Links -->
-<nav class="navbar navbar-expand-md sticky-top navbar-shrink py-3 navbar-light mb-5" id="mainNav">
+<nav class="navbar navbar-expand-md fixed-top navbar-shrink py-3 navbar-light mb-5" id="mainNav">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="">
             <!-- Logo -->
@@ -24,13 +24,21 @@
                     <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="?act=profile">Trang cá nhân</a></li>
-                    <li><a class="dropdown-item" href="?act=setting">Cài đặt</a></li>
-                    <li><a class="dropdown-item" href="?act=change_password">Đổi mật khẩu</a></li>
+                    <li>
+                        <a class="dropdown-item" href="?act=profile">Hồ sơ</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="?act=setting">Cài đặt</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="?act=change_password">Đổi mật khẩu</a>
+                    </li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="?act=signout">Đăng xuất</a></li>
+                    <li>
+                        <a class="dropdown-item text-danger" href="?act=signout"><i class="fa-solid fa-arrow-right-from-bracket me-3"></i>Đăng xuất</a>
+                    </li>
                 </ul>
             </div>
 
@@ -41,4 +49,3 @@
         </div>
     </div>
 </nav><!-- End: Navbar Centered Links -->
-

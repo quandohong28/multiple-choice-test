@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body>
+<body class="mt-5 pt-5">
     <header>
         <?php include "./user/header.php" ?>
     </header>
@@ -49,6 +49,14 @@
                         break;
                     case 'profile':
                         include "./user/profile.php";
+                        break;
+                    case 'setting':
+                        include "./user/setting.php";
+                        break;
+                    case 'change_password':
+                        include "./user/change_password.php";
+                        break;
+                    case 'signout':
                         break;
                     case 'admin':
                         header("location: ./admin?act=home");
