@@ -126,10 +126,10 @@
                 <tbody>
                     <?php for ($i = 0; $i < 10; $i++) : ?>
                         <tr>
-                            <td class="py-3" scope="row"><?php echo $i+1;?></td>
-                            <td class="py-3">fasfdsloremloremloremloremlorem</td>
-                            <td class="py-3">Thi that</td>
-                            <td class="py-3">
+                            <td scope="row"><?php echo $i+1;?></td>
+                            <td>fasfdsloremloremloremloremlorem</td>
+                            <td>Thi that</td>
+                            <td>
                                 <a href="?act=detail_exam" class="btn text-primary font-weight-bold underlined">Xem kết quả</a>
                             </td>
                         </tr> 
@@ -185,10 +185,10 @@
                 <tbody>
                     <?php for ($i = 0; $i < 10; $i++) : ?>
                         <tr>
-                            <td class="py-3" scope="row"><?php echo $i+1;?></td>
-                            <td class="py-3">fasfdsloremloremloremloremlorem</td>
-                            <td class="py-3">Thi thu</td>
-                            <td class="py-3">
+                            <td scope="row"><?php echo $i+1;?></td>
+                            <td>fasfdsloremloremloremloremlorem</td>
+                            <td>Thi thu</td>
+                            <td>
                                 <a href="?act=detail_exam" class="btn text-primary font-weight-bold underlined">Xem kết quả</a>
                             </td>
                         </tr> 
