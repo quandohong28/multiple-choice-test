@@ -34,8 +34,35 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
                     case 'home':
                         include "./dashboard.php";
                         break;
+                    case 'search':
+                        include "./search.php";
+                        break;
+                    case 'notification':
+                        include "./notification.php";
+                        break;
+                    case 'message':
+                        include "./message.php";
+                        break;
+                    case 'profile':
+                        include "./profile.php";
+                        break;
+                    case 'setting':
+                        include "./setting.php";
+                        break;
+                    case 'userlog':
+                        include "./userlog.php";
+                        break;
+                    case 'signout':
+                        include "./signout.php";
+                        break;
+                    case 'signin':
+                        include "./signin.php";
+                        break;
+                    case 'signup':
+                        include "./signup.php";
+                        break;
                     case 'tables':
-                        include "./tables.php";
+                        include "./tables/index.php";
                         break;
                     default:
                         include "./dashboard.php";

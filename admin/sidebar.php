@@ -23,23 +23,22 @@
     <hr class="sidebar-divider">
 
     <!-- Heading -->
-    <div class="sidebar-heading">
-        Cơ bản
-    </div>
+    <div class="sidebar-heading">Cơ bản</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-table"></i>
-            <span>Các bảng</span>
+            <span>Expand</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Danh sách dữ liệu:</h6>
-                <a class="collapse-item" href="?act=schedule">Lịch thi</a>
-                <a class="collapse-item" href="?act=questions">Câu hỏi</a>
-                <a class="collapse-item" href="?act=accounts">Sinh viên</a>
-                <a class="collapse-item" href="?act=result">Theo dõi điểm</a>
+                <h6 class="collapse-header">Lorem, ipsum dolor.</h6>
+                <a class="collapse-item" href="">Lorem, ipsum dolor.</a>
+                <a class="collapse-item" href="">Lorem, ipsum dolor.</a>
+                <a class="collapse-item" href="">Lorem, ipsum dolor.</a>
+                <a class="collapse-item" href="">Lorem, ipsum dolor.</a>
+                <a class="collapse-item" href="">Lorem, ipsum dolor.</a>
             </div>
         </div>
     </li>
@@ -53,7 +52,6 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Các chức năng tùy chỉnh:</h6>
-                <a class="collapse-item" href="?act=create_schedule">Tạo lịch thi</a>
                 <a class="collapse-item" href="?act=schedule">Gì gì đó</a>
                 <a class="collapse-item" href="?act=schedule">Gì gì đó</a>
                 <a class="collapse-item" href="?act=schedule">Gì gì đó</a>
@@ -91,16 +89,16 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="?act=chart">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Thống kê</span></a>
+            <span>Biểu đồ</span></a>
     </li>
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
         <a class="nav-link" href="?act=tables">
             <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
+            <span>Các bảng</span></a>
     </li>
 
     <!-- Divider -->
