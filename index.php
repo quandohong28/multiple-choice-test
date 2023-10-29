@@ -18,7 +18,7 @@
 
 <body class="mt-5 pt-5">
     <header>
-        <?php include "./user/header.php" ?>
+        <?php include "./user/header.php"; ?>
     </header>
     <main>
         <div class="container">
@@ -41,11 +41,11 @@
                     case 'login':
                         include "./user/login.php";
                         break;
-                    case 'logout':
-                        include "./user/logout.php";
-                        break;
                     case 'signup':
                         include "./user/signup.php";
+                        break;
+                    case 'forgot_password':
+                        include "./user/forgot_password.php";
                         break;
                     case 'profile':
                         include "./user/profile.php";
@@ -57,6 +57,8 @@
                         include "./user/change_password.php";
                         break;
                     case 'signout':
+                        unset($_SESSION['user']);
+                        header("location: ?act=login");
                         break;
                     case 'admin':
                         header("location: ./admin?act=home");
@@ -72,7 +74,7 @@
         </div>
     </main>
     <footer>
-        <?php include "./user/footer.php" ?>
+        <?php include "./user/footer.php"; ?>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

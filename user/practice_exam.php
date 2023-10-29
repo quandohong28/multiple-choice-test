@@ -1,5 +1,5 @@
 <section><!-- Start: Features Cards -->
-    <div class="container bg-primary-gradient p-lg-5 p-sm-2 mb-5">
+    <div class="container bg-primary-gradient p-lg-5 p-sm-2 mb-5 rounded">
         <div class="row">
             <div class="col-md-8 col-xl-6 text-center mx-auto mb-5">
                 <h3 class="fw-bold">Đăng ký thi thử</h3>
@@ -63,14 +63,72 @@
                         <button class="btn btn-outline-primary" type="button" id="button-addon2">Tìm kiếm</button>
                     </div>
                 </form>
-                <div class="row gy-4 mb-5">
-                    <?php for ($i = 0; $i < 10; $i++) : ?>
-                        <div class="col-md-6 col-lg-4 project-sidebar-card">
-                            <a href="#">
-                                <img class="img-fluid image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMJI2BwvnS1HDbk1_TWB9wlaNjmL2y0JlZPfRA5sx7p0LszCRWEAMBVAtb4GN6ErwVibY&usqp=CAU">
-                            </a>
+
+                <div class="mb-5">
+                    <div class="row gx-5">
+                        <div class="">
+                            <!-- Chuyên mục -->
+                            <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
+                                <div class="card-body p-0">
+                                    <div class="d-flex align-items-start justify-content-between">
+                                        <div class="p-5">
+                                            <h5 class="fw-bolder">Toán rời rạc</h5>
+                                            <ul>
+                                                <li>3000 câu hỏi khác nhau</li>
+                                                <li>Dễ, Trung bình, Khó</li>
+                                            </ul>
+                                        </div>
+                                        <img class="img-fluid image col-7" src="https://images.unsplash.com/photo-1635372722656-389f87a941b7?auto=format&fit=crop&q=80&w=2831&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="..." />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
+                                <div class="card-body p-0">
+                                    <div class="d-flex align-items-start justify-content-between">
+                                        <div class="p-5">
+                                            <h5 class="fw-bolder">Toán rời rạc</h5>
+                                            <ul>
+                                                <li>3000 câu hỏi khác nhau</li>
+                                                <li>Dễ, Trung bình, Khó</li>
+                                            </ul>
+                                        </div>
+                                        <img class="img-fluid col-7" src="https://images.unsplash.com/photo-1640158615573-cd28feb1bf4e?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="..." />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
+                                <div class="card-body p-0">
+                                    <div class="d-flex align-items-start justify-content-between">
+                                        <div class="p-5">
+                                            <h5 class="fw-bolder">Toán rời rạc</h5>
+                                            <ul>
+                                                <li>3000 câu hỏi khác nhau</li>
+                                                <li>Dễ, Trung bình, Khó</li>
+                                            </ul>
+                                        </div>
+                                        <img class="img-fluid col-7" src="https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg?w=2000" alt="..." />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
+                                <div class="card-body p-0">
+                                    <div class="d-flex align-items-start justify-content-between">
+                                        <div class="p-5">
+                                            <h5 class="fw-bolder">Toán rời rạc</h5>
+                                            <ul>
+                                                <li>3000 câu hỏi khác nhau</li>
+                                                <li>Dễ, Trung bình, Khó</li>
+                                            </ul>
+                                        </div>
+                                        <img class="img-fluid col-7" src="https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg?w=2000" alt="..." />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    <?php endfor ?>
+                    </div>
                 </div>
                 <nav>
                     <ul class="pagination pagination-sm justify-content-end">
