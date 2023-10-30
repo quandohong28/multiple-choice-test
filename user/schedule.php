@@ -3,7 +3,7 @@
     <div class="filter px-5 py-3 mb-5 bg-white shadow rounded">
         <form action="">
             <div class="mb-3">
-                <label for="" class="form-label">Thời gian</label>
+                <label for="" class="form-label mb-3"><i class="fa-regular fa-clock me-3"></i>Thời gian</label>
                 <select class="form-select form-select-sm rounded-0" name="" id="">
                     <option selected>7 ngày tới</option>
                     <option value="">30 ngày tới</option>
@@ -15,7 +15,7 @@
                 <small id="helpId" class="text-muted">Lựa chọn thời gian hiển thị lịch thi</small>
             </div>
         </form>
-    </div><!-- End: Features Cards -->
+    </div>
 
     <div class="filter px-5 py-3 bg-white shadow rounded">
 
@@ -27,7 +27,7 @@
 
         <section class="text-sm">
             <div class="table-responsive">
-                <table class="table table-sm table-bordered align-middle text-center">
+                <table class="table table-sm table-bordered align-middle text-center mb-5">
                     <thead>
                         <tr>
                             <th class="small p-2" scope="col">
@@ -70,22 +70,41 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="">
-                            <td>1</td>
-                            <td class="small" scope="row">
-                                <span>Thứ Năm</span><br>
-                                <span>Ngày 23/11/2002</span>
-                            </td>
-                            <td class="small" scope="row">R1C1</td>
-                            <td class="small" scope="row">R1C1</td>
-                            <td class="small" scope="row">R1C1</td>
-                            <td class="small" scope="row">adsd</td>
-                            <td class="small" scope="row" class="">
-                                <a href="" class="badge bg-primary">Xem chi tiết</a>
-                            </td>
-                        </tr>
+                        <?php for ($i = 0; $i < 10; $i++) : ?>
+                            <tr class="">
+                                <td><?= $i?></td>
+                                <td class="small" scope="row">
+                                    <span>Thứ Năm</span><br>
+                                    <span>Ngày 23/11/2002</span>
+                                </td>
+                                <td class="small" scope="row">R1C1</td>
+                                <td class="small" scope="row">R1C1</td>
+                                <td class="small" scope="row">R1C1</td>
+                                <td class="small" scope="row">adsd</td>
+                                <td class="small" scope="row" class="">
+                                    <a href="" class="badge bg-primary">Xem chi tiết</a>
+                                </td>
+                            </tr>
+
+                        <?php endfor ?>
                     </tbody>
                 </table>
+
+                <ul class="pagination pagination-sm justify-content-end">
+                    <li class="page-item disabled">
+                        <a class="page-link px-3">
+                            <i class="fa-solid fa-caret-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link px-3" href="#">
+                            <i class="fa-solid fa-caret-right"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
 
         </section>

@@ -1,3 +1,7 @@
+<?php
+$action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -23,59 +27,35 @@
     <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 </head>
 
-<body>
-    <div class="d-flex">
-        <?php include "./sidebar.php" ?>
-        <section>
+<body class="overflow-x-hidden">
+    <div class="row">
+        <div class="col-2">
+            <?php include "./sidebar.php" ?>
+        </div>
+        <section class="col">
             <header>
                 <?php include "./header.php" ?>
             </header>
             <main>
                 <?php
-                if ($_GET['act']) {
+                if (isset($_GET['act'])) {
                     switch ($_GET['act']) {
-                        case 'home':
-                            include "./dashboard.php";
+                        case 'dasboard':
+                            include 'dasboard.php';
                             break;
-                        case 'account':
-                            include "./account.php";
+                        case 'tables':
+                            include 'tables/index.php';
                             break;
-                        case 'add_account':
-                            include "./add_account.php";
-                            break;
-                        case 'edit_account':
-                            include "./edit_account.php";
-                            break;
-                        case 'delete_account':
-                            include "./delete_account.php";
-                            break;
-                        case 'category':
-                            include "./category.php";
-                            break;
-                        case 'add_category':
-                            include "./add_category.php";
-                            break;
-                        case 'edit_category':
-                            include "./edit_category.php";
-                            break;
-                        case 'delete_category':
-                            include "./delete_category.php";
-                            break;
-                        default:
-                            include "./dashboard.php";
-                            break;
-
                     }
                 }
-
                 ?>
                 <?php include "./logoutmodal.php" ?>
                 <!-- Scroll to Top Button-->
                 <a class="scroll-to-top rounded" href="#">
                     <i class="fas fa-angle-up"></i>
                 </a>
-            </main>
-        </section>
+    </div>
+    </section>
     </div>
     <footer>
         <?php include "./footer.php" ?>
