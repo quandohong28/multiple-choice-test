@@ -18,7 +18,7 @@
 
 <body class="mt-5 pt-5">
     <header>
-        <?php include "./user/header.php"; ?>
+        <?php include "./user/layouts/header.php"; ?>
     </header>
     <main>
         <div class="container">
@@ -27,37 +27,37 @@
             if ($_GET['act']) {
                 switch ($_GET['act']) {
                     case 'home':
-                        include "./user/home.php";
+                        include "./user/utilities/home.php";
                         break;
                     case 'schedule':
-                        include "./user/schedule.php";
+                        include "./user/utilities/schedule.php";
                         break;
                     case 'practice_exam':
-                        include "./user/practice_exam.php";
+                        include "./user/utilities/practice_exam.php";
                         break;
                     case 'official_exam':
-                        include "./user/official_exam.php";
+                        include "./user/utilities/official_exam.php";
                         break;
                     case 'result':
-                        include "./user/result/index.php";
+                        include "./user/results/index.php";
                         break;
                     case 'login':
-                        include "./user/login.php";
+                        include "./user/accounts/login.php";
                         break;
                     case 'signup':
-                        include "./user/signup.php";
+                        include "./user/accounts/signup.php";
                         break;
                     case 'forgot_password':
-                        include "./user/forgot_password.php";
+                        include "./user/accounts/forgot_password.php";
                         break;
                     case 'profile':
-                        include "./user/profile.php";
+                        include "./user/accounts/profile.php";
                         break;
                     case 'setting':
-                        include "./user/setting.php";
+                        include "./user/accounts/setting.php";
                         break;
                     case 'change_password':
-                        include "./user/change_password.php";
+                        include "./user/accounts/change_password.php";
                         break;
                     case 'signout':
                         unset($_SESSION['user']);
@@ -67,17 +67,17 @@
                         header("location: ./admin?act=home");
                         break;
                     default:
-                        include "./user/home.php";
+                        include "./user/utilities/home.php";
                         break;
                 }
             } else {
-                include "./user/home.php";
+                include "./user/utilities/home.php";
             }
             ?>
         </div>
     </main>
     <footer>
-        <?php include "./user/footer.php"; ?>
+        <?php include "./user/layouts/footer.php"; ?>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
