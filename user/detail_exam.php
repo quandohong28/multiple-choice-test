@@ -1,9 +1,7 @@
 <section><!-- Start: Features Cards -->
 
-    <div class="row">
-        <div class="col-md-8 col-xl-6 text-center mx-auto mb-5">
-            <h3 class="fw-bold">Kết quả bài thi</h3>
-        </div>
+    <div class="col-md-8 col-xl-6 text-center mx-auto">
+        <h3 class="fw-bold">Kết quả bài thi</h3>
     </div>
     <div class="container bg-primary-gradient p-lg-5 p-sm-2 mb-5">
         <div class="general-inf-user filter px-5 py-3 mb-5 bg-white shadow rounded">
@@ -70,3 +68,4 @@
     </div>
 
 </section>
+ 
