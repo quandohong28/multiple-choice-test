@@ -21,7 +21,7 @@
 <body class="bg-gradient-primary">
 
     <div class="container">
-        <?php include "login.php"?>
+        <?php include "login.php" ?>
     </div>
 
     <!-- Bootstrap core JavaScript-->

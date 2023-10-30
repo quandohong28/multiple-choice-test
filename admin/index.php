@@ -1,3 +1,7 @@
+<?php
+$action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -15,21 +19,61 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body>
-    <div class="d-flex">
-        <?php include "./sidebar.php" ?>
-        <section>
+<body class="overflow-x-hidden">
+    <div class="row">
+        <div class="col-2">
+            <?php include "./sidebar.php" ?>
+        </div>
+        <section class="col">
             <header>
                 <?php include "./header.php" ?>
             </header>
-            <main>
-                <?php include "./dashboard.php" ?>
+            <div>
+                <?php switch ($action) {
+                    case 'dashboard':
+                    case 'home':
+                        include "./dashboard.php";
+                        break;
+                    case 'search':
+                        include "./search.php";
+                        break;
+                    case 'notification':
+                        include "./notification.php";
+                        break;
+                    case 'message':
+                        include "./message.php";
+                        break;
+                    case 'profile':
+                        include "./profile.php";
+                        break;
+                    case 'setting':
+                        include "./setting.php";
+                        break;
+                    case 'userlog':
+                        include "./userlog.php";
+                        break;
+                    case 'signout':
+                        include "./signout.php";
+                        break;
+                    case 'signin':
+                        include "./signin.php";
+                        break;
+                    case 'signup':
+                        include "./signup.php";
+                        break;
+                    case 'tables':
+                        include "./tables/index.php";
+                        break;
+                    default:
+                        include "./dashboard.php";
+                        break;
+                } ?>
                 <?php include "./logoutmodal.php" ?>
                 <!-- Scroll to Top Button-->
                 <a class="scroll-to-top rounded" href="#">
                     <i class="fas fa-angle-up"></i>
                 </a>
-            </main>
+            </div>
         </section>
     </div>
     <footer>
