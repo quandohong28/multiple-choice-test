@@ -4,7 +4,7 @@
 -- create at: 30/10/2023
 
 -- đang tạo cơ sở dữ liệu multiple_choice_test
-CREATE TABLE multiple_choice_test;
+CREATE DATABASE multiple_choice_test;
 
 
 -- sử dụng multiple_choice_test
@@ -30,10 +30,11 @@ CREATE TABLE accounts (
     address TEXT NULL,
     tel VARCHAR(10) NULL,
     introduce TEXT NULL,
-    role_id TINYINT(1) NOT NULL,
+    role_id INT(11) NOT NULL,
     PRIMARY KEY (id , username),
     FOREIGN KEY (role_id)
         REFERENCES roles (id)
+        ON DELETE CASCADE
 );
 
 
@@ -48,13 +49,15 @@ CREATE TABLE categories (
 -- đang tạo bảng độ khó của câu hỏi
 CREATE TABLE question_levels (
     id INT(11) NOT NULL AUTO_INCREMENT,
-    level VARCHAR(50) NOT NULL
+    level VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id)
 );
 
 -- đang tạo bảng loại (sử dụng cho bảng câu hỏi và bảng bài thi)
 CREATE TABLE types (
     id INT(11) NOT NULL AUTO_INCREMENT,
-    type VARCHAR(50) NOT NULL
+    type VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id)
 );
 
 
@@ -63,9 +66,9 @@ CREATE TABLE questions (
     id INT(11) NOT NULL AUTO_INCREMENT,
     content TEXT NOT NULL,
     image VARCHAR(255) NULL,
-    correct_answer TINYINT NOT NULL,
+    correct_answer INT(11) NOT NULL,
     question_level_id INT(11) NOT NULL,
-    question_type_id TINYINT(1) NOT NULL,
+    question_type_id INT(11) NOT NULL,
     category_id INT(11) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (category_id)
@@ -94,7 +97,7 @@ CREATE TABLE answers (
 
 -- liên kết câu trả lời đúng của bảng câu hỏi với bảng câu trả lời
 ALTER TABLE questions
-ADD constraint FOREIGN KEY (correct_answer) REFERENCES answers(id);
+ADD FOREIGN KEY (correct_answer) REFERENCES answers(id);
 
 
 -- đang tạo bảng danh sách lịch thi
@@ -115,6 +118,7 @@ CREATE TABLE candidates (
     id INT(11) NOT NULL AUTO_INCREMENT,
     test_schedule_id INT(11) NOT NULL,
     category_id INT(11) NOT NULL,
+    exam_detail_id INT(11) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (test_schedule_id)
         REFERENCES test_schedules (id)
@@ -158,6 +162,12 @@ CREATE TABLE exam_details (
         REFERENCES questions (id)
         ON DELETE CASCADE
 );
+
+
+-- đang liên kết bảng thí sinh với bảng chi tiết đề thi
+ALTER TABLE candidates
+ADD
+FOREIGN KEY (exam_detail_id) REFERENCES exam_details (id);
 
 
 -- đang tạo bảng danh sách kết quả của những bài thi đã thi
