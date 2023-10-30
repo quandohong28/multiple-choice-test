@@ -16,9 +16,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body>
+<body class="mt-5 pt-5">
     <header>
-        <?php include "./user/header.php" ?>
+        <?php include "./user/header.php"; ?>
     </header>
     <main>
         <div class="container">
@@ -44,14 +44,24 @@
                     case 'login':
                         include "./user/login.php";
                         break;
-                    case 'logout':
-                        include "./user/logout.php";
-                        break;
                     case 'signup':
                         include "./user/signup.php";
                         break;
+                    case 'forgot_password':
+                        include "./user/forgot_password.php";
+                        break;
                     case 'profile':
                         include "./user/profile.php";
+                        break;
+                    case 'setting':
+                        include "./user/setting.php";
+                        break;
+                    case 'change_password':
+                        include "./user/change_password.php";
+                        break;
+                    case 'signout':
+                        unset($_SESSION['user']);
+                        header("location: ?act=login");
                         break;
                     case 'admin':
                         header("location: ./admin?act=home");
@@ -67,7 +77,7 @@
         </div>
     </main>
     <footer>
-        <?php include "./user/footer.php" ?>
+        <?php include "./user/footer.php"; ?>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

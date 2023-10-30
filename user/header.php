@@ -1,5 +1,5 @@
 <!-- Start: Navbar Centered Links -->
-<nav class="navbar navbar-expand-md sticky-top navbar-shrink py-3 navbar-light mb-5" id="mainNav">
+<nav class="navbar navbar-expand-md fixed-top navbar-shrink py-3 navbar-light mb-5" id="mainNav">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="">
             <!-- Logo -->
@@ -9,7 +9,7 @@
         <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link active" href="?act=home">Trang chủ</a></li>
+                <li class="nav-item"><a class="nav-link" href="?act=home">Trang chủ</a></li>
                 <li class="nav-item"><a class="nav-link" href="?act=schedule">Lịch thi</a></li>
                 <li class="nav-item"><a class="nav-link" href="?act=practice_exam">Thi thử</a></li>
                 <li class="nav-item"><a class="nav-link" href="?act=support">Hỗ trợ</a></li>
@@ -24,13 +24,21 @@
                     <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="?act=profile">Trang cá nhân</a></li>
-                    <li><a class="dropdown-item" href="?act=setting">Cài đặt</a></li>
-                    <li><a class="dropdown-item" href="?act=change_password">Đổi mật khẩu</a></li>
+                    <li>
+                        <a class="dropdown-item" href="?act=profile">Hồ sơ</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="?act=setting">Cài đặt</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="?act=change_password">Đổi mật khẩu</a>
+                    </li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="?act=signout">Đăng xuất</a></li>
+                    <li>
+                        <a class="dropdown-item text-danger" href="?act=signout"><i class="fa-solid fa-arrow-right-from-bracket me-3"></i>Đăng xuất</a>
+                    </li>
                 </ul>
             </div>
 
