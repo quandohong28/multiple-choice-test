@@ -2,8 +2,8 @@
     <div class="col-12 col-lg-9 col-xl-7">
         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
-                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Thêm chuyên mục</h3>
-                <form enctype="multipart/form-data">
+                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Sửa chuyên mục</h3>
+                <form method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col mb-4">
 

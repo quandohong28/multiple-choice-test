@@ -2,62 +2,55 @@
     <div class="col-12 col-lg-9 col-xl-7">
         <div class="card shadow-2-strong card-registration  mb-5" style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
-                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Sửa tài khoản</h3>
+                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Thêm lịch thi</h3>
                 <form method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <div class="form-outline">
-                                <input type="text" id="username" class="form-control form-control-sm" />
-                                <label class="form-label" for="username">Tên đăng nhập</label>
+                                <label class="form-label" for="name">Tên lịch thi</label>
+                                <input type="text" id="name" class="form-control form-control-sm" />
                             </div>
                         </div>
                         <div class="col-md-6 mb-4">
                             <div class="form-outline">
-                                <input type="text" id="password" class="form-control form-control-sm" />
-                                <label class="form-label" for="password">Mật khẩu</label>
+                                <label class="form-label" for="time_exam">Thời gian làm bài</label>
+                                <input type="text" id="time_exam" class="form-control form-control-sm" />
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-4 d-flex align-items-center">
                             <div class="form-outline datepicker w-100">
-                                <input type="text" class="form-control form-control-sm" id="fullname" />
-                                <label for="fullname" class="form-label">Tên đầy đủ</label>
+                                <label for="time_start" class="form-label">Thời gian bắt đầu</label>
+                                <input type="date" class="form-control form-control-sm" id="time_start" />
                             </div>
                         </div>
                         <div class="col-md-6 mb-4 d-flex align-items-center">
                             <div class="form-outline datepicker w-100">
-                                <input type="text" class="form-control form-control-sm" id="address" />
-                                <label for="address" class="form-label">Địa chỉ</label>
+                                <label for="time_end" class="form-label">Thời gian kết thúc</label>
+                                <input type="date" class="form-control form-control-sm" id="time_end" />
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-4 pb-2">
                             <div class="form-outline">
-                                <input type="email" id="emailAddress" class="form-control form-control-sm" />
-                                <label class="form-label" for="emailAddress">Email</label>
+                                <label class="form-label" for="number_exam">Số lượng đề thi</label>
+                                <input type="text" id="number_exam" class="form-control form-control-sm" />
                             </div>
                         </div>
                         <div class="col-md-6 mb-4 pb-2">
                             <div class="form-outline">
-                                <input type="tel" id="tel" class="form-control form-control-sm" />
-                                <label class="form-label" for="tel">Số điện thoại</label>
+                                <label class="form-label" for="number_accounts">Số lượng thí sinh</label>
+                                <input type="text" id="number_accounts" class="form-control form-control-sm" />
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 mb-4 pb-2">
-                            <label class="form-label select-label">Vai trò</label>
-                            <select class="select form-control form-control-sm">
-                                <option value="1">Người dùng</option>
-                                <option value="0">Admin</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-4 pb-2">
+                        <div class="md-6 mb-4 pb-2">
                             <div class="form-outline">
-                                <label class="form-label" for="avatar">Ảnh đại diện</label>
-                                <input class="form-control form-control-sm" id="avatar" type="file" />
+                                <label class="form-label" for="candidate">Thêm thí sinh</label>
+                                <input type="file" id="candidate" class="form-control form-control-sm" />
                             </div>
                         </div>
                     </div>
