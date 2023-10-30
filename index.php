@@ -38,6 +38,9 @@
                     case 'official_exam':
                         include "./user/official_exam.php";
                         break;
+                    case 'result':
+                        include "./user/result/index.php";
+                        break;
                     case 'login':
                         include "./user/login.php";
                         break;
