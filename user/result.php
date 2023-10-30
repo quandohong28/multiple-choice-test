@@ -25,7 +25,29 @@
         </div>
         <!-- Iframes -->
         <div id="iframe1" class="iframe-container active-iframe filter px-5 py-3 bg-white shadow rounded">
-            <table class="table table-sm table-bordered align-middle text-center my-5">
+            <div class="row">
+                <div class="col-sm-6 text-left"></div>
+                <div class="col-sm-6 text-right">
+                    <div class="dt-buttons btn-group float-end">          
+                        <button class="btn btn-success rounded-0 py-1 px-2 buttons-print" tabindex="0" aria-controls="DataTables_Table_0" type="button">
+                            <span>Print</span> 
+                        </button> 
+                        <button class="btn btn-success rounded-0 py-1 px-2 buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" type="button">
+                            <span>Copy</span>
+                        </button> 
+                        <button class="btn btn-success rounded-0 py-1 px-2 buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" type="button">
+                            <span>Excel</span>
+                        </button> 
+                        <button class="btn btn-success rounded-0 py-1 px-2 buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" type="button">
+                            <span>CSV</span>
+                        </button> 
+                        <button class="btn btn-success rounded-0 py-1 px-2 buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" type="button">
+                            <span>PDF</span>
+                        </button> 
+                    </div>
+                </div>
+            </div>
+            <table class="table table-sm table-bordered align-middle text-center my-3">
                 <thead>
                     <tr>
                         <th class="small p-2" scope="col">
