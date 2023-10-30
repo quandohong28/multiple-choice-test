@@ -1,10 +1,9 @@
 <section><!-- Start: Features Cards -->
-
     <div class="col-md-8 col-xl-6 text-center mx-auto">
         <h3 class="fw-bold">Kết quả bài thi</h3>
     </div>
-    <div class="container bg-primary-gradient p-lg-5 p-sm-2 mb-5">
-        <div class="general-inf-user filter px-5 py-3 mb-5 bg-white shadow rounded">
+    <div class="container bg-primary-gradient p-lg-5 p-sm-2">
+        <div class="general-inf-user filter px-5 py-3 bg-white shadow rounded">
             <div class="row">
                 <div class="col-md-2">
                     <img src="https://github.com/mdo.png" alt="..." style="width: 150px; height: 150px;" class="rounded-circle">
@@ -65,6 +64,21 @@
                 </div> 
             <?php endfor; ?>
         </div>
+        <ul class="pagination pagination-sm justify-content-end">
+            <li class="page-item disabled">
+                <a class="page-link px-3">
+                    <i class="fa-solid fa-caret-left"></i>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link px-3" href="#">
+                    <i class="fa-solid fa-caret-right"></i>
+                </a>
+            </li>
+        </ul>
     </div>
 
 </section>

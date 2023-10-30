@@ -41,9 +41,6 @@
                     case 'result':
                         include "./user/result/index.php";
                         break;
-                    case 'detail_exam':
-                        include "./user/detail_exam.php";
-                        break;
                     case 'login':
                         include "./user/login.php";
                         break;
