@@ -101,7 +101,7 @@ ADD FOREIGN KEY (correct_answer) REFERENCES answers(id);
 
 
 -- đang tạo bảng danh sách lịch thi
-CREATE TABLE test_schedules (
+CREATE TABLE schedules (
     id INT(11) NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     time_start DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -117,34 +117,35 @@ CREATE TABLE test_schedules (
 CREATE TABLE candidates (
     id INT(11) NOT NULL AUTO_INCREMENT,
     test_schedule_id INT(11) NOT NULL,
-    category_id INT(11) NOT NULL,
     exam_detail_id INT(11) NOT NULL,
+    account_id INT(11) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (test_schedule_id)
-        REFERENCES test_schedules (id)
+        REFERENCES schedules (id)
         ON DELETE CASCADE,
-    account_id INT(11) NOT NULL,
     FOREIGN KEY (account_id)
         REFERENCES accounts (id)
-        ON DELETE CASCADE,
-    FOREIGN KEY (category_id)
-        REFERENCES categories (id)
         ON DELETE CASCADE
 );
 
 
 -- đang tạo bảng danh sách các bài thi
-CREATE TABLE exams (
+CREATE TABLE list_exams (
     id INT(11) NOT NULL AUTO_INCREMENT,
-    test_schedule_id INT(11) NULL,
+    exam_code varchar(50) NOT NULL,
+    schedule_id INT(11) NULL,
+    category_id INT(11) NOT NULL,
     exam_type_id INT(11) NOT NULL,
     number_question INT(11) NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (test_schedule_id)
-        REFERENCES test_schedules (id)
+    PRIMARY KEY (id, exam_code),
+    FOREIGN KEY (schedule_id)
+        REFERENCES schedules (id)
         ON DELETE CASCADE,
     FOREIGN KEY (exam_type_id)
         REFERENCES types (id)
+        ON DELETE CASCADE,
+	FOREIGN KEY (category_id)
+        REFERENCES categories (id)
         ON DELETE CASCADE
 );
 
@@ -156,7 +157,7 @@ CREATE TABLE exam_details (
     question_id INT(11) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (exam_id)
-        REFERENCES exams (id)
+        REFERENCES list_exams (id)
         ON DELETE CASCADE,
     FOREIGN KEY (question_id)
         REFERENCES questions (id)
@@ -170,29 +171,69 @@ ADD
 FOREIGN KEY (exam_detail_id) REFERENCES exam_details (id);
 
 
+-- đang tạo bảng danh sách những bài thi đang làm
+create table doing_exams (
+	id INT(11) NOT NULL AUTO_INCREMENT,
+    account_id INT(11) NOT NULL,
+    exam_detail_id INT NOT NULL,
+    primary key (id),
+    foreign key (account_id) references accounts(id) ON DELETE CASCADE,
+    foreign key (exam_detail_id) references exam_details(id) ON DELETE CASCADE
+);
+
+
+-- đang tạo bảng những câu hỏi đã chọn - trong khi thi - có thể sửa dữ liệu
+create table completed_questions (
+	id INT(11) NOT NULL AUTO_INCREMENT,
+    question_id INT(11) NOT NULL,
+    selected_answer INT(11) NOT NULL,
+    doing_exam_id INT(11) NOT NULL,
+    primary key (id),
+    foreign key (question_id) references questions(id) ON DELETE CASCADE,
+    foreign key (doing_exam_id) references doing_exams(id) ON DELETE CASCADE
+);
+
+
+-- đang tạo bảng những câu hỏi đã chọn - đã thi - không thể sửa dữ liệu
+create table completed_exams (
+	id INT(11) NOT NULL AUTO_INCREMENT,
+    exam_detail_id INT(11) NOT NULL,
+    question_id INT(11) NOT NULL,
+    selected_answer INT(11) NOT NULL,
+    primary key (id),
+    foreign key (question_id) references questions(id) ON DELETE CASCADE,
+    FOREIGN KEY (exam_detail_id)
+        REFERENCES exam_details(id)
+        ON DELETE CASCADE
+);
+
+
 -- đang tạo bảng danh sách kết quả của những bài thi đã thi
 CREATE TABLE results (
     id INT(11) NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (id),
     exam_id INT(11) NOT NULL,
+    account_id INT(11) NOT NULL,
     FOREIGN KEY (exam_id)
-        REFERENCES exams (id)
+        REFERENCES list_exams (id)
         ON DELETE CASCADE
 );
 
 
+
 -- đang tạo bảng kết quả của 1 bài thi chi tiết
 CREATE TABLE result_details (
-    id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    exam_detail_id INT(11) NOT NULL,
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    result_id INT(11) NOT NULL,
     account_id INT(11) NOT NULL,
-    answer TINYINT(1) NOT NULL,
+    completed_exam_id INT(11) NOT NULL,
     points INT(11),
-    FOREIGN KEY (exam_detail_id)
-        REFERENCES exam_details (id)
-        ON DELETE CASCADE,
+    PRIMARY KEY (id),
     FOREIGN KEY (account_id)
         REFERENCES accounts (id)
+        ON DELETE CASCADE,
+	FOREIGN KEY (completed_exam_id)
+        REFERENCES completed_exams (id)
         ON DELETE CASCADE
 );
 

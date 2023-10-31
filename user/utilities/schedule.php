@@ -32,38 +32,32 @@
                         <tr>
                             <th class="small p-2" scope="col">
                                 <a href="?act=schedule&sortbyindex">
-                                    STT
-                                    <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
-                                </a>
-                            </th>
-                            <th class="small p-2" scope="col">
-                                <a href="?act=schedule&sortbydate">
-                                    Ngày thi
-                                    <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
-                                </a>
-                            </th>
-                            <th class="small p-2" scope="col">
-                                <a href="?act=schedule&sortbylocation">
-                                    Địa điểm
-                                    <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
+                                    <span class="me-2">STT</span>
+                                    <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
                             <th class="small p-2" scope="col">
                                 <a href="?act=schedule&sortbyindex">
-                                    Hình thức
-                                    <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
+                                    <span class="me-2">Tên</span>
+                                    <i class="fa-solid fa-sort"></i>
+                                </a>
+                            </th>
+                            <th class="small p-2" scope="col">
+                                <a href="?act=schedule&sortbydate">
+                                    <span class="me-2">Ngày bắt đầu</span>
+                                    <i class="fa-solid fa-sort"></i>
+                                </a>
+                            </th>
+                            <th class="small p-2" scope="col">
+                                <a href="?act=schedule&sortbylocation">
+                                    <span class="me-2">Ngày kết thúc</span>
+                                    <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
                             <th class="small p-2" scope="col">
                                 <a href="?act=schedule&sortbyexam">
-                                    Mã môn
-                                    <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
-                                </a>
-                            </th>
-                            <th class="small p-2" scope="col">
-                                <a href="?act=schedule&sortbytime">
-                                    Thời gian
-                                    <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
+                                    <span class="me-2">Thời gian thi</span>
+                                    <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
                             <th class="small p-2" scope="col">Chức năng</th>
@@ -72,15 +66,14 @@
                     <tbody>
                         <?php for ($i = 0; $i < 10; $i++) : ?>
                             <tr class="">
-                                <td><?= $i?></td>
+                                <td><?= $i ?></td>
+                                <td class="small" scope="row">R1C1</td>
                                 <td class="small" scope="row">
                                     <span>Thứ Năm</span><br>
                                     <span>Ngày 23/11/2002</span>
                                 </td>
                                 <td class="small" scope="row">R1C1</td>
                                 <td class="small" scope="row">R1C1</td>
-                                <td class="small" scope="row">R1C1</td>
-                                <td class="small" scope="row">adsd</td>
                                 <td class="small" scope="row" class="">
                                     <a href="" class="badge bg-primary">Xem chi tiết</a>
                                 </td>
@@ -89,22 +82,10 @@
                         <?php endfor ?>
                     </tbody>
                 </table>
-
-                <ul class="pagination pagination-sm justify-content-end">
-                    <li class="page-item disabled">
-                        <a class="page-link px-3">
-                            <i class="fa-solid fa-caret-left"></i>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link px-3" href="#">
-                            <i class="fa-solid fa-caret-right"></i>
-                        </a>
-                    </li>
-                </ul>
+                <!-- pagination -->
+                <nav>
+                    <?php include "./user/components/pagination.php" ?>
+                </nav>
             </div>
 
         </section>
