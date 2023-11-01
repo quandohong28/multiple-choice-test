@@ -163,7 +163,7 @@
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Trang cá nhân
                 </a>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="?act=setting">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                     Cài đặt
                 </a>
