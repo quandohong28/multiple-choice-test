@@ -47,7 +47,7 @@ CREATE TABLE categories (
 
 -- đang tạo bảng độ khó của câu hỏi
 CREATE TABLE question_levels (
-    id INT(11) NOT NULL AUTO_INCREMENT,
+    id INT(11) NOT NULL,
     level VARCHAR(50) NOT NULL
 );
 
