@@ -98,12 +98,12 @@ if (isset($_GET['data'])) {
 		case 'del_result':
 			break;
 		default:
-			include 'account/account.php';
+			include 'account/accounts.php';
 			break;
 	}
 
 } else {
-	include 'account/account.php';
+	include 'account/accounts.php';
 }
 
 ?>
