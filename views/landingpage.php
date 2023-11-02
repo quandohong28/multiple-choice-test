@@ -18,8 +18,18 @@
 
 <body class="d-flex flex-column h-100 landing-page">
     <main class="flex-shrink-0">
-        <!-- Header-->
-        <header class="py-5">
+        <header class="d-flex justify-content-between align-items-center px-5 gap-5">
+            <img width="90" src="../assets/img/logo.png" alt="">
+            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start my-5">
+                <a class="btn btn-primary btn-lg btn-sm-sm px-5 py-3 fs-6 fw-bolder" href="./login.php">
+                    <span>Đăng nhập</span>
+                </a>
+                <a class="btn btn-outline-light btn-lg btn-sm-sm px-5 py-3 fs-6 fw-bolder" href="./signup.php">
+                    <span>Đăng ký</span>
+                </a>
+            </div>
+        </header>
+        <section class="py-5">
             <div class="container px-5 pb-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-xxl-5">
@@ -28,19 +38,23 @@
                             <div class="badge bg-primary text-white mb-5">
                                 <div class="text-uppercase">Trắc nghiệm &middot; Ôn tập &middot; Online</div>
                             </div>
-                            <h1 class="display-3 fw-bolder mb-5"><span class="d-inline">Online và nhanh chóng</span></h1>
-                            <hr class="mb-5">
+                            <h1 class="display-3 fw-bolder mb-5">
+                                <p class="text-dark">Trí tuệ của bạn</p>
+                                <p class="text-light">Hệ thống của chúng tôi!</p>
+                            </h1>
+                            <!-- <hr class="mb-5">
                             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-5">
-                                <!-- <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" href="./index.php?act=login&role=user">Người dùng</a> -->
-                                <a class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder" href="./login.php">Đăng nhập</a>
-                            </div>
+                                <a class="btn btn-light btn-lg px-5 py-3 fs-6 fw-bolder" href="./login.php">
+                                    <span>Đăng nhập</span>
+                                </a>
+                            </div> -->
                         </div>
                     </div>
                 </div>
             </div>
-        </header>
+        </section>
         <!-- About Section-->
-        <section class="text-light py-5 about">
+        <section class="text-light about">
             <div class="container px-5">
                 <div class="row gx-5 justify-content-center">
                     <div class="col-xxl-8">

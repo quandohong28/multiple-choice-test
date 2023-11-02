@@ -32,7 +32,7 @@
 									</path>
 								</svg>
 							</div>
-							<form method="post" data-bs-theme="light">
+							<form method="post" action="./index.php?act=signup" data-bs-theme="light">
 								<div class="mb-3">
 									<input class="form-control" type="email" name="email" placeholder="Email">
 								</div>
@@ -43,7 +43,7 @@
 									<input class="form-control" type="password" name="conf_pass" placeholder="Nhập lại mật khẩu">
 								</div>
 								<div class="mb-3">
-									<button class="btn btn-primary shadow d-block w-100" type="submit">Đăng ký</button>
+									<input class="btn btn-primary shadow d-block w-100" name="signup_submit" value="Đăng ký"></input>
 								</div>
 							</form>
 							<p class="text-muted">Bạn đã có tài khoản? <a href="./login.php">Đăng nhập</a></p>

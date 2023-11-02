@@ -3,7 +3,7 @@
 function pdo_connect()
 {
     $host = 'localhost';
-    $dbname = 'web2041';
+    $dbname = 'multiple_choice_test';
     $username = 'root';
     $password = '';
 

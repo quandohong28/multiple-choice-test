@@ -3,7 +3,7 @@
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="">
             <!-- Logo -->
-            <img width="36px" src="./assets/img/logo.png" alt="" class="me-3">
+            <img width="36px" src="../assets/img/logo.png" alt="" class="me-3">
             <span>Tech Quiz Hero</span>
         </a>
         <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
