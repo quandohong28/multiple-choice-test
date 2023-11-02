@@ -1,4 +1,4 @@
-<section class="bg-light p-5 rounded-3 mb-5">
+<section class="bg-light p-5 rounded-3 mb-5 min-vh-100">
     <h3 class="text-dark text-center mb-5">Danh sách câu hỏi</h3>
 
     <a class="btn btn-sm btn-info mb-2" href="?act=tables&data=add_question" data-toggle="modal" data-target="#addquestionmodal">Thêm câu hỏi</a>

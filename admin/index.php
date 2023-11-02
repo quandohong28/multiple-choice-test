@@ -101,6 +101,7 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
 
     <!-- Custom scripts for all pages-->
     <script src="../assets/js/script.admin.js"></script>
+    <script src="../assets/js/script.min.js"></script>
 
     <!-- Page level plugins -->
     <script src="../assets/vendor/chart.js/Chart.min.js"></script>
