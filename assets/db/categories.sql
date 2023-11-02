@@ -1,0 +1,10 @@
+INSERT INTO categories('name','image') VALUES ('Công nghệ phần mềm','');
+INSERT INTO categories('name','image') VALUES ('Khoa học máy tính','');
+INSERT INTO categories('name','image') VALUES ('Kỹ thuật phần mềm','');
+INSERT INTO categories('name','image') VALUES ('Trí tuệ nhân tạo và Robotics','');
+INSERT INTO categories('name','image') VALUES ('Mạng máy tính và truyền thông dữ liệu','');
+INSERT INTO categories('name','image') VALUES ('An toàn thông tin','');
+INSERT INTO categories('name','image') VALUES ('Hệ thống quản lý thông tin','');
+INSERT INTO categories('name','image') VALUES ('Big Data và Machine Learning','');
+INSERT INTO categories('name','image') VALUES ('Phát triển phần mềm','');
+INSERT INTO categories('name','image') VALUES ('Lập trình website','');
