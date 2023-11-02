@@ -13,7 +13,7 @@ USE multiple_choice_test;
 
 -- đang tạo bảng phân quyền tài khoản
 CREATE TABLE roles (
-    id INT(11) NOT NULL AUTO_INCREMENT,
+    id INT(11) NOT NULL DEFAULT 1,
     role VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
