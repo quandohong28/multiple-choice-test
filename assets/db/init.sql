@@ -66,6 +66,10 @@ CREATE TABLE questions (
     id INT(11) NOT NULL AUTO_INCREMENT,
     content TEXT NOT NULL,
     image VARCHAR(255) NULL,
+<<<<<<< HEAD
+=======
+    correct_answer INT(11) NOT NULL,
+>>>>>>> chunghieu
     question_level_id INT(11) NOT NULL,
     question_type_id INT(11) NOT NULL,
     category_id INT(11) NOT NULL,
@@ -87,7 +91,10 @@ CREATE TABLE answers (
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     content TEXT NOT NULL,
     image VARCHAR(255) NULL,
+<<<<<<< HEAD
     is_correct TINYINT(1) NOT NULL,
+=======
+>>>>>>> chunghieu
     question_id INT(11) NOT NULL,
     FOREIGN KEY (question_id)
         REFERENCES questions (id)
@@ -95,8 +102,18 @@ CREATE TABLE answers (
 );
 
 
+<<<<<<< HEAD
 -- đang tạo bảng danh sách lịch thi
 CREATE TABLE schedules (
+=======
+-- liên kết câu trả lời đúng của bảng câu hỏi với bảng câu trả lời
+ALTER TABLE questions
+ADD FOREIGN KEY (correct_answer) REFERENCES answers(id);
+
+
+-- đang tạo bảng danh sách lịch thi
+CREATE TABLE test_schedules (
+>>>>>>> chunghieu
     id INT(11) NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     time_start DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -112,6 +129,7 @@ CREATE TABLE schedules (
 CREATE TABLE candidates (
     id INT(11) NOT NULL AUTO_INCREMENT,
     test_schedule_id INT(11) NOT NULL,
+<<<<<<< HEAD
     exam_detail_id INT(11) NOT NULL,
     account_id INT(11) NOT NULL,
     PRIMARY KEY (id),
@@ -120,11 +138,26 @@ CREATE TABLE candidates (
         ON DELETE CASCADE,
     FOREIGN KEY (account_id)
         REFERENCES accounts (id)
+=======
+    category_id INT(11) NOT NULL,
+    exam_detail_id INT(11) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (test_schedule_id)
+        REFERENCES test_schedules (id)
+        ON DELETE CASCADE,
+    account_id INT(11) NOT NULL,
+    FOREIGN KEY (account_id)
+        REFERENCES accounts (id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (category_id)
+        REFERENCES categories (id)
+>>>>>>> chunghieu
         ON DELETE CASCADE
 );
 
 
 -- đang tạo bảng danh sách các bài thi
+<<<<<<< HEAD
 CREATE TABLE list_exams (
     id INT(11) NOT NULL AUTO_INCREMENT,
     exam_code varchar(50) NOT NULL,
@@ -141,6 +174,19 @@ CREATE TABLE list_exams (
         ON DELETE CASCADE,
 	FOREIGN KEY (category_id)
         REFERENCES categories (id)
+=======
+CREATE TABLE exams (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    test_schedule_id INT(11) NULL,
+    exam_type_id INT(11) NOT NULL,
+    number_question INT(11) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (test_schedule_id)
+        REFERENCES test_schedules (id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (exam_type_id)
+        REFERENCES types (id)
+>>>>>>> chunghieu
         ON DELETE CASCADE
 );
 
@@ -152,7 +198,11 @@ CREATE TABLE exam_details (
     question_id INT(11) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (exam_id)
+<<<<<<< HEAD
         REFERENCES list_exams (id)
+=======
+        REFERENCES exams (id)
+>>>>>>> chunghieu
         ON DELETE CASCADE,
     FOREIGN KEY (question_id)
         REFERENCES questions (id)
@@ -166,6 +216,7 @@ ADD
 FOREIGN KEY (exam_detail_id) REFERENCES exam_details (id);
 
 
+<<<<<<< HEAD
 -- đang tạo bảng danh sách những bài thi đang làm
 create table doing_exams (
 	id INT(11) NOT NULL AUTO_INCREMENT,
@@ -203,18 +254,26 @@ create table completed_exams (
 );
 
 
+=======
+>>>>>>> chunghieu
 -- đang tạo bảng danh sách kết quả của những bài thi đã thi
 CREATE TABLE results (
     id INT(11) NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (id),
     exam_id INT(11) NOT NULL,
+<<<<<<< HEAD
     account_id INT(11) NOT NULL,
     FOREIGN KEY (exam_id)
         REFERENCES list_exams (id)
+=======
+    FOREIGN KEY (exam_id)
+        REFERENCES exams (id)
+>>>>>>> chunghieu
         ON DELETE CASCADE
 );
 
 
+<<<<<<< HEAD
 
 -- đang tạo bảng kết quả của 1 bài thi chi tiết
 CREATE TABLE result_details (
@@ -229,6 +288,20 @@ CREATE TABLE result_details (
         ON DELETE CASCADE,
 	FOREIGN KEY (completed_exam_id)
         REFERENCES completed_exams (id)
+=======
+-- đang tạo bảng kết quả của 1 bài thi chi tiết
+CREATE TABLE result_details (
+    id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    exam_detail_id INT(11) NOT NULL,
+    account_id INT(11) NOT NULL,
+    answer TINYINT(1) NOT NULL,
+    points INT(11),
+    FOREIGN KEY (exam_detail_id)
+        REFERENCES exam_details (id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (account_id)
+        REFERENCES accounts (id)
+>>>>>>> chunghieu
         ON DELETE CASCADE
 );
 
