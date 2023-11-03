@@ -230,8 +230,8 @@ CREATE TABLE result_details (
 INSERT INTO question_levels (id, level)
 VALUES
 	(1, 'easy'),
-	(2, 'medium'),
-	(3, 'hard');
+    (2, 'medium'),
+    (3, 'hard');
 
 -- đang nhập dữ liệu cho bảng quyền tài khoản
 INSERT INTO roles (id, role)
@@ -246,15 +246,14 @@ VALUES
     ('real_test');
 
 -- đang nhập dữ liệu cho bảng chuyên mục
-INSERT INTO categories(name, image)
-VALUES
-	('Công nghệ phần mềm', ''),
-    ('Khoa học máy tính', ''),
-    ('Kỹ thuật phần mềm', ''),
-    ('Trí tuệ nhân tạo và Robotics', ''),
-    ('Mạng máy tính và truyền thông dữ liệu', ''),
-    ('An toàn thông tin', ''),
-    ('Hệ thống quản lý thông tin', ''),
-    ('Big Data và Machine Learning', ''),
-    ('Phát triển phần mềm', ''),
-    ('Lập trình website', '');
+INSERT INTO categories(name,image)
+('Công nghệ phần mềm','congnghephanmem.jpg'),
+('Khoa học máy tính','khoahocmaytinh.png'),
+('Kỹ thuật phần mềm','kythuatphanmem.jpg'),
+('Trí tuệ nhân tạo và Robotics','aivarobotics.jpeg'),
+('Mạng máy tính và truyền thông dữ liệu','mangmaytinhvatruyenthongdulieu.jpg'),
+('An toàn thông tin','antoanthongtin.jpg'),
+('Hệ thống quản lý thông tin','hethongquanlythongtin.jpeg'),
+('Big Data và Machine Learning','bigdatavamachinelearning.jpg'),
+('Phát triển phần mềm','phattrienphanmem.jpg'),
+('Lập trình website','laptrinhweb.jpg');
