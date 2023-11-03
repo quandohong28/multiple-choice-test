@@ -2,11 +2,14 @@
     <div class="container bg-primary-gradient pb-5 pt-4 mb-5 rounded">
         <div class="d-flex justify-content-between mb-5">
             <div class="d-flex align-items-center gap-3">
-                <a class="bg-white p-3">30:13</a>
-                <div class="bg-white p-3 fw-bold text-primary">1/40</div>
+                <div class=" p-3 fw-bold text-primary">1/40</div>
+            </div>
+            <div class="text-center" > 
+                <div class="fw-bold text-primary">Thời gian còn lại</div>
+                <a class="p-3 fs-3">30:13</a>
             </div>
             <div>
-                <a href="" class="text-primary fw-bold">Lưu tiến trình</a>
+                <a href="" class="text-primary fw-bold"></a>
             </div>
         </div>
         <div class="row">
