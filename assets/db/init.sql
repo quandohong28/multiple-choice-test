@@ -66,7 +66,6 @@ CREATE TABLE questions (
     id INT(11) NOT NULL AUTO_INCREMENT,
     content TEXT NOT NULL,
     image VARCHAR(255) NULL,
-    correct_answer INT(11) NOT NULL,
     question_level_id INT(11) NOT NULL,
     question_type_id INT(11) NOT NULL,
     category_id INT(11) NOT NULL,
@@ -88,16 +87,12 @@ CREATE TABLE answers (
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     content TEXT NOT NULL,
     image VARCHAR(255) NULL,
+    is_correct TINYINT(1) NOT NULL,
     question_id INT(11) NOT NULL,
     FOREIGN KEY (question_id)
         REFERENCES questions (id)
         ON DELETE CASCADE
 );
-
-
--- liên kết câu trả lời đúng của bảng câu hỏi với bảng câu trả lời
-ALTER TABLE questions
-ADD FOREIGN KEY (correct_answer) REFERENCES answers(id);
 
 
 -- đang tạo bảng danh sách lịch thi
