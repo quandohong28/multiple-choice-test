@@ -46,9 +46,20 @@ CREATE TABLE categories (
 
 -- đang tạo bảng độ khó của câu hỏi
 CREATE TABLE question_levels (
+<<<<<<< HEAD
     id INT(11) NOT NULL AUTO_INCREMENT,
     level VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)
+=======
+<<<<<<< HEAD
+    id INT(11) NOT NULL,
+    level VARCHAR(50) NOT NULL
+=======
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    level VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id)
+>>>>>>> test
+>>>>>>> vanthanh
 );
 
 -- đang tạo bảng loại (sử dụng cho bảng câu hỏi và bảng bài thi)
@@ -63,6 +74,10 @@ CREATE TABLE questions (
     id INT(11) NOT NULL AUTO_INCREMENT,
     content TEXT NOT NULL,
     image VARCHAR(255) NULL,
+<<<<<<< HEAD
+=======
+    correct_answer INT(11) NOT NULL,
+>>>>>>> vanthanh
     question_level_id INT(11) NOT NULL,
     question_type_id INT(11) NOT NULL,
     category_id INT(11) NOT NULL,
@@ -89,6 +104,15 @@ CREATE TABLE answers (
         REFERENCES questions (id)
         ON DELETE CASCADE
 );
+<<<<<<< HEAD
+=======
+
+
+-- liên kết câu trả lời đúng của bảng câu hỏi với bảng câu trả lời
+ALTER TABLE questions
+ADD FOREIGN KEY (correct_answer) REFERENCES answers(id);
+
+>>>>>>> vanthanh
 
 -- đang tạo bảng danh sách lịch thi
 CREATE TABLE schedules (
