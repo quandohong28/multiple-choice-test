@@ -3,7 +3,7 @@ USE multiple_choice_test;
 
 -- Chèn danh sách 20 câu hỏi chuyên đề 
 
--- Chuyên đề công nghệ phần mềm
+-- Chuyên đề phát triển phần mềm  
 
 INSERT INTO questions (id, content, image, question_level_id, question_type_id, category_id)
 VALUES
