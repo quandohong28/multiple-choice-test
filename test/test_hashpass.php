@@ -1,8 +1,8 @@
 <?php
 include "./model/account.php";
 
-$password = "123456";
+$password = "admin";
 
-// $hash = hashPassword($password);
+$hash = hashPassword($password);
 
-// echo $hash . '------------';
+echo $hash . '------------';

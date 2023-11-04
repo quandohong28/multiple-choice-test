@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\Exception;
 
 require './lib/PhpMailer/vendor/autoload.php'; // Đảm bảo đường dẫn đúng
 
-function sendEmail($to, $subject, $htmlfile)
+function sendEmail($to, $subject, $body)
 {
     $mail = new PHPMailer(true);
 
@@ -25,14 +25,14 @@ function sendEmail($to, $subject, $htmlfile)
         $mail->addAddress($to);
 
         // Cài đặt tiêu đề và nội dung email
-        $mail->isHTML(true);
-        $mail->Subject = $subject;
-        $mail->msgHTML(file_get_contents($htmlfile), __DIR__);
+        // $mail->isHTML(true);
+        // $mail->Subject = $subject;
+        // $mail->msgHTML(file_get_contents($htmlfile), __DIR__);
 
         // Nếu muốn dùng file php thì dùng đoạn code này
-        // ob_start();
-        // require_once 'contents.php';
-        // $mail->msgHTML(ob_get_clean(), __DIR__);
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = file_get_contents($body);
 
         // Nếu muốn gửi 1 file đính kèm thì dùng đoạn code này
         // $mail->addAttachment('attachment.pdf');
@@ -50,5 +50,3 @@ function sendEmail($to, $subject, $htmlfile)
         echo 'Gửi email thất bại. Lỗi: ', $mail->ErrorInfo;
     }
 }
-
-

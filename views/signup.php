@@ -37,13 +37,16 @@
 									<input class="form-control" type="email" name="email" placeholder="Email">
 								</div>
 								<div class="mb-3">
+									<input class="form-control" type="text" name="username" placeholder="Tên đăng nhập">
+								</div>
+								<div class="mb-3">
 									<input class="form-control" type="password" name="password" placeholder="Mật khẩu">
 								</div>
 								<div class="mb-3">
 									<input class="form-control" type="password" name="conf_pass" placeholder="Nhập lại mật khẩu">
 								</div>
 								<div class="mb-3">
-									<input class="btn btn-primary shadow d-block w-100" name="signup_submit" value="Đăng ký"></input>
+									<button class="btn btn-primary shadow d-block w-100" type="submit">Đăng ký</button>
 								</div>
 							</form>
 							<p class="text-muted">Bạn đã có tài khoản? <a href="./login.php">Đăng nhập</a></p>

@@ -1,13 +1,15 @@
 <?php
+session_start();
 include '../model/account.php';
 include '../model/pdo.php';
+
 
 pdo_connect();
 
 if (isset($_GET['act']) && $_GET['act'] !== '') {
     switch ($_GET['act']) {
         case 'login':
-            if (isset($_POST['login_submit'])) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
                 $user = login($username, $password);
@@ -17,21 +19,20 @@ if (isset($_GET['act']) && $_GET['act'] !== '') {
                 } else {
                     header('Location: ../views/login.php');
                 }
+            } else {
+                echo 123;
             }
             break;
 
         case 'signup':
-            if (isset($_POST['signup_submit'])) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $email = $_POST['email'];
                 $username = $_POST['username'];
                 $password = $_POST['password'];
                 $conf_pass = $_POST['conf_pass'];
-                if ($username == getUserByUsername($username)['username']) {
-                    if ($password === $conf_pass) {
-                        signup($username, $password);
-                        header('Location: ../views/login.php');
-                    } else {
-                        header('Location: ../views/signup.php');
-                    }
+                if ($password === $conf_pass) {
+                    signup($email, $username, $password);
+                    header('Location: ../views/login.php');
                 } else {
                     header('Location: ../views/signup.php');
                 }

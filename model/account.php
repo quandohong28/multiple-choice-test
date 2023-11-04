@@ -20,7 +20,7 @@ function verifyPassword($password, $hashedPassword)
 function getAllaccounts()
 {
     try {
-        $sql = "SELECT * FROM accounts";
+        $sql = "SELECT * FROM accounts;";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -30,7 +30,10 @@ function getAllaccounts()
 function getAccountById($id)
 {
     try {
-        $sql = "SELECT * FROM accounts WHERE id = $id";
+        $sql = "SELECT * FROM
+        accounts
+        WHERE
+        id = $id;";
         return pdo_query_one($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -40,7 +43,10 @@ function getAccountById($id)
 function getAccountByUsername($username)
 {
     try {
-        $sql = "SELECT * FROM accounts WHERE username = '$username'";
+        $sql = "SELECT * FROM
+        accounts
+        WHERE
+        username = '$username';";
         return pdo_query_one($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -50,8 +56,7 @@ function getAccountByUsername($username)
 function login($username, $password)
 {
     try {
-        $sql = "SELECT * FROM accounts WHERE username = '$username'";
-        $user = pdo_query_one($sql);
+        $user = getAccountByUsername($username);
         if ($user) {
             if (verifyPassword($password, $user['password'])) {
                 return $user;
@@ -66,11 +71,14 @@ function login($username, $password)
     }
 }
 
-function signup($username, $password)
+function signup($email, $username, $password)
 {
     try {
         $hashedPassword = hashPassword($password);
-        $sql = "INSERT INTO accounts (username, password) VALUES ('$username', '$hashedPassword')";
+        $sql = "INSERT INTO
+        accounts (email, username, password)
+        VALUES
+        ('$email', '$username', '$hashedPassword');";
         pdo_execute($sql);
     } catch (Exception $e) {
         echo $e->getMessage();

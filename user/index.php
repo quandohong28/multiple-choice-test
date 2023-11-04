@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -47,8 +51,9 @@
                     case 'setting':
                         include "./accounts/setting.php";
                         break;
-                    case 'signout':
+                    case 'logout':
                         unset($_SESSION['user']);
+                        var_dump($_SESSION['user']);
                         header("location: ../index.php");
                         break;
                     default:

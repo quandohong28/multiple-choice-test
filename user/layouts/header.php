@@ -1,7 +1,7 @@
 <!-- Start: Navbar Centered Links -->
 <nav class="navbar navbar-expand-md fixed-top navbar-shrink py-3 navbar-light mb-5" id="mainNav">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="">
+        <a class="navbar-brand d-flex align-items-center" href="?act=home">
             <!-- Logo -->
             <img width="36px" src="../assets/img/logo.png" alt="" class="me-3">
             <span>Tech Quiz Hero</span>
@@ -9,7 +9,7 @@
         <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" href="?act=home">Trang chủ</a></li>
+                <li class="nav-item"><a class="nav-link active" href="?act=home">Trang chủ</a></li>
                 <li class="nav-item"><a class="nav-link" href="?act=schedule">Lịch thi</a></li>
                 <li class="nav-item"><a class="nav-link" href="?act=practice_exam">Thi thử</a></li>
                 <li class="nav-item"><a class="nav-link" href="?act=support">Hỗ trợ</a></li>
@@ -37,7 +37,7 @@
                         <hr class="dropdown-divider">
                     </li>
                     <li>
-                        <a class="dropdown-item text-danger" href="?act=signout"><i class="fa-solid fa-arrow-right-from-bracket me-3"></i>Đăng xuất</a>
+                        <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fa-solid fa-arrow-right-from-bracket me-3"></i>Đăng xuất</a>
                     </li>
                 </ul>
             </div>
@@ -49,3 +49,22 @@
         </div>
     </div>
 </nav><!-- End: Navbar Centered Links -->
+
+<!-- logout modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="logoutModalLabel">Bạn có thực sự muốn đăng xuất</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Nhấn Đăng xuất để thoát khỏi phiên làm việc hiện tại.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-outline-dark" data-bs-dismiss="modal">Huỷ</button>
+                <a href="?act=logout" class="btn btn-sm btn-danger">Đăng xuất</a>
+            </div>
+        </div>
+    </div>
+</div>
