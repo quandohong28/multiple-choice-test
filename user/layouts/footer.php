@@ -3,7 +3,7 @@
     <div class="p-4 py-lg-5">
         <div class="row justify-content-center"><!-- Start: Services -->
             <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
-                <h3 class="fs-6 fw-bold">Sinh viên</h3>
+                <h3 class="fs-6 fw-bold">Thông tin</h3>
                 <ul class="list-unstyled">
                     <li><a href="#">Lịch thi</a></li>
                     <li><a href="#">Đề thi</a></li>
@@ -11,10 +11,10 @@
                 </ul>
             </div><!-- End: Services --><!-- Start: About -->
             <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
-                <h3 class="fs-6 fw-bold">About</h3>
+                <h3 class="fs-6 fw-bold">Về chúng tôi</h3>
                 <ul class="list-unstyled">
-                    <li><a href="#">Company</a></li>
-                    <li><a href="#">Team</a></li>
+                    <li><a href="#">Công ty</a></li>
+                    <li><a href="#">Đội ngũ</a></li>
                     <li><a href="#">Legacy</a></li>
                 </ul>
             </div><!-- End: About --><!-- Start: Careers -->
@@ -23,7 +23,7 @@
                 <ul class="list-unstyled">
                     <li><a href="#">Điểm</a></li>
                     <li><a href="#">Báo lỗi bộ câu hỏi</a></li>
-                    <li><a href="#">Benefits</a></li>
+                    <li><a href="#">Lợi ích</a></li>
                 </ul>
             </div><!-- End: Careers --><!-- Start: Social Icons -->
             <div class="col-lg-3 text-center text-lg-start d-flex flex-column align-items-center order-first align-items-lg-start order-lg-last">

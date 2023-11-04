@@ -1,5 +1,8 @@
 <?php
 session_start();
+include '../model/pdo.php';
+include '../model/category.php';
+include '../model/question.php';
 ?>
 
 <!doctype html>
@@ -22,7 +25,11 @@ session_start();
 
 <body class="mt-5 pt-5">
     <header>
-        <?php include "./layouts/header.php"; ?>
+
+        <?php
+        
+        include "./layouts/header.php";
+        ?>
     </header>
     <main>
         <div class="container">
@@ -31,12 +38,24 @@ session_start();
             if ($_GET['act']) {
                 switch ($_GET['act']) {
                     case 'home':
+                        $categories = getAllCategories();
+                        $colors = [
+                            'bg-primary',
+                            'bg-success',
+                            'bg-danger',
+                            'bg-warning',
+                            'bg-info',
+                            'bg-light'
+                        ];
+                        $count = count($colors);
                         include "./utilities/home.php";
                         break;
                     case 'schedule':
                         include "./utilities/schedule.php";
                         break;
                     case 'practice_exam':
+                        $question_levels = getQuestionLevels();
+                        $categories = getAllCategories();
                         include "./utilities/practice_exam.php";
                         break;
                     case 'official_exam':

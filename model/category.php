@@ -22,6 +22,27 @@ function getCategoryByName($name)
     }
 }
 
+function getAllCategories()
+{
+    try {
+        $sql = "SELECT * FROM categories;";
+        return pdo_query($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function getQuantityOfQuestions($id)
+{
+    try {
+        $sql = "SELECT COUNT(*) AS value FROM questions 
+                WHERE category_id = $id;";
+        return pdo_query_one($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
 function insertCategory($id, $name)
 {
     try {

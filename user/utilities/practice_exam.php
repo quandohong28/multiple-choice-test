@@ -14,10 +14,13 @@
                                 Tất cả
                             </button>
                             <div class="collapse ps-5 show" id="home-collapse">
+
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="#" class="link-dark">Toán rời rạc</a></li>
-                                    <li><a href="#" class="link-dark">Cấu trúc dữ liệu và giải thuật</a></li>
-                                    <li><a href="#" class="link-dark">C++</a></li>
+                                    <?php foreach ($categories as $category) :
+                                        extract($category);
+                                    ?>
+                                        <li><a href="#" class="link-dark">• <?= $name ?></a></li>
+                                    <?php endforeach ?>
                                 </ul>
                             </div>
                         </li>
@@ -46,10 +49,28 @@
                             </button>
                             <div class="collapse ps-5" id="account-collapse">
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="#" class="link-dark">Dễ</a></li>
-                                    <li><a href="#" class="link-dark">Trung bình</a></li>
-                                    <li><a href="#" class="link-dark">Khó</a></li>
-                                    <li><a href="#" class="link-dark">Ác quỷ</a></li>
+                                    <?php foreach ($question_levels as $level) : ?>
+                                        <li class="">
+                                            <a href="#" class=" badge py-2 px-3 mb-2
+                                            <?php
+                                            switch ($level['level']) {
+                                                case 'Dễ':
+                                                    echo 'bg-success';
+                                                    break;
+                                                case 'Trung bình':
+                                                    echo 'bg-warning';
+                                                    break;
+                                                case 'Khó':
+                                                    echo 'bg-danger';
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                            ?>">
+                                                <?= $level['level'] ?>
+                                            </a>
+                                        </li>
+                                    <?php endforeach ?>
                                 </ul>
                             </div>
                         </li>
@@ -68,65 +89,46 @@
                     <div class="row gx-5">
                         <div class="">
                             <!-- Chuyên mục -->
-                            <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
-                                <div class="card-body p-0">
-                                    <div class="d-flex align-items-start justify-content-between">
-                                        <div class="p-5">
-                                            <h5 class="fw-bolder">Toán rời rạc</h5>
-                                            <ul>
-                                                <li>3000 câu hỏi khác nhau</li>
-                                                <li>Dễ, Trung bình, Khó</li>
-                                            </ul>
-                                        </div>
-                                        <img class="img-fluid image col-7" src="https://images.unsplash.com/photo-1635372722656-389f87a941b7?auto=format&fit=crop&q=80&w=2831&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="..." />
-                                    </div>
-                                </div>
-                            </div>
+                            <?php foreach ($categories as $category) :
+                                extract($category);
+                                $category_image = '../assets/img/categories/';
+                                $quantity = getQuantityOfQuestions($id);
+                            ?>
 
-                            <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
-                                <div class="card-body p-0">
-                                    <div class="d-flex align-items-start justify-content-between">
-                                        <div class="p-5">
-                                            <h5 class="fw-bolder">Toán rời rạc</h5>
-                                            <ul>
-                                                <li>3000 câu hỏi khác nhau</li>
-                                                <li>Dễ, Trung bình, Khó</li>
-                                            </ul>
+                                <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
+                                    <div class="card-body p-0">
+                                        <div class="d-flex align-items-start justify-content-between">
+                                            <div class="p-5">
+                                                <h5 class="fw-bolder"><?= $name ?></h5>
+                                                <ul>
+                                                    <li><?= $quantity['value'] ?> câu hỏi khác nhau</li>
+                                                    <li>
+                                                        <?php foreach ($question_levels as $level) : ?>
+                                                            <span class="badge <?php
+                                                                                switch ($level['level']) {
+                                                                                    case 'Dễ':
+                                                                                        echo 'bg-success';
+                                                                                        break;
+                                                                                    case 'Trung bình':
+                                                                                        echo 'bg-warning';
+                                                                                        break;
+                                                                                    case 'Khó':
+                                                                                        echo 'bg-danger';
+                                                                                        break;
+                                                                                    default:
+                                                                                        break;
+                                                                                }
+                                                                                ?>"><?= $level['level'] ?></span>
+                                                        <?php endforeach ?>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <img class="img-fluid image col-7" src="<?= $category_image . $image ?>" alt="..." />
                                         </div>
-                                        <img class="img-fluid col-7" src="https://images.unsplash.com/photo-1640158615573-cd28feb1bf4e?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="..." />
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
-                                <div class="card-body p-0">
-                                    <div class="d-flex align-items-start justify-content-between">
-                                        <div class="p-5">
-                                            <h5 class="fw-bolder">Toán rời rạc</h5>
-                                            <ul>
-                                                <li>3000 câu hỏi khác nhau</li>
-                                                <li>Dễ, Trung bình, Khó</li>
-                                            </ul>
-                                        </div>
-                                        <img class="img-fluid col-7" src="https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg?w=2000" alt="..." />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
-                                <div class="card-body p-0">
-                                    <div class="d-flex align-items-start justify-content-between">
-                                        <div class="p-5">
-                                            <h5 class="fw-bolder">Toán rời rạc</h5>
-                                            <ul>
-                                                <li>3000 câu hỏi khác nhau</li>
-                                                <li>Dễ, Trung bình, Khó</li>
-                                            </ul>
-                                        </div>
-                                        <img class="img-fluid col-7" src="https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg?w=2000" alt="..." />
-                                    </div>
-                                </div>
-                            </div>
+                            <?php endforeach ?>
                         </div>
                     </div>
                 </div>
