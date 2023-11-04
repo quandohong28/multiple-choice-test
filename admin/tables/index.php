@@ -41,8 +41,8 @@
 	if (isset($_GET['data'])) {
 		switch ($_GET['data']) {
 			case 'accounts':
+				$acc = getAllaccounts();
 				include 'account/accounts.php';
-				$accounts = getAllaccounts(); 
 				break;
 			case 'add_account':
 				include 'account/add_account.php';

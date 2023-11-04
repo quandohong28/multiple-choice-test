@@ -13,7 +13,11 @@ function getAllaccounts()
 {
     try {
         $sql = "SELECT * FROM accounts";
-        return pdo_query($sql);
+        $result = pdo_query($sql);
+        if ($result === false) {
+            echo "Lỗi truy vấn SQL: ";
+        }
+        return $result;
     } catch (Exception $e) {
         echo $e->getMessage();
     }

@@ -1,7 +1,7 @@
 <section class="bg-light p-5 rounded-3 mb-5">
     <h3 class="text-dark text-center mb-5">Danh sách tài khoản</h3>
     <a class="btn btn-sm btn-info mb-2" href="?act=tables&data=add_account" data-toggle="modal" data-target="#addaccountmodal">Thêm tài khoản</a>
-    <?php var_dump($accounts);?>
+    <?php var_dump($acc) ?> 
     <table class="table table-striped">
         <thead>
             <tr>
@@ -17,8 +17,6 @@
                 <th scope="col">Chức năng</th>
             </tr>
         </thead>
-        <?php foreach ($accounts as $key => $value):
-        ?>
         <tbody>
             <tr class="">
                 <td><?php echo $value['id']; ?></td>
@@ -37,8 +35,7 @@
                     <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm" href="?act=tables&data=del_account"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
-        </tbody>
-        <?php endforeach; ?>
+        </tbody> 
     </table>
     <nav>
         <ul class="pagination pagination-sm justify-content-end">
