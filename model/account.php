@@ -17,7 +17,7 @@ function verifyPassword($password, $hashedPassword)
     }
 }
 
-function getAllaccounts()
+function getAllAccounts()
 {
     try {
         $sql = "SELECT * FROM accounts;";
