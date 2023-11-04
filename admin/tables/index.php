@@ -34,76 +34,81 @@
 
 
 <?php
-if (isset($_GET['data'])) {
-	switch ($_GET['data']) {
-		case 'accounts':
-			include 'account/accounts.php';
-			break;
-		case 'add_account':
-			include 'account/add_account.php';
-			break;
-		case 'edit_account':
-			include 'account/edit_account.php';
-			break;
-		case 'del_account':
-			break;
-		case 'categories':
-			include 'category/categories.php';
-			break;
-		case 'add_category':
-			include 'category/add_category.php';
-			break;
-		case 'edit_category':
-			include 'category/edit_category.php';
-			break;
-		case 'del_category':
-			break;
-		case 'schedules':
-			include 'schedule/schedules.php';
-			break;
-		case 'add_schedule':
-			include 'schedule/add_schedule.php';
-			break;
-		case 'edit_schedule':
-			include 'schedule/edit_schedule.php';
-			break;
-		case 'schedule_detail':
-			include 'schedule/schedule_detail.php';
-			break;
-		case 'del_schedule':
-			break;
-		case 'questions':
-			include 'question/questions.php';
-			break;
-		case 'add_question':
-			include 'question/add_question.php';
-			break;
-		case 'edit_question':
-			include 'question/edit_question.php';
-			break;
-		case 'del_question':
-			break;
-		case 'results':
-			include 'result/results.php';
-			break;
-		case 'add_result':
-			include 'result/add_result.php';
-			break;
-		case 'edit_result':
-			include 'result/edit_result.php';
-			break;
-		case 'result_detail':
-			include 'result/result_detail.php';
-			break;
-		case 'del_result':
-			break;
-		default:
-			include 'account/accounts.php';
-			break;
-	}
+	// Include Model
+	include './model/pdo.php';
+	include './model/account.php'; 
+	
+	if (isset($_GET['data'])) {
+		switch ($_GET['data']) {
+			case 'accounts':
+				include 'account/accounts.php';
+				$accounts = getAllaccounts(); 
+				break;
+			case 'add_account':
+				include 'account/add_account.php';
+				break;
+			case 'edit_account':
+				include 'account/edit_account.php';
+				break;
+			case 'del_account':
+				break;
+			case 'categories':
+				include 'category/categories.php';
+				break;
+			case 'add_category':
+				include 'category/add_category.php';
+				break;
+			case 'edit_category':
+				include 'category/edit_category.php';
+				break;
+			case 'del_category':
+				break;
+			case 'schedules':
+				include 'schedule/schedules.php';
+				break;
+			case 'add_schedule':
+				include 'schedule/add_schedule.php';
+				break;
+			case 'edit_schedule':
+				include 'schedule/edit_schedule.php';
+				break;
+			case 'schedule_detail':
+				include 'schedule/schedule_detail.php';
+				break;
+			case 'del_schedule':
+				break;
+			case 'questions':
+				include 'question/questions.php';
+				break;
+			case 'add_question':
+				include 'question/add_question.php';
+				break;
+			case 'edit_question':
+				include 'question/edit_question.php';
+				break;
+			case 'del_question':
+				break;
+			case 'results':
+				include 'result/results.php';
+				break;
+			case 'add_result':
+				include 'result/add_result.php';
+				break;
+			case 'edit_result':
+				include 'result/edit_result.php';
+				break;
+			case 'result_detail':
+				include 'result/result_detail.php';
+				break;
+			case 'del_result':
+				break;
+			default:
+				// include 'account/accounts.php';
+				break;
+		}  
 
-} else {
-	include 'account/accounts.php';
-}
+	} else {
+		// include 'account/accounts.php';
+	}
 
 ?>

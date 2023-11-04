@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 function pdo_connect()
 {
     $host = 'localhost';
@@ -13,7 +12,7 @@ function pdo_connect()
         return $conn;
     } catch (PDOException $e) {
         echo "Connect err! err message: " . $e->getMessage();
-    }
+    } 
 }
 
 function pdo_execute($sql)

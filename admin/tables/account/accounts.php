@@ -1,8 +1,7 @@
 <section class="bg-light p-5 rounded-3 mb-5">
     <h3 class="text-dark text-center mb-5">Danh sách tài khoản</h3>
-
     <a class="btn btn-sm btn-info mb-2" href="?act=tables&data=add_account" data-toggle="modal" data-target="#addaccountmodal">Thêm tài khoản</a>
-
+    <?php var_dump($accounts);?>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -18,25 +17,28 @@
                 <th scope="col">Chức năng</th>
             </tr>
         </thead>
+        <?php foreach ($accounts as $key => $value):
+        ?>
         <tbody>
             <tr class="">
-                <td>R1C1</td>
-                <td>R1C2</td>
-                <td>R1C3</td>
-                <td>R1C3</td>
+                <td><?php echo $value['id']; ?></td>
+                <td><?php echo $value['username']; ?></td>
+                <td><?php echo $value['password']; ?></td>
+                <td><?php echo $value['fullname']; ?></td>
                 <td>
                     <img src="" alt="">
                 </td>
-                <td>R1C3</td>
-                <td>R1C3</td>
-                <td>R1C3</td>
-                <td>R1C3</td>
+                <td><?php echo $value['email']; ?></td>
+                <td><?php echo $value['address']; ?></td>
+                <td><?php echo $value['tel']; ?></td>
+                <td><?php echo $value['role_id']; ?></td>
                 <td class="d-flex gap-3">
                     <a class="btn btn-warning btn-sm" href="?act=tables&data=edit_account" data-toggle="modal" data-target="#editaccountmodal"><i class="fa-regular fa-pen-to-square"></i></a>
                     <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm" href="?act=tables&data=del_account"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         </tbody>
+        <?php endforeach; ?>
     </table>
     <nav>
         <ul class="pagination pagination-sm justify-content-end">
