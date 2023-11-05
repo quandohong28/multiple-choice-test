@@ -1,8 +1,7 @@
 <?php
 include './model/mailer.php';
 // Sử dụng hàm gửi email
-$to = 'thanhlvph39393@fpt.edu.vn';
-$subject = 'Email thử nghiệm';
-$message = 'Đây là email được gửi từ PhpMailer';
-sendEmail($to, $subject, '../model/contents.html');
+$to = 'quandhph44316@fpt.edu.vn';
+$subject = 'Đăng ký thành công';
+sendEmail($to, $subject, './views/mail/signup_successfully.php');
 ?>

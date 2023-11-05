@@ -36,7 +36,7 @@
                         <!-- Header text content-->
                         <div class="text-center text-xxl-start">
                             <div class="badge bg-primary text-white mb-5">
-                                <div class="text-uppercase">Trắc nghiệm &middot; Ôn tập &middot; Online</div>
+                                <div class="text-uppercase">Tech Quiz Hero</div>
                             </div>
                             <h1 class="display-3 fw-bolder mb-5">
                                 <p class="text-dark">Trí tuệ của bạn</p>

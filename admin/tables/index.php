@@ -41,7 +41,6 @@
 	if (isset($_GET['data'])) {
 		switch ($_GET['data']) {
 			case 'accounts':
-				$acc = getAllaccounts();
 				include 'account/accounts.php';
 				break;
 			case 'add_account':
