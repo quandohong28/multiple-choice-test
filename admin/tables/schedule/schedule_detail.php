@@ -2,7 +2,7 @@
     <h1 class="h3 mb-3 text-gray-800">Chi tiết lịch thi</h1>
 </div>
 
-<a class="btn btn-info mb-2" href="?act=tables&data=add_candidate">Thêm thí sinh</a>
+<a class="btn btn-sm btn-info mb-2" href="?act=tables&data=add_candidate">Thêm thí sinh</a>
 
 
 <table class="table table-striped">
