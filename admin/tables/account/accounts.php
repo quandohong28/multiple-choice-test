@@ -16,7 +16,6 @@
             </tr>
         </thead>
         <?php foreach ($accounts as $account):
-            $pathImg = '../assets/img/accounts/';
             extract($account);
         ?>
         <tbody>
@@ -82,13 +81,13 @@
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="username">Tên đăng nhập</label>
-                                                <input type="text" id="username" class="form-control form-control-sm" />
+                                                <input type="text" name="username" class="form-control form-control-sm" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="password">Mật khẩu</label>
-                                                <input type="text" id="password" class="form-control form-control-sm" />
+                                                <input type="text" name="password" class="form-control form-control-sm" />
                                             </div>
                                         </div>
                                     </div>
@@ -96,13 +95,13 @@
                                         <div class="col-md-6 mb-4 d-flex align-items-center">
                                             <div class="form-outline datepicker w-100">
                                                 <label for="fullname" class="form-label">Tên đầy đủ</label>
-                                                <input type="text" class="form-control form-control-sm" id="fullname" />
+                                                <input type="text" class="form-control form-control-sm" name="fullname" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4 d-flex align-items-center">
                                             <div class="form-outline datepicker w-100">
                                                 <label for="address" class="form-label">Địa chỉ</label>
-                                                <input type="text" class="form-control form-control-sm" id="address" />
+                                                <input type="text" class="form-control form-control-sm" name="address" />
                                             </div>
                                         </div>
                                     </div>
@@ -110,28 +109,29 @@
                                         <div class="col-md-6 mb-4 pb-2">
                                             <div class="form-outline">
                                                 <label class="form-label" for="emailAddress">Email</label>
-                                                <input type="email" id="emailAddress" class="form-control form-control-sm" />
+                                                <input type="email" name="emailAddress" class="form-control form-control-sm" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4 pb-2">
                                             <div class="form-outline">
                                                 <label class="form-label" for="tel">Số điện thoại</label>
-                                                <input type="tel" id="tel" class="form-control form-control-sm" />
+                                                <input type="tel" name="tel" class="form-control form-control-sm" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 mb-4 pb-2">
                                             <label class="form-label select-label">Vai trò</label>
-                                            <select class="select form-control form-control-sm">
-                                                <option value="1">Người dùng</option>
-                                                <option value="0">Admin</option>
+                                            <select name="role_id"  class="select form-control form-control-sm">
+                                                <?php foreach ($getRole as $key => $value): ?>
+                                                <option value="<?php echo $value['id'] ?>"><?php echo $value['role'] == 'admin' ? 'Admin' : 'Người dùng';?></option> 
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                         <div class="col-md-6 mb-4 pb-2">
                                             <div class="form-outline">
                                                 <label class="form-label" for="avatar">Ảnh đại diện</label>
-                                                <input class="form-control form-control-sm" id="avatar" type="file" />
+                                                <input class="form-control form-control-sm" name="avatar" type="file" />
                                             </div>
                                         </div>
                                     </div>
@@ -143,7 +143,7 @@
 
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="submit" data-dismiss="modal">Hủy</button>
-                        <a class="btn btn-primary">Xác nhận</a>
+                        <button type="submit" name="btn_add" class="btn btn-primary">Xác nhận</button>
                     </div>
                 </div>
             </div>
@@ -151,7 +151,7 @@
     </form>
 
 
-    <!------Thêm tài khoản ----->
+    <!------Sua tài khoản ----->
 
     <form method="POST" enctype="multipart/form-data">
         <div class="modal fade" id="editaccountmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -171,13 +171,13 @@
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="username">Tên đăng nhập</label>
-                                                <input type="text" id="username" class="form-control form-control-sm" />
+                                                <input type="text" name="username" class="form-control form-control-sm" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="password">Mật khẩu</label>
-                                                <input type="text" id="password" class="form-control form-control-sm" />
+                                                <input type="text" name="password" class="form-control form-control-sm" />
                                             </div>
                                         </div>
                                     </div>
@@ -185,13 +185,13 @@
                                         <div class="col-md-6 mb-4 d-flex align-items-center">
                                             <div class="form-outline datepicker w-100">
                                                 <label for="fullname" class="form-label">Tên đầy đủ</label>
-                                                <input type="text" class="form-control form-control-sm" id="fullname" />
+                                                <input type="text" class="form-control form-control-sm" name="fullname" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4 d-flex align-items-center">
                                             <div class="form-outline datepicker w-100">
                                                 <label for="address" class="form-label">Địa chỉ</label>
-                                                <input type="text" class="form-control form-control-sm" id="address" />
+                                                <input type="text" class="form-control form-control-sm" name="address" />
                                             </div>
                                         </div>
                                     </div>
@@ -199,28 +199,31 @@
                                         <div class="col-md-6 mb-4 pb-2">
                                             <div class="form-outline">
                                                 <label class="form-label" for="emailAddress">Email</label>
-                                                <input type="email" id="emailAddress" class="form-control form-control-sm" />
+                                                <input type="email" name="emailAddress" class="form-control form-control-sm" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4 pb-2">
                                             <div class="form-outline">
                                                 <label class="form-label" for="tel">Số điện thoại</label>
-                                                <input type="tel" id="tel" class="form-control form-control-sm" />
+                                                <input type="tel" name="tel" class="form-control form-control-sm" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 mb-4 pb-2">
                                             <label class="form-label select-label">Vai trò</label>
-                                            <select class="select form-control form-control-sm">
-                                                <option value="1">Người dùng</option>
-                                                <option value="0">Admin</option>
+                                            <select name="role_id" class="select form-control form-control-sm">
+                                                <?php foreach ($getRole as $roles):
+                                                    extract($roles);    
+                                                ?>
+                                                <option value="<?= $id ?>"><?= $role ?></option> 
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                         <div class="col-md-6 mb-4 pb-2">
                                             <div class="form-outline">
                                                 <label class="form-label" for="avatar">Ảnh đại diện</label>
-                                                <input class="form-control form-control-sm" id="avatar" type="file" />
+                                                <input class="form-control form-control-sm" name="avatar" type="file" />
                                             </div>
                                         </div>
                                     </div>
@@ -232,7 +235,7 @@
 
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="submit" data-dismiss="modal">Hủy</button>
-                        <a class="btn btn-primary">Xác nhận</a>
+                        <button type="submit" name="btn_edit" class="btn btn-primary">Xác nhận</button>
                     </div>
                 </div>
             </div>

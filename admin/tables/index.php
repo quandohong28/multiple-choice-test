@@ -42,10 +42,14 @@
 		switch ($_GET['data']) {
 			case 'accounts':
 				$accounts = getAllAccounts();
+				$getRole = getRoles();
+				$pathImg = '../assets/img/accounts/';
+
+				insertAccount();					
 				include 'account/accounts.php';
 				break;
 			case 'add_account':
-				include 'account/add_account.php';
+				include 'account/add_account.php';	
 				break;
 			case 'edit_account':
 				include 'account/edit_account.php';
