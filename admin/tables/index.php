@@ -55,6 +55,8 @@
 				include 'account/edit_account.php';
 				break;
 			case 'del_account':
+				deleteAccount($_GET['id']);
+				
 				break;
 			case 'categories':
 				include 'category/categories.php';
@@ -107,12 +109,12 @@
 			case 'del_result':
 				break;
 			default:
-				// include 'account/accounts.php';
+				include 'account/accounts.php';
 				break;
 		}  
 
 	} else {
-		// include 'account/accounts.php';
+		include 'account/accounts.php';
 	}
 
 ?>

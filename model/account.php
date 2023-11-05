@@ -91,6 +91,7 @@ function deleteAccount($id)
     try {
         $sql = "DELETE FROM accounts WHERE id = $id";
         pdo_execute($sql);
+        header('location: ?act=tables&data=accounts');
     } catch (Exception $e) {
         echo $e->getMessage();
     }

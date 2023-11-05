@@ -36,7 +36,7 @@
                 </td>
                 <td class="align-middle">
                     <a class="btn btn-warning btn-sm" href="?act=tables&data=edit_account" data-toggle="modal" data-target="#editaccountmodal"><i class="fa-regular fa-pen-to-square"></i></a>
-                    <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm" href="?act=tables&data=del_account"><i class="fa fa-trash"></i></a>
+                    <a name="dlt_btn" onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm" href="?act=tables&data=del_account&id=<?= $id; ?>"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         </tbody> 
