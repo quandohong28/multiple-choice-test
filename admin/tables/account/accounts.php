@@ -1,13 +1,11 @@
 <section class="bg-light p-5 rounded-3 mb-5">
     <h3 class="text-dark text-center mb-5">Danh sách tài khoản</h3>
     <a class="btn btn-sm btn-info mb-2" href="?act=tables&data=add_account" data-toggle="modal" data-target="#addaccountmodal">Thêm tài khoản</a>
-    <?php var_dump($acc) ?> 
     <table class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Tên đăng nhập</th>
-                <th scope="col">Mật khẩu</th>
                 <th scope="col">Họ và tên</th>
                 <th scope="col">Ảnh đại diện</th>
                 <th scope="col">Email</th>
@@ -17,25 +15,33 @@
                 <th scope="col">Chức năng</th>
             </tr>
         </thead>
+        <?php foreach ($accounts as $account):
+            $pathImg = '../assets/img/accounts/';
+            extract($account);
+        ?>
         <tbody>
             <tr class="">
-                <td><?php echo $value['id']; ?></td>
-                <td><?php echo $value['username']; ?></td>
-                <td><?php echo $value['password']; ?></td>
-                <td><?php echo $value['fullname']; ?></td>
-                <td>
-                    <img src="" alt="">
+                <td  class="align-middle"><?= $id; ?></td>
+                <td  class="align-middle"><?= $username; ?></td>
+                <td  class="align-middle"><?= $fullname; ?></td>
+                <td  class="align-middle">    
+                    <img src="<?= $pathImg . $avatar;?>" alt="" width="50px">
                 </td>
-                <td><?php echo $value['email']; ?></td>
-                <td><?php echo $value['address']; ?></td>
-                <td><?php echo $value['tel']; ?></td>
-                <td><?php echo $value['role_id']; ?></td>
-                <td class="d-flex gap-3">
+                <td  class="align-middle"><?= $email; ?></td>
+                <td  class="align-middle text-truncate" style="max-width: 460px;"><?= $address; ?></td>
+                <td  class="align-middle"><?= $tel; ?></td>
+                <td  class="align-middle">
+                    <span class="badge <?php echo $role == 'admin' ? 'bg-primary' : 'bg-danger';?>">
+                        <?= $role; ?>
+                    </span>
+                </td>
+                <td class="align-middle">
                     <a class="btn btn-warning btn-sm" href="?act=tables&data=edit_account" data-toggle="modal" data-target="#editaccountmodal"><i class="fa-regular fa-pen-to-square"></i></a>
                     <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm" href="?act=tables&data=del_account"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         </tbody> 
+        <?php endforeach; ?>
     </table>
     <nav>
         <ul class="pagination pagination-sm justify-content-end">

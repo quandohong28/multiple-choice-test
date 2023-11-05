@@ -17,28 +17,11 @@ function verifyPassword($password, $hashedPassword)
     }
 }
 
-<<<<<<< HEAD
-function getAllaccounts()
-{
-    try {
-        $sql = "SELECT * FROM accounts";
-        $result = pdo_query($sql);
-        if ($result === false) {
-            echo "Lỗi truy vấn SQL: ";
-        }
-        return $result;
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-}
-
-function getUserById($id)
-=======
 function getAllAccounts()
->>>>>>> test
 {
     try {
-        $sql = "SELECT * FROM accounts;";
+        $sql = "SELECT a.id, a.username, a.fullname, a.avatar, a.email, a.address, a.tel, r.role 
+        FROM accounts a INNER JOIN roles r ON a.role_id = r.id ORDER BY a.id ASC;";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -97,33 +80,6 @@ function signup($email, $username, $password)
         accounts (email, username, password)
         VALUES
         ('$email', '$username', '$hashedPassword');";
-        pdo_execute($sql);
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-}
-
-function deleteAccount($id)
-{
-    try {
-        $sql = "DELETE FROM accounts WHERE id = $id";
-        pdo_execute($sql);
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-}
-
-function editAccount($id, $fullname, $avatar, $email, $address, $tel)
-{
-    try {
-        $sql = "UPDATE
-        accounts
-        SET fullname = '$fullname',
-        SET avatar = '$avatar',
-        SET email = '$email',
-        SET address = '$address',
-        SET tel = '$tel',
-        WHERE id = $id";
         pdo_execute($sql);
     } catch (Exception $e) {
         echo $e->getMessage();

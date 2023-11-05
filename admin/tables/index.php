@@ -35,12 +35,13 @@
 
 <?php
 	// Include Model
-	include './model/pdo.php';
-	include './model/account.php'; 
+	include '../model/pdo.php';
+	include '../model/account.php'; 
 	
 	if (isset($_GET['data'])) {
 		switch ($_GET['data']) {
 			case 'accounts':
+				$accounts = getAllAccounts();
 				include 'account/accounts.php';
 				break;
 			case 'add_account':

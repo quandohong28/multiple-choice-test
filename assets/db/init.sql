@@ -230,9 +230,9 @@ CREATE TABLE result_details (
 -- đang nhập dữ liệu cho bảng độ khó câu hỏi
 INSERT INTO question_levels (id, level)
 VALUES
-	(1, 'easy'),
-    (2, 'medium'),
-    (3, 'hard');
+	(1, 'Dễ'),
+    (2, 'Trung bình'),
+    (3, 'Khó');
 
 -- đang nhập dữ liệu cho bảng quyền tài khoản
 INSERT INTO roles (id, role)
