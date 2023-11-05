@@ -2,7 +2,8 @@
     <h1 class="h3 mb-3 text-gray-800">Danh sách chi tiết kết quả thi</h1>
 </div>
 
-<a class="btn btn-info mb-2" href="?act=tables&data=add_result" data-toggle="modal" data-target="#addresultmodal">Thêm
+<a class="btn btn-sm btn-info mb-2" href="?act=tables&data=add_result" data-toggle="modal"
+    data-target="#addresultmodal">Thêm
     kết quả thi</a>
 
 <table class="table table-striped">

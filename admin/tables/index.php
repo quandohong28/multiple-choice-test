@@ -59,15 +59,19 @@
 				
 				break;
 			case 'categories':
+				$catergories = getAllCategories();
+				insertCategory($name, $image);
 				include 'category/categories.php';
 				break;
 			case 'add_category':
-				include 'category/add_category.php';
+				include 'category/category.php';
 				break;
 			case 'edit_category':
 				include 'category/edit_category.php';
 				break;
 			case 'del_category':
+				deleteCategory($id);
+				header('location:category/categories.php');
 				break;
 			case 'schedules':
 				include 'schedule/schedules.php';

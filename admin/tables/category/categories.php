@@ -1,7 +1,8 @@
 <section class="bg-light p-5 rounded-3 mb-5 min-vh-100">
     <h3 class="text-dark text-center mb-5">Danh sách chuyên mục</h3>
 
-    <a class="btn btn-info mb-2" href="?act=tables&data=add_category" data-toggle="modal" data-target="#addcategorymodal">Thêm chuyên mục</a>
+    <a class="btn btn-sm btn-info mb-2" href="?act=tables&data=add_category" data-toggle="modal"
+        data-target="#addcategorymodal">Thêm chuyên mục</a>
 
 
     <table class="table table-striped">
@@ -14,17 +15,26 @@
             </tr>
         </thead>
         <tbody>
+            <?php foreach ($catergories as $category):
+                extract($category) ?>
             <tr class="">
-                <td>R1C1</td>
-                <td>R1C3</td>
                 <td>
-                    <img src="" alt="">
+                    <?= $id ?>
+                </td>
+                <td>
+                    <?= $name ?>
+                </td>
+                <td>
+                    <img src="../../../assets/img/categories/<?= $image ?>" alt="" width="50px">
                 </td>
                 <td class="d-flex gap-3">
-                    <a class="btn btn-warning btn-sm" href="?act=tables&data=edit_category" data-toggle="modal" data-target="#editcategorymodal"><i class="fa-regular fa-pen-to-square"></i></a>
-                    <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm" href="?act=tables&data=del_category"><i class="fa fa-trash"></i></a>
+                    <a class="btn btn-warning btn-sm" href="?act=tables&data=edit_category" data-toggle="modal"
+                        data-target="#editcategorymodal"><i class="fa-regular fa-pen-to-square"></i></a>
+                    <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm"
+                        href="?act=tables&data=del_category"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
+            <?php endforeach ?>
         </tbody>
     </table>
     <nav>
@@ -51,7 +61,8 @@
 
 
     <form action="" method="post" enctype="multipart/form-data">
-        <div class="modal fade text-center" id="addcategorymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade text-center" id="addcategorymodal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -73,8 +84,9 @@
                                         </div>
                                         <div class="col-md-12 mb-4 pb-2">
                                             <div class="form-outline">
-                                                <label class="form-label" for="avatar">Ảnh</label>
-                                                <input class="form-control form-control-sm" id="avatar" type="file" />
+                                                <label class="form-label" for="image">Ảnh</label>
+                                                <input class="form-control form-control-sm" id="image" name="image"
+                                                    type="file" />
                                             </div>
                                         </div>
                                     </div>
@@ -83,8 +95,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
-                        <a class="btn btn-primary" type="submit">Xác nhận</a>
+                        <button class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                        <button class="btn btn-primary" name="submit" type="submit">Xác nhận</button>
                     </div>
                 </div>
             </div>
@@ -95,7 +107,8 @@
 
 
     <form action="" method="post" enctype="multipart/form-data">
-        <div class="modal fade text-center" id="editcategorymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade text-center" id="editcategorymodal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -112,7 +125,8 @@
                                         <div class="col-md-12 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="name">Tên chuyên mục</label>
-                                                <input type="text" id="name" class="form-control form-control-sm" />
+                                                <input type="text" id="name" class="form-control form-control-sm"
+                                                    value="<?= $catergories['name']?>" />
                                             </div>
                                         </div>
                                         <div class="col-md-12 mb-4 pb-2">
