@@ -35,7 +35,7 @@ if (isset($_GET['data'])) {
 			$accounts = getAllAccounts();
 			$getRole = getRoles();
 			$pathImg = '../assets/img/accounts/';
-			include 'account/accounts.php';
+			include 'accounts.php';
 			break;
 		case 'add_account':
 			if (isset($_POST['btn_add'])) {
@@ -72,7 +72,7 @@ if (isset($_GET['data'])) {
 			break;
 		case 'categories':
 			$catergories = getAllCategories();
-			include 'category/categories.php';
+			include 'categories.php';
 			break;
 		case 'add_category':
 			if (isset($_POST['submit'])) {
@@ -114,13 +114,13 @@ if (isset($_GET['data'])) {
 		case 'del_schedule':
 			break;
 		case 'questions':
-			include 'question/questions.php';
+			include 'questions.php';
 			break;
 		case 'add_question':
-			include 'question/add_question.php';
+			// include 'question/add_question.php';
 			break;
 		case 'edit_question':
-			include 'question/edit_question.php';
+			// include 'question/edit_question.php';
 			break;
 		case 'del_question':
 			break;
@@ -139,11 +139,17 @@ if (isset($_GET['data'])) {
 		case 'del_result':
 			break;
 		default:
-			include 'account/accounts.php';
+			$accounts = getAllAccounts();
+			$getRole = getRoles();
+			$pathImg = '../assets/img/accounts/';
+			include 'accounts.php';
 			break;
 	}
 } else {
-	include 'account/accounts.php';
+	$accounts = getAllAccounts();
+	$getRole = getRoles();
+	$pathImg = '../assets/img/accounts/';
+	include 'accounts.php';
 }
 
 ?>
