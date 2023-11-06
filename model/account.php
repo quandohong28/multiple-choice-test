@@ -20,7 +20,8 @@ function verifyPassword($password, $hashedPassword)
 function getAllAccounts()
 {
     try {
-        $sql = "SELECT * FROM accounts;";
+        $sql = "SELECT a.id, a.username, a.fullname, a.avatar, a.email, a.address, a.tel, a.introduce, r.role 
+        FROM accounts a INNER JOIN roles r ON a.role_id = r.id ORDER BY a.id DESC;";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -39,6 +40,8 @@ function getAccountById($id)
         echo $e->getMessage();
     }
 }
+
+
 
 function getAccountByUsername($username)
 {
@@ -90,6 +93,7 @@ function deleteAccount($id)
     try {
         $sql = "DELETE FROM accounts WHERE id = $id";
         pdo_execute($sql);
+        header('location: ?act=tables&data=accounts');
     } catch (Exception $e) {
         echo $e->getMessage();
     }
@@ -111,3 +115,28 @@ function editAccount($id, $fullname, $avatar, $email, $address, $tel)
         echo $e->getMessage();
     }
 }
+
+function insertAccount($username, $password, $fullname, $avatar, $email, $address, $tel, $role_id) {
+    if (isset($_POST['btn_add'])) {
+        try {
+            $sql2 = "INSERT INTO accounts (username, password, fullname, avatar, email, address, tel, role_id)
+            VALUES ('$username', '$password', '$fullname', '$avatar', '$email', '$address', '$tel', $role_id);";
+            pdo_execute($sql2);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+}
+
+function getRoles()
+{
+    try {
+        $sql1 = "SELECT * FROM roles";
+        return pdo_query($sql1);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+
+
