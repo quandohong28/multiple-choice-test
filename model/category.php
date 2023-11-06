@@ -36,7 +36,7 @@ function insertCategory($name, $image)
 {
     if (isset($_POST['submit'])) {
         try {
-            $sql = "INSERT INTO categories (name, image) VALUES ( name = '$name', image = '$image')";
+            $sql = "INSERT INTO categories (name, image) VALUES ( name, image)";
             $file = $_FILES;
             $image = $file;
             move_uploaded_file($file['tmp_name'], '../assets/img/categories' . $image);
@@ -63,7 +63,7 @@ function deleteCategory($id)
 {
     try {
         $sql = "DELETE FROM categories 
-                WHERE id = '$id';";
+                WHERE id = '$id;'";
         pdo_execute($sql);
     } catch (\Exception $e) {
         echo $e->getMessage();

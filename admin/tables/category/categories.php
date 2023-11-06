@@ -17,23 +17,23 @@
         <tbody>
             <?php foreach ($catergories as $category):
                 extract($category) ?>
-            <tr class="">
-                <td>
-                    <?= $id ?>
-                </td>
-                <td>
-                    <?= $name ?>
-                </td>
-                <td>
-                    <img src="../../../assets/img/categories/<?= $image ?>" alt="" width="50px">
-                </td>
-                <td class="d-flex gap-3">
-                    <a class="btn btn-warning btn-sm" href="?act=tables&data=edit_category" data-toggle="modal"
-                        data-target="#editcategorymodal"><i class="fa-regular fa-pen-to-square"></i></a>
-                    <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm"
-                        href="?act=tables&data=del_category"><i class="fa fa-trash"></i></a>
-                </td>
-            </tr>
+                <tr class="">
+                    <td>
+                        <?= $id ?>
+                    </td>
+                    <td>
+                        <?= $name ?>
+                    </td>
+                    <td>
+                        <img src="../assets/img/categories/<?= $image ?>" alt="" width="50px">
+                    </td>
+                    <td class="d-flex gap-3">
+                        <a class="btn btn-warning btn-sm" href="?act=tables&data=edit_category" data-toggle="modal"
+                            data-target="#editcategorymodal"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm"
+                            href="?act=tables&data=del_category"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
             <?php endforeach ?>
         </tbody>
     </table>
@@ -126,7 +126,7 @@
                                             <div class="form-outline">
                                                 <label class="form-label" for="name">Tên chuyên mục</label>
                                                 <input type="text" id="name" class="form-control form-control-sm"
-                                                    value="<?= $catergories['name']?>" />
+                                                    value="<?= $catergories['name'] ?>" />
                                             </div>
                                         </div>
                                         <div class="col-md-12 mb-4 pb-2">
