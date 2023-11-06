@@ -55,7 +55,7 @@
         </table>
         <nav>
             <ul class="pagination pagination-sm justify-content-end">
-                <li class="page-item disabled">
+                <li class="page-item disabled"> 
                     <a class="page-link px-3">
                         <i class="fa-solid fa-caret-left"></i>
                     </a>
