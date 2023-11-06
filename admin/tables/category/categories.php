@@ -1,8 +1,7 @@
 <section class="bg-light p-5 rounded-3 mb-5 min-vh-100">
     <h3 class="text-dark text-center mb-5">Danh sách chuyên mục</h3>
 
-    <a class="btn btn-sm btn-info mb-2" href="?act=tables&data=add_category" data-toggle="modal"
-        data-target="#addcategorymodal">Thêm chuyên mục</a>
+    <a class="btn btn-sm btn-info mb-2" href="#" data-toggle="modal" data-target="#addcategorymodal">Thêm chuyên mục</a>
 
 
     <table class="table table-striped">
@@ -28,10 +27,10 @@
                         <img src="../assets/img/categories/<?= $image ?>" alt="" width="50px">
                     </td>
                     <td class="d-flex gap-3">
-                        <a class="btn btn-warning btn-sm" href="?act=tables&data=edit_category" data-toggle="modal"
-                            data-target="#editcategorymodal"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a class="btn btn-warning btn-sm" href="#" data-toggle="modal" data-target="#editcategorymodal"><i
+                                class="fa-regular fa-pen-to-square"></i></a>
                         <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm"
-                            href="?act=tables&data=del_category"><i class="fa fa-trash"></i></a>
+                            href="?act=tables&data=del_category&id=<?= $id ?>"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             <?php endforeach ?>
@@ -60,7 +59,7 @@
     <!----Thêm chuyên mục----->
 
 
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="?act=tables&data=add_category" method="POST" enctype="multipart/form-data">
         <div class="modal fade text-center" id="addcategorymodal" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -73,22 +72,18 @@
                     </div>
                     <div class="row justify-content-center align-items-center h-100 my-5">
                         <div class="col-12 col-lg-9 col-xl-7">
-                            <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-                                <div class="card-body p-4 p-md-5">
-                                    <div class="row">
-                                        <div class="col-md-12 mb-4">
-                                            <div class="form-outline">
-                                                <label class="form-label" for="name">Tên chuyên mục</label>
-                                                <input type="text" id="name" class="form-control form-control-sm" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 mb-4 pb-2">
-                                            <div class="form-outline">
-                                                <label class="form-label" for="image">Ảnh</label>
-                                                <input class="form-control form-control-sm" id="image" name="image"
-                                                    type="file" />
-                                            </div>
-                                        </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="name">Tên chuyên mục</label>
+                                        <input type="text" name="name" id="name" class="form-control form-control-sm" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-4 pb-2">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="image">Ảnh</label>
+                                        <input class="form-control form-control-sm" id="image" name="image"
+                                            type="file" />
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +101,7 @@
     <!----Sửa chuyên mục----->
 
 
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="?act=tables&data=edit_category" method="post" enctype="multipart/form-data">
         <div class="modal fade text-center" id="editcategorymodal" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -119,22 +114,18 @@
                     </div>
                     <div class="row justify-content-center align-items-center h-100 my-5">
                         <div class="col-12 col-lg-9 col-xl-7">
-                            <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-                                <div class="card-body p-4 p-md-5">
-                                    <div class="row">
-                                        <div class="col-md-12 mb-4">
-                                            <div class="form-outline">
-                                                <label class="form-label" for="name">Tên chuyên mục</label>
-                                                <input type="text" id="name" class="form-control form-control-sm"
-                                                    value="<?= $catergories['name'] ?>" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 mb-4 pb-2">
-                                            <div class="form-outline">
-                                                <label class="form-label" for="avatar">Ảnh</label>
-                                                <input class="form-control form-control-sm" id="avatar" type="file" />
-                                            </div>
-                                        </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="name">Tên chuyên mục</label>
+                                        <input type="text" id="name" class="form-control form-control-sm"
+                                            value="<?= $catergory['name'] ?>" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-4 pb-2">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="avatar">Ảnh</label>
+                                        <input class="form-control form-control-sm" id="avatar" type="file" />
                                     </div>
                                 </div>
                             </div>

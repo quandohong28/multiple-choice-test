@@ -53,18 +53,32 @@ if (isset($_GET['data'])) {
 			break;
 		case 'categories':
 			$catergories = getAllCategories();
-			insertCategory($name, $image);
 			include 'category/categories.php';
 			break;
 		case 'add_category':
-			include 'category/category.php';
+			if (isset($_POST['submit'])) {
+				$name = $_POST['name'];
+				$file = $_FILES['image'];
+				$image = $file['name'];
+				insertCategory($name, $image);
+				move_uploaded_file($file['tmp_name'], '../assets/img/categories' . $image);
+				// header('location:index.php?act=tables&data=categories');
+			}
 			break;
 		case 'edit_category':
-			include 'category/edit_category.php';
+			$id = $_GET['id'];
+			$name = $_POST['name'];
+			$file = $_FILES['image'];
+			$image = $file['name'];
+			if (isset($_POST['submit'])) {
+				editCategory($id, $name, $image);
+				move_uploaded_file($file['tmp_name'], '../assets/img/categories' . $image);
+			}
 			break;
 		case 'del_category':
+			$id = $_GET['id'];
 			deleteCategory($id);
-			header('location:category/categories.php');
+			// header('location:data=categories');
 			break;
 		case 'schedules':
 			include 'schedule/schedules.php';
