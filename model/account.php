@@ -20,7 +20,7 @@ function verifyPassword($password, $hashedPassword)
 function getAllAccounts()
 {
     try {
-        $sql = "SELECT a.id, a.username, a.fullname, a.avatar, a.email, a.address, a.tel, r.role 
+        $sql = "SELECT a.id, a.username, a.fullname, a.avatar, a.email, a.address, a.tel, a.introduce, r.role 
         FROM accounts a INNER JOIN roles r ON a.role_id = r.id ORDER BY a.id DESC;";
         return pdo_query($sql);
     } catch (Exception $e) {
@@ -40,6 +40,8 @@ function getAccountById($id)
         echo $e->getMessage();
     }
 }
+
+
 
 function getAccountByUsername($username)
 {
@@ -135,3 +137,6 @@ function getRoles()
         echo $e->getMessage();
     }
 }
+
+
+
