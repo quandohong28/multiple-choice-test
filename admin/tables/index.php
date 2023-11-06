@@ -45,19 +45,39 @@
 				$getRole = getRoles();
 				$pathImg = '../assets/img/accounts/';
 
-				insertAccount();					
 				include 'account/accounts.php';
 				break;
 			case 'add_account':
-				include 'account/add_account.php';	
+				if (isset($_POST['btn_add'])) {
+					$username = $_POST['username'];
+					$password = hashPassword($_POST['password']);
+					$fullname = $_POST['fullname'];
+					$address = $_POST['address'];
+					$email = $_POST['emailAddress'];
+					$tel = $_POST['tel'];
+					$role_id = $_POST['role_id'];
+					
+					if ($_FILES['avatar']['name'] != ""){
+						$targetDir = '../assets/img/accounts/';
+						$avatar = $_FILES['avatar']['name']; 
+						move_uploaded_file($_FILES['avatar']['tmp_name'], $targetDir . $avatar);
+					}else {
+						$avatar = "profile.png";
+					}
+					
+					insertAccount($username, $password, $fullname, $avatar, $email, $address, $tel, $role_id);
+				}	
+				echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=accounts">';		
+				// include 'account/add_account.php';	
 				break;
 			case 'edit_account':
-				include 'account/edit_account.php';
+				// include 'account/edit_account.php';
 				break;
 			case 'del_account':
+				// header('location: ?act=tables&data=accounts');
 				deleteAccount($_GET['id']);
-				
-				break;
+				echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=accounts">';
+				break; 
 			case 'categories':
 				$catergories = getAllCategories();
 				insertCategory($name, $image);

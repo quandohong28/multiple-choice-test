@@ -114,25 +114,9 @@ function editAccount($id, $fullname, $avatar, $email, $address, $tel)
     }
 }
 
-function insertAccount() {
+function insertAccount($username, $password, $fullname, $avatar, $email, $address, $tel, $role_id) {
     if (isset($_POST['btn_add'])) {
         try {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            $fullname = $_POST['fullname'];
-            $address = $_POST['address'];
-            $email = $_POST['emailAddress'];
-            $tel = $_POST['tel'];
-            $role_id = $_POST['role_id'];
-        
-            if ($_FILES['avatar']['name'] != ""){
-                $targetDir = '../assets/img/accounts/';
-                $avatar = $_FILES['avatar']['name']; 
-                move_uploaded_file($_FILES['avatar']['tmp_name'], $targetDir . $avatar);
-            }else {
-                $avatar = "profile.png";
-            }
-    
             $sql2 = "INSERT INTO accounts (username, password, fullname, avatar, email, address, tel, role_id)
             VALUES ('$username', '$password', '$fullname', '$avatar', '$email', '$address', '$tel', $role_id);";
             pdo_execute($sql2);
