@@ -47,25 +47,22 @@ function getQuantityOfQuestions($id)
 
 function insertCategory($name, $image)
 {
-    if (isset($_POST['submit'])) {
-        try {
-            $sql = "INSERT INTO categories (name, image) VALUES ( name = '$name', image = '$image')";
-            $file = $_FILES;
-            $image = $file;
-            move_uploaded_file($file['tmp_name'], '../assets/img/categories' . $image);
-            pdo_execute($sql);
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-        }
+    try {
+
+        $sql = "INSERT INTO categories (name, image) VALUES ( '$name', '$image')";
+        pdo_execute($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
     }
 }
 
-function editCategory($id, $name)
+function editCategory($id, $name, $image)
 {
     try {
-        $sql = "UPDATE categories 
-        SET name = '$name' 
-        WHERE id = '$id';";
+
+        $sql = "UPDATE categories (name, image) 
+                SET  name = '$name', image = '$image' 
+                WHERE id = $id;";
         pdo_execute($sql);
     } catch (\Exception $e) {
         echo $e->getMessage();
@@ -76,7 +73,7 @@ function deleteCategory($id)
 {
     try {
         $sql = "DELETE FROM categories 
-                WHERE id = '$id';";
+                WHERE id = $id;";
         pdo_execute($sql);
     } catch (\Exception $e) {
         echo $e->getMessage();

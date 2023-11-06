@@ -36,44 +36,55 @@
 <?php
 
 include '../model/pdo.php';
+include '../model/account.php';
 include '../model/category.php';
 
 if (isset($_GET['data'])) {
 	switch ($_GET['data']) {
 		case 'accounts':
-			include 'account/accounts.php';
+			include 'accounts.php';
 			break;
 		case 'add_account':
-			include 'account/add_account.php';
 			break;
 		case 'edit_account':
-			include 'account/edit_account.php';
 			break;
 		case 'del_account':
 			break;
 		case 'categories':
 			$catergories = getAllCategories();
-			insertCategory($name, $image);
-			include 'category/categories.php';
+			include 'categories.php';
 			break;
 		case 'add_category':
-			include 'category/category.php';
+			if (isset($_POST['submit'])) {
+				$name = $_POST['name'];
+				$file = $_FILES['image'];
+				$image = $file['name'];
+				insertCategory($name, $image);
+				move_uploaded_file($file['tmp_name'], '../assets/img/categories' . $image);
+				header('location:?act=tables&data=categories');
+			}
 			break;
 		case 'edit_category':
-			include 'category/edit_category.php';
+			$id = $_GET['id'];
+			$name = $_POST['name'];
+			$file = $_FILES['image'];
+			$image = $file['name'];
+			if (isset($_POST['submit'])) {
+				editCategory($id, $name, $image);
+				move_uploaded_file($file['tmp_name'], '../assets/img/categories' . $image);
+			}
 			break;
 		case 'del_category':
+			$id = $_GET['id'];
 			deleteCategory($id);
-			header('location:category/categories.php');
+			// header('location:data=categories');
 			break;
 		case 'schedules':
-			include 'schedule/schedules.php';
+			include 'schedules.php';
 			break;
 		case 'add_schedule':
-			include 'schedule/add_schedule.php';
 			break;
 		case 'edit_schedule':
-			include 'schedule/edit_schedule.php';
 			break;
 		case 'schedule_detail':
 			include 'schedule/schedule_detail.php';
