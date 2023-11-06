@@ -119,7 +119,7 @@
                                     <div class="form-outline">
                                         <label class="form-label" for="name">Tên chuyên mục</label>
                                         <input type="text" id="name" class="form-control form-control-sm"
-                                            value="<?= $catergory['name'] ?>" />
+                                            value="<?= $name ?>" />
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-4 pb-2">
