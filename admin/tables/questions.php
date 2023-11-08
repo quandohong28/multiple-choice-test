@@ -160,17 +160,17 @@
     <!----Sửa câu hỏi & trả lời----->
 
 
-    <form action="" method="post">
-        <div class="modal fade" id="editquestionmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Sửa câu hỏi</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
+    <div class="modal fade" id="editquestionmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sửa câu hỏi</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form action="" method="post">
                     <div class="col-11 m-4 text-center">
                         <div class="form-outline">
                             <label class="form-label" for="username">Câu hỏi</label>
@@ -234,8 +234,8 @@
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
                         <a class="btn btn-primary">Xác nhận</a>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
-    </form>
+    </div>
 </section>

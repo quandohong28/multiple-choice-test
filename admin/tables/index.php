@@ -2,20 +2,30 @@
 	<!-- Tabs navs -->
 	<ul class="nav nav-tabs m-3" id="ex-with-icons" role="tablist">
 		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-1" data-mdb-toggle="tab" href="?act=tables&data=accounts" role="tab" aria-controls="ex-with-icons-tabs-1" aria-selected="true"><i class="fas fa-solid fa-users me-2"></i>Tài khoản</a>
+			<a class="nav-link" id="ex-with-icons-tab-1" data-mdb-toggle="tab" href="?act=tables&data=accounts"
+				role="tab" aria-controls="ex-with-icons-tabs-1" aria-selected="true"><i
+					class="fas fa-solid fa-users me-2"></i>Tài khoản</a>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-2" data-mdb-toggle="tab" href="?act=tables&data=categories" role="tab" aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i class="fas fa-chart-line fa-list me-2"></i>Chuyên mục</a>
+			<a class="nav-link" id="ex-with-icons-tab-2" data-mdb-toggle="tab" href="?act=tables&data=categories"
+				role="tab" aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i
+					class="fas fa-chart-line fa-list me-2"></i>Chuyên mục</a>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=schedules" role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fas fa-calendar-days fa-fw me-2"></i>Lịch thi</a>
+			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=schedules"
+				role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i
+					class="fas fa-calendar-days fa-fw me-2"></i>Lịch thi</a>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=questions" role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fas fa-question fa-fw me-2"></i>Câu
+			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=questions"
+				role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i
+					class="fas fa-question fa-fw me-2"></i>Câu
 				hỏi</a>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=results" role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fa-solid fa-square-poll-vertical me-2"></i>Theo
+			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=results"
+				role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i
+					class="fa-solid fa-square-poll-vertical me-2"></i>Theo
 				dõi điểm</a>
 		</li>
 	</ul>
@@ -64,7 +74,7 @@ if (isset($_GET['data'])) {
 			if (isset($_POST['btn_edit'])) {
 
 				$id = $_POST['edit_id'];
-				$fullname = $_POST['edit_fullname'];  
+				$fullname = $_POST['edit_fullname'];
 				$email = $_POST['edit_emailAddress'];
 				$address = $_POST['edit_address'];
 				$tel = $_POST['edit_tel'];
@@ -98,23 +108,27 @@ if (isset($_GET['data'])) {
 				$image = $file['name'];
 				insertCategory($name, $image);
 				move_uploaded_file($file['tmp_name'], '../assets/img/categories' . $image);
-				// header('location:index.php?act=tables&data=categories');
+				echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=categories">';
 			}
 			break;
 		case 'edit_category':
-			$id = $_GET['id'];
-			$name = $_POST['name'];
-			$file = $_FILES['image'];
-			$image = $file['name'];
-			if (isset($_POST['submit'])) {
-				editCategory($id, $name, $image);
-				move_uploaded_file($file['tmp_name'], '../assets/img/categories' . $image);
+			if (isset($_POST['btn_edit'])) {
+				$id = $_POST['edit_id'];
+				$name = $_POST['edit_name'];
+				if ($_FILES['edit_image']['name'] != "") {
+					$targetDir = '../assets/img/categories/';
+					$image = $_FILES['edit_image']['name'];
+					move_uploaded_file($_FILES['edit_image']['tmp_name'], $targetDir . $image);
+				} else {
+					$image = $_POST['edit_image'];
+				}
 			}
+			editCategory($id, $name, $image);
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=categories">';
 			break;
 		case 'del_category':
-			$id = $_GET['id'];
-			deleteCategory($id);
-			// header('location:data=categories');
+			deleteCategory($_GET['id']);
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=categories">';
 			break;
 		case 'schedules':
 			include 'schedule/schedules.php';
@@ -134,10 +148,8 @@ if (isset($_GET['data'])) {
 			include 'questions.php';
 			break;
 		case 'add_question':
-			// include 'question/add_question.php';
 			break;
 		case 'edit_question':
-			// include 'question/edit_question.php';
 			break;
 		case 'del_question':
 			break;
@@ -145,15 +157,15 @@ if (isset($_GET['data'])) {
 			include 'result/results.php';
 			break;
 		case 'add_result':
-			include 'result/add_result.php';
 			break;
 		case 'edit_result':
-			include 'result/edit_result.php';
 			break;
 		case 'result_detail':
 			include 'result/result_detail.php';
 			break;
 		case 'del_result':
+			break;
+		case 'add_candidate':
 			break;
 		default:
 			$accounts = getAllAccounts();
