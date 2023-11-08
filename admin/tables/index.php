@@ -114,17 +114,20 @@ if (isset($_GET['data'])) {
 			if (isset($_POST['btn_edit'])) {
 				$id = $_POST['edit_id'];
 				$name = $_POST['edit_name'];
-				$file = $_FILES['edit_image'];
-				$image = $file['name'];
-				move_uploaded_file($file['tmp_name'], '../assets/img/categories' . $image);
+				if ($_FILES['edit_image']['name'] != "") {
+					$targetDir = '../assets/img/categories/';
+					$image = $_FILES['edit_image']['name'];
+					move_uploaded_file($_FILES['edit_image']['tmp_name'], $targetDir . $image);
+				} else {
+					$image = $_POST['edit_image'];
+				}
 			}
 			editCategory($id, $name, $image);
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=categories">';
 			break;
 		case 'del_category':
-			$id = $_GET['id'];
-			deleteCategory($id);
-			// header('location:data=categories');
+			deleteCategory($_GET['id']);
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=categories">';
 			break;
 		case 'schedules':
 			include 'schedule/schedules.php';
@@ -153,13 +156,15 @@ if (isset($_GET['data'])) {
 			include 'result/results.php';
 			break;
 		case 'add_result':
-			include 'result/add_result.php';
 			break;
 		case 'edit_result':
 			break;
 		case 'result_detail':
+			include 'result/result_detail.php';
 			break;
 		case 'del_result':
+			break;
+		case 'add_candidate':
 			break;
 		default:
 			$accounts = getAllAccounts();

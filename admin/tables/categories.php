@@ -33,9 +33,9 @@
                             <i class=" fa-regular fa-pen-to-square"></i>
                         </button>
 
-                        <button name="del_category" onclick="return confirm('Bạn có xác nhận xóa ?');"
+                        <a name="del_category" onclick="return confirm('Bạn có xác nhận xóa ?');"
                             class="btn btn-danger btn-sm" href="?act=tables&data=del_category&id=<?= $id; ?>"><i
-                                class="fa fa-trash"></i></button>
+                                class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             <?php endforeach ?>
@@ -128,6 +128,8 @@
                                     <div class="col-md-12 mb-4 pb-2">
                                         <div class="form-outline">
                                             <label class="form-label" for="image">Ảnh</label>
+                                            <input class="form-control form-control-sm" id="image" name="edit_image"
+                                                value="" type="hidden" />
                                             <input class="form-control form-control-sm" id="image" name="edit_image"
                                                 type="file" value="" />
                                         </div>
