@@ -1,5 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header("location: ../index.php");
+}
 $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
+
 ?>
 
 <!doctype html>
@@ -24,11 +29,11 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
 <body class="overflow-x-hidden">
     <div class="row">
         <div class="col-2">
-            <?php include "./sidebar.php" ?>
+            <?php include "./layouts/sidebar.php" ?>
         </div>
         <section class="col">
             <header>
-                <?php include "./header.php" ?>
+                <?php include "./layouts/header.php" ?>
             </header>
             <div>
                 <?php switch ($action) {
@@ -55,7 +60,8 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
                         include "./userlog.php";
                         break;
                     case 'signout':
-                        include "./signout.php";
+                        unset($_SESSION['user']);
+                        echo '<meta http-equiv="refresh" content="0;url=../index.php">';
                         break;
                     case 'signin':
                         include "./signin.php";
@@ -79,7 +85,7 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
         </section>
     </div>
     <footer>
-        <?php include "./footer.php" ?>
+        <?php include "./layouts/footer.php" ?>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">

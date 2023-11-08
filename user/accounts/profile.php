@@ -8,20 +8,20 @@
             <form action="" method="post" enctype="multipart/form-data">
                 <div class="mb-5">
                     <label for="email" class="form-label fw-bold">Email</label>
-                    <input type="email" name="email" id="email" class="form-control form-control-sm" placeholder="@example.com" aria-describedby="helpId">
+                    <input type="email" name="email" id="email" class="form-control form-control-sm" placeholder="@example.com" value="<?= $email ?>" aria-describedby="helpId">
                     <!-- <small id="helpId" class="text-muted">Help text</small> -->
                 </div>
 
                 <div class="mb-5">
                     <label for="description" class="form-label fw-bold">Giới thiệu về bản thân</label>
-                    <textarea class="form-control form-control-sm" name="" id="" cols="30" rows="5"></textarea>
+                    <textarea class="form-control form-control-sm" name="" id="" cols="30" rows="5"><?= $introduce ?></textarea>
                     <small id="helpId" class="text-muted">Viết vài dòng giới thiệu về bản thân!</small>
                 </div>
 
                 <div class="mb-5">
                     <label for="photo" class="form-label fw-bold">Ảnh đại diện</label>
                     <div class="d-flex gap-5 justify-content-start align-items-center">
-                        <img width="50px" src="./assets/icons/user.png" id="photo" alt="photo">
+                        <img width="100px" src="<?= $avatarPath . $avatar ?>" id="photo" alt="photo">
                         <button type="file" class="btn btn-sm btn-outline-primary">Thay đổi</button>
                     </div>
                 </div>
@@ -62,12 +62,14 @@
                 <div class="d-flex mb-5 gap-5">
                     <div class="col">
                         <label for="fisrtname" class="form-label fw-bold">Họ</label>
-                        <input type="fisrtname" name="fisrtname" id="fisrtname" class="form-control form-control-sm" aria-describedby="helpId">
+                        <input type="fisrtname" name="fisrtname" id="fisrtname" class="form-control form-control-sm" aria-describedby="helpId" value="<?= $firstname ?>">
                         <!-- <small id="helpId" class="text-muted">Help text</small> -->
                     </div>
                     <div class="col">
                         <label for="lastname" class="form-label fw-bold">Tên</label>
-                        <input type="lastname" name="lastname" id="lastname" class="form-control form-control-sm" aria-describedby="helpId">
+                        <input type="lastname" name="lastname" id="lastname" class="form-control form-control-sm" aria-describedby="helpId" value="<?php foreach ($lastname as $name) {
+                                                                                                                                                        echo $name . ' ';
+                                                                                                                                                    } ?>">
                         <!-- <small id="helpId" class="text-muted">Help text</small> -->
                     </div>
                 </div>
@@ -75,7 +77,7 @@
                 <div class="mb-5 d-flex">
                     <div class="col-8">
                         <label for="tel" class="form-label fw-bold">Số điện thoại</label>
-                        <input type="tel" name="tel" id="tel" class="form-control form-control-sm" placeholder="+84" aria-describedby="helpId">
+                        <input type="tel" name="tel" id="tel" class="form-control form-control-sm" placeholder="+84" aria-describedby="helpId" value="<?= $tel ?>">
                         <!-- <small id="helpId" class="text-muted">Help text</small> -->
                     </div>
                 </div>
@@ -85,15 +87,12 @@
                         <label for="city" class="form-label fw-bold">Tỉnh</label>
                         <select class="form-select form-select-sm" name="city" id="city">
                             <option selected>Lựa chọn</option>
-                            <option value="">Hà Nội</option>
-                            <option value="">Hải Dương</option>
-                            <option value="">TP. Hồ Chí Minh</option>
                         </select>
                     </div>
                 </div>
                 <div class="mb-5">
                     <label for="address" class="form-label fw-bold">Địa chỉ chi tiết</label>
-                    <textarea class="form-control form-control-sm" name="address" id="address" cols="30" rows="2"></textarea>
+                    <textarea class="form-control form-control-sm" name="address" id="address" cols="30" rows="2"><?= $address?></textarea>
                     <!-- <small id="helpId" class="text-muted">Help text</small> -->
                 </div>
                 <hr>
@@ -104,7 +103,27 @@
         </div>
     </div>
     <hr>
-
-    
-
 </div>
+
+<script>
+    const city = document.getElementById('city');
+    fetch('https://provinces.open-api.vn/api/?depth=2')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            data.forEach(item => {
+                var option = document.createElement('option');
+                option.value = item.code; // Giá trị tùy chọn (value) có thể là item.id hoặc một giá trị khác
+                option.textContent = item.name; // Văn bản hiển thị trong tùy chọn (option text)
+                city.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+
+</script>

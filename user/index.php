@@ -1,8 +1,13 @@
 <?php
 session_start();
+if (!isset($_SESSION['user'])) {
+    header("location: ../index.php");
+}
 include '../model/pdo.php';
 include '../model/category.php';
 include '../model/question.php';
+include '../model/account.php';
+
 ?>
 
 <!doctype html>
@@ -65,6 +70,15 @@ include '../model/question.php';
                         include "./results/index.php";
                         break;
                     case 'profile':
+                        $id = $_SESSION['user']['id'];
+                        $account = getAccountById($id);
+                        $avatarPath = '../assets/img/accounts/';
+                        extract($account);
+                        $parts = explode(' ', trim($fullname));
+                        extract([
+                            'firstname' => $parts[0],
+                            'lastname' => array_slice($parts, 1),
+                        ]);
                         include "./accounts/profile.php";
                         break;
                     case 'setting':
@@ -73,7 +87,7 @@ include '../model/question.php';
                     case 'logout':
                         unset($_SESSION['user']);
                         var_dump($_SESSION['user']);
-                        header("location: ../index.php");
+                        echo '<meta http-equiv="refresh" content="0;url=../index.php">';
                         break;
                     default:
                         include "./utilities/home.php";
@@ -92,6 +106,7 @@ include '../model/question.php';
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="../assets/js/script.min.js"></script>
+
 </body>
 
 </html>
