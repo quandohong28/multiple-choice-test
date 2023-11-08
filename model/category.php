@@ -48,7 +48,6 @@ function getQuantityOfQuestions($id)
 function insertCategory($name, $image)
 {
     try {
-
         $sql = "INSERT INTO categories (name, image) VALUES ( '$name', '$image')";
         pdo_execute($sql);
     } catch (\Exception $e) {
@@ -59,9 +58,9 @@ function insertCategory($name, $image)
 function editCategory($id, $name, $image)
 {
     try {
-
-        $sql = "UPDATE categories (name, image) 
-                SET name = '$name', image = '$image' 
+        $sql = "UPDATE categories 
+                SET name = '$name', 
+                    image = '$image' 
                 WHERE id = $id;";
         pdo_execute($sql);
     } catch (\Exception $e) {
