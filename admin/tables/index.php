@@ -61,8 +61,24 @@ if (isset($_GET['data'])) {
 			// include 'account/add_account.php';	
 			break;
 		case 'edit_account':
-			$id = $_GET['id'];
+			if (isset($_POST['btn_edit'])) {
+
+				$id = $_POST['edit_id'];
+				$fullname = $_POST['edit_fullname'];  
+				$email = $_POST['edit_emailAddress'];
+				$address = $_POST['edit_address'];
+				$tel = $_POST['edit_tel'];
+				$avatar = "";
+				// if ($_FILES['avatar']['name'] != "") {
+				// 	$targetDir = '../assets/img/accounts/';
+				// 	$avatar = $_FILES['avatar']['name'];
+				// 	move_uploaded_file($_FILES['avatar']['tmp_name'], $targetDir . $avatar);
+				// } else {
+				// 	$avatar = "";
+				// }
+			}
 			editAccount($id, $fullname, $avatar, $email, $address, $tel);
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=accounts">';
 			// include 'account/edit_account.php';
 			break;
 		case 'del_account':
