@@ -35,7 +35,7 @@ if (isset($_GET['data'])) {
 			$accounts = getAllAccounts();
 			$getRole = getRoles();
 			$pathImg = '../assets/img/accounts/';
-			include 'account/accounts.php';
+			include 'accounts.php';
 			break;
 		case 'add_account':
 			if (isset($_POST['btn_add'])) {
@@ -61,8 +61,25 @@ if (isset($_GET['data'])) {
 			// include 'account/add_account.php';	
 			break;
 		case 'edit_account':
-			$id = $_GET['id'];
+			if (isset($_POST['btn_edit'])) {
+
+				$id = $_POST['edit_id'];
+				$fullname = $_POST['edit_fullname'];  
+				$email = $_POST['edit_emailAddress'];
+				$address = $_POST['edit_address'];
+				$tel = $_POST['edit_tel'];
+
+ 
+				if ($_FILES['edit_avatar']['name'] != "") {
+					$targetDir = '../assets/img/accounts/';
+					$avatar = $_FILES['edit_avatar']['name'];
+					move_uploaded_file($_FILES['edit_avatar']['tmp_name'], $targetDir . $avatar);
+				} else {
+					$avatar = $_POST['edit_avatar'];
+				}
+			}
 			editAccount($id, $fullname, $avatar, $email, $address, $tel);
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=accounts">';
 			// include 'account/edit_account.php';
 			break;
 		case 'del_account':
@@ -72,7 +89,7 @@ if (isset($_GET['data'])) {
 			break;
 		case 'categories':
 			$catergories = getAllCategories();
-			include 'category/categories.php';
+			include 'categories.php';
 			break;
 		case 'add_category':
 			if (isset($_POST['submit'])) {
@@ -114,13 +131,13 @@ if (isset($_GET['data'])) {
 		case 'del_schedule':
 			break;
 		case 'questions':
-			include 'question/questions.php';
+			include 'questions.php';
 			break;
 		case 'add_question':
-			include 'question/add_question.php';
+			// include 'question/add_question.php';
 			break;
 		case 'edit_question':
-			include 'question/edit_question.php';
+			// include 'question/edit_question.php';
 			break;
 		case 'del_question':
 			break;
@@ -139,11 +156,17 @@ if (isset($_GET['data'])) {
 		case 'del_result':
 			break;
 		default:
-			include 'account/accounts.php';
+			$accounts = getAllAccounts();
+			$getRole = getRoles();
+			$pathImg = '../assets/img/accounts/';
+			include 'accounts.php';
 			break;
 	}
 } else {
-	include 'account/accounts.php';
+	$accounts = getAllAccounts();
+	$getRole = getRoles();
+	$pathImg = '../assets/img/accounts/';
+	include 'accounts.php';
 }
 
 ?>

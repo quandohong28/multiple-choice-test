@@ -105,11 +105,12 @@ function editAccount($id, $fullname, $avatar, $email, $address, $tel)
         $sql = "UPDATE
         accounts
         SET fullname = '$fullname',
-        SET avatar = '$avatar',
-        SET email = '$email',
-        SET address = '$address',
-        SET tel = '$tel',
+        avatar = '$avatar',
+        email = '$email',
+        address = '$address',
+        tel = '$tel'
         WHERE id = $id";
+        
         pdo_execute($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
