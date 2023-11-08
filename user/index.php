@@ -56,18 +56,22 @@ include '../model/account.php';
                         include "./utilities/home.php";
                         break;
                     case 'schedule':
-                        include "./utilities/schedule.php";
+                        include "./schedules/schedule.php";
                         break;
-                    case 'practice_exam':
+                    case 'practice':
                         $question_levels = getQuestionLevels();
                         $categories = getAllCategories();
-                        include "./utilities/practice_exam.php";
+                        include "./exams/practice.php";
                         break;
-                    case 'official_exam':
-                        include "./utilities/official_exam.php";
+                    case 'doing_exam':
+                        include "./exams/doing_exam.php";
                         break;
                     case 'result':
-                        include "./results/index.php";
+                        include "./results/result.php";
+                        break;
+                    case 'result_detail':
+                        $avatarPath = '../assets/img/accounts/';
+                        include "./results/result_detail.php";
                         break;
                     case 'profile':
                         $id = $_SESSION['user']['id'];

@@ -4,7 +4,7 @@
             <div class="d-flex align-items-center gap-3">
                 <div class=" p-3 fw-bold text-primary">1/40</div>
             </div>
-            <div class="text-center" > 
+            <div class="text-center">
                 <div class="fw-bold text-primary">Thời gian còn lại</div>
                 <a class="p-3 fs-3">30:13</a>
             </div>
