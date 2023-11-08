@@ -29,7 +29,7 @@
             <div class="col-lg-3 text-center text-lg-start d-flex flex-column align-items-center order-first align-items-lg-start order-lg-last">
                 <div class="fw-bold d-flex align-items-center mb-2">
                     <span>
-                        <img width="36px" src="./assets/img/light.png" alt="" class="me-3">
+                        <img width="36px" src="../assets/img/logo/logo.png" alt="" class="me-3">
                     </span>
                     <span>Thi trắc nghiệm Online</span>
                 </div>

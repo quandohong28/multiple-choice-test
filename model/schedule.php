@@ -59,29 +59,17 @@ function getLatestSchedule()
     }
 }
 
-function insertSchedules($name, $time_start, $time_exp, $exam_time, $number_exam, $number_account, $category_id, $number_question, $exam_detail_id, $account_id)
+function insertSchedules($name, $time_start, $time_exp, $exam_time, $number_exam, $category_id, $number_question)
 {
     try {
-        $sql = "INSERT INTO schedules(name, time, date, place, description, image)
-        VALUES ('$name', '$time_start', '$time_exp', '$exam_time', '$number_exam', '$number_account');";
+        $sql = "INSERT INTO schedules(name, time_start, time_exp, exam_time, number_exam)
+        VALUES ('$name', '$time_start', '$time_exp', '$exam_time', '$number_exam');";
         pdo_execute($sql);
 
         // Tạo một bài thi mới - bảng danh sách bài thi
         for ($exam_code = 1; $exam_code <= $number_exam; $exam_code++) {
             $exam_type_id = 2;
             insertExam($exam_code, getLatestSchedule()['id'], $category_id, $exam_type_id, $number_question);
-        }
-
-        // Tạo một bài thi chi tiết - bảng chi tiết bài thi
-        for ($i = 1; $i <= $number_question; $i++) {
-            $question_id = getRandQuestion($category_id)['id'];
-            insertExamDetail(getLatestExam()['id'], $question_id);
-        }
-
-
-        // Tạo một thí sinh mới - bảng thí sinh
-        for ($i = 1; $i <= $number_account; $i++) {
-            insertCandidates(getLatestSchedule()['id'], $exam_detail_id, $account_id);
         }
     } catch (Exception $e) {
         echo $e->getMessage();
