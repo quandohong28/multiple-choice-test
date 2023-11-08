@@ -22,8 +22,7 @@
                 <td>R1C2</td>
                 <td>R1C3</td>
                 <td class="d-flex">
-                    <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm mx-4"
-                        href="?act=tables&data=del_candidate"><i class="fa fa-trash"></i></a>
+                    <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm mx-4" href="?act=tables&data=del_candidate"><i class="fa fa-trash"></i></a>
 
                 </td>
             </tr>

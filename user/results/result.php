@@ -1,5 +1,5 @@
 <section class="filter px-5 py-3 bg-white shadow rounded">
-    <?php include "./user/components/data_export.php" ?>
+    <?php include "components/data_export.php" ?>
     <span><i class="fa-solid fa-table me-3"></i></span>
     <span>Bảng điểm chung</span>
     <hr>
@@ -47,8 +47,11 @@
                     <td class="py-3">9</td>
                     <td class="py-3">Thi thử</td>
                     <td class="py-3">Đạt</td>
-                    <td class="py-3">
-                        <a href="?act=result_detail" class="badge bg-primary">Xem chi tiết</a>
+                    <td class="small" class="">
+                        <a href="?act=result_detail" class="badge bg-info p-2">
+                            <i class="fa-solid fa-circle-info fa-xl me-2"></i>
+                            Chi tiết
+                        </a>
                     </td>
                 </tr>
             <?php endfor; ?>
@@ -56,6 +59,6 @@
     </table>
 
     <!-- pagination -->
-    <?php include "./user/components/pagination.php" ?>
+    <?php include "components/pagination.php" ?>
 
 </section>

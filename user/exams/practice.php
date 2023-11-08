@@ -19,7 +19,7 @@
                                     <?php foreach ($categories as $category) :
                                         extract($category);
                                     ?>
-                                        <li><a href="#" class="link-dark">• <?= $name ?></a></li>
+                                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#practiceConfigModal" class="link-dark">• <?= $name ?></a></li>
                                     <?php endforeach ?>
                                 </ul>
                             </div>
@@ -100,7 +100,7 @@
                                         <div class="d-flex align-items-start justify-content-between">
                                             <div class="p-5">
                                                 <h5 class="fw-bolder"><?= $name ?></h5>
-                                                <ul>
+                                                <ul class="mb-4">
                                                     <li><?= $quantity['value'] ?> câu hỏi khác nhau</li>
                                                     <li>
                                                         <?php foreach ($question_levels as $level) : ?>
@@ -122,6 +122,10 @@
                                                         <?php endforeach ?>
                                                     </li>
                                                 </ul>
+                                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#practiceConfigModal">
+                                                    Thử ngay
+                                                </button>
+
                                             </div>
                                             <img class="img-fluid image col-7" src="<?= $category_image . $image ?>" alt="..." />
                                         </div>
@@ -140,5 +144,6 @@
         </div>
     </div>
 
+    <?php include 'components/modals/practice_config_modal.php' ?>
 
 </section>

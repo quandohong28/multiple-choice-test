@@ -38,6 +38,21 @@ if (isset($_GET['act']) && $_GET['act'] !== '') {
                 }
             }
             break;
+        case 'change_password':
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $id = $_SESSION['user']['id'];
+                $old_password = $_POST['old_password'];
+                $password = $_POST['password'];
+                $conf_pass = $_POST['conf_pass'];
+                if ($password === $conf_pass) {
+                    changePassword($id, $old_password, $password);
+                    unset($_SESSION['user']);
+                    header('Location: ../views/login.php');
+                } else {
+                    header('Location: ../views/signup.php');
+                }
+            }
+            break;
 
         default:
             # code...

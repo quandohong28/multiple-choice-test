@@ -18,6 +18,7 @@
     </div>
 
     <div class="filter px-5 py-3 bg-white shadow rounded">
+        <?php include "components/data_export.php" ?>
 
         <section class="mb-5">
             <span><i class="fa-solid fa-calendar-days me-3"></i></span>
@@ -76,7 +77,17 @@
                                     <span>Thứ Năm</span><br>
                                     <span>Ngày 23/11/2002</span>
                                 </td>
-                                <td class="text-light badge bg-primary">Đang mở</td>
+                                <td class="small" class="">
+                                    <span class="badge bg-warning p-2">
+                                        Chưa mở
+                                    </span>
+                                    <span class="badge bg-primary p-2">
+                                        Đang mở
+                                    </span>
+                                    <span class="badge bg-danger p-2">
+                                        Kết thúc
+                                    </span>
+                                </td>
                                 <td class="small" class="">
                                     <a href="" class="badge bg-info p-2">
                                         <i class="fa-solid fa-circle-info fa-xl me-2"></i>
@@ -90,7 +101,7 @@
                 </table>
                 <!-- pagination -->
                 <nav>
-                    <?php include "./user/components/pagination.php" ?>
+                    <?php include "components/pagination.php" ?>
                 </nav>
             </div>
 
