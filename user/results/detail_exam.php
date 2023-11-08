@@ -6,7 +6,7 @@
         <div class="general-inf-user filter p-5 bg-white shadow rounded mb-5">
             <div class="row gap-5 justify-content-center align-items-center">
                 <div class="col-md-2">
-                    <img src="https://github.com/mdo.png" alt="..." style="width: 150px; height: 150px;" class="rounded-circle">
+                    <img src="<?= $avatarPath . $_SESSION['user']['avatar'] ?>" style="width: 150px; height: 150px;" class="rounded-circle">
                 </div>
                 <div class="col-md-9">
                     <div class="col d-flex justify-content-center align-items-center">

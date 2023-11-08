@@ -19,7 +19,7 @@
 <body class="d-flex flex-column h-100 landing-page">
     <main class="flex-shrink-0">
         <header class="d-flex justify-content-between align-items-center px-5 gap-5">
-            <img width="90" src="../assets/img/logo.png" alt="">
+            <img width="80" src="../assets/img/logo/logo.png" alt="">
             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start my-5">
                 <a class="btn btn-primary btn-lg btn-sm-sm px-5 py-3 fs-6 fw-bolder" href="./login.php">
                     <span>Đăng nhập</span>

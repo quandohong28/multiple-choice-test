@@ -27,6 +27,7 @@ if (isset($_GET['nav'])) {
             break;
             
         case 'detail_exam':
+			$avatarPath = '../assets/img/accounts/';
             include "detail_exam.php";
             break;
 

@@ -20,7 +20,7 @@
                                 </svg></div>
                             <h5 class="fw-bold card-title">Lịch thi</h5>
                             <p class="text-muted card-text mb-4">Lịch thi là tài liệu chứa thông tin về thời gian, hình thức và các chuyên mục mà các bạn cần tham gia.</p>
-                            <button class="btn btn-sm btn-outline-dark shadow" type="button">Chi tiết</button>
+                            <a href="?act=schedule" class="btn btn-sm btn-outline-dark shadow">Chi tiết</a>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                                 </svg></div>
                             <h5 class="fw-bold card-title">Theo dõi điểm</h5>
                             <p class="text-muted card-text mb-4">Theo dõi điểm là quá trình ghi nhận điểm số từ bài kiểm tra và bài tập để đánh giá hiệu suất học tập của bạn</p>
-                            <button class="btn btn-sm btn-outline-dark shadow" type="button">Chi tiết</button>
+                            <a href="?act=result" class="btn btn-sm btn-outline-dark shadow">Chi tiết</a>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                                 </svg></div>
                             <h5 class="fw-bold card-title">Bộ đề ôn tập</h5>
                             <p class="text-muted card-text mb-4">Bộ đề ôn tập là tài liệu chứa các câu hỏi và bài tập dành giúp bạn để chuẩn bị cho kỳ thi hoặc kiểm tra.</p>
-                            <button class="btn btn-sm btn-outline-dark shadow" type="button">Chi tiết</button>
+                            <a href="?act=review_questions" class="btn btn-sm btn-outline-dark shadow">Chi tiết</a>
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                                 </svg></div>
                             <h5 class="fw-bold card-title">Thông tin phúc khảo</h5>
                             <p class="text-muted card-text mb-4">Thông tin phúc khảo liên quan đến quá trình bạn yêu cầu kiểm tra lại kết quả hoặc điểm số sau khi kết quả đã được công bố.</p>
-                            <button class="btn btn-sm btn-outline-dark shadow" type="button">Trợ giúp</button>
+                            <a href="?act=help" class="btn btn-sm btn-outline-dark shadow">Trợ giúp</a>
                         </div>
                     </div>
                 </div>

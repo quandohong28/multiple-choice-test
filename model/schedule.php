@@ -38,6 +38,19 @@ function getSchedulesByName($name)
     }
 }
 
+function getScheduleByUserId($user_id)
+{
+    try {
+        $sql = "SELECT * FROM
+        schedules
+        WHERE
+        user_id = $user_id;";
+        return pdo_query_one($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
 function insertCandidates($test_schedule_id, $exam_detail_id, $account_id)
 {
     try {

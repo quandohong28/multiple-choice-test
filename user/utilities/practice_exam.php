@@ -25,9 +25,9 @@
                             </div>
                         </li>
                         <li class="mb-1">
-                            <button class="btn">
-                                Mới cập nhật
-                            </button>
+                            <a href="review_questions" class="btn">
+                                Bộ đề ôn tập
+                            </a>
                         </li>
                         <li class="mb-1">
                             <button class="btn btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">

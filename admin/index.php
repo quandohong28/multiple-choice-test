@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user'])) {
+if (!isset($_SESSION['user']) || $_SESSION['user']['role_id'] != 0) {
     header("location: ../index.php");
 }
 $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
@@ -76,7 +76,7 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
                         include "./dashboard.php";
                         break;
                 } ?>
-                <?php include "./logoutmodal.php" ?>
+                <?php include "./modal/logoutmodal.php" ?>
                 <!-- Scroll to Top Button-->
                 <a class="scroll-to-top rounded" href="#">
                     <i class="fas fa-angle-up"></i>
