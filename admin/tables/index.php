@@ -78,14 +78,14 @@ if (isset($_GET['data'])) {
 				$email = $_POST['edit_emailAddress'];
 				$address = $_POST['edit_address'];
 				$tel = $_POST['edit_tel'];
-				$avatar = "";
-				// if ($_FILES['avatar']['name'] != "") {
-				// 	$targetDir = '../assets/img/accounts/';
-				// 	$avatar = $_FILES['avatar']['name'];
-				// 	move_uploaded_file($_FILES['avatar']['tmp_name'], $targetDir . $avatar);
-				// } else {
-				// 	$avatar = "";
-				// }
+
+				if ($_FILES['edit_avatar']['name'] != "") {
+					$targetDir = '../assets/img/accounts/';
+					$avatar = $_FILES['edit_avatar']['name'];
+					move_uploaded_file($_FILES['edit_avatar']['tmp_name'], $targetDir . $avatar);
+				} else {
+					$avatar = $_POST['edit_avatar'];
+				}
 			}
 			editAccount($id, $fullname, $avatar, $email, $address, $tel);
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=accounts">';
