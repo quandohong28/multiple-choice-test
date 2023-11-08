@@ -237,6 +237,7 @@
                                         <div class="col-md-12 mb-4 pb-2">
                                             <div class="form-outline">
                                                 <label class="form-label" for="avatar">Ảnh đại diện</label>
+                                                <input class="form-control form-control-sm" id="avatar" name="edit_avatar" value="" type="hidden" />
                                                 <input class="form-control form-control-sm" id="avatar" name="edit_avatar" type="file" />
                                             </div>
                                         </div>
@@ -263,7 +264,7 @@
                 const id = document.querySelector('input[name="edit_id"]');
                 const username = document.querySelector('input[name="edit_username"]');
                 const fullname = document.querySelector('input[name="edit_fullname"]');
-                const avatar = document.querySelector('input[name="edit_avatar"]');
+                const avatar = document.querySelector('input[name="edit_avatar"][type="hidden"]');
                 const emailAddress = document.querySelector('input[name="edit_emailAddress"]');
                 const address = document.querySelector('textarea[name="edit_address"]');
                 const introduce = document.querySelector('textarea[name="edit_introduce"]');
