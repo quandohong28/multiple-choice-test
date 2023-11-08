@@ -3,9 +3,9 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="?act=home">
         <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+            <img src="../assets/img/logo/logo_while.png" alt="" width="50px">
         </div>
-        <div class="sidebar-brand-text mx-3">Nhóm 1</div>
+        <div class="sidebar-brand-text mx-3">Tech Quiz Hero</div>
     </a>
 
     <!-- Divider -->

@@ -69,6 +69,7 @@ if (isset($_GET['data'])) {
 				$address = $_POST['edit_address'];
 				$tel = $_POST['edit_tel'];
 
+ 
 				if ($_FILES['edit_avatar']['name'] != "") {
 					$targetDir = '../assets/img/accounts/';
 					$avatar = $_FILES['edit_avatar']['name'];

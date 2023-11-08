@@ -110,6 +110,7 @@ function editAccount($id, $fullname, $avatar, $email, $address, $tel)
         address = '$address',
         tel = '$tel'
         WHERE id = $id";
+        
         pdo_execute($sql);
     } catch (Exception $e) {
         echo $e->getMessage();

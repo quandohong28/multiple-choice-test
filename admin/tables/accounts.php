@@ -176,7 +176,6 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
-
                     <form action="?act=tables&data=edit_account" method="POST" enctype="multipart/form-data">
                         <div class="modal-body">
                             <div class="row justify-content-center align-items-center h-100 mt-5">
@@ -222,16 +221,7 @@
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-12 mb-4 d-flex align-items-center">
-                                            <div class="form-outline datepicker w-100">
-                                                <label for="introduce" class="form-label">Mô tả</label>
-                                                <textarea name="edit_introduce" cols="30" rows="3" value="" placeholder="" class="form-control form-control-sm" id="introduce"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </div> 
 
                                     <div class="row">
                                         <div class="col-md-12 mb-4 pb-2">
@@ -267,7 +257,6 @@
                 const avatar = document.querySelector('input[name="edit_avatar"][type="hidden"]');
                 const emailAddress = document.querySelector('input[name="edit_emailAddress"]');
                 const address = document.querySelector('textarea[name="edit_address"]');
-                const introduce = document.querySelector('textarea[name="edit_introduce"]');
                 const tel = document.querySelector('input[name="edit_tel"]');
 
                 const button = event.relatedTarget
@@ -280,13 +269,9 @@
                 avatar.setAttribute('value', val.avatar);
                 emailAddress.setAttribute('value', val.email);
                 tel.setAttribute('value', val.tel);
-                address.value = val.address;
-                introduce.value = val.introduce;
-                id.setAttribute('value', val.id);
+                address.innerHTML = val.address;
+                id.value = val.id;
 
-                // username.value = val.username;
-
-                // console.log(myModal);
             })
         </script>
 
