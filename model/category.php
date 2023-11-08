@@ -61,7 +61,7 @@ function editCategory($id, $name, $image)
     try {
 
         $sql = "UPDATE categories (name, image) 
-                SET  name = '$name', image = '$image' 
+                SET name = '$name', image = '$image' 
                 WHERE id = $id;";
         pdo_execute($sql);
     } catch (\Exception $e) {
