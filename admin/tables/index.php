@@ -85,7 +85,6 @@ if (isset($_GET['data'])) {
 			// include 'account/edit_account.php';
 			break;
 		case 'del_account':
-			// header('location: ?act=tables&data=accounts');
 			deleteAccount($_GET['id']);
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=accounts">';
 			break;
@@ -138,13 +137,39 @@ if (isset($_GET['data'])) {
 			break;
 		case 'questions':
 			$questions = getAllQuestions();
+			$categories = getAllCategories();
+			$question_type = getTypeQuestions();
+			$question_level = getQuestionLevels();
 			include 'questions.php';
 			break;
 		case 'add_question':
+			if (isset($_POST['btn_add'])) {
+				$content_question = $_POST['username'];
+				$question_level_id = $_POST['question_level_id'];
+				$question_type_id = $_POST['question_type_id'];
+				$category_id = $_POST['category_id'];
+
+				if ($question_level_id == "?" || $question_type_id == "?" || $category_id == "?") {
+					$_SESSION['error'] = "Vui lòng chọn đầy đủ thông tin";
+				} else {
+					if ($_FILES['image']['name'] != "") {
+						$targetDir = '../assets/img/categories/';
+						$image = $_FILES['image']['name'];
+						move_uploaded_file($_FILES['image']['tmp_name'], $targetDir . $image);
+					} else {
+						$image = "";
+					}
+
+					addQuestion($content_question, $image, $question_level_id, $question_type_id, $category_id);
+				}
+			}
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=questions">';
 			break;
 		case 'edit_question':
 			break;
 		case 'del_question':
+			deleteQuestion($_GET['id']);
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=questions">';
 			break;
 		case 'results':
 			include 'result/results.php';

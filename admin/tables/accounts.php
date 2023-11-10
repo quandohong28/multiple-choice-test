@@ -149,13 +149,7 @@
                                 </div>
                                 <div class="col-md-6 mb-4 pb-2">
                                     <label class="form-label select-label">Vai trò</label>
-                                    <select name="role_id" class="select form-control form-control-sm">
-                                        <?php foreach ($getRole as $key => $value): ?>
-                                        <option value="<?= $value['id'] ?>">
-                                            <?= $value['role'] ?>
-                                        </option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    answer
                                 </div>
                             </div>
 

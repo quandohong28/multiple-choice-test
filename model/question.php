@@ -46,8 +46,32 @@ function addQuestion($content, $image, $question_level_id, $question_type_id, $c
     try {
         $sql = "INSERT INTO questions(content, image , question_level_id, question_type_id, category_id)
         VALUES('$content', '$image' , '$question_level_id', '$question_type_id', '$category_id');"; 
+        // var_dump($sql);
+        // die();
         pdo_execute($sql);
     } catch (Exception $e) {
         echo json_decode($e->getMessage());
+    }
+}
+
+function getTypeQuestions()
+{
+    try {
+        $sql = "SELECT * FROM types;";
+        return pdo_query($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function deleteQuestion($id)
+{
+    try {
+        $sql = "DELETE FROM questions WHERE id = $id";
+        // var_dump($sql);
+        // die();
+        pdo_execute($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
     }
 }
