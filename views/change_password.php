@@ -15,38 +15,39 @@
 
 <body class="mt-5 pt-5">
     <main>
-        <div class="profile bg-primary-gradient p-3 rounded">
-            <div class="d-flex gap-5 my-5">
-                <div class="col-3 px-3">
-                    <p class="fw-bold">Đổi mật khẩu</p>
-                    <small>Mật khẩu mới sẽ dùng để đăng nhập và xác minh thông tin sau này. Bạn cần cẩn trọng với việc <i>Đổi mật khẩu</i></small>
+        <div class="container">
+            <div class="row mb-4 mb-lg-5">
+                <div class="col-md-8 col-xl-6 text-center mx-auto">
+                    <p class="fw-bold text-success mb-2">Đổi mật khẩu</p>
+                    <h2 class="fw-bold">Chào mừng</h2>
                 </div>
-                <div class="col-8 p-5 bg-white rounded shadow">
-                    <form action="" method="post" enctype="multipart/form-data">
-                        <div class="mb-5">
-                            <label for="email" class="form-label fw-bold">Mật khẩu cũ</label>
-                            <input type="text" name="email" id="email" class="form-control form-control-sm">
-                            <small id="helpId" class="text-muted">Mật khẩu hiện tại</small>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6 col-xl-4">
+                    <div class="card">
+                        <div class="card-body text-center d-flex flex-column align-items-center">
+                            <div class="bs-icon-xl bs-icon-circle bs-icon-primary shadow bs-icon my-4"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
+                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <form method="post" data-bs-theme="light" action="./index.php?act=change_password">
+                                <div class="mb-3">
+                                    <input class="form-control" type="text" name="old_password" placeholder="Mật khẩu cũ">
+                                </div>
+                                <div class="mb-3">
+                                    <input class="form-control" type="password" name="password" placeholder="Mật khẩu mới">
+                                </div>
+                                <div class="mb-3">
+                                    <input class="form-control" type="password" name="conf_pass" placeholder="Mật khẩu mới">
+                                </div>
+                                <div class="mb-3">
+                                    <button class="btn btn-primary shadow d-block w-100" name="change_password_submit" type="submit">Xác nhận</button>
+                                </div>
+                            </form>
+                            <p class="text-muted"><a href="../index.php">Quay lại</a></p>
                         </div>
-
-                        <div class="mb-5">
-                            <label for="email" class="form-label fw-bold">Mật khẩu mới</label>
-                            <input type="password" name="email" id="email" class="form-control form-control-sm">
-                            <small id="helpId" class="text-muted">Mật khẩu phải lớn hơn 8 ký tự và chứa ít nhất 1 số, phân biệt chữ hoa chữ thường</small>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="email" class="form-label fw-bold">Nhập lại mật khẩu mới</label>
-                            <input type="password" name="email" id="email" class="form-control form-control-sm">
-                            <small id="helpId" class="text-muted">Phải trùng với mật khẩu mới</small>
-                        </div>
-
-                        <hr>
-                        <div class="text-end">
-                            <button class="btn btn-sm btn-outline-white">Huỷ</button>
-                            <button class="btn btn-sm btn-primary">Lưu</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

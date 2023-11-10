@@ -40,7 +40,7 @@ include '../model/account.php';
         <div class="container">
 
             <?php
-            if ($_GET['act']) {
+            if (isset($_GET['act'])) {
                 switch ($_GET['act']) {
                     case 'home':
                         $categories = getAllCategories();
@@ -56,18 +56,22 @@ include '../model/account.php';
                         include "./utilities/home.php";
                         break;
                     case 'schedule':
-                        include "./utilities/schedule.php";
+                        include "./schedules/schedule.php";
                         break;
-                    case 'practice_exam':
+                    case 'practice':
                         $question_levels = getQuestionLevels();
                         $categories = getAllCategories();
-                        include "./utilities/practice_exam.php";
+                        include "./exams/practice.php";
                         break;
-                    case 'official_exam':
-                        include "./utilities/official_exam.php";
+                    case 'doing_exam':
+                        include "./exams/doing_exam.php";
                         break;
                     case 'result':
-                        include "./results/index.php";
+                        include "./results/result.php";
+                        break;
+                    case 'result_detail':
+                        $avatarPath = '../assets/img/accounts/';
+                        include "./results/result_detail.php";
                         break;
                     case 'profile':
                         $id = $_SESSION['user']['id'];
@@ -84,16 +88,39 @@ include '../model/account.php';
                     case 'setting':
                         include "./accounts/setting.php";
                         break;
+                    case 'change_password':
+                        echo '<meta http-equiv="refresh" content="0;url=../views/change_password.php">';
+                        break;
                     case 'logout':
                         unset($_SESSION['user']);
                         var_dump($_SESSION['user']);
                         echo '<meta http-equiv="refresh" content="0;url=../index.php">';
                         break;
                     default:
+                        $categories = getAllCategories();
+                        $colors = [
+                            'bg-primary',
+                            'bg-success',
+                            'bg-danger',
+                            'bg-warning',
+                            'bg-info',
+                            'bg-light'
+                        ];
+                        $count = count($colors);
                         include "./utilities/home.php";
                         break;
                 }
             } else {
+                $categories = getAllCategories();
+                $colors = [
+                    'bg-primary',
+                    'bg-success',
+                    'bg-danger',
+                    'bg-warning',
+                    'bg-info',
+                    'bg-light'
+                ];
+                $count = count($colors);
                 include "./utilities/home.php";
             }
             ?>

@@ -1,8 +1,7 @@
 <section class="bg-light p-5 rounded-3 mb-5 min-vh-100">
     <h3 class="text-dark text-center mb-5">Danh sách lịch thi</h3>
 
-    <a class="btn btn-sm btn-info mb-2" href="?act=tables&data=add_schedule" data-toggle="modal"
-        data-target="#addScheduleModal">Thêm lịch thi</a>
+    <a class="btn btn-sm btn-info mb-2" href="?act=tables&data=add_schedule" data-toggle="modal" data-target="#addScheduleModal">Thêm lịch thi</a>
 
 
     <table class="table table-striped">
@@ -28,12 +27,9 @@
                 <td>R1C3</td>
                 <td>R1C3</td>
                 <td class="d-flex gap-1">
-                    <a class="btn btn-success btn-sm" href="?act=tables&data=schedule_detail"><i
-                            class="fa-solid fa-circle-info"></i></a>
-                    <a class="btn btn-warning btn-sm" href="?act=tables&data=edit_schedule" data-toggle="modal"
-                        data-target="#editScheduleModal"><i class="fa-regular fa-pen-to-square"></i></a>
-                    <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm"
-                        href="?act=tables&data=del_schedule"><i class="fa fa-trash"></i></a>
+                    <a class="btn btn-success btn-sm" href="?act=tables&data=schedule_detail"><i class="fa-solid fa-circle-info"></i></a>
+                    <a class="btn btn-warning btn-sm" href="?act=tables&data=edit_schedule" data-toggle="modal" data-target="#editScheduleModal"><i class="fa-regular fa-pen-to-square"></i></a>
+                    <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm" href="?act=tables&data=del_schedule"><i class="fa fa-trash"></i></a>
 
                 </td>
             </tr>
@@ -59,8 +55,7 @@
 
     <!----Thêm lịch thi----->
 
-    <div class="modal fade" id="addScheduleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addScheduleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -138,8 +133,7 @@
 
     <!----Sửa lịch thi----->
 
-    <div class="modal fade" id="editScheduleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="editScheduleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">

@@ -88,6 +88,29 @@ function signup($email, $username, $password)
     }
 }
 
+function changePassword($id, $old_password, $new_password)
+{
+    try {
+        $user = getAccountById($id);
+        if ($user) {
+            if (verifyPassword($old_password, $user["password"])) {
+                $hashedPassword = hashPassword($new_password);
+                $sql = "UPDATE accounts
+                        SET password = '$hashedPassword'
+                        WHERE id = $id";
+                pdo_execute($sql);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
 function deleteAccount($id)
 {
     try {
@@ -110,14 +133,15 @@ function editAccount($id, $fullname, $avatar, $email, $address, $tel)
         address = '$address',
         tel = '$tel'
         WHERE id = $id";
-        
+
         pdo_execute($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
 }
 
-function insertAccount($username, $password, $fullname, $avatar, $email, $address, $tel, $role_id) {
+function insertAccount($username, $password, $fullname, $avatar, $email, $address, $tel, $role_id)
+{
     if (isset($_POST['btn_add'])) {
         try {
             $sql2 = "INSERT INTO accounts (username, password, fullname, avatar, email, address, tel, role_id)
@@ -138,6 +162,3 @@ function getRoles()
         echo $e->getMessage();
     }
 }
-
-
-

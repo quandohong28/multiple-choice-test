@@ -18,6 +18,7 @@
     </div>
 
     <div class="filter px-5 py-3 bg-white shadow rounded">
+        <?php include "components/data_export.php" ?>
 
         <section class="mb-5">
             <span><i class="fa-solid fa-calendar-days me-3"></i></span>
@@ -30,52 +31,68 @@
                 <table class="table table-sm table-bordered align-middle text-center mb-5">
                     <thead>
                         <tr>
-                            <th class="small p-2" scope="col">
+                            <th class="small p-2">
                                 <a href="?act=schedule&sortbyindex">
                                     <span class="me-2">STT</span>
                                     <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
-                            <th class="small p-2" scope="col">
+                            <th class="small p-2">
                                 <a href="?act=schedule&sortbyindex">
                                     <span class="me-2">Tên</span>
                                     <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
-                            <th class="small p-2" scope="col">
+                            <th class="small p-2">
                                 <a href="?act=schedule&sortbydate">
                                     <span class="me-2">Ngày bắt đầu</span>
                                     <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
-                            <th class="small p-2" scope="col">
+                            <th class="small p-2">
                                 <a href="?act=schedule&sortbylocation">
                                     <span class="me-2">Ngày kết thúc</span>
                                     <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
-                            <th class="small p-2" scope="col">
+                            <th class="small p-2">
                                 <a href="?act=schedule&sortbyexam">
-                                    <span class="me-2">Thời gian thi</span>
+                                    <span class="me-2">Tình trạng</span>
                                     <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
-                            <th class="small p-2" scope="col">Chức năng</th>
+                            <th class="small p-2">Chức năng</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php for ($i = 0; $i < 10; $i++) : ?>
                             <tr class="">
                                 <td><?= $i ?></td>
-                                <td class="small" scope="row">R1C1</td>
+                                <td class="small" scope="row">Thi cuối kỳ</td>
                                 <td class="small" scope="row">
                                     <span>Thứ Năm</span><br>
                                     <span>Ngày 23/11/2002</span>
                                 </td>
-                                <td class="small" scope="row">R1C1</td>
-                                <td class="small" scope="row">R1C1</td>
-                                <td class="small" scope="row" class="">
-                                    <a href="" class="badge bg-primary">Xem chi tiết</a>
+                                <td class="small" scope="row">
+                                    <span>Thứ Năm</span><br>
+                                    <span>Ngày 23/11/2002</span>
+                                </td>
+                                <td class="small" class="">
+                                    <span class="badge bg-warning p-2">
+                                        Chưa mở
+                                    </span>
+                                    <span class="badge bg-primary p-2">
+                                        Đang mở
+                                    </span>
+                                    <span class="badge bg-danger p-2">
+                                        Kết thúc
+                                    </span>
+                                </td>
+                                <td class="small" class="">
+                                    <a href="" class="badge bg-info p-2">
+                                        <i class="fa-solid fa-circle-info fa-xl me-2"></i>
+                                        Chi tiết
+                                    </a>
                                 </td>
                             </tr>
 
@@ -84,7 +101,7 @@
                 </table>
                 <!-- pagination -->
                 <nav>
-                    <?php include "./user/components/pagination.php" ?>
+                    <?php include "components/pagination.php" ?>
                 </nav>
             </div>
 
