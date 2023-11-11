@@ -11,7 +11,9 @@ function getAllSchedules()
     }
 }
 
-function getScheduleById($id)
+
+
+function getSchedulesById($id)
 {
     try {
         $sql = "SELECT * FROM
@@ -37,14 +39,14 @@ function getSchedulesByName($name)
     }
 }
 
-function getSchedulesByUserId($user_id)
+function getScheduleByUserId($user_id)
 {
     try {
         $sql = "SELECT * FROM
         schedules
         WHERE
-        account_id = $user_id;";
-        return pdo_query($sql);
+        user_id = $user_id;";
+        return pdo_query_one($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
