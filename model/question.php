@@ -41,23 +41,45 @@ function getAllQuestions()
     }
 }
 
-function addQuestion($content, $image, $question_level_id, $question_type_id, $category_id)
+function insertQuestion($content, $image, $question_level_id, $question_type_id, $category_id)
 {
     try {
         $sql = "INSERT INTO questions(content, image , question_level_id, question_type_id, category_id)
-        VALUES('$content', '$image' , '$question_level_id', '$question_type_id', '$category_id');";
+        VALUES('$content', '$image' , $question_level_id, $question_type_id, $category_id);";
         pdo_execute($sql);
     } catch (Exception $e) {
         echo json_decode($e->getMessage());
     }
 }
 
-function deleteQuestionById($id)
-{   
+function getTypeQuestions()
+{
     try {
-        $sql = "DELETE FROM questions WHERE id = $id;";
+        $sql = "SELECT * FROM types;";
+        return pdo_query($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function deleteQuestion($id)
+{
+    try {
+        $sql = "DELETE FROM questions WHERE id = $id";
+        // var_dump($sql);
+        // die();
         pdo_execute($sql);
     } catch (Exception $e) {
-        echo json_decode($e->getMessage());
+        echo $e->getMessage();
+    }
+}
+
+function getLatestQuestion()
+{
+    try {
+        $sql = "SELECT * FROM questions ORDER BY id DESC LIMIT 1;";
+        return pdo_query_one($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
     }
 }

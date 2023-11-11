@@ -1,27 +1,32 @@
 <section class="bg-light p-5 rounded-3 mb-5 min-vh-100">
     <h3 class="text-dark text-center mb-5">Danh sách câu hỏi</h3>
 
-    <a class="btn btn-sm btn-info mb-2" href="?act=tables&data=add_question" data-toggle="modal" data-target="#addquestionmodal">Thêm câu hỏi</a>
+    <a class="btn btn-sm btn-info mb-2" href="#" data-toggle="modal" data-target="#addquestionmodal">Thêm câu hỏi</a>
 
     <?php foreach ($questions as $question) :
         extract($question);
         $answers = getAnswersByQuestionId($id);
-        echo '<pre>';
-        // echo $answers;
-        echo '</pre>';
     ?>
 
         <div class="expandable-container border border-2 rounded my-3">
-            <div id="toggleButton" class="py-2 px-5 bg-light text-dark d-flex justify-content-between user-select-none">
-                <p><?= $content ?></p>
-                <a class="btn btn-warning" href="#" data-toggle="modal" data-target="#editquestionmodal">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                </a>
+            <div class="py-2 px-5 bg-light text-dark d-flex justify-content-between user-select-none">
+                <div id="toggleButton" class="content">
+                    <p><?= $content ?></p>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-warning btn-sm btneditquestion" data-bs-toggle="modal" data-bs-target="#editquestionmodal" data-value='<?= json_encode($question) ?>'>
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </button>
+
+                    <a name="dlt_btn" onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm" href="?act=tables&data=del_question&id=<?= $id; ?>">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </div>
             </div>
             <div class="expandable" style="display:none">
                 <div class="d-flex justify-content-center align-items-start gap-5 p-5">
                     <div>
-                        <img src="../assets/img/landing-page-backgound.avif" class="rounded-2" width="100%">
+                        <img src="<?= $pathImg . $image ?>" class="rounded-2" width="100%">
                     </div>
                     <ul class="list-group col-5 user-select-none">
                         <?php foreach ($answers as $answer) : ?>
@@ -49,6 +54,7 @@
                 <a class="page-link px-3" href="#">
                     <i class="fa-solid fa-caret-right"></i>
                 </a>
+
             </li>
         </ul>
     </nav>

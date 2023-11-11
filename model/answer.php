@@ -19,3 +19,14 @@ function getAnswersByQuestionId($question_id)
         throw $e;
     }
 }
+
+function addAnswer($content, $question_id, $is_correct)
+{
+    try {
+        $sql = "INSERT INTO answers(content, question_id, is_correct)
+        VALUES('$content', $question_id, $is_correct);"; 
+        pdo_execute($sql);
+    } catch (Exception $e) {
+        echo ($e->getMessage());
+    }
+}
