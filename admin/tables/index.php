@@ -28,6 +28,11 @@
 					class="fa-solid fa-square-poll-vertical me-2"></i>Theo
 				dõi điểm</a>
 		</li>
+		<li class="nav-item" role="presentation">
+			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=exams" role="tab"
+				aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fa-solid fa-file-lines me-2"></i>Đề
+				thi</a>
+		</li>
 	</ul>
 </div>
 
@@ -41,6 +46,8 @@ include '../model/category.php';
 include '../model/schedule.php';
 include '../model/question.php';
 include '../model/answer.php';
+include '../model/exam.php';
+
 
 if (isset($_GET['data'])) {
 	switch ($_GET['data']) {
@@ -155,6 +162,8 @@ if (isset($_GET['data'])) {
 			include 'schedule/schedule_detail.php';
 			break;
 		case 'del_schedule':
+			deleteSchedule($_GET['id']);
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'questions':
 			$questions = getAllQuestions();
@@ -187,7 +196,7 @@ if (isset($_GET['data'])) {
 
 				foreach ($answer as $key => $value) {
 					$content = $value;
-					$is_correct = (int)$correct_answer[$key];
+					$is_correct = (int) $correct_answer[$key];
 					addAnswer($content, $question_id['id'], $is_correct);
 				}
 			}
@@ -210,6 +219,12 @@ if (isset($_GET['data'])) {
 			include 'result/result_detail.php';
 			break;
 		case 'del_result':
+			break;
+		case 'exams':
+			include 'exam/exams.php';
+			break;
+		case 'exam_detail':
+			include 'exam/exam_detail.php';
 			break;
 		case 'add_candidate':
 			break;

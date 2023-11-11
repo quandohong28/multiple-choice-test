@@ -71,7 +71,7 @@ function insertSchedule($name, $time_start, $time_exp, $exam_time, $number_exam,
     }
 }
 
-function deleteSchedules($id)
+function deleteSchedule($id)
 {
     try {
         $sql = "DELETE FROM schedules WHERE id = $id;";
