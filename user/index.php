@@ -8,6 +8,7 @@ include '../model/category.php';
 include '../model/question.php';
 include '../model/account.php';
 include '../model/schedule.php';
+include '../model/exam.php';
 
 ?>
 

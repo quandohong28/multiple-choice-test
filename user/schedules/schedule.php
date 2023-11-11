@@ -61,9 +61,7 @@
                     <tbody>
                         <?php foreach ($schedules as $schedule) : extract($schedule);
                             list($start_date, $start_time) = explode(" ", $time_start);
-                            list($exp_date, $exp_time) = explode(" ", $time_exp);
                             $exam = getExamsByScheduleId($id);
-                            var_dump($exam);
                         ?>
                             <tr class="">
                                 <td><?= $id ?></td>

@@ -1,6 +1,4 @@
 <?php
-include 'exam.php';
-
 function getAllSchedules()
 {
     try {
@@ -51,6 +49,28 @@ function getSchedulesByUserId($user_id)
     }
 }
 
+function addCandidates($schedule_id, $account_id)
+{
+    try {
+        $sql = "INSERT INTO schedule_detail (schedule_id, account_id)
+        VALUES ('$schedule_id', '$account_id');";
+        return pdo_execute($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function addNewSchedule($name, $time_start, $number_exam, $exam_time)
+{
+    try {
+        $sql = "INSERT INTO schedules (name, time_start, number_exam, exam_time)
+                VALUES ('$name', '$time_start', '$number_exam', '$exam_time');";
+        return pdo_execute($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
 function getLatestSchedule()
 {
     try {
@@ -61,9 +81,29 @@ function getLatestSchedule()
     }
 }
 
-function insertSchedule($name, $time_start, $time_exp, $exam_time, $number_exam, $category_id, $number_question)
+function insertSchedule($name, $time_start, $number_exam, $exam_time, $category_id, $number_easy_questions, $number_medium_questions, $number_hard_questions)
 {
     try {
+        $number_question = $number_easy_questions + $number_medium_questions + $number_hard_questions;
+        addNewSchedule($name, $time_start, $number_exam, $exam_time);
+        $schedule_id = getLatestSchedule()['id'];
+        // addCandidates($schedule_id, $account_id);
+        for ($i = 0; $i < $number_exam; $i++) {
+            insertExam($schedule_id, $category_id, 2, $number_question);
+            $exam_id = getLatestExam()['id'];
+            for ($i = 0; $i < $number_easy_questions; $i++) {
+                $question_id = getRandomQuestionIdByLevel($category_id, 1);
+                insertExamDetail($exam_id, $question_id);
+            }
+            for ($i = 0; $i < $number_medium_questions; $i++) {
+                $question_id = getRandomQuestionIdByLevel($category_id, 2);
+                insertExamDetail($exam_id, $question_id);
+            }
+            for ($i = 0; $i < $number_hard_questions; $i++) {
+                $question_id = getRandomQuestionIdByLevel($category_id, 3);
+                insertExamDetail($exam_id, $question_id);
+            }
+        }
     } catch (Exception $e) {
         echo $e->getMessage();
     }
