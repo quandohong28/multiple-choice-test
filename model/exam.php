@@ -9,6 +9,26 @@ function getAllListExams()
     }
 }
 
+function getListExamById($id)
+{
+    try {
+        $sql = "SELECT * FROM list_exams WHERE id = '$id';";
+        return pdo_query_one($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function getListExamByScheduleId($schedule_id)
+{
+    try {
+        $sql = "SELECT * FROM list_exams WHERE schedule_id = '$schedule_id';";
+        return pdo_query($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
 function insertExamDetail($exam_id, $question_id)
 {
     try {

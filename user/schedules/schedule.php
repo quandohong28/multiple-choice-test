@@ -45,13 +45,13 @@
                             </th>
                             <th class="small p-2">
                                 <a href="?act=schedule&sortbydate">
-                                    <span class="me-2">Ngày bắt đầu</span>
+                                    <span class="me-2">Thời gian bắt đầu</span>
                                     <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
                             <th class="small p-2">
                                 <a href="?act=schedule&sortbylocation">
-                                    <span class="me-2">Ngày kết thúc</span>
+                                    <span class="me-2">Thời gian kết thúc</span>
                                     <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
@@ -65,17 +65,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php for ($i = 0; $i < 10; $i++) : ?>
+                        <?php foreach ($schedules as $schedule) : extract($schedule);
+                            list($start_date, $start_time) = explode(" ", $time_start);
+                            list($exp_date, $exp_time) = explode(" ", $time_exp);
+                            $schedule_detail = getListExamByScheduleId($id);
+                        ?>
                             <tr class="">
-                                <td><?= $i ?></td>
-                                <td class="small" scope="row">Thi cuối kỳ</td>
+                                <td><?= $id ?></td>
+                                <td class="small" scope="row"><?= $name ?></td>
                                 <td class="small" scope="row">
-                                    <span>Thứ Năm</span><br>
-                                    <span>Ngày 23/11/2002</span>
+                                    <span>Ngày: <?= $start_date ?></span><br>
+                                    <span>Thời gian: <?= $start_time ?></span>
                                 </td>
                                 <td class="small" scope="row">
-                                    <span>Thứ Năm</span><br>
-                                    <span>Ngày 23/11/2002</span>
+                                    <span>Ngày: <?= $exp_date ?></span><br>
+                                    <span>Thời gian: <?= $exp_time ?></span>
                                 </td>
                                 <td class="small" class="">
                                     <span class="badge bg-warning p-2">
@@ -89,14 +93,15 @@
                                     </span>
                                 </td>
                                 <td class="small" class="">
-                                    <a href="" class="badge bg-info p-2">
+                                    <a class="badge bg-info px-3 py-2" type="button" data-bs-toggle="modal" data-bs-target="#scheduledeatilmodal" data-bs-value='<?php json_encode($schedule_detail)?>'>
                                         <i class="fa-solid fa-circle-info fa-xl me-2"></i>
-                                        Chi tiết
+                                        <span>Chi tiết</span>
                                     </a>
+
                                 </td>
                             </tr>
 
-                        <?php endfor ?>
+                        <?php endforeach ?>
                     </tbody>
                 </table>
                 <!-- pagination -->
@@ -108,3 +113,9 @@
         </section>
     </div>
 </section>
+
+<?php include 'scheduledeatilmodal.php'?>
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->

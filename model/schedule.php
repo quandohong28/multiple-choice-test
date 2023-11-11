@@ -1,6 +1,5 @@
 <?php
 include 'exam.php';
-include 'pdo.php';
 
 function getAllSchedules()
 {
@@ -12,7 +11,7 @@ function getAllSchedules()
     }
 }
 
-function getSchedulesById($id)
+function getScheduleById($id)
 {
     try {
         $sql = "SELECT * FROM

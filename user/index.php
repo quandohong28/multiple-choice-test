@@ -7,6 +7,7 @@ include '../model/pdo.php';
 include '../model/category.php';
 include '../model/question.php';
 include '../model/account.php';
+include '../model/schedule.php';
 
 ?>
 
@@ -56,6 +57,7 @@ include '../model/account.php';
                         include "./utilities/home.php";
                         break;
                     case 'schedule':
+                        $schedules = getAllSchedules();
                         include "./schedules/schedule.php";
                         break;
                     case 'practice':
