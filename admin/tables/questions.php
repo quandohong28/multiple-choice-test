@@ -6,9 +6,6 @@
     <?php foreach ($questions as $question) :
         extract($question);
         $answers = getAnswersByQuestionId($id);
-        echo '<pre>';
-        // echo $answers;
-        echo '</pre>';
     ?>
 
         <div class="expandable-container border border-2 rounded my-3">
@@ -17,7 +14,7 @@
                     <p><?= $content ?></p>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-warning btn-sm btneditquestion" data-bs-toggle="modal" data-bs-target="#editquestionmodal" data-value='<?= json_encode($account) ?>'>
+                    <button type="button" class="btn btn-warning btn-sm btneditquestion" data-bs-toggle="modal" data-bs-target="#editquestionmodal" data-value='<?= json_encode($question) ?>'>
                         <i class="fa-regular fa-pen-to-square"></i>
                     </button>
 
@@ -29,7 +26,7 @@
             <div class="expandable" style="display:none">
                 <div class="d-flex justify-content-center align-items-start gap-5 p-5">
                     <div>
-                        <img src="../assets/img/landing-page-backgound.avif" class="rounded-2" width="100%">
+                        <img src="<?= $pathImg . $image ?>" class="rounded-2" width="100%">
                     </div>
                     <ul class="list-group col-5 user-select-none">
                         <?php foreach ($answers as $answer) : ?>
