@@ -1,5 +1,5 @@
 <?php
-function getAllListExams()
+function getAllExams()
 {
     try {
         $sql = "SELECT * FROM list_exams;";
@@ -9,7 +9,7 @@ function getAllListExams()
     }
 }
 
-function getListExamById($id)
+function getExamById($id)
 {
     try {
         $sql = "SELECT * FROM list_exams WHERE id = '$id';";
@@ -19,10 +19,14 @@ function getListExamById($id)
     }
 }
 
-function getListExamByScheduleId($schedule_id)
+function getExamsByScheduleId($schedule_id)
 {
     try {
-        $sql = "SELECT * FROM exams WHERE schedule_id = '$schedule_id';";
+        $sql = "SELECT
+        *
+        FROM
+        exams INNER JOIN categories ON exams.category_id = categories.id
+        WHERE schedule_id = '$schedule_id';";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();

@@ -68,7 +68,7 @@
                         <?php foreach ($schedules as $schedule) : extract($schedule);
                             list($start_date, $start_time) = explode(" ", $time_start);
                             list($exp_date, $exp_time) = explode(" ", $time_exp);
-                            $schedule_detail = getListExamByScheduleId($id);
+                            $schedule_detail = getExamsByScheduleId($id);
                         ?>
                             <tr class="">
                                 <td><?= $id ?></td>
@@ -93,14 +93,13 @@
                                     </span>
                                 </td>
                                 <td class="small" class="">
-                                    <a class="badge bg-info px-3 py-2" type="button" data-bs-toggle="modal" data-bs-target="#scheduledeatilmodal" data-bs-value='<?php json_encode($schedule_detail)?>'>
+                                    <a class="badge bg-info px-3 py-2" type="button" data-bs-toggle="modal" data-bs-target="#scheduledeatilmodal" data-bs-value='<?= json_encode($schedule_detail) ?>'>
                                         <i class="fa-solid fa-circle-info fa-xl me-2"></i>
                                         <span>Chi tiết</span>
                                     </a>
 
                                 </td>
                             </tr>
-
                         <?php endforeach ?>
                     </tbody>
                 </table>
@@ -114,7 +113,7 @@
     </div>
 </section>
 
-<?php include 'scheduledeatilmodal.php'?>
+<?php include 'scheduledeatilmodal.php' ?>
 
 <!-- Button trigger modal -->
 
