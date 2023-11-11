@@ -1,67 +1,95 @@
-<div class="modal fade" id="editquestionmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editScheduleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Sửa câu hỏi</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Thêm lịch thi</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <form action="" method="post">
-                <div class="col-11 m-4 text-center">
-                    <div class="form-outline">
-                        <label class="form-label" for="username">Câu hỏi</label>
-                        <textarea type="text" id="username" class="form-control form-control-sm"></textarea>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="row justify-content-center align-items-center h-100 m-5">
+                    <div class="col-12 col-lg-9 col-xl-7">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="form-outline">
+                                    <label class="form-label" for="name">Tên lịch thi</label>
+                                    <input type="text" id="name" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="form-outline">
+                                    <label class="form-label" for="time_exam">Thời gian làm bài</label>
+                                    <input type="number" id="time_exam" name="time_exam"
+                                        class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-4 d-flex align-items-center">
+                                <div class="form-outline datepicker w-100">
+                                    <label for="time_start" class="form-label">Thời gian bắt đầu</label>
+                                    <input type="date" name="time_start" class="form-control form-control-sm"
+                                        id="time_start" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4 d-flex align-items-center">
+                                <div class="form-outline datepicker w-100">
+                                    <label for="time_end" class="form-label">Thời gian kết thúc</label>
+                                    <input type="date" name="time_end" class="form-control form-control-sm"
+                                        id="time_end" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-4 pb-2">
+                                <div class="form-outline">
+                                    <label class="form-label" for="number_exam">Số lượng đề thi</label>
+                                    <input type="number" id="number_exam" name="number_exam"
+                                        class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4 pb-2">
+                                <div class="form-outline">
+                                    <label class="form-label" for="number_easy_questions">Số lượng câu dễ</label>
+                                    <input type="number" id="number_easy_questions" name="number_easy_questions"
+                                        class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-4 pb-2">
+                                <div class="form-outline">
+                                    <label class="form-label" for="number_medium_questions">Số lượng câu trung
+                                        bình</label>
+                                    <input type="number" id="number_medium_questions" name="number_medium_questions"
+                                        class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4 pb-2">
+                                <div class="form-outline">
+                                    <label class="form-label" for="number_hard_questions">Số lượng câu khó</label>
+                                    <input type="number" id="number_hard_questions" name="number_hard_questions"
+                                        class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="md-6 mb-4 pb-2">
+                                <div class="form-outline">
+                                    <label class="form-label" for="candidates">Thêm thí sinh</label>
+                                    <input type="file" id="candidates" name="candidates"
+                                        class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div>
-                </div>
-                <div class="row m-4 text-center gap-5">
-                    <label class="form-label" for="answer">Câu trả lời</label>
-                    <div class="col-5 d-flex justify-content-between mx-3">
-                        <input class="form-check-input" name="correct_answer" type="checkbox" value="" id="flexCheckDefault">
-                        <textarea type="text" id="answer" name="answer" class="form-control form-control-sm"></textarea>
-                    </div>
-                    <div class="col-5 d-flex justify-content-between mx-3">
-                        <input class="form-check-input" name="correct_answer" type="checkbox" value="" id="flexCheckDefault">
-                        <textarea type="text" id="answer" name="answer" class="form-control form-control-sm"></textarea>
-                    </div>
-                    <div class="col-5 d-flex justify-content-between mx-3">
-                        <input class="form-check-input" name="correct_answer" type="checkbox" value="" id="flexCheckDefault">
-                        <textarea type="text" id="answer" name="answer" class="form-control form-control-sm"></textarea>
-                    </div>
-                    <div class="col-5 d-flex justify-content-between mx-3">
-                        <input class="form-check-input" name="correct_answer" type="checkbox" value="" id="flexCheckDefault">
-                        <textarea type="text" id="answer" name="answer" class="form-control form-control-sm"></textarea>
-                    </div>
-                    <div class="col-md-5 mx-3">
-                        <label class="form-label select-label" name="question_level_id">Loại câu hỏi</label>
-                        <select class="select form-control form-control-sm">
-                            <option value="?" name="question_level_id" selected>Chọn loại câu hỏi</option>
-                            <option value="0" name="question_level_id">Dễ</option>
-                            <option value="1" name="question_level_id">Trung bình</option>
-                            <option value="2" name="question_level_id">Khó</option>
-                        </select>
-                    </div>
-                    <div class="col-md-5 mx-3">
-                        <label class="form-label select-label" name="id_category">Chuyên mục</label>
-                        <select class="select form-control form-control-sm">
-                            <option value="?" name="id_category" selected>Chọn chuyên mục</option>
-                            <option value="0" name="id_category">Toán rời rạc</option>
-                            <option value="1" name="id_category">...</option>
-                            <option value="2" name="id_category">...</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-11 m-3 text-center">
-                    <div class="form-outline">
-                        <label class="form-label" for="avatar">Ảnh</label>
-                        <input class="form-control form-control-sm" name="image" id="avatar" type="file" />
-                    </div>
-                </div>
+
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
-                    <a class="btn btn-primary">Xác nhận</a>
+                    <button class="btn btn-primary" name="submit" type="submit">Xác nhận</button>
                 </div>
             </form>
         </div>

@@ -38,9 +38,9 @@
 include '../model/pdo.php';
 include '../model/account.php';
 include '../model/category.php';
+include '../model/schedule.php';
 include '../model/question.php';
 include '../model/answer.php';
-include '../model/schedule.php';
 
 if (isset($_GET['data'])) {
 	switch ($_GET['data']) {
@@ -71,7 +71,6 @@ if (isset($_GET['data'])) {
 				insertAccount($username, $password, $fullname, $avatar, $email, $address, $tel, $role_id);
 			}
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=accounts">';
-			// include 'account/add_account.php';	
 			break;
 		case 'edit_account':
 			if (isset($_POST['btn_edit'])) {
@@ -93,10 +92,8 @@ if (isset($_GET['data'])) {
 			}
 			editAccount($id, $fullname, $avatar, $email, $address, $tel);
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=accounts">';
-			// include 'account/edit_account.php';
 			break;
 		case 'del_account':
-			// header('location: ?act=tables&data=accounts');
 			deleteAccount($_GET['id']);
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=accounts">';
 			break;
@@ -138,10 +135,21 @@ if (isset($_GET['data'])) {
 			include 'schedule/schedules.php';
 			break;
 		case 'add_schedule':
-			include 'schedule/add_schedule.php';
+			if (isset($_POST['sumbmit'])) {
+				$name = $_POST['name'];
+				$time_exam = $_POST['time_exam'];
+				$time_start = $_POST['time_start'];
+				$time_end = $_POST['time_end'];
+				$number_exam = $_POST['number_exam'];
+				$number_easy_questions = $_POST['number_easy_questions'];
+				$number_medium_questions = $_POST['number_medium_questions'];
+				$number_hard_questions = $_POST['number_hard_questions'];
+				$candidates = $_POST['candidates'];
+				insertSchedule($name, $time_start, $time_exp, $exam_time, $number_exam, $category_id, $number_question);
+			}
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'edit_schedule':
-			include 'schedule/edit_schedule.php';
 			break;
 		case 'schedule_detail':
 			include 'schedule/schedule_detail.php';
