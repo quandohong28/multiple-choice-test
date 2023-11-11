@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 11, 2023 at 12:46 PM
+-- Generation Time: Nov 11, 2023 at 04:47 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -885,11 +885,10 @@ INSERT INTO `categories` (`id`, `name`, `image`) VALUES
 CREATE TABLE `exams` (
   `id` int(11) NOT NULL,
   `exam_code` varchar(50) NOT NULL,
-  `schedule_id` int(11) NOT NULL,
+  `schedule_id` int(11) DEFAULT NULL,
   `category_id` int(11) NOT NULL,
   `exam_type_id` int(11) NOT NULL,
-  `number_question` int(11) NOT NULL,
-  `status` varchar(255) NOT NULL
+  `number_question` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1208,10 +1207,35 @@ CREATE TABLE `schedules` (
   `name` varchar(255) NOT NULL,
   `time_start` datetime NOT NULL DEFAULT current_timestamp(),
   `exam_time` int(11) NOT NULL,
-  `number_exam` int(11) NOT NULL,
-  `account_id` int(11) DEFAULT NULL,
-  `schedule_code` varchar(255) NOT NULL
+  `number_exam` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `schedules`
+--
+
+INSERT INTO `schedules` (`id`, `name`, `time_start`, `exam_time`, `number_exam`) VALUES
+(1, 'Kỳ thi thử nghiệm', '2023-11-11 22:07:24', 30, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `schedule_detail`
+--
+
+CREATE TABLE `schedule_detail` (
+  `id` int(11) NOT NULL,
+  `schedule_id` int(11) NOT NULL,
+  `account_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `schedule_detail`
+--
+
+INSERT INTO `schedule_detail` (`id`, `schedule_id`, `account_id`) VALUES
+(1, 1, 1),
+(2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -1311,7 +1335,14 @@ ALTER TABLE `roles`
 -- Indexes for table `schedules`
 --
 ALTER TABLE `schedules`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `schedule_detail`
+--
+ALTER TABLE `schedule_detail`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `schedule_id` (`schedule_id`),
   ADD KEY `account_id` (`account_id`);
 
 --
@@ -1385,6 +1416,12 @@ ALTER TABLE `schedules`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `schedule_detail`
+--
+ALTER TABLE `schedule_detail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `types`
 --
 ALTER TABLE `types`
@@ -1436,10 +1473,11 @@ ALTER TABLE `results`
   ADD CONSTRAINT `results_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `schedules`
+-- Constraints for table `schedule_detail`
 --
-ALTER TABLE `schedules`
-  ADD CONSTRAINT `schedules_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`);
+ALTER TABLE `schedule_detail`
+  ADD CONSTRAINT `schedule_detail_ibfk_1` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`id`),
+  ADD CONSTRAINT `schedule_detail_ibfk_2` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

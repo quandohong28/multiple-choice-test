@@ -50,14 +50,8 @@
                                 </a>
                             </th>
                             <th class="small p-2">
-                                <a href="?act=schedule&sortbylocation">
-                                    <span class="me-2">Thời gian kết thúc</span>
-                                    <i class="fa-solid fa-sort"></i>
-                                </a>
-                            </th>
-                            <th class="small p-2">
-                                <a href="?act=schedule&sortbyexam">
-                                    <span class="me-2">Tình trạng</span>
+                                <a href="?act=schedule&sortbydate">
+                                    <span class="me-2">Thời gian làm bài</span>
                                     <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
@@ -68,7 +62,8 @@
                         <?php foreach ($schedules as $schedule) : extract($schedule);
                             list($start_date, $start_time) = explode(" ", $time_start);
                             list($exp_date, $exp_time) = explode(" ", $time_exp);
-                            $schedule_detail = getExamsByScheduleId($id);
+                            $exam = getExamsByScheduleId($id);
+                            var_dump($exam);
                         ?>
                             <tr class="">
                                 <td><?= $id ?></td>
@@ -78,22 +73,10 @@
                                     <span>Thời gian: <?= $start_time ?></span>
                                 </td>
                                 <td class="small" scope="row">
-                                    <span>Ngày: <?= $exp_date ?></span><br>
-                                    <span>Thời gian: <?= $exp_time ?></span>
+                                    <?= $exam_time ?> Phút
                                 </td>
                                 <td class="small" class="">
-                                    <span class="badge bg-warning p-2">
-                                        Chưa mở
-                                    </span>
-                                    <span class="badge bg-primary p-2">
-                                        Đang mở
-                                    </span>
-                                    <span class="badge bg-danger p-2">
-                                        Kết thúc
-                                    </span>
-                                </td>
-                                <td class="small" class="">
-                                    <a class="badge bg-info px-3 py-2" type="button" data-bs-toggle="modal" data-bs-target="#scheduledeatilmodal" data-bs-value='<?= json_encode($schedule_detail) ?>'>
+                                    <a class="badge bg-info px-3 py-2" type="button" data-bs-toggle="modal" data-bs-target="#scheduledeatilmodal" data-bs-value='<?= json_encode($exam) ?>'>
                                         <i class="fa-solid fa-circle-info fa-xl me-2"></i>
                                         <span>Chi tiết</span>
                                     </a>

@@ -1,4 +1,4 @@
-<div class="modal fade modal-lg" id="scheduledeatilmodal" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+<div class="modal fade" id="scheduledeatilmodal" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,17 +7,9 @@
             </div>
             <form action="">
                 <div class="modal-body">
-                    <div class="pt-5">
+                    <div class="py-3">
                         <div class="">
                             <table class="table small table-hover table-responsive">
-                                <tr class="col">
-                                    <th scope="col">ID</th>
-                                    <td scope="col" id="id"></td>
-                                </tr>
-                                <tr class="col">
-                                    <th scope="col">Mã đề thi</th>
-                                    <td scope="col" id="exam_code">
-                                </tr>
                                 <tr class="col">
                                     <th scope="col">Chuyên mục</th>
                                     <td scope="col" id="category"></td>
@@ -52,13 +44,10 @@
         // Extract info from data-bs-* attributes
         let recipient = JSON.parse(button.getAttribute('data-bs-value'));
 
-        const id = document.getElementById('id');
-        const exam_code = document.getElementById('exam_code');
+        console.log(recipient);
         const category = document.getElementById('category');
         const nunmber_question = document.getElementById('nunmber_question');
 
-        id.innerHTML = recipient[0].schedule_id;
-        exam_code.innerHTML = recipient[0].exam_code;
         category.innerHTML = recipient[0].name;
         nunmber_question.innerHTML = recipient[0].number_question;
 
