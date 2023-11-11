@@ -9,7 +9,6 @@
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Mã bài thi</th>
                 <th scope="col">Mã thí sinh</th>
                 <th scope="col">Họ và tên thí sinh</th>
                 <th scope="col">Chức năng</th>
@@ -18,7 +17,6 @@
         <tbody>
             <tr class="">
                 <td>R1C1</td>
-                <td>R1C2</td>
                 <td>R1C2</td>
                 <td>R1C3</td>
                 <td class="d-flex">

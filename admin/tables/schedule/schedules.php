@@ -18,7 +18,6 @@
         <?php foreach ($schedules as $schedule):
             extract($schedule);
             list($start_date, $start_time) = explode(" ", $time_start);
-            list($end_date, $end_time) = explode(" ", $time_exp);
             ?>
             <tbody>
                 <tr class="">

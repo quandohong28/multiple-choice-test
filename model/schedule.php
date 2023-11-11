@@ -51,7 +51,7 @@ function getScheduleByUserId($user_id)
     }
 }
 
-function addCandidates($schedule_id, $account_id)
+function addCandidates($schedule_id, $account_id, $username)
 {
     try {
         $sql = "INSERT INTO schedule_detail (schedule_id, account_id)
@@ -83,7 +83,7 @@ function getLatestSchedule()
     }
 }
 
-function insertSchedule($name, $time_start, $number_exam, $exam_time, $category_id, $number_easy_questions, $number_medium_questions, $number_hard_questions)
+function addSchedule($name, $time_start, $number_exam, $exam_time, $category_id, $number_easy_questions, $number_medium_questions, $number_hard_questions)
 {
     try {
         $number_question = $number_easy_questions + $number_medium_questions + $number_hard_questions;

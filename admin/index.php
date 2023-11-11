@@ -76,7 +76,7 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
                         include "./dashboard.php";
                         break;
                 } ?>
-                <?php include "./modal/logoutmodal.php" ?>
+                <?php include "./modals/logoutmodal.php" ?>
                 <!-- Scroll to Top Button-->
                 <a class="scroll-to-top rounded" href="#">
                     <i class="fas fa-angle-up"></i>

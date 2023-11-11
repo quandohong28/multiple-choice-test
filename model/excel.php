@@ -1,5 +1,5 @@
 <?php
-require './lib/PhpExcel/vendor/autoload.php';
+require '../lib/PhpExcel/vendor/autoload.php';
 
 // Hàm ghi dữ liệu vào file Excel
 function writeStudentsToExcel($students, $filename)

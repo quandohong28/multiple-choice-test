@@ -8,14 +8,14 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <form method="POST" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" action="?act=tables&data=add_schedule">
                 <div class="row justify-content-center align-items-center h-100 m-5">
                     <div class="col-12 col-lg-9 col-xl-7">
                         <div class="row">
                             <div class="col mb-4">
                                 <div class="form-outline">
                                     <label class="form-label" for="name">Tên lịch thi</label>
-                                    <input type="text" id="name" class="form-control form-control-sm" />
+                                    <input type="text" id="name" name="name" class="form-control form-control-sm" />
                                 </div>
                             </div>
 
@@ -31,8 +31,8 @@
                             </div>
                             <div class="col-md-6 mb-4">
                                 <div class="form-outline">
-                                    <label class="form-label" for="time_exam">Thời gian làm bài</label>
-                                    <input type="number" id="time_exam" name="time_exam"
+                                    <label class="form-label" for="exam_time">Thời gian làm bài</label>
+                                    <input type="number" id="exam_time" name="exam_time"
                                         class="form-control form-control-sm" />
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
 
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
-                    <button class="btn btn-primary" name="submit" type="submit">Xác nhận</button>
+                    <button class="btn btn-primary" name="add_schedule" type="submit">Xác nhận</button>
                 </div>
             </form>
         </div>
