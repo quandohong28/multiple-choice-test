@@ -23,11 +23,13 @@ function getExamsByScheduleId($schedule_id)
 {
     try {
         $sql = "SELECT
-        *
+        c.name as category_name,
+        e.number_question
         FROM
-        exams INNER JOIN categories ON exams.category_id = categories.id
+        exams e
+        INNER JOIN categories c ON e.category_id = c.id
         WHERE schedule_id = '$schedule_id';";
-        return pdo_query($sql);
+        return pdo_query_one($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
