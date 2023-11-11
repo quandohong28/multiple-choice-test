@@ -1,9 +1,8 @@
-<?php
-
+<?php 
 function pdo_connect()
 {
     $host = 'localhost';
-    $dbname = 'web2041';
+    $dbname = 'multiple_choice_test';
     $username = 'root';
     $password = '';
 
@@ -13,7 +12,7 @@ function pdo_connect()
         return $conn;
     } catch (PDOException $e) {
         echo "Connect err! err message: " . $e->getMessage();
-    }
+    } 
 }
 
 function pdo_execute($sql)
