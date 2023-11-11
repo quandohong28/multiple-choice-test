@@ -11,7 +11,9 @@ function getAllSchedules()
     }
 }
 
-function getScheduleById($id)
+
+
+function getSchedulesById($id)
 {
     try {
         $sql = "SELECT * FROM
@@ -37,15 +39,15 @@ function getSchedulesByName($name)
     }
 }
 
-function getSchedulesByUserId($user_id)
+function getScheduleByUserId($user_id)
 {
     try {
         $sql = "SELECT * FROM
         schedules
         INNER JOIN schedule_detail ON schedules.id = schedule_detail.schedule_id
         WHERE
-        account_id = $user_id;";
-        return pdo_query($sql);
+        user_id = $user_id;";
+        return pdo_query_one($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
@@ -69,7 +71,7 @@ function insertSchedule($name, $time_start, $time_exp, $exam_time, $number_exam,
     }
 }
 
-function deleteSchedules($id)
+function deleteSchedule($id)
 {
     try {
         $sql = "DELETE FROM schedules WHERE id = $id;";
