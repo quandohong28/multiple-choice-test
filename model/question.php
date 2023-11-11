@@ -27,7 +27,7 @@ function getQuestionById($id)
         $sql = "SELECT * FROM questions WHERE id = $id;";
         return pdo_query_one($sql);
     } catch (\Exception $e) {
-        echo $e->getMessage();
+        return $e->getMessage();
     }
 }
 
@@ -45,7 +45,17 @@ function addQuestion($content, $image, $question_level_id, $question_type_id, $c
 {
     try {
         $sql = "INSERT INTO questions(content, image , question_level_id, question_type_id, category_id)
-        VALUES('$content', '$image' , '$question_level_id', '$question_type_id', '$category_id');"; 
+        VALUES('$content', '$image' , '$question_level_id', '$question_type_id', '$category_id');";
+        pdo_execute($sql);
+    } catch (Exception $e) {
+        echo json_decode($e->getMessage());
+    }
+}
+
+function deleteQuestionById($id)
+{   
+    try {
+        $sql = "DELETE FROM questions WHERE id = $id;";
         pdo_execute($sql);
     } catch (Exception $e) {
         echo json_decode($e->getMessage());

@@ -22,7 +22,7 @@ function getListExamById($id)
 function getListExamByScheduleId($schedule_id)
 {
     try {
-        $sql = "SELECT * FROM list_exams WHERE schedule_id = '$schedule_id';";
+        $sql = "SELECT * FROM exams WHERE schedule_id = '$schedule_id';";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();

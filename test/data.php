@@ -5,6 +5,13 @@ include '../model/question.php';
 $id = $_GET['id'];
 $data = getQuestionById($id);
 
+// $data = [
+//     'name' => 'Nguyễn Văn A',
+//     'age' => 20,
+//     'address' => 'Hà Nội',
+//     'phone' => '0123456789'
+// ];
+
 // Chuyển mảng thành dạng JSON
 $jsonData = json_encode($data);
 
@@ -12,4 +19,4 @@ $jsonData = json_encode($data);
 header('Content-Type: application/json; charset=utf-8');
 
 // In dữ liệu JSON
-echo $jsonData;
+echo $jsonData; // return 
