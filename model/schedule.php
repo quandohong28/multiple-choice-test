@@ -71,7 +71,7 @@ function getLatestSchedule()
     }
 }
 
-function insertSchedules($name, $time_start, $time_exp, $exam_time, $number_exam, $category_id, $number_question)
+function insertSchedule($name, $time_start, $time_exp, $exam_time, $number_exam, $category_id, $number_question)
 {
     try {
         $sql = "INSERT INTO schedules(name, time_start, time_exp, exam_time, number_exam)
