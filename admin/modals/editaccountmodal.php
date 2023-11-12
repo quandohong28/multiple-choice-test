@@ -66,6 +66,7 @@
                                     <div class="form-outline">
                                         <label class="form-label" for="avatar">Ảnh đại diện</label>
                                         <input class="form-control form-control-sm" id="avatar" name="edit_avatar" type="file" />
+                                        <input class="form-control form-control-sm" id="avatar" name="edit_avatar" type="hidden" />
                                     </div>
                                 </div>
                             </div>
@@ -100,6 +101,7 @@
         const recipient = button.getAttribute('data-value')
 
         const val = JSON.parse(recipient)
+        // console.log(val);
 
         username.setAttribute('value', val.username);
         fullname.setAttribute('value', val.fullname);
