@@ -7,7 +7,6 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Câu hỏi</th>
-
             </tr>
         </thead>
 
