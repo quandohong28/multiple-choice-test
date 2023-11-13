@@ -86,12 +86,18 @@ include '../model/result.php';
                         echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '&exam_time=' . $exam_time . '">';
                         break;
                     case 'doing_exam':
-                        $exam_detail = getExamDetailByExamId($_GET['exam_id']);
-                        echo '<pre>';
-                        // var_dump($exam_detail); 
-                        echo '</pre>';
+                        $exam_detail = getExamDetailByExamId($_GET['exam_id']); 
                         
                         include "./exams/doing_exam.php";
+                        break;
+                    case 'finish_exam':
+                        if (isset($_POST['submit'])) {
+                            $exam_time = $_POST['exam_time'];
+                            $exam_id = $_POST['exam_id']; 
+                            // $points = $_POST['points'];
+                            $points = 0;
+                            updateResult($exam_time, $points, $exam_id);
+                        }
                         break;
                     case 'result':
                         include "./results/result.php";

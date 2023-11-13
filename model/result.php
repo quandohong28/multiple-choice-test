@@ -70,3 +70,14 @@ function addResult($account_id, $exam_id)
         return $e->getMessage();
     }
 }
+
+function updateResult($exam_time, $points, $exam_id)
+{
+    try {
+        $sql = "UPDATE results SET exam_time = '$exam_time', status = 1, points = '$points' WHERE exam_id = '$exam_id'";
+        return pdo_execute($sql);
+    } catch (Exception $e) {
+        return $e->getMessage();
+    }
+
+}

@@ -8,8 +8,9 @@
                 <div class="fw-bold text-primary">Thời gian còn lại</div>
                 <a class="p-3 fs-3" id="examTime"></a>
             </div>
+
             <div>
-                <button class="btn btn-sm btn-success" style="display: none" id="finishExamButton">Kết thúc</button>
+                <button type="submit" name="submit" class="btn btn-sm btn-success" style="display: none" id="finishExamButton" data-bs-toggle="modal" data-bs-target="#finish_exam_modal">Kết thúc</button>
             </div>
         </div>
         <div class="row">
@@ -71,6 +72,33 @@
             </button>
         </div>
     </div><!-- End: Features Cards -->
+    <!-- Button trigger modal -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="finish_exam_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">Xác nhận kết thúc bài thi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="?act=finish_exam" method="post">
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <p>Bạn có muốn kết thúc bài thi?</p>
+                            <input type="hidden" name="exam_id">
+                            <input type="hidden" name="exam_time">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="continue_exam">Hủy</button>
+                        <button type="submit" name="submit" class="btn btn-primary">Xác nhận</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 </section>
 
@@ -113,6 +141,7 @@
     }
 
     const finishExamButton = document.getElementById('finishExamButton');
+    const continue_exam = document.getElementById('continue_exam');
     const questionIndex = document.getElementById('questionIndex');
 
     getQuestionById();
@@ -172,10 +201,11 @@
     }
     var formattedTime = formatTime(exam_time * 60);
 
-    console.log(formattedTime); // Kết quả sẽ là định dạng phút:giây
+    // console.log(formattedTime); // Kết quả sẽ là định dạng phút:giây
 
-    const examTime = document.getElementById('examTime');
+    var examTime = document.getElementById('examTime');
 
+    var timerInterval = null;
     // Hàm đếm ngược thời gian, nếu hết thì tự động submit form
     function countdown(seconds) {
         function updateTimer() {
@@ -189,8 +219,32 @@
         }
 
         // Gọi hàm updateTimer mỗi giây
-        var timerInterval = setInterval(updateTimer, 1000);
+        timerInterval = setInterval(updateTimer, 1000);
     }
 
     countdown(exam_time * 60);
+
+    function formatTimeString(string) {
+        // Chia chuỗi thời gian thành mảng phút và giây
+        var arrayTime = string.split(":");
+
+        // Lấy giá trị phút và giây từ mảng
+        var minutes = parseInt(arrayTime[0], 10);
+        var seconds = parseInt(arrayTime[1], 10);
+
+        // Tính toán tổng thời gian ở đơn vị giây
+        return minutes * 60 + seconds;
+    }
+
+    finishExamButton.addEventListener('click', () => {
+        clearInterval(timerInterval);
+        document.querySelector('input[name="exam_time"]').value = examTime.innerHTML;
+    })
+
+    continue_exam.addEventListener('click', () => {
+        countdown(formatTimeString(examTime.innerHTML));
+    })
+
+    document.querySelector('input[name="exam_id"]').value = exam_id;
+
 </script>
