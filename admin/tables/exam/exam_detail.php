@@ -9,16 +9,19 @@
                 <th scope="col">Câu hỏi</th>
             </tr>
         </thead>
-
-        <tbody>
-            <tr class="">
-                <td class="align-middle">
-                    R1C2
-                </td>
-                <td class="align-middle">
-                    R1C2
-                </td>
-            </tr>
+        <?php foreach ($exam_detail as $question):
+            extract($question);
+            ?>
+            <tbody>
+                <tr class="">
+                    <td class="align-middle">
+                        <?= $id ?>
+                    </td>
+                    <td class="align-middle">
+                        <?= $question_content ?>
+                    </td>
+                </tr>
+            <?php endforeach ?>
         </tbody>
     </table>
     <nav>
