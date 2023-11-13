@@ -59,3 +59,14 @@ function getResultDetails($id)
         return $e->getMessage();
     }
 }
+
+function addResult($account_id, $exam_id)
+{
+    try {
+        $sql = "INSERT INTO results(account_id, exam_id)
+        VALUES ($account_id, $exam_id)";
+        return pdo_execute($sql);
+    } catch (Exception $e) {
+        return $e->getMessage();
+    }
+}

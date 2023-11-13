@@ -55,6 +55,8 @@
                     </td>
                 </tr>
             <?php endfor; ?>
+
+            
         </tbody>
     </table>
 
