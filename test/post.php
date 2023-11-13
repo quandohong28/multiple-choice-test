@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'received_data' => $data
     );
 
-    addQuestion($data->content, $data->image, $data->question_level_id, $data->question_type_id, $data->category_id);
+    insertQuestion($data->content, $data->image, $data->question_level_id, $data->question_type_id, $data->category_id);
 
     // Trả về dữ liệu JSON
     header('Content-Type: application/json;charset=utf-8');

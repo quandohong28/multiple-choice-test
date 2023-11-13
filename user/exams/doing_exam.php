@@ -110,6 +110,7 @@
     const urlParams = new URLSearchParams(window.location.search);
     const exam_id = urlParams.get('exam_id');
     var exam_time = urlParams.get('exam_time');
+    var result_id = urlParams.get('result_id');
     const getQuestionById = async () => {
         const response = await fetch(`exams/question_data.php?exam_id=${exam_id}`);
         const question = await response.json();
@@ -125,6 +126,7 @@
         }
     }
 
+    const answersDOM = document.querySelectorAll('input[name="anwser"]');
     const getAnswersByQuestionId = async (question_id) => {
         const response = await fetch(`exams/answer_data.php?question_id=${question_id}`);
         const answer = await response.json();
@@ -133,12 +135,43 @@
             item.innerHTML = answer[content].content;
         })
 
-
-        const answer_value = document.querySelectorAll('input[name="anwser"]');
-        answer_value.forEach((item, value) => {
-            item.value = answer[value].id;
+        answersDOM.forEach((answerDOM, index) => {
+            answerDOM.value = answer[index].id;
         })
     }
+
+    // Xử lý cập nhật câu hỏi khi chọn đáp án - lưu vào bảng result_detail
+    const postData = async (answerDOM) => {
+        try {
+            const response = await fetch('exams/exam_detail_post.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8'
+                },
+                body: JSON.stringify({
+                    result_id: result_id,
+                    question_id: question_id[j],
+                    answer_id: answerDOM.value
+                })
+            })
+            if (response.ok) {
+                console.log('ok');
+                const data = await response.json();
+                console.log(data);
+            } else {
+                throw new Error('Response not OK');
+            }
+        } catch (error) {
+            console.error('Error during POST:', error);
+        }
+
+    }
+
+    answersDOM.forEach((answerDOM, index) => {
+        answerDOM.onclick = () => {
+            postData(answerDOM);
+        }
+    })
 
     const finishExamButton = document.getElementById('finishExamButton');
     const continue_exam = document.getElementById('continue_exam');
@@ -214,7 +247,7 @@
 
             if (seconds < 0) {
                 clearInterval(timerInterval);
-                console.log("Hết thời gian!");
+                examTime.innerHTML = "Hết thời gian!";
             }
         }
 
@@ -246,5 +279,4 @@
     })
 
     document.querySelector('input[name="exam_id"]').value = exam_id;
-
 </script>

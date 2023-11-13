@@ -25,6 +25,7 @@
                     <div class="mb-3">
                         <label for="exam_time" class="form-label">Thời gian thi</label>
                         <select class="form-select form-select-sm" name="exam_time" id="exam_time">
+                            <option value="1">1 Phút</option>
                             <option value="30">30 Phút</option>
                             <option value="45">45 Phút</option>
                             <option value="60">1 Tiếng</option>

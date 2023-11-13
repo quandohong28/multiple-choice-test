@@ -80,14 +80,11 @@ include '../model/result.php';
                         }
                         $latestExamId = getLatestExam()['id'];
                         addResult($_SESSION['user']['id'], $latestExamId);
-                        
-                        // header("location: ?act=doing_exam&type=$type&exam_id=$latestExamId");
-                        // header("Location: index.php");
-                        echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '&exam_time=' . $exam_time . '">';
+                        $latest_result_id = getLatestResult()['id'];
+                        echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '&exam_time=' . $exam_time . '&result_id=' . $latest_result_id . '">';
                         break;
                     case 'doing_exam':
                         $exam_detail = getExamDetailByExamId($_GET['exam_id']); 
-                        
                         include "./exams/doing_exam.php";
                         break;
                     case 'finish_exam':

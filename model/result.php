@@ -79,5 +79,45 @@ function updateResult($exam_time, $points, $exam_id)
     } catch (Exception $e) {
         return $e->getMessage();
     }
+}
 
+function getLatestResult()
+{
+    try {
+        $sql = "SELECT * FROM results ORDER BY id DESC LIMIT 1";
+        return pdo_query_one($sql);
+    } catch (Exception $e) {
+        return $e->getMessage();
+    }
+}
+
+function getResultDetailByResultId($result_id)
+{
+    try {
+        $sql = "SELECT * FROM result_details WHERE result_id = $result_id";
+        return pdo_query($sql);
+    } catch (Exception $e) {
+        return json_encode($e->getMessage());
+    }
+}
+
+function addResultDetail($result_id, $question_id, $answer_id)
+{
+    try {
+        $sql = "INSERT INTO result_details(result_id, question_id, answer_id)
+        VALUES ($result_id, $question_id, $answer_id)";
+        pdo_execute($sql);
+    } catch (Exception $e) {
+        return json_encode($e->getMessage());
+    }
+}
+
+function updateResultDetail($result_id, $question_id, $answer_id)
+{
+    try {
+        $sql = "UPDATE result_details SET answer_id = '$answer_id' WHERE result_id = '$result_id' AND question_id = '$question_id'";
+        pdo_execute($sql);
+    } catch (Exception $e) {
+        return json_encode($e->getMessage());
+    }
 }
