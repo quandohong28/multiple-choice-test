@@ -1,5 +1,5 @@
 <?php
-require './lib/PhpExcel/vendor/autoload.php';
+require '../lib/PhpExcel/vendor/autoload.php';
 
 // Hàm ghi dữ liệu vào file Excel
 function writeStudentsToExcel($students, $filename)
@@ -64,6 +64,19 @@ function readDataFromExcelBySheetName($filename, $sheetName)
     }
 }
 
+function getRowNumber($filename, $sheetName)
+{
+    try {
+        $objPHPExcel = PHPExcel_IOFactory::load($filename);
+        $worksheet = $objPHPExcel->getSheetByName($sheetName);
 
+        if (!$worksheet) {
+            return false; // Trang không tồn tại
+        }
 
-
+        $highestRow = $worksheet->getHighestRow();
+        return $highestRow;
+    } catch (Exception $e) {
+        return $e->getMessage();
+    }
+}

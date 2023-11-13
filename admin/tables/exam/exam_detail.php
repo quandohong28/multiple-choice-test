@@ -1,27 +1,23 @@
-<section class="bg-light p-5 rounded-3 mb-5 min-vh-100">
-    <h3 class="text-dark text-center mb-5">Chi tiết lịch thi</h3>
+<section class="bg-light p-5 rounded-3 mb-6 min-vh-100">
+    <h3 class="text-dark text-center mb-5">Chi tiết đề thi</h3>
 
 
-    <a class="btn btn-sm btn-info mb-2" href="?act=tables&data=add_candidate">Thêm thí sinh</a>
-
-
-    <table class="table table-striped">
+    <table class="table table-striped text-center">
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Mã thí sinh</th>
-                <th scope="col">Họ và tên thí sinh</th>
-                <th scope="col">Chức năng</th>
+                <th scope="col">Câu hỏi</th>
+
             </tr>
         </thead>
+
         <tbody>
             <tr class="">
-                <td>R1C1</td>
-                <td>R1C2</td>
-                <td>R1C3</td>
-                <td class="d-flex">
-                    <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm mx-4" href="?act=tables&data=del_candidate"><i class="fa fa-trash"></i></a>
-
+                <td class="align-middle">
+                    R1C2
+                </td>
+                <td class="align-middle">
+                    R1C2
                 </td>
             </tr>
         </tbody>
@@ -44,6 +40,11 @@
         </ul>
     </nav>
 
+    <!----Thêm đề thi----->
+    <?php include './modals/addexammodal.php' ?>
+    <!----Sửa đề thi----->
+    <?php include './modals/editexammodal.php' ?>
 
-    </div>
+
+
 </section>

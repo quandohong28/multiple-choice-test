@@ -1,6 +1,4 @@
 <?php
-include 'exam.php';
-
 function getAllSchedules()
 {
     try {
@@ -11,7 +9,9 @@ function getAllSchedules()
     }
 }
 
-function getScheduleById($id)
+
+
+function getSchedulesById($id)
 {
     try {
         $sql = "SELECT * FROM
@@ -37,24 +37,36 @@ function getSchedulesByName($name)
     }
 }
 
-function getSchedulesByUserId($user_id)
+function getScheduleByUserId($user_id)
 {
     try {
         $sql = "SELECT * FROM
         schedules
+        INNER JOIN schedule_detail ON schedules.id = schedule_detail.schedule_id
         WHERE
-        account_id = $user_id;";
-        return pdo_query($sql);
+        user_id = $user_id;";
+        return pdo_query_one($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
 }
 
-function insertCandidates($test_schedule_id, $exam_detail_id, $account_id)
+function addCandidates($schedule_id, $account_id, $username)
 {
     try {
-        $sql = "INSERT INTO candidates(test_schedule_id, exam_detail_id, account_id)
-        VALUES ('$test_schedule_id', '$exam_detail_id', '$account_id');";
+        $sql = "INSERT INTO schedule_detail (schedule_id, account_id)
+        VALUES ('$schedule_id', '$account_id');";
+        return pdo_execute($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function addNewSchedule($name, $time_start, $number_exam, $exam_time)
+{
+    try {
+        $sql = "INSERT INTO schedules (name, time_start, number_exam, exam_time)
+                VALUES ('$name', '$time_start', '$number_exam', '$exam_time');";
         return pdo_execute($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -71,24 +83,35 @@ function getLatestSchedule()
     }
 }
 
-function insertSchedule($name, $time_start, $time_exp, $exam_time, $number_exam, $category_id, $number_question)
+function addSchedule($name, $time_start, $number_exam, $exam_time, $category_id, $number_easy_questions, $number_medium_questions, $number_hard_questions)
 {
     try {
-        $sql = "INSERT INTO schedules(name, time_start, time_exp, exam_time, number_exam)
-        VALUES ('$name', '$time_start', '$time_exp', '$exam_time', '$number_exam');";
-        pdo_execute($sql);
-
-        // Tạo một bài thi mới - bảng danh sách bài thi
-        for ($exam_code = 1; $exam_code <= $number_exam; $exam_code++) {
-            $exam_type_id = 2;
-            insertExam($exam_code, getLatestSchedule()['id'], $category_id, $exam_type_id, $number_question);
+        $number_question = $number_easy_questions + $number_medium_questions + $number_hard_questions;
+        addNewSchedule($name, $time_start, $number_exam, $exam_time);
+        $schedule_id = getLatestSchedule()['id'];
+        // addCandidates($schedule_id, $account_id);
+        for ($i = 0; $i < $number_exam; $i++) {
+            insertExam($schedule_id, $category_id, 2, $number_question);
+            $exam_id = getLatestExam()['id'];
+            for ($i = 0; $i < $number_easy_questions; $i++) {
+                $question_id = getRandomQuestionIdByLevel($category_id, 1);
+                insertExamDetail($exam_id, $question_id);
+            }
+            for ($i = 0; $i < $number_medium_questions; $i++) {
+                $question_id = getRandomQuestionIdByLevel($category_id, 2);
+                insertExamDetail($exam_id, $question_id);
+            }
+            for ($i = 0; $i < $number_hard_questions; $i++) {
+                $question_id = getRandomQuestionIdByLevel($category_id, 3);
+                insertExamDetail($exam_id, $question_id);
+            }
         }
     } catch (Exception $e) {
         echo $e->getMessage();
     }
 }
 
-function deleteSchedules($id)
+function deleteSchedule($id)
 {
     try {
         $sql = "DELETE FROM schedules WHERE id = $id;";

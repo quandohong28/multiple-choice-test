@@ -2,7 +2,7 @@
 function getAllExams()
 {
     try {
-        $sql = "SELECT * FROM list_exams;";
+        $sql = "SELECT * FROM exams;";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -12,7 +12,7 @@ function getAllExams()
 function getExamById($id)
 {
     try {
-        $sql = "SELECT * FROM list_exams WHERE id = '$id';";
+        $sql = "SELECT * FROM exams WHERE id = '$id';";
         return pdo_query_one($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -23,11 +23,14 @@ function getExamsByScheduleId($schedule_id)
 {
     try {
         $sql = "SELECT
-        *
+        c.name as category_name,
+        c.image,
+        e.number_question
         FROM
-        exams INNER JOIN categories ON exams.category_id = categories.id
+        exams e
+        INNER JOIN categories c ON e.category_id = c.id
         WHERE schedule_id = '$schedule_id';";
-        return pdo_query($sql);
+        return pdo_query_one($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
@@ -44,10 +47,28 @@ function insertExamDetail($exam_id, $question_id)
     }
 }
 
-function insertExam($exam_code, $schedule_id, $category_id, $exam_type_id, $number_question)
+function generateRandomString($length = 6)
+{
+    $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
+
+    try {
+        $max = strlen($characters) - 1;
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $max)];
+        }
+
+        return $randomString;
+    } catch (Exception $e) {
+        return $e->getMessage();
+    }
+}
+
+function insertExam($schedule_id, $category_id, $exam_type_id, $number_question)
 {
     try {
-        $sql = "INSERT INTO list_exams (exam_code, schedule_id, category_id, exam_type_id, number_question)
+        $exam_code = generateRandomString();
+        $sql = "INSERT INTO exams (exam_code, schedule_id, category_id, exam_type_id, number_question)
                 VALUES ('$exam_code', '$schedule_id', '$category_id', '$exam_type_id', '$number_question');";
         return pdo_execute($sql);
     } catch (Exception $e) {
@@ -58,7 +79,7 @@ function insertExam($exam_code, $schedule_id, $category_id, $exam_type_id, $numb
 function getLatestExam()
 {
     try {
-        $sql = "SELECT * FROM list_exams ORDER BY id DESC LIMIT 1;";
+        $sql = "SELECT * FROM exams ORDER BY id DESC LIMIT 1;";
         return pdo_query_one($sql);
     } catch (Exception $e) {
         echo $e->getMessage();

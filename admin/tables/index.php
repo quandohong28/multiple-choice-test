@@ -18,6 +18,10 @@
 			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=results" role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fa-solid fa-square-poll-vertical me-2"></i>Theo
 				dõi điểm</a>
 		</li>
+		<li class="nav-item" role="presentation">
+			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=exams" role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fa-solid fa-file-lines me-2"></i>Đề
+				thi</a>
+		</li>
 	</ul>
 </div>
 
@@ -31,6 +35,9 @@ include '../model/category.php';
 include '../model/schedule.php';
 include '../model/question.php';
 include '../model/answer.php';
+include '../model/exam.php';
+require '../lib/PhpExcel/vendor/autoload.php';
+
 
 if (isset($_GET['data'])) {
 	switch ($_GET['data']) {
@@ -125,19 +132,38 @@ if (isset($_GET['data'])) {
 			include 'schedule/schedules.php';
 			break;
 		case 'add_schedule':
-			if (isset($_POST['sumbmit'])) {
+			if (isset($_POST['add_schedule'])) {
 				$name = $_POST['name'];
-				$time_exam = $_POST['time_exam'];
 				$time_start = $_POST['time_start'];
-				$time_end = $_POST['time_end'];
 				$number_exam = $_POST['number_exam'];
+				$exam_time = $_POST['exam_time'];
+				$category_id = $_POST['category_id'];
 				$number_easy_questions = $_POST['number_easy_questions'];
 				$number_medium_questions = $_POST['number_medium_questions'];
 				$number_hard_questions = $_POST['number_hard_questions'];
-				$candidates = $_POST['candidates'];
-				insertSchedule($name, $time_start, $time_exp, $exam_time, $number_exam, $category_id, $number_question);
+				$file = $_FILES['accounts']['tmp_name'];
+				// var_dump($file);
+				// Tạo một đối tượng PHPExcel để đọc dữ liệu từ tệp Excel
+				$objPHPExcel = PHPExcel_IOFactory::load($file);
+
+				// Lấy sheet đầu tiên
+				$sheet = $objPHPExcel->getActiveSheet();
+
+				// Lấy tất cả các dữ liệu từ sheet và đưa chúng vào một mảng
+				$accounts = $sheet->toArray();
+
+				// lấy ra số dòng cuối cùng
+				$highestRow = $sheet->getHighestRow();
+
+				// duyệt mảng dữ liệu để thêm vào cơ sở dữ liệu
+				foreach ($accounts as $account) {
+					$schedule_id = 1;
+					$account_id = $account[0];
+					$username = $account[1];
+					addCandidates($schedule_id, $account_id, $username);
+				}
 			}
-			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
+			// echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'edit_schedule':
 			break;
@@ -145,6 +171,8 @@ if (isset($_GET['data'])) {
 			include 'schedule/schedule_detail.php';
 			break;
 		case 'del_schedule':
+			deleteSchedule($_GET['id']);
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'questions':
 			$questions = getAllQuestions();
@@ -177,7 +205,7 @@ if (isset($_GET['data'])) {
 
 				foreach ($answer as $key => $value) {
 					$content = $value;
-					$is_correct = (int)$correct_answer[$key];
+					$is_correct = (int) $correct_answer[$key];
 					addAnswer($content, $question_id['id'], $is_correct);
 				}
 			}
@@ -230,6 +258,12 @@ if (isset($_GET['data'])) {
 			include 'result/result_detail.php';
 			break;
 		case 'del_result':
+			break;
+		case 'exams':
+			include 'exam/exams.php';
+			break;
+		case 'exam_detail':
+			include 'exam/exam_detail.php';
 			break;
 		case 'add_candidate':
 			break;
