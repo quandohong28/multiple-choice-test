@@ -103,7 +103,7 @@
                                                 <ul class="mb-4">
                                                     <?= $quantity['value'] ?> câu hỏi khác nhau
                                                 </ul>
-                                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#practiceConfigModal">
+                                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#practiceConfigModal" data-bs-value='<?= json_encode($category) ?>'>
                                                     Thử ngay
                                                 </button>
 

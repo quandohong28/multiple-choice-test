@@ -47,9 +47,9 @@ function getExamsByScheduleId($schedule_id)
 function insertExamDetail($exam_id, $question_id)
 {
     try {
-        $sql = "INSERT INTO exam_detail (exam_id, question_id)
+        $sql = "INSERT INTO exam_details (exam_id, question_id)
         VALUES ('$exam_id', '$question_id');";
-        return pdo_execute($sql);
+        pdo_execute($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
@@ -72,13 +72,37 @@ function generateRandomString($length = 6)
     }
 }
 
-function insertExam($schedule_id, $category_id, $exam_type_id, $number_question)
+function insertExam($schedule_id, $category_id, $exam_type_id, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time)
 {
+    $number_question = $number_easy_questions + $number_medium_questions + $number_hard_questions;
     try {
         $exam_code = generateRandomString();
-        $sql = "INSERT INTO exams (exam_code, schedule_id, category_id, exam_type_id, number_question)
-                VALUES ('$exam_code', '$schedule_id', '$category_id', '$exam_type_id', '$number_question');";
+        $sql = "INSERT INTO exams (exam_code, schedule_id, category_id, exam_type_id, number_question, exam_time)
+                VALUES ('$exam_code', '$schedule_id', '$category_id', '$exam_type_id', '$number_question', '$exam_time');";
         return pdo_execute($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function insertPracticeExam($category_id, $exam_type_id, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time)
+{
+    $number_question = $number_easy_questions + $number_medium_questions + $number_hard_questions;
+    try {
+        $exam_code = generateRandomString();
+        $sql = "INSERT INTO exams (exam_code, category_id, exam_type_id, number_question, exam_time)
+                VALUES ('$exam_code', '$category_id', '$exam_type_id', '$number_question', '$exam_time');";
+        pdo_execute($sql);
+        $latestExamId = getLatestExam()['id'];
+        for ($i = 0; $i < $number_easy_questions; $i++) {
+            insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 1));
+        }
+        for ($i = 0; $i < $number_medium_questions; $i++) {
+            insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 2));
+        }
+        for ($i = 0; $i < $number_hard_questions; $i++) {
+            insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 3));
+        }
     } catch (Exception $e) {
         echo $e->getMessage();
     }
@@ -100,6 +124,21 @@ function getQuestionsByExamId($exam_id)
         $sql = "SELECT e.id as id, q.content as question_content FROM exam_details e
         INNER JOIN questions q ON q.id = e.id 
         WHERE e.exam_id = '$exam_id';";
+        return pdo_query($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function getExamDetailByExamId($exam_id)
+{
+    try {
+        $sql = "SELECT
+        
+        FROM exam_details
+        INNER JOIN questions ON questions.id = exam_details.question_id
+        INNER JOIN answers ON questions.id = answers.question_id
+        WHERE exam_id = '$exam_id';";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();

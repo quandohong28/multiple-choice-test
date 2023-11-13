@@ -27,9 +27,7 @@ include '../model/exam.php';
     <!-- CSS thuần -->
     <link rel="stylesheet" href="../assets/css/styles.user.css">
     <!-- font-awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body class="mt-5 pt-5">
@@ -68,8 +66,26 @@ include '../model/exam.php';
                         $categories = getAllCategories();
                         include "./exams/practice.php";
                         break;
+                    case 'start_exam':
+                        $type = $_GET['type'];
+                        $category_id = $_GET['category_id'];
+                        $type = $_GET['type'];
+                        if (isset($_POST['btn_submit'])) {
+                            $number_easy_questions = $_POST['number_easy_questions'];
+                            $number_medium_questions = $_POST['number_medium_questions'];
+                            $number_hard_questions = $_POST['number_hard_questions'];
+                            $exam_time = $_POST['exam_time'];
+                            insertPracticeExam($category_id, $type, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
+                        }
+                        $latestExamId = getLatestExam()['id'];
+                        // header("location: ?act=doing_exam&type=$type&exam_id=$latestExamId");
+                        // header("Location: index.php");
+                        echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '">';
+                        break;
                     case 'doing_exam':
                         include "./exams/doing_exam.php";
+                        $exam_detail = getExamDetailByExamId($_GET['exam_id']);
+                        var_dump($exam_detail);
                         break;
                     case 'result':
                         include "./results/result.php";
@@ -135,12 +151,8 @@ include '../model/exam.php';
         <?php include "./layouts/footer.php"; ?>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="../assets/js/script.min.js"></script>
 </body>
 
