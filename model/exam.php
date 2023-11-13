@@ -2,12 +2,19 @@
 function getAllExams()
 {
     try {
-        $sql = "SELECT * FROM exams;";
+        $sql = "SELECT 
+        e.id AS exam_id, e.exam_code AS exam_code, e.number_question AS number_question,
+        s.name AS schedule_name, c.name AS category_name, c.image AS category_image, t.type AS type_name 
+        FROM exams e
+        INNER JOIN schedules s ON s.id = e.schedule_id
+        INNER JOIN categories c ON c.id = e.category_id
+        INNER JOIN types t ON t.id = e.exam_type_id;";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
 }
+
 
 function getExamById($id)
 {
@@ -18,6 +25,7 @@ function getExamById($id)
         echo $e->getMessage();
     }
 }
+
 
 function getExamsByScheduleId($schedule_id)
 {
@@ -81,6 +89,18 @@ function getLatestExam()
     try {
         $sql = "SELECT * FROM exams ORDER BY id DESC LIMIT 1;";
         return pdo_query_one($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function getQuestionsByExamId($exam_id)
+{
+    try {
+        $sql = "SELECT e.id as id, q.content as question_content FROM exam_details e
+        INNER JOIN questions q ON q.id = e.id 
+        WHERE e.exam_id = '$exam_id';";
+        return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }

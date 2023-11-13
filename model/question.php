@@ -95,3 +95,4 @@ function getRandomQuestionIdByLevel($category_id, $question_level_id)
         echo $e->getMessage();
     }
 }
+

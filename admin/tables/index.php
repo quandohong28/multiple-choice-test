@@ -241,9 +241,11 @@ if (isset($_GET['data'])) {
 		case 'del_result':
 			break;
 		case 'exams':
+			$exams = getAllExams();
 			include 'exam/exams.php';
 			break;
 		case 'exam_detail':
+			$exam_detail = getQuestionsByExamId($exam_id);
 			include 'exam/exam_detail.php';
 			break;
 		case 'add_candidate':
