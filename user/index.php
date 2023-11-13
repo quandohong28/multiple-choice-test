@@ -9,6 +9,7 @@ include '../model/question.php';
 include '../model/account.php';
 include '../model/schedule.php';
 include '../model/exam.php';
+include '../model/result.php';
 
 ?>
 
@@ -78,6 +79,8 @@ include '../model/exam.php';
                             insertPracticeExam($category_id, $type, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
                         }
                         $latestExamId = getLatestExam()['id'];
+                        addResult($_SESSION['user']['id'], $latestExamId);
+                        
                         // header("location: ?act=doing_exam&type=$type&exam_id=$latestExamId");
                         // header("Location: index.php");
                         echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '">';
