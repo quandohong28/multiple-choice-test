@@ -49,7 +49,7 @@
                     <td class="align-middle">
                         R1C2
                     </td>
-                    <td class="d-flex gap-2 p-4">
+                    <td class="align-middle">
                         <a class="btn btn-success btn-sm" href="?act=tables&data=schedule_detail"><i
                                 class="fa-solid fa-circle-info"></i></a>
                         <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"

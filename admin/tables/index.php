@@ -46,6 +46,7 @@ include '../model/category.php';
 include '../model/schedule.php';
 include '../model/question.php';
 include '../model/answer.php';
+include '../model/result.php';
 include '../model/exam.php';
 require '../lib/PhpExcel/vendor/autoload.php';
 
@@ -256,16 +257,12 @@ if (isset($_GET['data'])) {
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=questions">';
 			break;
 		case 'results':
+			$results = getAllResults();
 			include 'result/results.php';
 			break;
-		case 'add_result':
-			break;
-		case 'edit_result':
-			break;
 		case 'result_detail':
+			$result_detail = getResultDetails($id);
 			include 'result/result_detail.php';
-			break;
-		case 'del_result':
 			break;
 		case 'exams':
 			$exams = getAllExams();
