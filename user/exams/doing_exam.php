@@ -1,15 +1,15 @@
 <section><!-- Start: Features Cards -->
     <div class="container bg-primary-gradient pb-5 pt-4 mb-5 rounded">
-        <div class="d-flex justify-content-between mb-5">
+        <div class="d-flex justify-content-between mb-5 px-5">
             <div class="d-flex align-items-center gap-3">
-                <div class=" p-3 fw-bold text-primary">1/40</div>
+                <div class=" p-3 fw-bold text-primary" id="questionIndex"></div>
             </div>
             <div class="text-center">
                 <div class="fw-bold text-primary">Thời gian còn lại</div>
-                <a class="p-3 fs-3">30:13</a>
+                <a class="p-3 fs-3" id="examTime"></a>
             </div>
             <div>
-                <a href="" class="text-primary fw-bold"></a>
+                <button class="btn btn-sm btn-success" style="display: none" id="finishExamButton">Kết thúc</button>
             </div>
         </div>
         <div class="row">
@@ -79,9 +79,10 @@
     var j = 0;
     var contents = [];
     var levels = [];
+    const urlParams = new URLSearchParams(window.location.search);
+    const exam_id = urlParams.get('exam_id');
+    var exam_time = urlParams.get('exam_time');
     const getQuestionById = async () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const exam_id = urlParams.get('exam_id');
         const response = await fetch(`exams/question_data.php?exam_id=${exam_id}`);
         const question = await response.json();
         const question_content = document.getElementById('question_content');
@@ -111,23 +112,33 @@
         })
     }
 
-    
+    const finishExamButton = document.getElementById('finishExamButton');
+    const questionIndex = document.getElementById('questionIndex');
 
-    getQuestionById()
+    getQuestionById();
     setTimeout(() => {
         getAnswersByQuestionId(question_id[j])
-    }, 1000);
+        questionIndex.innerHTML = j + 1 + ' / ' + question_id.length;
+    }, 300);
     const next_question = document.getElementById('next_question');
     const prev_question = document.getElementById('prev_question');
 
     next_question.addEventListener('click', () => {
         getAnswersByQuestionId(question_id[++j])
         if (j >= question_id.length - 1) {
-            next_question.disabled = true;  
+            next_question.disabled = true;
         } else {
             question_content.innerHTML = contents[j];
             question_level.innerHTML = levels[j];
         }
+
+        if (j == question_id.length - 1) {
+            finishExamButton.style.display = 'block';
+        }
+
+        questionIndex.innerHTML = j + 1 + ' / ' + question_id.length;
+
+
         prev_question.disabled = false;
 
     })
@@ -139,6 +150,47 @@
             question_content.innerHTML = contents[j];
             question_level.innerHTML = levels[j];
         }
+
+        if (j !== question_id.length - 1) {
+            finishExamButton.style.display = 'none';
+        }
+
+        questionIndex.innerHTML = j + 1 + ' / ' + question_id.length;
+
         next_question.disabled = false;
     })
+
+    // xu ly thoi gian lam bai
+    function formatTime(seconds) {
+        var minutes = Math.floor(seconds / 60);
+        var remainingSeconds = seconds % 60;
+
+        // Đảm bảo rằng remainingSeconds hiển thị luôn hai chữ số
+        var displaySeconds = remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds;
+
+        return minutes + ":" + displaySeconds;
+    }
+    var formattedTime = formatTime(exam_time * 60);
+
+    console.log(formattedTime); // Kết quả sẽ là định dạng phút:giây
+
+    const examTime = document.getElementById('examTime');
+
+    // Hàm đếm ngược thời gian, nếu hết thì tự động submit form
+    function countdown(seconds) {
+        function updateTimer() {
+            examTime.innerHTML = formatTime(seconds);
+            seconds--;
+
+            if (seconds < 0) {
+                clearInterval(timerInterval);
+                console.log("Hết thời gian!");
+            }
+        }
+
+        // Gọi hàm updateTimer mỗi giây
+        var timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    countdown(exam_time * 60);
 </script>

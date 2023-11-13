@@ -83,7 +83,7 @@ include '../model/result.php';
                         
                         // header("location: ?act=doing_exam&type=$type&exam_id=$latestExamId");
                         // header("Location: index.php");
-                        echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '">';
+                        echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '&exam_time=' . $exam_time . '">';
                         break;
                     case 'doing_exam':
                         $exam_detail = getExamDetailByExamId($_GET['exam_id']);

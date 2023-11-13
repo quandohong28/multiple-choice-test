@@ -119,7 +119,7 @@
                 </div>
                 <!-- pagination -->
                 <nav>
-                    <?php include "./user/components/pagination.php" ?>
+                    <?php include "components/pagination.php" ?>
                 </nav>
             </div>
         </div>
