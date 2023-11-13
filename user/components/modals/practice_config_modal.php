@@ -1,4 +1,4 @@
-<div class="modal fade" id="practiceConfigModal" tabindex="-1" aria-labelledby="practiceConfigModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="practiceConfigModal" tabindex="-1" aria-labelledby="practiceConfigModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,10 +8,20 @@
             <form action="">
                 <div class="form-body p-5">
                     <strong class="small">Chuyên đề: Khoa học máy tính</strong>
-                    <div class="my-3">
-                        <label for="" class="form-label form-label">Số lượng câu hỏi</label>
-                        <input type="number" name="" id="" class="form-control form-control-sm">
-                        <small id="helpId" class="text-muted">Lượng câu hỏi tối đa: ??</small>
+                    <p>Chọn level</p>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="" class="form-label form-label"><span class="badge bg-success">Dễ</span></label>
+                            <input type="number" name="" id="" class="form-control form-control-sm">
+                        </div>
+                        <div class="col">
+                            <label for="" class="form-label form-label"><span class="badge bg-warning">Trung Bình</span></label>
+                            <input type="number" name="" id="" class="form-control form-control-sm">
+                        </div>
+                        <div class="col">
+                            <label for="" class="form-label form-label"><span class="badge bg-danger">Khó</span></label>
+                            <input type="number" name="" id="" class="form-control form-control-sm">
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="exam_time" class="form-label">Thời gian thi</label>
@@ -20,25 +30,6 @@
                             <option value="">45 Phút</option>
                             <option value="">1 Tiếng</option>
                         </select>
-                    </div>
-                    <p>Chọn level</p>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="question_level_id" id="1" checked>
-                        <label class="form-check-label" for="">
-                            <span class="badge bg-success">Dễ</span>
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="question_level_id" id="2">
-                        <label class="form-check-label" for="">
-                            <span class="badge bg-warning">Trung Bình</span>
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="question_level_id" id="3">
-                        <label class="form-check-label" for="">
-                            <span class="badge bg-danger">Khó</span>
-                        </label>
                     </div>
                 </div>
                 <div class="modal-footer">

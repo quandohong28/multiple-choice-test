@@ -101,26 +101,7 @@
                                             <div class="p-5">
                                                 <h5 class="fw-bolder"><?= $name ?></h5>
                                                 <ul class="mb-4">
-                                                    <li><?= $quantity['value'] ?> câu hỏi khác nhau</li>
-                                                    <li>
-                                                        <?php foreach ($question_levels as $level) : ?>
-                                                            <span class="badge <?php
-                                                                                switch ($level['level']) {
-                                                                                    case 'Dễ':
-                                                                                        echo 'bg-success';
-                                                                                        break;
-                                                                                    case 'Trung bình':
-                                                                                        echo 'bg-warning';
-                                                                                        break;
-                                                                                    case 'Khó':
-                                                                                        echo 'bg-danger';
-                                                                                        break;
-                                                                                    default:
-                                                                                        break;
-                                                                                }
-                                                                                ?>"><?= $level['level'] ?></span>
-                                                        <?php endforeach ?>
-                                                    </li>
+                                                    <?= $quantity['value'] ?> câu hỏi khác nhau
                                                 </ul>
                                                 <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#practiceConfigModal">
                                                     Thử ngay
