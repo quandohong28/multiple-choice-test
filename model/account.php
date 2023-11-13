@@ -162,3 +162,20 @@ function getRoles()
         echo $e->getMessage();
     }
 }
+
+function editProfile($id, $email, $introduce, $avatar, $fullname, $tel, $address) 
+{
+    try {
+        $sql = "UPDATE accounts
+        SET email = '$email',
+        introduce = '$introduce',
+        avatar = '$avatar',
+        fullname = '$fullname',
+        tel = '$tel',
+        address = '$address'
+        WHERE id = $id";
+        pdo_execute($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}

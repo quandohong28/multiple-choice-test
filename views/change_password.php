@@ -31,7 +31,7 @@
                                     </path>
                                 </svg>
                             </div>
-                            <form method="post" data-bs-theme="light" action="./index.php?act=change_password">
+                            <form method="post" data-bs-theme="light" action="index.php?act=change_password_submit">
                                 <div class="mb-3">
                                     <input class="form-control" type="text" name="old_password" placeholder="Mật khẩu cũ">
                                 </div>
@@ -39,8 +39,8 @@
                                     <input class="form-control" type="password" name="password" placeholder="Mật khẩu mới">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="password" name="conf_pass" placeholder="Mật khẩu mới">
-                                </div>
+                                    <input class="form-control" type="password" name="conf_pass" placeholder="Nhập lại mật khẩu">
+                                </div> 
                                 <div class="mb-3">
                                     <button class="btn btn-primary shadow d-block w-100" name="change_password_submit" type="submit">Xác nhận</button>
                                 </div>
