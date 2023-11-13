@@ -57,7 +57,7 @@
                             <i class="fa-regular fa-pen-to-square"></i>
                         </button>
                         <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm"
-                            href="?act=tables&data=del_schedule"><i class="fa fa-trash"></i></a>
+                            href="?act=tables&data=del_schedule&id=<?= $id; ?>"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             </tbody>

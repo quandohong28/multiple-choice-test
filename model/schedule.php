@@ -115,7 +115,7 @@ function deleteSchedule($id)
 {
     try {
         $sql = "DELETE FROM schedules WHERE id = $id;";
-        return pdo_execute($sql);
+        pdo_execute($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
