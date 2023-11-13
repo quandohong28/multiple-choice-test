@@ -152,15 +152,12 @@ if (isset($_GET['data'])) {
 				// Lấy tất cả các dữ liệu từ sheet và đưa chúng vào một mảng
 				$accounts = $sheet->toArray();
 
-				// lấy ra số dòng cuối cùng
-				$highestRow = $sheet->getHighestRow();
-
 				// duyệt mảng dữ liệu để thêm vào cơ sở dữ liệu
 				foreach ($accounts as $account) {
 					$schedule_id = 1;
 					$account_id = $account[0];
 					$username = $account[1];
-					addCandidates($schedule_id, $account_id, $username);
+					// addCandidates($schedule_id, $account_id, $username);
 				}
 			}
 			// echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';

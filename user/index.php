@@ -60,7 +60,7 @@ include '../model/exam.php';
                         include "./utilities/home.php";
                         break;
                     case 'schedule':
-                        $schedules = getSchedulesByUserId($_SESSION['user']['id']);
+                        $schedules = getScheduleByUserId($_SESSION['user']['id']);
                         include "./schedules/schedule.php";
                         break;
                     case 'practice':

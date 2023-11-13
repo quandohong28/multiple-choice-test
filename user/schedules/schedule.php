@@ -55,6 +55,12 @@
                                     <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
+                            <th class="small p-2">
+                                <a href="?act=schedule&sortbydate">
+                                    <span class="me-2">Số lượng đề thi</span>
+                                    <i class="fa-solid fa-sort"></i>
+                                </a>
+                            </th>
                             <th class="small p-2">Chức năng</th>
                         </tr>
                     </thead>
@@ -72,6 +78,9 @@
                                 </td>
                                 <td class="small" scope="row">
                                     <?= $exam_time ?> Phút
+                                </td>
+                                <td class="small" scope="row">
+                                    <?= $number_exam ?> Phút
                                 </td>
                                 <td class="small" class="">
                                     <a class="badge bg-info px-3 py-2" type="button" data-bs-toggle="modal" data-bs-target="#scheduledeatilmodal" data-bs-value='<?= json_encode($exam) ?>'>
