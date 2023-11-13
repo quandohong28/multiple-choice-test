@@ -58,7 +58,7 @@ include '../model/exam.php';
                         include "./utilities/home.php";
                         break;
                     case 'schedule':
-                        // $schedules = getSchedulesByUserId($_SESSION['user']['id']);
+                        $schedules = getScheduleByUserId($_SESSION['user']['id']);
                         include "./schedules/schedule.php";
                         break;
                     case 'practice':
@@ -66,7 +66,28 @@ include '../model/exam.php';
                         $categories = getAllCategories();
                         include "./exams/practice.php";
                         break;
+                    case 'start_exam':
+                        $type = $_GET['type'];
+                        $category_id = $_GET['category_id'];
+                        $type = $_GET['type'];
+                        if (isset($_POST['btn_submit'])) {
+                            $number_easy_questions = $_POST['number_easy_questions'];
+                            $number_medium_questions = $_POST['number_medium_questions'];
+                            $number_hard_questions = $_POST['number_hard_questions'];
+                            $exam_time = $_POST['exam_time'];
+                            insertPracticeExam($category_id, $type, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
+                        }
+                        $latestExamId = getLatestExam()['id'];
+                        // header("location: ?act=doing_exam&type=$type&exam_id=$latestExamId");
+                        // header("Location: index.php");
+                        echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '">';
+                        break;
                     case 'doing_exam':
+                        $exam_detail = getExamDetailByExamId($_GET['exam_id']);
+                        echo '<pre>';
+                        // var_dump($exam_detail); 
+                        echo '</pre>';
+                        
                         include "./exams/doing_exam.php";
                         break;
                     case 'result':

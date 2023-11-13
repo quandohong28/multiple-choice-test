@@ -3,9 +3,12 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 11, 2023 at 04:47 PM
+-- Generation Time: Nov 13, 2023 at 09:38 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
+CREATE DATABASE "multiple_choice_test";
+
+USE "multiple_choice_test";
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -46,7 +49,7 @@ CREATE TABLE `accounts` (
 
 INSERT INTO `accounts` (`id`, `username`, `password`, `fullname`, `avatar`, `email`, `address`, `tel`, `introduce`, `role_id`) VALUES
 (1, 'quandohong28', '$2y$10$192QgdCAxxIM9j2/m6oHAu352KuPlMh8fJF73KaLm5ISh0lWeXlku', 'Đỗ Hồng Quân', 'quandohong28.jpg', 'quandohong28@gmail.com', NULL, NULL, NULL, 1),
-(2, 'admin', '$2y$10$Bh3aDHnMSO.kmmkeOnM9ceSmgLWgHPK8Y4jFRnjMNJny7gmUq7Duu', NULL, NULL, 'admin@gmail.com', NULL, NULL, NULL, 0);
+(2, 'admin', '$2y$10$Bh3aDHnMSO.kmmkeOnM9ceSmgLWgHPK8Y4jFRnjMNJny7gmUq7Duu', NULL, 'quandohong28.jpg', 'admin@gmail.com', NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -888,8 +891,30 @@ CREATE TABLE `exams` (
   `schedule_id` int(11) DEFAULT NULL,
   `category_id` int(11) NOT NULL,
   `exam_type_id` int(11) NOT NULL,
-  `number_question` int(11) NOT NULL
+  `number_question` int(11) NOT NULL,
+  `exam_time` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `exams`
+--
+
+INSERT INTO `exams` (`id`, `exam_code`, `schedule_id`, `category_id`, `exam_type_id`, `number_question`, `exam_time`) VALUES
+(1, 'CODE001', 1, 6, 2, 40, 0),
+(2, 'RYHUIB', NULL, 1, 1, 15, 30),
+(3, 'T0YK63', NULL, 1, 1, 15, 30),
+(4, 'BVT70C', NULL, 1, 1, 15, 30),
+(5, '5HMV1X', NULL, 1, 1, 15, 30),
+(6, '5WZTTF', NULL, 1, 1, 15, 30),
+(7, '5KQ2LF', NULL, 1, 1, 15, 30),
+(8, 'MOKPWJ', NULL, 1, 1, 15, 30),
+(9, 'A9OPN0', NULL, 1, 1, 15, 30),
+(10, 'O9VKDG', NULL, 1, 1, 15, 30),
+(11, 'INDPIB', NULL, 1, 1, 15, 30),
+(12, 'MFXXEE', NULL, 1, 1, 15, 30),
+(13, '1X7CSN', NULL, 1, 1, 15, 30),
+(14, '6O8CGI', NULL, 1, 1, 15, 30),
+(15, '0B7FTQ', NULL, 1, 1, 15, 30);
 
 -- --------------------------------------------------------
 
@@ -902,6 +927,132 @@ CREATE TABLE `exam_details` (
   `exam_id` int(11) NOT NULL,
   `question_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `exam_details`
+--
+
+INSERT INTO `exam_details` (`id`, `exam_id`, `question_id`) VALUES
+(1, 8, 200),
+(2, 8, 7),
+(3, 8, 19),
+(4, 8, 205),
+(5, 8, 202),
+(6, 8, 5),
+(7, 8, 8),
+(8, 8, 8),
+(9, 8, 8),
+(10, 8, 8),
+(11, 8, 196),
+(12, 8, 15),
+(13, 8, 9),
+(14, 8, 18),
+(15, 8, 12),
+(16, 9, 202),
+(17, 9, 202),
+(18, 9, 204),
+(19, 9, 205),
+(20, 9, 10),
+(21, 9, 5),
+(22, 9, 8),
+(23, 9, 17),
+(24, 9, 11),
+(25, 9, 2),
+(26, 9, 12),
+(27, 9, 12),
+(28, 9, 6),
+(29, 9, 9),
+(30, 9, 9),
+(31, 10, 7),
+(32, 10, 4),
+(33, 10, 201),
+(34, 10, 7),
+(35, 10, 19),
+(36, 10, 14),
+(37, 10, 14),
+(38, 10, 5),
+(39, 10, 11),
+(40, 10, 8),
+(41, 10, 18),
+(42, 10, 6),
+(43, 10, 196),
+(44, 10, 18),
+(45, 10, 18),
+(46, 11, 203),
+(47, 11, 1),
+(48, 11, 197),
+(49, 11, 205),
+(50, 11, 203),
+(51, 11, 11),
+(52, 11, 8),
+(53, 11, 5),
+(54, 11, 5),
+(55, 11, 11),
+(56, 11, 18),
+(57, 11, 9),
+(58, 11, 9),
+(59, 11, 9),
+(60, 11, 196),
+(61, 12, 19),
+(62, 12, 204),
+(63, 12, 203),
+(64, 12, 10),
+(65, 12, 16),
+(66, 12, 14),
+(67, 12, 17),
+(68, 12, 17),
+(69, 12, 14),
+(70, 12, 17),
+(71, 12, 9),
+(72, 12, 196),
+(73, 12, 6),
+(74, 12, 15),
+(75, 12, 12),
+(76, 13, 200),
+(77, 13, 4),
+(78, 13, 205),
+(79, 13, 200),
+(80, 13, 198),
+(81, 13, 20),
+(82, 13, 17),
+(83, 13, 11),
+(84, 13, 2),
+(85, 13, 14),
+(86, 13, 196),
+(87, 13, 6),
+(88, 13, 196),
+(89, 13, 18),
+(90, 13, 9),
+(91, 14, 200),
+(92, 14, 13),
+(93, 14, 200),
+(94, 14, 1),
+(95, 14, 201),
+(96, 14, 5),
+(97, 14, 20),
+(98, 14, 17),
+(99, 14, 2),
+(100, 14, 17),
+(101, 14, 196),
+(102, 14, 12),
+(103, 14, 3),
+(104, 14, 196),
+(105, 14, 18),
+(106, 15, 197),
+(107, 15, 203),
+(108, 15, 204),
+(109, 15, 200),
+(110, 15, 7),
+(111, 15, 14),
+(112, 15, 11),
+(113, 15, 20),
+(114, 15, 11),
+(115, 15, 8),
+(116, 15, 12),
+(117, 15, 18),
+(118, 15, 6),
+(119, 15, 196),
+(120, 15, 9);
 
 -- --------------------------------------------------------
 
@@ -1161,7 +1312,7 @@ CREATE TABLE `results` (
   `account_id` int(11) NOT NULL,
   `points` float DEFAULT NULL,
   `time_start` datetime NOT NULL DEFAULT current_timestamp(),
-  `exam_time` datetime DEFAULT NULL
+  `exam_time` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1377,13 +1528,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `exams`
 --
 ALTER TABLE `exams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `exam_details`
 --
 ALTER TABLE `exam_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT for table `questions`

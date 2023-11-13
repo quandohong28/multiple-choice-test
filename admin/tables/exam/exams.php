@@ -13,33 +13,37 @@
                 <th scope="col">Chức năng</th>
             </tr>
         </thead>
+        <?php foreach ($exams as $exam):
+            extract($exam);
 
-        <tbody>
-            <tr class="">
-                <td class="align-middle">
-                    R1C2
-                </td>
-                <td class="align-middle">
-                    R1C2
-                </td>
-                <td class="align-middle">
-                    R1C2
-                </td>
-                <td class="align-middle">
-                    R1C2
-                </td>
-                <td class="align-middle">
-                    R1C2
-                </td>
-                <td class="align-middle">
-                    R1C2
-                </td>
-                <td class="align-middle">
-                    <a class="btn btn-success btn-sm" href="?act=tables&data=exam_detail"><i
-                            class="fa-solid fa-circle-info"></i></a>
-                </td>
-            </tr>
-        </tbody>
+            ?>
+            <tbody>
+                <tr class="">
+                    <td class="align-middle">
+                        <?= $exam_id ?>
+                    </td>
+                    <td class="align-middle">
+                        <?= $exam_code ?>
+                    </td>
+                    <td class="align-middle">
+                        <?= $schedule_id ?>
+                    </td>
+                    <td class="align-middle">
+                        <?= $category_name ?>
+                    </td>
+                    <td class="align-middle">
+                        <?= $type_name ?>
+                    </td>
+                    <td class="align-middle">
+                        <?= $number_question ?>
+                    </td>
+                    <td class="align-middle">
+                        <a class="btn btn-success btn-sm" href="?act=tables&data=exam_detail&id=<?= $exam_id ?>"><i
+                                class="fa-solid fa-circle-info"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        <?php endforeach ?>
     </table>
     <nav>
         <ul class="pagination pagination-sm justify-content-end">
