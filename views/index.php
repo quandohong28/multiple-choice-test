@@ -3,7 +3,6 @@ session_start();
 include '../model/account.php';
 include '../model/pdo.php';
 
-
 pdo_connect();
 
 if (isset($_GET['act']) && $_GET['act'] !== '') {
@@ -38,12 +37,13 @@ if (isset($_GET['act']) && $_GET['act'] !== '') {
                 }
             }
             break;
-        case 'change_password':
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        case 'change_password_submit':
+            if (isset($_POST['change_password_submit'])) {
                 $id = $_SESSION['user']['id'];
                 $old_password = $_POST['old_password'];
                 $password = $_POST['password'];
-                $conf_pass = $_POST['conf_pass'];
+                $conf_pass = $_POST['conf_pass']; 
+
                 if ($password === $conf_pass) {
                     changePassword($id, $old_password, $password);
                     unset($_SESSION['user']);

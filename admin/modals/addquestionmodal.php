@@ -14,7 +14,7 @@
                         <textarea type="text" name="content" id="content" class="form-control form-control-sm"></textarea>
                     </div>
                 </div>
-                <div class="col-md-11 m-3 text-center">
+                <div class="col-11 m-4 text-center">
                     <div class="form-outline">
                         <label class="form-label" for="image">Ảnh</label>
                         <input class="form-control form-control-sm" id="image" name="image" type="file" />
@@ -52,22 +52,22 @@
                 <div class="row m-4 text-center gap-5">
                     <label class="form-label" for="answer">Câu trả lời</label>
                     <div class="col-5 d-flex justify-content-between mx-3">
-                        <input class="form-check-input" type="radio" id="flexCheckDefault1">
+                        <input class="form-check-input" name="check_answer" type="radio" id="flexCheckDefault1">
                         <input class="check-input" type="hidden" value="0" name="correct_answer[]">
                         <textarea type="text" id="answer1" name="answer[]" class="form-control form-control-sm"></textarea>
                     </div>
                     <div class="col-5 d-flex justify-content-between mx-3">
-                        <input class="form-check-input" type="radio" id="flexCheckDefault2">
+                        <input class="form-check-input" name="check_answer" type="radio" id="flexCheckDefault2">
                         <input class="check-input" type="hidden" value="0" name="correct_answer[]">
                         <textarea type="text" id="answer2" name="answer[]" class="form-control form-control-sm"></textarea>
                     </div>
                     <div class="col-5 d-flex justify-content-between mx-3">
-                        <input class="form-check-input" type="radio" id="flexCheckDefault3">
+                        <input class="form-check-input" name="check_answer" type="radio" id="flexCheckDefault3">
                         <input class="check-input" type="hidden" value="0" name="correct_answer[]">
                         <textarea type="text" id="answer3" name="answer[]" class="form-control form-control-sm"></textarea>
                     </div>
                     <div class="col-5 d-flex justify-content-between mx-3">
-                        <input class="form-check-input" type="radio" id="flexCheckDefault4">
+                        <input class="form-check-input" name="check_answer" type="radio" id="flexCheckDefault4">
                         <input class="check-input" type="hidden" value="0" name="correct_answer[]">
                         <textarea type="text" id="answer4" name="answer[]" class="form-control form-control-sm"></textarea>
                     </div>
@@ -89,6 +89,7 @@
         //input_answer[index].value = "0";
 
         input_check[index].addEventListener("click", function(e) {
+
             for (let j = 0; j < input_answer.length; j++) {
                 input_answer[index].value = "0";
             }

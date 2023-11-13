@@ -107,30 +107,6 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
     <!-- Page level custom scripts -->
     <script src="../assets/js/demo/chart-area-demo.js"></script>
     <script src="../assets/js/demo/chart-pie-demo.js"></script>
-    <script>
-        function openFullscreen(element) {
-            if (element.requestFullscreen) {
-                element.requestFullscreen();
-            } else if (element.mozRequestFullScreen) {
-                /* Firefox */
-                element.mozRequestFullScreen();
-            } else if (element.webkitRequestFullscreen) {
-                /* Chrome, Safari, and Opera */
-                element.webkitRequestFullscreen();
-            } else if (element.msRequestFullscreen) {
-                /* IE/Edge */
-                element.msRequestFullscreen();
-            }
-        }
-
-        const images = document.querySelectorAll('img');
-
-        images.forEach((image) => {
-            image.addEventListener('click', () => {
-                openFullscreen(image);
-            })
-        })
-    </script>
 </body>
 
 </html>

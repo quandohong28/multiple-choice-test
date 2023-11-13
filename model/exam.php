@@ -133,12 +133,14 @@ function getQuestionsByExamId($exam_id)
 function getExamDetailByExamId($exam_id)
 {
     try {
-        $sql = "SELECT
-        
-        FROM exam_details
-        INNER JOIN questions ON questions.id = exam_details.question_id
-        INNER JOIN answers ON questions.id = answers.question_id
-        WHERE exam_id = '$exam_id';";
+        $sql = "SELECT 
+        q.id,
+        q.content,
+        q.image,
+        q.question_level_id
+    FROM exam_details e
+    INNER JOIN questions q ON q.id = e.question_id 
+    WHERE exam_id = $exam_id;";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();

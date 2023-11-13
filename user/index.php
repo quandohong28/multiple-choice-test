@@ -83,9 +83,12 @@ include '../model/exam.php';
                         echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '">';
                         break;
                     case 'doing_exam':
-                        include "./exams/doing_exam.php";
                         $exam_detail = getExamDetailByExamId($_GET['exam_id']);
-                        var_dump($exam_detail);
+                        echo '<pre>';
+                        // var_dump($exam_detail); 
+                        echo '</pre>';
+                        
+                        include "./exams/doing_exam.php";
                         break;
                     case 'result':
                         include "./results/result.php";
@@ -99,12 +102,32 @@ include '../model/exam.php';
                         $account = getAccountById($id);
                         $avatarPath = '../assets/img/accounts/';
                         extract($account);
-                        $parts = explode(' ', trim($fullname));
-                        extract([
-                            'firstname' => $parts[0],
-                            'lastname' => array_slice($parts, 1),
-                        ]);
                         include "./accounts/profile.php";
+                        break;
+                    case 'edit_profile':
+                        if (isset($_POST['btn_edit'])) {
+                            $id = $_SESSION['user']['id'];
+                            $account = getAccountById($id);
+                            $email = $_POST['email'];
+                            $introduce = $_POST['introduce'];
+
+                            if ($_FILES['avatar']['name'] != "") {
+                                $targetDir = '../assets/img/accounts/';
+                                $avatar = $_FILES['avatar']['name'];
+                                move_uploaded_file($_FILES['avatar']['tmp_name'], $targetDir . $avatar);
+                            } else {
+                                $avatar = $account['avatar'];
+                            } 
+
+                            $fullname = trim($_POST['fullname']);
+
+                            $tel = $_POST['tel'];
+
+                            $address = ucfirst(trim($_POST['address']));
+
+                            editProfile($id, $email, $introduce, $avatar, $fullname, $tel, $address);
+                            echo '<meta http-equiv="refresh" content="0;url=?act=profile">';
+                        }
                         break;
                     case 'setting':
                         include "./accounts/setting.php";
@@ -114,7 +137,7 @@ include '../model/exam.php';
                         break;
                     case 'logout':
                         unset($_SESSION['user']);
-                        var_dump($_SESSION['user']);
+                        // var_dump($_SESSION['user']);
                         echo '<meta http-equiv="refresh" content="0;url=../index.php">';
                         break;
                     default:

@@ -220,6 +220,36 @@ if (isset($_GET['data'])) {
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=questions">';
 			break;
 		case 'edit_question':
+			if (isset($_POST['btn_edit'])) {
+				$content_question = $_POST['edit_content'];
+				$question_level_id = $_POST['edit_question_level_id'];
+				$question_type_id = $_POST['edit_question_type_id'];
+				$category_id = $_POST['edit_category_id'];
+				$question_id = $_POST['edit_id'];
+
+				if ($_FILES['edit_image']['name'] != "") {
+					$targetDir = '../assets/img/questions/';
+					$image = $_FILES['edit_image']['name'];
+					move_uploaded_file($_FILES['edit_image']['tmp_name'], $targetDir . $image);
+				} else {
+					$image = $_POST['edit_image'];
+				}
+
+				editQuestion($question_id, $content_question, $image, $question_level_id, $question_type_id, $category_id);
+
+				$id_answer = $_POST['edit_id_answer'];
+				$answer = $_POST['edit_answer'];
+				$correct_answer = $_POST['edit_correct_answer'];
+				$leng_answer = count($answer);
+
+				for ($i = 0; $i < $leng_answer; $i++) {
+					$id = (int)$id_answer[$i];
+					$content = $answer[$i];
+					$is_correct = (int)$correct_answer[$i];
+					editAnswer($id, $content, $question_id, $is_correct);
+				}
+			}
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=questions">';
 			break;
 		case 'del_question':
 			deleteQuestion($_GET['id']);

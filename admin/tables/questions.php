@@ -2,10 +2,11 @@
     <h3 class="text-dark text-center mb-5">Danh sách câu hỏi</h3>
 
     <a class="btn btn-sm btn-info mb-2" href="#" data-toggle="modal" data-target="#addquestionmodal">Thêm câu hỏi</a>
-
     <?php foreach ($questions as $question) :
         extract($question);
         $answers = getAnswersByQuestionId($id);
+        $getQuestion = [$question, $answers];
+        // var_dump($getQuestion);
     ?>
 
         <div class="expandable-container border border-2 rounded my-3">
@@ -14,7 +15,7 @@
                     <p><?= $content ?></p>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-warning btn-sm btneditquestion" data-bs-toggle="modal" data-bs-target="#editquestionmodal" data-value='<?= json_encode($question) ?>'>
+                    <button type="button" class="btn btn-warning btn-sm btneditquestion" data-bs-toggle="modal" data-bs-target="#editquestionmodal" data-value='<?= json_encode($getQuestion) ?>'>
                         <i class="fa-regular fa-pen-to-square"></i>
                     </button>
 

@@ -52,6 +52,18 @@ function insertQuestion($content, $image, $question_level_id, $question_type_id,
     }
 }
 
+function editQuestion ($id, $content, $image, $question_level_id, $question_type_id, $category_id)
+{
+    try {
+        $sql = "UPDATE questions SET content = '$content', image = '$image', question_level_id = $question_level_id, question_type_id = $question_type_id, category_id = $category_id WHERE id = $id;";
+        pdo_execute($sql);
+        // var_dump($sql);
+        // die();
+    } catch (Exception $e) {
+        echo json_decode($e->getMessage());
+    }
+}
+
 function getTypeQuestions()
 {
     try {
