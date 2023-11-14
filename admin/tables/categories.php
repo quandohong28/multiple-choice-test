@@ -4,6 +4,9 @@
     </div>
     <div class="card-body">
         <div class="row mb-3">
+            <?php include 'components/filter.php' ?>
+        </div>
+        <div class="row mb-3">
             <div class="col">
                 <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#addcategorymodal">Thêm chuyên mục</a>
             </div>
@@ -42,7 +45,7 @@
                             <td class="align-middle">
                                 <img src="../assets/img/categories/<?= $image ?>" alt="" width="50px">
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle col-1">
                                 <button type="button" class="btn btn-warning btn-sm btneditcategory" data-bs-toggle="modal" data-bs-target="#editCategory" data-value='<?= json_encode($category) ?>'>
                                     <i class=" fa-regular fa-pen-to-square"></i>
                                 </button>

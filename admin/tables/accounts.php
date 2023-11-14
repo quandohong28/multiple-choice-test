@@ -4,6 +4,9 @@
     </div>
     <div class="card-body">
         <div class="row mb-3">
+            <?php include 'components/filter.php' ?>
+        </div>
+        <div class="row mb-3">
             <div class="col">
                 <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#addaccountmodal">Thêm tài khoản</a>
             </div>
@@ -68,7 +71,7 @@
                                     <?= $role; ?>
                                 </span>
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle col-1">
                                 <button type="button" class="btn btn-warning btn-sm btneditaccount" data-bs-toggle="modal" data-bs-target="#exampleModalABC" data-value='<?= json_encode($account) ?>'>
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </button>
@@ -80,11 +83,11 @@
                 </tbody>
             </table>
         </div>
-        <?php include 'components/pagination.php'?>
+        <?php include 'components/pagination.php' ?>
     </div>
     <!------Thêm tài khoản ----->
     <?php include 'modals/addaccountmodal.php' ?>
-    
+
     <!------Sửa tài khoản ----->
     <?php include 'modals/editaccountmodal.php' ?>
 </div>

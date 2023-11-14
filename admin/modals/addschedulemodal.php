@@ -10,7 +10,7 @@
             </div>
             <form method="post" enctype="multipart/form-data" action="?act=tables&data=add_schedule">
                 <div class="row justify-content-center align-items-center h-100 m-5">
-                    <div class="col-12 col-lg-9 col-xl-7">
+                    <div class="col-11">
                         <div class="row">
                             <div class="col mb-4">
                                 <div class="form-outline">

@@ -1,44 +1,44 @@
-<section class="bg-gradient-light p-5 rounded-3 mb-6 min-vh-100">
-    <h5 class="text-dark mb-5">Chi tiết đề thi</h5>
-
-    <div class="row mb-3">
-        <div class="col">
-        </div>
-        <div class="col">
-            <?php include '../components/data_export.php' ?>
-        </div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Chi tiết đề thi</h6>
     </div>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Câu hỏi</th>
-            </tr>
-        </thead>
-        <?php foreach ($exam_detail as $question):
-            extract($question);
-            ?>
-            <tbody>
-                <tr class="">
-                    <td class="align-middle">
-                        <?= $id ?>
-                    </td>
-                    <td class="align-middle">
-                        <?= $question_content ?>
-                    </td>
-                </tr>
-            <?php endforeach ?>
-        </tbody>
-    </table>
-    <nav>
-        <?php include '../components/pagination.php'?>
-    </nav>
-
-    <!----Thêm đề thi----->
-    <?php include './modals/addexammodal.php' ?>
-    <!----Sửa đề thi----->
-    <?php include './modals/editexammodal.php' ?>
-
-
-
-</section>
+    <div class="card-body">
+        <div class="row mb-3">
+            <?php include '../components/filter.php' ?>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+            </div>
+            <div class="col">
+                <?php include 'components/data_export.php' ?>
+            </div>
+        </div>
+        <div class="table-responsive small">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Câu hỏi</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Câu hỏi</th>
+                    </tr>
+                </tfoot>
+                <?php foreach ($exam_detail as $question) : extract($question); ?>
+                    <tr class="">
+                        <td class="align-middle col-1">
+                            <?= $id ?>
+                        </td>
+                        <td class="align-middle">
+                            <?= $question_content ?>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </table>
+        </div>
+        <?php include 'components/pagination.php' ?>
+    </div>
+</div>

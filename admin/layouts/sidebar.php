@@ -1,4 +1,4 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion h-100" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="?act=home">
@@ -14,7 +14,7 @@
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
         <a class="nav-link" href="?act=dashboard">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fa fa-fw fa-tachometer-alt"></i>
             <span>Bảng điều khiển</span>
         </a>
     </li>
@@ -27,36 +27,41 @@
 
     <!-- Nav Item - Tables -->
 
-    <li class="nav-item" role="presentation">
-        <a class="nav-link" id="ex-with-icons-tab-1" data-mdb-toggle="tab" href="?act=tables&data=accounts" role="tab"
-            aria-controls="ex-with-icons-tabs-1" aria-selected="true"><i class="fas fa-solid fa-users me-2"></i>Tài
-            khoản</a>
+    <li class="nav-item">
+        <a class="nav-link" href="?act=tables&data=accounts">
+            <i class="fa fa-fw fa-users"></i>
+            <span>Tài khoản</span>
+        </a>
     </li>
-    <li class="nav-item" role="presentation">
-        <a class="nav-link" id="ex-with-icons-tab-2" data-mdb-toggle="tab" href="?act=tables&data=categories" role="tab"
-            aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i
-                class="fas fa-chart-line fa-list me-2"></i>Chuyên mục</a>
+    <li class="nav-item">
+        <a class="nav-link" href="?act=tables&data=categories">
+            <i class="fa fa-fw fa-chart-line"></i>
+            <span>Chuyên mục</span>
+        </a>
     </li>
-    <li class="nav-item" role="presentation">
-        <a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=schedules" role="tab"
-            aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i
-                class="fas fa-calendar-days fa-fw me-2"></i>Lịch thi</a>
+    <li class="nav-item">
+        <a class="nav-link" href="?act=tables&data=schedules">
+            <i class="fa fa-fw fa-calendar-days"></i>
+            <span>Lịch thi</span>
+        </a>
     </li>
-    <li class="nav-item" role="presentation">
-        <a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=questions" role="tab"
-            aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fas fa-question fa-fw me-2"></i>Câu
-            hỏi</a>
+    <li class="nav-item">
+        <a class="nav-link" href="?act=tables&data=questions">
+            <i class="fa fa-fw fa-question"></i>
+            <span>Câu hỏi</span>
+        </a>
     </li>
-    <li class="nav-item" role="presentation">
-        <a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=results" role="tab"
-            aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i
-                class="fa-solid fa-square-poll-vertical me-2"></i>Theo
-            dõi điểm</a>
+    <li class="nav-item">
+        <a class="nav-link" href="?act=tables&data=results">
+            <i class="fa fa-fw fa-square-poll-vertical"></i>
+            <span>Theo dõi điểm</span>
+        </a>
     </li>
-    <li class="nav-item" role="presentation">
-        <a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=exams" role="tab"
-            aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fa-solid fa-file-lines me-2"></i>Đề
-            thi</a>
+    <li class="nav-item">
+        <a class="nav-link" href="?act=tables&data=exams">
+            <i class="fa fa-fw fa-file-lines"></i>
+            <span>Đề thi</span>
+        </a>
     </li>
 
     <!-- Divider -->

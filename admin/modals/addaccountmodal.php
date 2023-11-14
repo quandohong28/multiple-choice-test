@@ -9,7 +9,7 @@
             </div>
             <form action="?act=tables&data=add_account" method="POST" enctype="multipart/form-data">
                 <div class="row justify-content-center align-items-center h-100 mt-5">
-                    <div class="col-12 col-lg-9 col-xl-7">
+                    <div class="col-11">
                         <div class="row">
                             <div class="col-md-6 mb-4">
                                 <div class="form-outline">
