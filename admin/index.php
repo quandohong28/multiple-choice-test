@@ -26,76 +26,96 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body class="overflow-x-hidden">
-    <div class="row">
-        <div class="col-2">
-            <?php include "./layouts/sidebar.php" ?>
-        </div>
-        <section class="col">
-            <header>
-                <?php include "./layouts/header.php" ?>
-            </header>
-            <div>
-                <?php switch ($action) {
-                    case 'dashboard':
-                    case 'home':
-                        include "./dashboard.php";
-                        break;
-                    case 'search':
-                        include "./search.php";
-                        break;
-                    case 'notification':
-                        include "./notification.php";
-                        break;
-                    case 'message':
-                        include "./message.php";
-                        break;
-                    case 'profile':
-                        include "./profile.php";
-                        break;
-                    case 'setting':
-                        include "./setting.php";
-                        break;
-                    case 'userlog':
-                        include "./userlog.php";
-                        break;
-                    case 'signout':
-                        unset($_SESSION['user']);
-                        echo '<meta http-equiv="refresh" content="0;url=../index.php">';
-                        break;
-                    case 'signin':
-                        include "./signin.php";
-                        break;
-                    case 'signup':
-                        include "./signup.php";
-                        break;
-                    case 'tables':
-                        include "./tables/index.php";
-                        break;
-                    default:
-                        include "./dashboard.php";
-                        break;
-                } ?>
-                <?php include "./modals/logoutmodal.php" ?>
-                <!-- Scroll to Top Button-->
-                <a class="scroll-to-top rounded" href="#">
-                    <i class="fas fa-angle-up"></i>
-                </a>
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <?php include 'layouts/sidebar.php' ?>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <?php include 'layouts/header.php' ?>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <?php switch ($action) {
+                        case 'dashboard':
+                        case 'home':
+                            include "./dashboard.php";
+                            break;
+                        case 'search':
+                            include "./search.php";
+                            break;
+                        case 'notification':
+                            include "./notification.php";
+                            break;
+                        case 'message':
+                            include "./message.php";
+                            break;
+                        case 'profile':
+                            include "./profile.php";
+                            break;
+                        case 'setting':
+                            include "./setting.php";
+                            break;
+                        case 'userlog':
+                            include "./userlog.php";
+                            break;
+                        case 'signout':
+                            unset($_SESSION['user']);
+                            echo '<meta http-equiv="refresh" content="0;url=../index.php">';
+                            break;
+                        case 'signin':
+                            include "./signin.php";
+                            break;
+                        case 'signup':
+                            include "./signup.php";
+                            break;
+                        case 'tables':
+                            include "./tables/index.php";
+                            break;
+                        default:
+                            include "./dashboard.php";
+                            break;
+                    } ?>
+                </div>
+                <!-- /.container-fluid -->
+
             </div>
-        </section>
+            <!-- End of Main Content -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
     </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
     <footer>
         <?php include "./layouts/footer.php" ?>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
     </script>
-    <script src="../assets/vendor/jquery/jquery.min.js"></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/jquery/jquery.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <!-- Core plugin JavaScript-->
-    <script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../assets/vendor/jquery-easing/jquery.easing.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="../assets/js/script.admin.js"></script>
@@ -103,6 +123,8 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
 
     <!-- Page level plugins -->
     <script src="../assets/vendor/chart.js/Chart.js"></script>
+    <script src="../assets/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="../assets/vendor/datatables/dataTables.bootstrap4.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="../assets/js/demo/chart-area-demo.js"></script>

@@ -1,8 +1,16 @@
-<section class="bg-light p-5 rounded-3 mb-5 min-vh-100">
-    <h3 class="text-dark text-center mb-5">Danh sách lịch thi</h3>
+<section class="bg-gradient-light p-5 rounded-3 mb-5 min-vh-100">
+    <h5 class="text-dark mb-5">Danh sách lịch thi</h5>
 
-    <a class="btn btn-sm btn-info mb-2" href="#" data-toggle="modal" data-target="#addScheduleModal">Thêm lịch thi</a>
-    <table class="table table-striped text-center">
+    <div class="row mb-3">
+        <div class="col">
+            <a class="btn btn-sm btn-info" href="#" data-toggle="modal" data-target="#addScheduleModal">Thêm lịch thi</a>
+        </div>
+        <div class="col">
+            <?php include '../components/data_export.php' ?>
+        </div>
+    </div>
+
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th scope="col">ID</th>
@@ -15,10 +23,10 @@
                 <th scope="col">Chức năng</th>
             </tr>
         </thead>
-        <?php foreach ($schedules as $schedule):
+        <?php foreach ($schedules as $schedule) :
             extract($schedule);
             list($start_date, $start_time) = explode(" ", $time_start);
-            ?>
+        ?>
             <tbody>
                 <tr class="">
                     <td class="align-middle">
@@ -50,35 +58,18 @@
                         R1C2
                     </td>
                     <td class="align-middle">
-                        <a class="btn btn-success btn-sm" href="?act=tables&data=schedule_detail"><i
-                                class="fa-solid fa-circle-info"></i></a>
-                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#editScheduleModal" data-value='<?= json_encode($schedule) ?>'>
+                        <a class="btn btn-success btn-sm" href="?act=tables&data=schedule_detail"><i class="fa-solid fa-circle-info"></i></a>
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editScheduleModal" data-value='<?= json_encode($schedule) ?>'>
                             <i class="fa-regular fa-pen-to-square"></i>
                         </button>
-                        <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm"
-                            href="?act=tables&data=del_schedule&id=<?= $id; ?>"><i class="fa fa-trash"></i></a>
+                        <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm" href="?act=tables&data=del_schedule&id=<?= $id; ?>"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             </tbody>
         <?php endforeach ?>
     </table>
     <nav>
-        <ul class="pagination pagination-sm justify-content-end">
-            <li class="page-item disabled">
-                <a class="page-link px-3">
-                    <i class="fa-solid fa-caret-left"></i>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link px-3" href="#">
-                    <i class="fa-solid fa-caret-right"></i>
-                </a>
-            </li>
-        </ul>
+        <?php include '../components/pagination.php'?>
     </nav>
 
     <!----Thêm lịch thi----->
