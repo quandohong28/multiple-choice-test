@@ -83,6 +83,9 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
                         case 'tables':
                             include "./tables/index.php";
                             break;
+                        case 'user_page':
+                            echo '<meta http-equiv="refresh" content="0;url=../user/index.php">';
+                            break;
                         default:
                             include "./dashboard.php";
                             break;

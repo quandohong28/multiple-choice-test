@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row small fw-bold">
 	<!-- Tabs navs -->
 	<ul class="nav nav-tabs m-3" id="ex-with-icons" role="tablist">
 		<li class="nav-item" role="presentation">

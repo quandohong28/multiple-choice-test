@@ -64,6 +64,16 @@
         </a>
     </li>
 
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Truy cập trang giao diện người dùng -->
+    <li class="nav-item">
+        <a class="nav-link" href="?act=user_page">
+        <i class="fa-brands fa-fw fa-pagelines"></i>
+            <span>Trang người dùng</span>
+        </a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
