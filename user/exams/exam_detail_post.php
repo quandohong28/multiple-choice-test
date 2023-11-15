@@ -13,8 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach (getResultDetailByResultId($data->result_id) as $value) {
             if ($data->question_id == $value['question_id']) {
                 $flag = true;
+                break;
             } else {
                 $flag = false;
+                
             }
         }
 

@@ -60,6 +60,16 @@ function getResultDetails($id)
     }
 }
 
+function getResultDetailByResultIdAndQuestionId($result_id, $question_id)
+{
+    try {
+        $sql = "SELECT * FROM result_details WHERE result_id = $result_id AND question_id = $question_id";
+        return pdo_query_one($sql);
+    } catch (Exception $e) {
+        return $e->getMessage();
+    }
+}
+
 function addResult($account_id, $exam_id)
 {
     try {
@@ -115,7 +125,7 @@ function addResultDetail($result_id, $question_id, $answer_id)
 function updateResultDetail($result_id, $question_id, $answer_id)
 {
     try {
-        $sql = "UPDATE result_details SET answer_id = '$answer_id' WHERE result_id = '$result_id' AND question_id = '$question_id'";
+        $sql = "UPDATE result_details SET answer_id = $answer_id WHERE result_id = $result_id AND question_id = $question_id";
         pdo_execute($sql);
     } catch (Exception $e) {
         return json_encode($e->getMessage());

@@ -84,16 +84,20 @@ include '../model/result.php';
                         echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '&exam_time=' . $exam_time . '&result_id=' . $latest_result_id . '">';
                         break;
                     case 'doing_exam':
-                        $exam_detail = getExamDetailByExamId($_GET['exam_id']); 
+                        $exam_detail = getExamDetailByExamId($_GET['exam_id']);
                         include "./exams/doing_exam.php";
                         break;
                     case 'finish_exam':
-                        if (isset($_POST['submit'])) {
+                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             $exam_time = $_POST['exam_time'];
-                            $exam_id = $_POST['exam_id']; 
+                            $exam_id = $_POST['exam_id'];
                             // $points = $_POST['points'];
-                            $points = 0;
+                            $points = 0; 
+                            if ($exam_time == '') {
+                                $exam_time = $_GET['exam_time'];
+                            }
                             updateResult($exam_time, $points, $exam_id);
+                            echo '<meta http-equiv="refresh" content="0;url=?act=result">';
                         }
                         break;
                     case 'result':
@@ -123,7 +127,7 @@ include '../model/result.php';
                                 move_uploaded_file($_FILES['avatar']['tmp_name'], $targetDir . $avatar);
                             } else {
                                 $avatar = $account['avatar'];
-                            } 
+                            }
 
                             $fullname = trim($_POST['fullname']);
 

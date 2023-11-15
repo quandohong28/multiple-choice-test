@@ -83,7 +83,7 @@
                     <h5 class="modal-title" id="modalTitleId">Xác nhận kết thúc bài thi</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="?act=finish_exam" method="post">
+                <form action="?act=finish_exam" method="post" id="finish_exam">
                     <div class="modal-body">
                         <div class="container-fluid">
                             <p>Bạn có muốn kết thúc bài thi?</p>
@@ -93,7 +93,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="continue_exam">Hủy</button>
-                        <button type="submit" name="submit" class="btn btn-primary">Xác nhận</button>
+                        <button type="submit" class="btn btn-primary">Xác nhận</button>
                     </div>
                 </form>
             </div>
@@ -111,6 +111,8 @@
     const exam_id = urlParams.get('exam_id');
     var exam_time = urlParams.get('exam_time');
     var result_id = urlParams.get('result_id');
+
+    // Lấy câu hỏi theo id đề thi
     const getQuestionById = async () => {
         const response = await fetch(`exams/question_data.php?exam_id=${exam_id}`);
         const question = await response.json();
@@ -126,6 +128,7 @@
         }
     }
 
+    // Lấy đáp án theo id câu hỏi
     const answersDOM = document.querySelectorAll('input[name="anwser"]');
     const getAnswersByQuestionId = async (question_id) => {
         const response = await fetch(`exams/answer_data.php?question_id=${question_id}`);
@@ -139,6 +142,14 @@
             answerDOM.value = answer[index].id;
         })
     }
+
+    // Hàm lấy ra id câu hỏi hiện tại ở bảng result_detail
+    const getResultDetailByResultIdAndQuestionId = async (result_id, question_id) => {
+        const response = await fetch(`exams/result_detail_data.php?result_id=${result_id}&question_id=${question_id}`);
+        return result_detail = await response.json();
+    }
+
+
 
     // Xử lý cập nhật câu hỏi khi chọn đáp án - lưu vào bảng result_detail
     const postData = async (answerDOM) => {
@@ -155,7 +166,6 @@
                 })
             })
             if (response.ok) {
-                console.log('ok');
                 const data = await response.json();
                 console.log(data);
             } else {
@@ -167,6 +177,7 @@
 
     }
 
+    // Xử lý sự kiện click vào đáp án
     answersDOM.forEach((answerDOM, index) => {
         answerDOM.onclick = () => {
             postData(answerDOM);
@@ -177,11 +188,19 @@
     const continue_exam = document.getElementById('continue_exam');
     const questionIndex = document.getElementById('questionIndex');
 
+    // Gọi hàm render ra câu hỏi và câu trả lời đầu tiên khi trang đươc load
     getQuestionById();
+    var result_detail = null;
     setTimeout(() => {
+        // render ra câu trả lời khi trang được load
         getAnswersByQuestionId(question_id[j])
+        // render ra index của câu hỏi
         questionIndex.innerHTML = j + 1 + ' / ' + question_id.length;
-    }, 300);
+    }, 1000);
+
+
+
+    // Xử lý sự kiện click vào nút next và prev
     const next_question = document.getElementById('next_question');
     const prev_question = document.getElementById('prev_question');
 
@@ -202,13 +221,29 @@
 
 
         prev_question.disabled = false;
+        // Kiểm tra xem câu hỏi hiện tại đã được chọn đáp án chưa
+        setTimeout(() => {
+            result_detail = getResultDetailByResultIdAndQuestionId(result_id, question_id[j]);
+        }, 1000);
+        // console.log(result_detail);
+        answersDOM.forEach((answerDOM) => {
+            if (answerDOM.value == result_detail.answer_id) {
+                answerDOM.checked = true;
+                return;
+            }
+            else {
+                answerDOM.checked = false;
+            }
+        });
+        
 
     })
+
     prev_question.addEventListener('click', () => {
+        getAnswersByQuestionId(question_id[--j])
         if (j <= 0) {
             prev_question.disabled = true;
         } else {
-            getAnswersByQuestionId(question_id[--j])
             question_content.innerHTML = contents[j];
             question_level.innerHTML = levels[j];
         }
@@ -219,7 +254,19 @@
 
         questionIndex.innerHTML = j + 1 + ' / ' + question_id.length;
 
-        next_question.disabled = false;
+        setTimeout(() => {
+            result_detail = getResultDetailByResultIdAndQuestionId(result_id, question_id[j]);
+        }, 1000);
+        // console.log(result_detail);
+        answersDOM.forEach((answerDOM) => {
+            if (answerDOM.value == result_detail.answer_id) {
+                answerDOM.checked = true;
+                return;
+            }
+            else {
+                answerDOM.checked = false;
+            }
+        });
     })
 
     // xu ly thoi gian lam bai
@@ -247,7 +294,9 @@
 
             if (seconds < 0) {
                 clearInterval(timerInterval);
-                examTime.innerHTML = "Hết thời gian!";
+                var form = document.getElementById("finish_exam");
+                form.action = `?act=finish_exam&exam_time=${formatTime(urlParams.get('exam_time') * 60)}`;
+                form.submit();
             }
         }
 
