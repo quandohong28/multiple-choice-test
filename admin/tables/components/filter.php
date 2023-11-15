@@ -20,11 +20,12 @@
         <div class="col-md-3 form-group ">
             <div class="row">
                 <button type="submit" class="btn btn-sm btn-info me-3 col">
-                    <i class="fa fa-search fs-6 me-2"></i>
-                    <span>Tìm kiếm</span>
+                    <i class="fa fa-fw fa-search fs-6 me-2"></i>
+                    <span class="lg-hidden">Tìm kiếm</span>
                 </button>
                 <button type="reset" class="btn btn-sm btn-outline-dark col">
-                    <span>Mặc định</span>
+                    <i class="fa-regular fa-fw fa-window-restore"></i>
+                    <span class="lg-hidden">Mặc định</span>
                 </button>
             </div>
         </div>

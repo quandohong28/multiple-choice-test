@@ -8,7 +8,10 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#addaccountmodal">Thêm tài khoản</a>
+                <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#addaccountmodal">
+                    <i class="fa-regular fa-fw fa-square-plus fa-lg"></i>
+                    <span class="md-hidden">Thêm tài khoản</span>
+                </a>
             </div>
             <div class="col">
                 <?php include 'components/data_export.php' ?>

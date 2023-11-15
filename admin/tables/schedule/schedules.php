@@ -4,14 +4,14 @@
     </div>
     <div class="card-body">
         <div class="row mb-3">
-            <?php include '../components/filter.php' ?>
+            <?php include 'tables/components/filter.php' ?>
         </div>
         <div class="row mb-3">
             <div class="col">
                 <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#addScheduleModal">Thêm lịch thi</a>
             </div>
             <div class="col">
-                <?php include 'components/data_export.php' ?>
+                <?php include 'tables/components/data_export.php' ?>
             </div>
         </div>
         <div class="table-responsive small">
@@ -86,7 +86,7 @@
                 </tbody>
             </table>
         </div>
-        <?php include '../components/pagination.php' ?>
+        <?php include 'tables/components/pagination.php' ?>
     </div>
     <!----Thêm lịch thi----->
     <?php include './modals/addschedulemodal.php' ?>
