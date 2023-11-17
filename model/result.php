@@ -121,3 +121,19 @@ function updateResultDetail($result_id, $question_id, $answer_id)
         return json_encode($e->getMessage());
     }
 }
+
+function getDoingExamByAccountId($id)
+{
+    try {
+        $sql = "SELECT 
+                r.id AS result_id, r.status AS result_status,
+                a.id AS account_id, e.id AS exam_id, e.exam_code AS exam_code 
+                FROM results r
+                INNER JOIN accounts a ON a.id = r.id
+                INNER JOIN exams e ON e.id = r.id
+                WHERE a.id = $id AND r.status = 0;";
+        return pdo_query($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
