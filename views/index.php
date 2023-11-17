@@ -9,47 +9,58 @@ if (isset($_GET['act']) && $_GET['act'] !== '') {
     switch ($_GET['act']) {
         case 'login':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $username = $_POST['username'];
-                $password = $_POST['password'];
+                $username = htmlspecialchars($_POST['username']);
+                $password = htmlspecialchars($_POST['password']);
                 $user = login($username, $password);
                 if ($user) {
                     $_SESSION['user'] = $user;
+                    session_regenerate_id(true);
                     header('Location: ../index.php');
+                    exit;
                 } else {
                     header('Location: ../views/login.php');
+                    exit;
                 }
             } else {
-                echo 123;
+                echo "Tên đăng nhập hoặc mật khẩu không đúng."; 
             }
             break;
 
         case 'signup':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $email = $_POST['email'];
-                $username = $_POST['username'];
-                $password = $_POST['password'];
-                $conf_pass = $_POST['conf_pass'];
+                $email = htmlspecialchars($_POST['email']);
+                $username = htmlspecialchars($_POST['username']);
+                $password = htmlspecialchars($_POST['password']);
+                $conf_pass = htmlspecialchars($_POST['conf_pass']);
                 if ($password === $conf_pass) {
-                    signup($email, $username, $password);
+                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                    signup($email, $username, $hashed_password);
                     header('Location: ../views/login.php');
+                    exit;
                 } else {
                     header('Location: ../views/signup.php');
+                    exit;
                 }
             }
             break;
+
         case 'change_password_submit':
             if (isset($_POST['change_password_submit'])) {
                 $id = $_SESSION['user']['id'];
-                $old_password = $_POST['old_password'];
-                $password = $_POST['password'];
-                $conf_pass = $_POST['conf_pass']; 
+                $old_password = htmlspecialchars($_POST['old_password']);
+                $password = htmlspecialchars($_POST['password']);
+                $conf_pass = htmlspecialchars($_POST['conf_pass']);
 
                 if ($password === $conf_pass) {
-                    changePassword($id, $old_password, $password);
+                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                    changePassword($id, $old_password, $hashed_password);
                     unset($_SESSION['user']);
-                    header('Location: ../views/login.php');
+                    session_regenerate_id(true);
+                    header('Lo  cation: ../views/login.php');
+                    exit;
                 } else {
                     header('Location: ../views/signup.php');
+                    exit;
                 }
             }
             break;
