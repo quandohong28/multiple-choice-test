@@ -40,9 +40,11 @@
                             </button>
                             <div class="collapse ps-5" id="orders-collapse">
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <?php foreach ($getDoingExam as $key => $value): ?>
-                                        <li><a href="?act=doing_exam&result_id=<?= $id ?>" class="link-dark">
-                                                <?= $value['exam_code'] ?>
+                                    <?php foreach ($doingExams as $doingExam):
+                                        extract($doingExam) ?>
+                                        <li><a href="?act=doing_exam&result_id=<?= $result_id ?>&exam_id=<?= $exam_id ?>&type=<?= $type ?>&exam_time=<?= $exam_time ?>"
+                                                class="link-dark">
+                                                <?= $exam_code ?>
                                             </a>
                                         </li>
                                     <?php endforeach ?>
