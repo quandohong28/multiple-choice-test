@@ -64,7 +64,7 @@
 				return false;
 			}
 
-			if (password.length < 8) {
+			if (password.length < 6) {
 				messageElement.innerHTML = "Mật khẩu phải có ít nhất 8 ký tự.";
 				return false;
 			}

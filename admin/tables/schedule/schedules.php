@@ -85,6 +85,7 @@
                     <?php endforeach ?>
                 </tbody>
             </table>
+
         </div>
         <?php include 'tables/components/pagination.php' ?>
     </div>

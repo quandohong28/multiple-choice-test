@@ -94,15 +94,9 @@ function insertPracticeExam($category_id, $exam_type_id, $number_easy_questions,
                 VALUES ('$exam_code', '$category_id', '$exam_type_id', '$number_question', '$exam_time');";
         pdo_execute($sql);
         $latestExamId = getLatestExam()['id'];
-        for ($i = 0; $i < $number_easy_questions; $i++) {
-            insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 1));
-        }
-        for ($i = 0; $i < $number_medium_questions; $i++) {
-            insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 2));
-        }
-        for ($i = 0; $i < $number_hard_questions; $i++) {
-            insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 3));
-        }
+        insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 1, $number_easy_questions));
+        insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 2,  $number_medium_questions));
+        insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 3, $number_hard_questions));
     } catch (Exception $e) {
         echo $e->getMessage();
     }
