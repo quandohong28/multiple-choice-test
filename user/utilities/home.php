@@ -1,4 +1,4 @@
-<section"><!-- Start: Features Cards -->
+<section">
     <div class="bg-primary-gradient py-5 rounded">
         <div class="row">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
@@ -69,9 +69,8 @@
                 </div>
             </div>
         </div>
-    </div><!-- End: Features Cards -->
-    </section>
-    <section><!-- Start: Features Cards -->
+    </div>
+    <section>
         <div class="col-md-8 col-xl-6 text-center mx-auto my-5">
             <h3 class="fw-bold">Chuyên mục</h3>
         </div>
@@ -80,14 +79,12 @@
             <div class="mx-auto" style="max-width: 900px;">
                 <div class="row row-cols-1 row-cols-md-2 d-flex justify-content-center">
                     <?php foreach ($categories as $category) :
-                        extract($category);
-                        $colorRand = rand(0, $count - 1);
                     ?>
                         <div class="col mb-4">
-                            <div class="card <?= $colors[$colorRand] ?>">
+                            <div class="card bg-gradient-light shadow">
                                 <div class="card-body text-center px-4 py-5 px-md-5">
                                     <p class="fw-bold text-dark card-text mb-2">Fully Managed</p>
-                                    <h5 class="fw-bold card-title mb-3"><?= $name ?></h5>
+                                    <h5 class="fw-bold card-title mb-3"><?= $category['name'] ?></h5>
                                     <button class="btn btn-sm btn-outline-dark" type="button">Xem chi tiết</button>
                                 </div>
                             </div>
@@ -97,7 +94,7 @@
             </div>
         </div><!-- End: Features Cards -->
     </section>
-    <section class="py-5 mt-5"><!-- Start: Testimonials -->
+    <section class="py-5 mt-5">
         <div class="container py-5">
             <div class="row mb-5">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
@@ -116,7 +113,7 @@
                 </div>
             </div>
         </div><!-- End: Testimonials -->
-    </section><!-- Start: Contact Details -->
+    </section>
     <section class="py-5">
         <div class="container">
             <div class="row mb-5">
@@ -181,4 +178,5 @@
                 </div>
             </div>
         </div>
-    </section><!-- End: Contact Details -->
+    </section>
+</section>

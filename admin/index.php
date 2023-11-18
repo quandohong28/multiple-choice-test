@@ -19,7 +19,6 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/styles.admin.css">
-    <!-- CSS thuần -->
     <!-- Goole font -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- font-awesome -->
@@ -83,6 +82,9 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
                         case 'tables':
                             include "./tables/index.php";
                             break;
+                        case 'user_page':
+                            echo '<meta http-equiv="refresh" content="0;url=../user/index.php">';
+                            break;
                         default:
                             include "./dashboard.php";
                             break;
@@ -116,19 +118,10 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <!-- Core plugin JavaScript-->
     <script src="../assets/vendor/jquery-easing/jquery.easing.js"></script>
-
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="../assets/js/script.admin.js"></script>
     <script src="../assets/js/script.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="../assets/vendor/chart.js/Chart.js"></script>
-    <script src="../assets/vendor/datatables/jquery.dataTables.js"></script>
-    <script src="../assets/vendor/datatables/dataTables.bootstrap4.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../assets/js/demo/chart-area-demo.js"></script>
-    <script src="../assets/js/demo/chart-pie-demo.js"></script>
 </body>
 
 </html>

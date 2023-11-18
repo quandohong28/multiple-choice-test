@@ -16,7 +16,7 @@ function getAnswersByQuestionId($question_id)
         $sql = "SELECT * FROM answers WHERE question_id = '$question_id'";
         return pdo_query($sql);
     } catch (\Exception $e) {
-        throw $e;
+        echo ($e->getMessage());
     }
 }
 

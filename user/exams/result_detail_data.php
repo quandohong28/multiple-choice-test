@@ -1,9 +1,10 @@
 <?php
 include '../../model/pdo.php';
-include '../../model/exam.php';
+include '../../model/result.php';
 // Tạo một mảng dữ liệu mẫu
-$exam_id = $_GET['exam_id'];
-$data = getExamDetailByExamId($exam_id);
+$result_id = $_GET['result_id'];
+$question_id = $_GET['question_id'];
+$data = getResultDetailByResultIdAndQuestionId($result_id, $question_id);
 
 
 // Chuyển mảng thành dạng JSON

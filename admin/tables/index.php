@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row small fw-bold">
 	<!-- Tabs navs -->
 	<ul class="nav nav-tabs m-3" id="ex-with-icons" role="tablist">
 		<li class="nav-item" role="presentation">
@@ -269,6 +269,7 @@ if (isset($_GET['data'])) {
 			include 'exam/exams.php';
 			break;
 		case 'exam_detail':
+			$exam_id = $_GET['id'];
 			$exam_detail = getQuestionsByExamId($exam_id);
 			include 'exam/exam_detail.php';
 			break;

@@ -8,13 +8,13 @@
             <tr>
                 <th class="small p-2" scope="col">
                     <a href="?act=result&sortbyindex">
-                        STT
+                        ID
                         <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
                     </a>
                 </th>
                 <th class="small p-2" scope="col">
                     <a href="?act=result&sortbydate">
-                        Tên bài thi
+                        Mã đề thi
                         <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
                     </a>
                 </th>
@@ -32,31 +32,79 @@
                 </th>
                 <th class="small p-2" scope="col">
                     <a href="?act=result&sortbyindex">
-                        Trạng thái
+                        Thời gian bắt đầu
+                        <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
+                    </a>
+                </th>
+                <th class="small p-2" scope="col">
+                    <a href="?act=result&sortbyindex">
+                        Thời gian làm bài
                         <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
                     </a>
                 </th>
                 <th class="small p-2" scope="col">Chức năng</th>
             </tr>
         </thead>
+        <tfoot>
+            <tr>
+                <th class="small p-2" scope="col">
+                    <a href="?act=result&sortbyindex">
+                        ID
+                        <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
+                    </a>
+                </th>
+                <th class="small p-2" scope="col">
+                    <a href="?act=result&sortbydate">
+                        Mã đề thi
+                        <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
+                    </a>
+                </th>
+                <th class="small p-2" scope="col">
+                    <a href="?act=result&sortbylocation">
+                        Điểm
+                        <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
+                    </a>
+                </th>
+                <th class="small p-2" scope="col">
+                    <a href="?act=result&sortbyindex">
+                        Hình thức
+                        <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
+                    </a>
+                </th>
+                <th class="small p-2" scope="col">
+                    <a href="?act=result&sortbyindex">
+                        Thời gian bắt đầu
+                        <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
+                    </a>
+                </th>
+                <th class="small p-2" scope="col">
+                    <a href="?act=result&sortbyindex">
+                        Thời gian làm bài
+                        <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
+                    </a>
+                </th>
+                <th class="small p-2" scope="col">Chức năng</th>
+            </tr>
+        </tfoot>
         <tbody>
-            <?php for ($i = 0; $i < 10; $i++) : ?>
+            <?php foreach ($results as $result) : ?>
                 <tr>
-                    <td class="py-3" scope="row"><?php echo $i + 1; ?></td>
-                    <td class="py-3">Cấu trúc dữ liệu và giải thuật nâng cao</td>
-                    <td class="py-3">9</td>
-                    <td class="py-3">Thi thử</td>
-                    <td class="py-3">Đạt</td>
+                    <td class="py-3"><?= $result['id'] ?></td>
+                    <td class="py-3"><?= $result['exam_code'] ?></td>
+                    <td class="py-3"><?= $result['points'] ?></td>
+                    <td class="py-3"><?= $result['type'] ?></td>
+                    <td class="py-3"><?= $result['time_start'] ?></td>
+                    <td class="py-3"><?= $result['exam_time'] ?></td>
                     <td class="small" class="">
-                        <a href="?act=result_detail" class="badge bg-info p-2">
+                        <a href="?act=result_detail&result_id=<?= $result['id']?>" class="badge bg-info p-2">
                             <i class="fa-solid fa-circle-info fa-xl me-2"></i>
                             Chi tiết
                         </a>
                     </td>
                 </tr>
-            <?php endfor; ?>
+            <?php endforeach; ?>
 
-            
+
         </tbody>
     </table>
 

@@ -13,8 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach (getResultDetailByResultId($data->result_id) as $value) {
             if ($data->question_id == $value['question_id']) {
                 $flag = true;
-            } else {
-                $flag = false;
+                break;
             }
         }
 
@@ -23,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             addResultDetail($data->result_id, $data->question_id, $data->answer_id);
         }
+
         $response = [
             'message' => 'Dữ liệu đã được gửi thành công',
             'received_data' => $data
@@ -33,8 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'received_data' => $data
         ];
     }
-
-
 
     echo json_encode($response);
 } else {

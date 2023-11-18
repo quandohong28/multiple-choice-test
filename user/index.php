@@ -10,6 +10,7 @@ include '../model/account.php';
 include '../model/schedule.php';
 include '../model/exam.php';
 include '../model/result.php';
+include '../model/answer.php';
 
 ?>
 
@@ -90,7 +91,6 @@ include '../model/result.php';
                         if (isset($result_id)) {
                             $type = $_GET['type'];
                             $exam_time = $_GET['exam_time'];
-                            echo $exam_time;
                             $exam_id = getResultById($result_id)['id'];
                             $exam_detail = getExamDetailByExamId($exam_id);
                         } else {
@@ -99,19 +99,27 @@ include '../model/result.php';
                         include "./exams/doing_exam.php";
                         break;
                     case 'finish_exam':
-                        if (isset($_POST['submit'])) {
+                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             $exam_time = $_POST['exam_time'];
                             $exam_id = $_POST['exam_id'];
                             // $points = $_POST['points'];
                             $points = 0;
+                            if ($exam_time == '') {
+                                $exam_time = $_GET['exam_time'];
+                            }
                             updateResult($exam_time, $points, $exam_id);
+                            echo '<meta http-equiv="refresh" content="0;url=?act=result">';
                         }
                         break;
                     case 'result':
+                        $results = getResultsByUserId($_SESSION['user']['id']);
                         include "./results/result.php";
                         break;
                     case 'result_detail':
                         $avatarPath = '../assets/img/accounts/';
+                        $result_id = $_GET['result_id'];
+                        $result_detail = getResultDetailByResultId($result_id);
+                        $result = getResultById($result_id);
                         include "./results/result_detail.php";
                         break;
                     case 'profile':

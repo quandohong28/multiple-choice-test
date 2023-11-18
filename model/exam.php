@@ -6,9 +6,9 @@ function getAllExams()
         e.id AS exam_id, e.exam_code AS exam_code, e.number_question AS number_question,
         s.name AS schedule_name, c.name AS category_name, c.image AS category_image, t.type AS type_name 
         FROM exams e
-        INNER JOIN schedules s ON s.id = e.schedule_id
+        LEFT JOIN schedules s ON s.id = e.schedule_id
         INNER JOIN categories c ON c.id = e.category_id
-        INNER JOIN types t ON t.id = e.exam_type_id;";
+        INNER JOIN types t ON t.id = e.exam_type_id ORDER BY e.id;";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -94,15 +94,9 @@ function insertPracticeExam($category_id, $exam_type_id, $number_easy_questions,
                 VALUES ('$exam_code', '$category_id', '$exam_type_id', '$number_question', '$exam_time');";
         pdo_execute($sql);
         $latestExamId = getLatestExam()['id'];
-        for ($i = 0; $i < $number_easy_questions; $i++) {
-            insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 1));
-        }
-        for ($i = 0; $i < $number_medium_questions; $i++) {
-            insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 2));
-        }
-        for ($i = 0; $i < $number_hard_questions; $i++) {
-            insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 3));
-        }
+        insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 1, $number_easy_questions));
+        insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 2,  $number_medium_questions));
+        insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 3, $number_hard_questions));
     } catch (Exception $e) {
         echo $e->getMessage();
     }
