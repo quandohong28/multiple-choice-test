@@ -6,9 +6,9 @@ function getAllExams()
         e.id AS exam_id, e.exam_code AS exam_code, e.number_question AS number_question,
         s.name AS schedule_name, c.name AS category_name, c.image AS category_image, t.type AS type_name 
         FROM exams e
-        INNER JOIN schedules s ON s.id = e.schedule_id
+        LEFT JOIN schedules s ON s.id = e.schedule_id
         INNER JOIN categories c ON c.id = e.category_id
-        INNER JOIN types t ON t.id = e.exam_type_id;";
+        INNER JOIN types t ON t.id = e.exam_type_id ORDER BY e.id;";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();

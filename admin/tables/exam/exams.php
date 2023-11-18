@@ -19,7 +19,7 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Mã đề thi</th>
-                        <th scope="col">Mã lịch thi</th>
+                        <th scope="col">Lịch thi</th>
                         <th scope="col">Chuyên mục</th>
                         <th scope="col">Loại đề thi</th>
                         <th scope="col">Số lượng câu hỏi</th>
@@ -30,7 +30,7 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Mã đề thi</th>
-                        <th scope="col">Mã lịch thi</th>
+                        <th scope="col">Lịch thi</th>
                         <th scope="col">Chuyên mục</th>
                         <th scope="col">Loại đề thi</th>
                         <th scope="col">Số lượng câu hỏi</th>
@@ -47,7 +47,7 @@
                                 <?= $exam_code ?>
                             </td>
                             <td class="align-middle">
-                                <?= $schedule_id ?>
+                                <?= $schedule_name ? $schedule_name : '<span class="badge bg-danger p-2">Thi thử không thuộc Lịch thi nào!</span>' ?>
                             </td>
                             <td class="align-middle">
                                 <?= $category_name ?>

@@ -10,6 +10,7 @@ include '../model/account.php';
 include '../model/schedule.php';
 include '../model/exam.php';
 include '../model/result.php';
+include '../model/answer.php';
 
 ?>
 
@@ -84,7 +85,6 @@ include '../model/result.php';
                         echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '&exam_time=' . $exam_time . '&result_id=' . $latest_result_id . '">';
                         break;
                     case 'doing_exam':
-                        $exam_detail = getExamDetailByExamId($_GET['exam_id']);
                         include "./exams/doing_exam.php";
                         break;
                     case 'finish_exam':
@@ -92,7 +92,7 @@ include '../model/result.php';
                             $exam_time = $_POST['exam_time'];
                             $exam_id = $_POST['exam_id'];
                             // $points = $_POST['points'];
-                            $points = 0; 
+                            $points = 0;
                             if ($exam_time == '') {
                                 $exam_time = $_GET['exam_time'];
                             }
@@ -101,10 +101,14 @@ include '../model/result.php';
                         }
                         break;
                     case 'result':
+                        $results = getResultsByUserId($_SESSION['user']['id']);
                         include "./results/result.php";
                         break;
                     case 'result_detail':
                         $avatarPath = '../assets/img/accounts/';
+                        $result_id = $_GET['result_id'];
+                        $result_detail = getResultDetailByResultId($result_id);
+                        $result = getResultById($result_id);
                         include "./results/result_detail.php";
                         break;
                     case 'profile':

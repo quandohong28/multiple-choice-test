@@ -18,10 +18,10 @@
                             </div>
                             <div class="col-md-12 mt-4">
                                 <div class="col d-flex gap-3">
-                                    <p class="badge bg-primary">Điểm: 8,9</p>
+                                    <p class="badge bg-primary">Điểm: <?= $result['points'] ?></p>
                                     <p class="badge bg-success">Số câu đúng: 12</p>
                                     <p class="badge bg-danger">Số câu sai: 43</p>
-                                    <p class="badge bg-dark">Thời gian làm bài: 00:30:03</p>
+                                    <p class="badge bg-dark">Thời gian làm bài: <?= $result['exam_time'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -29,33 +29,32 @@
                 </div>
             </div>
         </div>
-        <div class="row row-cols-2">
-            <?php for ($i = 0; $i < 6; $i++) : ?>
+        <div class="row row-cols-2 align-items-end">
+            <?php foreach ($result_detail as $key => $value) :
+                $answers = getAnswersByQuestionId($value['question_id']);
+            ?>
                 <div class="col">
                     <ul class="list-group" style="list-style-type: none;">
                         <li>
                             <div class="filter px-3 py-3 mb-4 bg-white border rounded">
-                                <div class="question p-3 mb-2" style="background-color: #5c5c5c10; border-radius: .3rem">
-                                    <strong>Câu 1: Đất nước nào có diện tích lớn nhất thế giới?</strong>
+                                <div class="question p-3 mb-3" style="background-color: #5c5c5c10; border-radius: .3rem">
+                                    <strong>Câu <?= ++$key ?>: <?= $value['question_content'] ?></strong>
                                 </div>
                                 <ul class="p-0 m-0" style="list-style-type: none;">
-                                    <?php for ($j = 0; $j < 4; $j++) : ?>
+                                    <?php foreach ($answers as $answer) : ?>
                                         <li class="answer d-flex align-items-center gap-3 mb-3">
-                                            <input type="checkbox" id="answer" name="answer">
-                                            <label class="text m-0 small" for="answer">Việt Nam</label>
+                                            <input type="radio" onclick="return false" <?= ($value['selected_answer_id'] == $answer['id']) ? 'checked' : '' ?>>
+                                            <label class="text m-0 small <?= ($value['selected_answer_id'] == $answer['id']  && $answer['is_correct'] == 1) ? 'text-success' : 'text-danger' ?>" for="answer"><?= $answer['content'] ?></label>
                                         </li>
-                                    <?php endfor; ?>
+                                    <?php endforeach; ?>
                                 </ul>
-                                <div class="text-end">
-                                    <span class="badge bg-light text-dark">1/1</span>
-                                </div>
                             </div>
                         </li>
                     </ul>
                 </div>
-            <?php endfor; ?>
+            <?php endforeach; ?>
         </div>
-        <?php include 'components/pagination.php'?>
+        <?php include 'components/pagination.php' ?>
     </div>
 
 </section>
