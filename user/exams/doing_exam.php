@@ -61,16 +61,13 @@
                 </div>
             </form>
 
-        <div class="row shadow rounded px-md-5 px-5 py-3 mx-5 justify-content-between align-items-center gap-4">
-            <button class="col-1 btn btn-sm btn-outline-primary" id="prev_question" disabled><i
-                    class="fa-solid fa-arrow-left-long"></i></button>
-            <div class="col-8 progress" style="height:6px;">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25"
-                    aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-            <button class="col-2 btn btn-sm btn-primary d-flex gap-2 align-items-center justify-content-center"
-                id="next_question">
-                Tiếp theo<i class="fa-solid fa-arrow-right"></i></span>
+            <div class="row shadow rounded px-md-5 px-5 py-3 mx-5 justify-content-between align-items-center gap-4">
+                <button class="col-1 btn btn-sm btn-outline-primary" id="prev_question" disabled><i class="fa-solid fa-arrow-left-long"></i></button>
+                <div class="col-8 progress" style="height:6px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <button class="col-2 btn btn-sm btn-primary d-flex gap-2 align-items-center justify-content-center" id="next_question">
+                    Tiếp theo<i class="fa-solid fa-arrow-right"></i></span>
 
                 </button>
             </div>
@@ -109,9 +106,11 @@
         var currentQuestionIndex = 0;
         var questions = [];
         const urlParams = new URLSearchParams(window.location.search);
+        var exam_time = 1000;
         const exam_id = urlParams.get('exam_id');
-        var exam_time = urlParams.get('exam_time');
         var result_id = urlParams.get('result_id');
+
+
 
         // Hàm lấy câu hỏi theo id đề thi
         const getQuestionById = async () => {
@@ -334,15 +333,12 @@
             return minutes + ":" + displaySeconds;
         }
 
-        // Chắc chắn rằng formattedTime đã được định nghĩa trước khi sử dụng
-        var formattedTime = formatTime(exam_time * 60);
-
         var examTime = document.getElementById('examTime');
 
         var timerInterval = null;
 
         // Hàm đếm ngược thời gian khi trang được load
-        countdown(exam_time * 60);
+        countdown(exam_time);
 
         // Chúng ta sẽ thêm sự kiện click cho nút "Kết thúc" và "Hủy" trong modal
         finishExamButton.addEventListener('click', () => {

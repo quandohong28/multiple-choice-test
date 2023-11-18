@@ -22,7 +22,7 @@ if (isset($_GET['act']) && $_GET['act'] !== '') {
                     exit;
                 }
             } else {
-                echo "Tên đăng nhập hoặc mật khẩu không đúng."; 
+                echo "Tên đăng nhập hoặc mật khẩu không đúng.";
             }
             break;
 
@@ -33,8 +33,7 @@ if (isset($_GET['act']) && $_GET['act'] !== '') {
                 $password = htmlspecialchars($_POST['password']);
                 $conf_pass = htmlspecialchars($_POST['conf_pass']);
                 if ($password === $conf_pass) {
-                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                    signup($email, $username, $hashed_password);
+                    signup($email, $username, $password);
                     header('Location: ../views/login.php');
                     exit;
                 } else {
@@ -45,26 +44,27 @@ if (isset($_GET['act']) && $_GET['act'] !== '') {
             break;
 
         case 'change_password_submit':
-            if (isset($_POST['change_password_submit'])) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $id = $_SESSION['user']['id'];
                 $old_password = htmlspecialchars($_POST['old_password']);
                 $password = htmlspecialchars($_POST['password']);
                 $conf_pass = htmlspecialchars($_POST['conf_pass']);
 
                 if ($password === $conf_pass) {
-                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                    changePassword($id, $old_password, $hashed_password);
-                    unset($_SESSION['user']);
-                    session_regenerate_id(true);
-                    header('Lo  cation: ../views/login.php');
-                    exit;
+                    if (changePassword($id, $old_password, $password)) {
+                        unset($_SESSION['user']);
+                        header('Location: ../views/login.php');
+                        exit;
+                    } else {
+                        header('Location: ../views/change_password.php');
+                        exit;
+                    }
                 } else {
-                    header('Location: ../views/signup.php');
+                    header('Location: ../views/change_password.php');
                     exit;
                 }
             }
             break;
-
         default:
             # code...
             break;
