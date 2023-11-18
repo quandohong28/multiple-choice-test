@@ -8,9 +8,9 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-
-                <a class="btn btn-primary" data-toggle="modal" href="#addScheduleModal" role="button">Thêm lịch thi</a>
-
+                <a class="btn btn-primary" data-bs-toggle="modal" href="#addSchedule" role="button"><i
+                        class="fa-regular me-2 fa-square-plus"></i>Thêm lịch
+                    thi</a>
             </div>
             <div class="col">
                 <?php include 'tables/components/data_export.php' ?>
