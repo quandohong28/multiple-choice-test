@@ -89,7 +89,8 @@ include '../model/result.php';
                         $result_id = $_GET['result_id'];
                         if (isset($result_id)) {
                             $type = $_GET['type'];
-                            $exam_time = $GET['exam_time'];
+                            $exam_time = $_GET['exam_time'];
+                            echo $exam_time;
                             $exam_id = getResultById($result_id)['id'];
                             $exam_detail = getExamDetailByExamId($exam_id);
                         } else {

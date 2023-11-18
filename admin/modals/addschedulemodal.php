@@ -1,4 +1,47 @@
-<div class="modal fade" id="addScheduleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="addScheduleModal" aria-hidden="true" aria-labelledby="addScheduleModalLabel1" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addScheduleModalLabel1">Thêm lịch thi</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Show a second modal and hide this one with the button below.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
+                <button class="btn btn-primary" data-target="#addScheduleModal2" data-toggle="modal">Thêm thí
+                    sinh</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addScheduleModal2" aria-hidden="true" aria-labelledby="addScheduleModalLabel2"
+    tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addScheduleModalLabel2">Thêm thí sinh</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Hide this modal and show the first with the button below.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
+                <button class="btn btn-primary" data-target="#addScheduleModal" data-toggle="modal">Trở về</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- <div class="modal fade" id="addScheduleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -101,4 +144,4 @@
             </form>
         </div>
     </div>
-</div>
+</div> -->
