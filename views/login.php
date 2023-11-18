@@ -64,24 +64,13 @@
 				return false;
 			}
 
-			if (password.length < 6) {
+			if (password.length < 8) {
 				messageElement.innerHTML = "Mật khẩu phải có ít nhất 8 ký tự.";
 				return false;
-			}
-
-			encryptPassword();
+			} 
 			return true;
-		}
-
-		function encryptPassword() {
-			var password = document.forms["loginForm"]["password"].value;
-			// Thực hiện mã hóa mật khẩu, ví dụ: sử dụng SHA-256
-			var hashedPassword = sha256(password);
-
-			// Gán giá trị mật khẩu đã mã hóa vào trường input
-			document.forms["loginForm"]["password"].value = hashedPassword;
-		}
-	</script>F
+		} 
+	</script> 
 
 
 </body>

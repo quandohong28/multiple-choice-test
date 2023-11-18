@@ -97,7 +97,7 @@ function changePassword($id, $old_password, $new_password)
                 $hashedPassword = hashPassword($new_password);
                 $sql = "UPDATE accounts
                         SET password = '$hashedPassword'
-                        WHERE id = $id";
+                        WHERE id = $id"; 
                 pdo_execute($sql);
                 return true;
             } else {
@@ -163,7 +163,7 @@ function getRoles()
     }
 }
 
-function editProfile($id, $email, $introduce, $avatar, $fullname, $tel, $address) 
+function editProfile($id, $email, $introduce, $avatar, $fullname, $tel, $address)
 {
     try {
         $sql = "UPDATE accounts

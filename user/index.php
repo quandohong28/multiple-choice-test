@@ -29,9 +29,7 @@ include '../model/answer.php';
     <!-- CSS thuần -->
     <link rel="stylesheet" href="../assets/css/styles.user.css">
     <!-- font-awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body class="mt-5 pt-5">
@@ -87,14 +85,45 @@ include '../model/answer.php';
                         echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '&exam_time=' . $exam_time . '&result_id=' . $latest_result_id . '">';
                         break;
                     case 'doing_exam':
+                        // $result_id = $_GET['result_id'];
+                        // if (!getResultById($result_id)['exam_time']) {
+                        //     echo 123;die;
+                        //     $time_start = getResultById($result_id)['time_start'];
+                        //     $dt = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
+                        //     $current_time = $dt->format('Y-m-d H:i:s');
+                        //     $diff = strtotime($current_time) - strtotime($time_start);
+                        //     $remaning_time = $diff - strtotime($exam_time);
+                        //     
+                        // } else {
+                        //     // Xử lý khi người dùng bắt đầu thi
+                        //     $exam_detail = getExamDetailByExamId($_GET['exam_id']);
+                        // }
+
+
+                        $type = $_GET['type'];
                         $result_id = $_GET['result_id'];
-                        if (isset($result_id)) {
-                            $type = $_GET['type'];
-                            $exam_time = $_GET['exam_time'];
-                            $exam_id = getResultById($result_id)['id'];
-                            $exam_detail = getExamDetailByExamId($exam_id);
-                        } else {
-                            $exam_detail = getExamDetailByExamId($_GET['exam_id']);
+                        $exam_id = getResultById($result_id)['id'];
+                        $exam_detail = getExamDetailByExamId($_GET['exam_id']);
+                        // var_dump($_GET['exam_time']);die;
+                        // thi do va quay lai
+                        if ($_GET['exam_time'] !== '') {
+                            $exam_time = getExamById($_GET['exam_id'])['exam_time'];
+                            $time_start = getResultById($result_id)['time_start'];
+                            $dt = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
+                            $current_time = $dt->format('Y-m-d H:i:s');
+                            $diff = strtotime($current_time) - strtotime($time_start);
+                            $remaning_time = strtotime($exam_time) - $diff;
+                            echo $remaning_time;
+                            if ($remaning_time <= 0) {
+                                echo '<meta http-equiv="refresh" content="0;url=?act=result">';
+                            } else {
+                                $exam_time = $remaning_time / 60;
+                                header("location: ?act=doing_exam&type=$type&exam_id=$exam_id&exam_time=$exam_time&result_id=$result_id");
+                            }
+                        }
+                        // bat dau mot bai thi moi
+                        else {
+                            $exam_time = getResultById($result_id)['exam_time'];
                         }
                         include "./exams/doing_exam.php";
                         break;
@@ -199,12 +228,8 @@ include '../model/answer.php';
         <?php include "./layouts/footer.php"; ?>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="../assets/js/script.min.js"></script>
 </body>
 
