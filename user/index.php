@@ -29,7 +29,9 @@ include '../model/answer.php';
     <!-- CSS thuần -->
     <link rel="stylesheet" href="../assets/css/styles.user.css">
     <!-- font-awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body class="mt-5 pt-5">
@@ -66,10 +68,10 @@ include '../model/answer.php';
                     case 'practice':
                         $question_levels = getQuestionLevels();
                         $categories = getAllCategories();
+                        $doingExams = getDoingExamByAccountId($_SESSION['user']['id']);
                         include "./exams/practice.php";
                         break;
                     case 'start_exam':
-                        $type = $_GET['type'];
                         $category_id = $_GET['category_id'];
                         $type = $_GET['type'];
                         if (isset($_POST['btn_submit'])) {
@@ -85,6 +87,15 @@ include '../model/answer.php';
                         echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '&exam_time=' . $exam_time . '&result_id=' . $latest_result_id . '">';
                         break;
                     case 'doing_exam':
+                        $result_id = $_GET['result_id'];
+                        if (isset($result_id)) {
+                            $type = $_GET['type'];
+                            $exam_time = $GET['exam_time'];
+                            $exam_id = getResultById($result_id)['id'];
+                            $exam_detail = getExamDetailByExamId($exam_id);
+                        } else {
+                            $exam_detail = getExamDetailByExamId($_GET['exam_id']);
+                        }
                         include "./exams/doing_exam.php";
                         break;
                     case 'finish_exam':
@@ -188,8 +199,12 @@ include '../model/answer.php';
         <?php include "./layouts/footer.php"; ?>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+        crossorigin="anonymous"></script>
     <script src="../assets/js/script.min.js"></script>
 </body>
 
