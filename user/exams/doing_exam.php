@@ -174,10 +174,10 @@
             return result_detail = await response.json();
         }
 
-        // Xử lý cập nhật câu hỏi khi chọn đáp án - lưu vào bảng result_detail
+        // Hàm xử lý cập nhật câu hỏi khi chọn đáp án - lưu vào bảng result_detail
         const postData = async (answerDOM) => {
             try {
-                const selectedAnswerId = answerDOM.id.split('_')[1];
+                const selectedAnswerId = answerDOM.value;
                 console.log(selectedAnswerId); // Kiểm tra giá trị của selectedAnswerId
 
                 const response = await fetch('exams/exam_detail_post.php', {
@@ -187,7 +187,7 @@
                     },
                     body: JSON.stringify({
                         question_id: questions[currentQuestionIndex].id, // Sử dụng question_id phù hợp
-                        selected_answer_id: selectedAnswerId,
+                        answer_id: selectedAnswerId,
                         result_id: result_id
                     })
                 });
@@ -207,12 +207,9 @@
         // Xử lý sự kiện click vào đáp án
         answersDOM.forEach((answerDOM) => {
             answerDOM.onclick = () => {
-                console.log(answerDOM.value); // Kiểm tra xem có thu được giá trị đáp án đúng không
                 postData(answerDOM);
             }
         });
-
-        // ... (Các phần trước đó của mã)
 
         // Gọi hàm render ra câu hỏi và câu trả lời đầu tiên khi trang được load
         var result_detail = null;

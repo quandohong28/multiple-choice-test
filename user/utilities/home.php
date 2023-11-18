@@ -1,4 +1,4 @@
-<section"><!-- Start: Features Cards -->
+<section">
     <div class="bg-primary-gradient py-5 rounded">
         <div class="row">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
@@ -69,9 +69,8 @@
                 </div>
             </div>
         </div>
-    </div><!-- End: Features Cards -->
-    </section>
-    <section><!-- Start: Features Cards -->
+    </div>
+    <section>
         <div class="col-md-8 col-xl-6 text-center mx-auto my-5">
             <h3 class="fw-bold">Chuyên mục</h3>
         </div>
@@ -95,7 +94,7 @@
             </div>
         </div><!-- End: Features Cards -->
     </section>
-    <section class="py-5 mt-5"><!-- Start: Testimonials -->
+    <section class="py-5 mt-5">
         <div class="container py-5">
             <div class="row mb-5">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
@@ -114,7 +113,7 @@
                 </div>
             </div>
         </div><!-- End: Testimonials -->
-    </section><!-- Start: Contact Details -->
+    </section>
     <section class="py-5">
         <div class="container">
             <div class="row mb-5">
@@ -179,4 +178,5 @@
                 </div>
             </div>
         </div>
-    </section><!-- End: Contact Details -->
+    </section>
+</section>
