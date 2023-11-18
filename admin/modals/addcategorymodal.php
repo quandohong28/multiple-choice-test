@@ -11,7 +11,7 @@
             <form action="?act=tables&data=add_category" method="POST" enctype="multipart/form-data">
                 <div class="row justify-content-center align-items-center h-100 my-5">
                     <div class="row">
-                        <div class="col-md-12 m-4 p-3">
+                        <div class="col-md-12 mb-4 pb-2">
                             <div class="form-outline">
                                 <label class="form-label" for="name">Tên chuyên mục</label>
                                 <input type="text" name="name" id="name" class="form-control form-control-sm" />

@@ -1,12 +1,9 @@
-<div class="modal fade" id="addScheduleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<div class="modal modal-lg fade" id="addSchedule" aria-hidden="true" aria-labelledby="addScheduleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm lịch thi</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
+                <h5 class="modal-title" id="addScheduleLabel">Thêm lịch thi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="post" enctype="multipart/form-data" action="?act=tables&data=add_schedule">
                 <div class="row justify-content-center align-items-center h-100 m-5">
@@ -18,10 +15,8 @@
                                     <input type="text" id="name" name="name" class="form-control form-control-sm" />
                                 </div>
                             </div>
-
                         </div>
                         <div class="row">
-
                             <div class="col-md-6 mb-4 d-flex align-items-center">
                                 <div class="form-outline datepicker w-100">
                                     <label for="time_start" class="form-label">Thời gian bắt đầu</label>
@@ -82,7 +77,37 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" data-bs-target="#addCandidate"
+                        data-bs-toggle="modal">Thêm thí sinh</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="addCandidate" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel2">Thêm thí sinh</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="md-6 mb-4 pb-2">
+                            <div class="form-outline">
+                                <a href="../assets/public/" class="btn btn-secondary mb-3">File mẫu</a>
+                                <button type="button" class="btn btn-secondary mb-3">Hướng dẫn sử dụng</button>
+                            </div>
                             <div class="md-6 mb-4 pb-2">
                                 <div class="form-outline">
                                     <label class="form-label" for="accounts">Thêm thí sinh</label>
@@ -93,10 +118,11 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
-                    <button class="btn btn-primary" name="add_schedule" type="submit">Xác nhận</button>
+                    <button type="button" class="btn btn-secondary" data-bs-target="#addSchedule"
+                        data-bs-toggle="modal">Trở về</button>
+                    <button class="btn btn-primary" name="submit" type="submit">Xác nhận</button>
+
                 </div>
             </form>
         </div>

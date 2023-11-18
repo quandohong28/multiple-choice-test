@@ -10,17 +10,20 @@
                     <div class="row justify-content-center align-items-center h-100 mt-5">
                         <div class="col-12 col-lg-9 col-xl-7">
                             <div class="row">
-                                <div class="col-md-12 mb-4">
+                                <div class="col-md-12 mb-4 pb-2">
                                     <div class="form-outline">
                                         <label class="form-label" for="name">Tên chuyên mục</label>
-                                        <input type="text" name="edit_name" id="name" class="form-control form-control-sm" value="" />
+                                        <input type="text" name="edit_name" id="name"
+                                            class="form-control form-control-sm" value="" />
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-4 pb-2">
                                     <div class="form-outline">
                                         <label class="form-label" for="image">Ảnh</label>
-                                        <input class="form-control form-control-sm" id="image" name="edit_image" value="" type="hidden" />
-                                        <input class="form-control form-control-sm" id="image" name="edit_image" type="file" value="" />
+                                        <input class="form-control form-control-sm" id="image" name="edit_image"
+                                            value="" type="hidden" />
+                                        <input class="form-control form-control-sm" id="image" name="edit_image"
+                                            type="file" value="" />
                                     </div>
                                 </div>
                             </div>
@@ -39,7 +42,7 @@
 
 <script>
     const myModal = document.getElementById('editCategory')
-    myModal.addEventListener('shown.bs.modal', function() {
+    myModal.addEventListener('shown.bs.modal', function () {
         const id = document.querySelector('input[name="edit_id"]');
         const name = document.querySelector('input[name="edit_name"]');
         const image = document.querySelector('input[name="edit_image"]');
