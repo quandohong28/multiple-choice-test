@@ -87,12 +87,12 @@ include '../model/answer.php';
                         echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '&exam_time=' . $exam_time . '&result_id=' . $latest_result_id . '">';
                         break;
                     case 'doing_exam':
-                        $result_id = $_GET['result_id'];
+                        $exam_detail = getExamDetailByExamId($exam_id);
                         if (isset($result_id)) {
+                            $result_id = $_GET['result_id'];
                             $type = $_GET['type'];
                             $exam_time = $_GET['exam_time'];
                             $exam_id = getResultById($result_id)['id'];
-                            $exam_detail = getExamDetailByExamId($exam_id);
                         } else {
                             $exam_detail = getExamDetailByExamId($_GET['exam_id']);
                         }

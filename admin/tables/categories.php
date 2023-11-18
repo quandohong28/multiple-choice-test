@@ -46,7 +46,7 @@
                             <td class="align-middle">
                                 <img src="../assets/img/categories/<?= $image ?>" alt="" width="50px">
                             </td>
-                            <td class="align-middle col-1">
+                            <td class="align-middle col-2">
                                 <button type="button" class="btn btn-warning btn-sm btneditcategory" data-bs-toggle="modal"
                                     data-bs-target="#editCategory" data-value='<?= json_encode($category) ?>'>
                                     <i class=" fa-regular fa-pen-to-square"></i>

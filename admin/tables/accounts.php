@@ -74,7 +74,7 @@
                                     <?= $role; ?>
                                 </span>
                             </td>
-                            <td class="align-middle col-1">
+                            <td class="align-middle">
                                 <button type="button" class="btn btn-warning btn-sm btneditaccount" data-bs-toggle="modal" data-bs-target="#exampleModalABC" data-value='<?= json_encode($account) ?>'>
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </button>
@@ -94,3 +94,5 @@
     <!------Sửa tài khoản ----->
     <?php include 'modals/editaccountmodal.php' ?>
 </div>
+
+
