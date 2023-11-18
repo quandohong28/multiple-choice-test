@@ -118,19 +118,10 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <!-- Core plugin JavaScript-->
     <script src="../assets/vendor/jquery-easing/jquery.easing.js"></script>
-
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="../assets/js/script.admin.js"></script>
     <script src="../assets/js/script.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="../assets/vendor/chart.js/Chart.js"></script>
-    <script src="../assets/vendor/datatables/jquery.dataTables.js"></script>
-    <script src="../assets/vendor/datatables/dataTables.bootstrap4.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../assets/js/demo/chart-area-demo.js"></script>
-    <script src="../assets/js/demo/chart-pie-demo.js"></script>
 </body>
 
 </html>
