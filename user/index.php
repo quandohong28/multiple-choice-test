@@ -106,7 +106,7 @@ include '../model/answer.php';
                         $exam_detail = getExamDetailByExamId($_GET['exam_id']);
                         // var_dump($_GET['exam_time']);die;
                         // thi do va quay lai
-                        if ($_GET['exam_time'] !== '') {
+                        if ($_GET['exam_time'] === '') {
                             $exam_time = getExamById($_GET['exam_id'])['exam_time'];
                             $time_start = getResultById($result_id)['time_start'];
                             $dt = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
