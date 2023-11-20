@@ -10,7 +10,7 @@
                 </div>
 
                 <div>
-                    <button type="submit" name="submit" class="btn btn-sm btn-success" style="display: none" id="finishExamButton" data-bs-toggle="modal" data-bs-target="#finish_exam_modal">Kết thúc</button>
+                    <button type="submit" name="submit" class="btn btn-sm btn-sm btn-success" style="display: none" id="finishExamButton" data-bs-toggle="modal" data-bs-target="#finish_exam_modal">Kết thúc</button>
                 </div>
             </div>
             <div class="row">
@@ -62,13 +62,12 @@
             </form>
 
             <div class="row shadow rounded px-md-5 px-5 py-3 mx-5 justify-content-between align-items-center gap-4">
-                <button class="col-1 btn btn-sm btn-outline-primary" id="prev_question" disabled><i class="fa-solid fa-arrow-left-long"></i></button>
+                <button class="col-1 btn btn-sm btn-sm btn-outline-primary" id="prev_question" disabled><i class="fa-solid fa-arrow-left-long"></i></button>
                 <div class="col-8 progress" style="height:6px;">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <button class="col-2 btn btn-sm btn-primary d-flex gap-2 align-items-center justify-content-center" id="next_question">
+                <button class="col-2 btn btn-sm btn-sm btn-primary d-flex gap-2 align-items-center justify-content-center" id="next_question">
                     Tiếp theo<i class="fa-solid fa-arrow-right"></i></span>
-
                 </button>
             </div>
         </div><!-- End: Features Cards -->
@@ -81,7 +80,6 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalTitleId">Xác nhận kết thúc bài thi</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form action="?act=finish_exam" method="post" id="finish_exam">
                         <div class="modal-body">
@@ -92,8 +90,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="continue_exam">Hủy</button>
-                            <button type="submit" class="btn btn-primary">Xác nhận</button>
+                            <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal" id="continue_exam">Hủy</button>
+                            <button type="submit" class="btn btn-sm btn-primary">Xác nhận</button>
                         </div>
                     </form>
                 </div>
@@ -106,16 +104,19 @@
         var currentQuestionIndex = 0;
         var questions = [];
         const urlParams = new URLSearchParams(window.location.search);
-        var exam_time = 1000;
+        var exam_time = urlParams.get('exam_time') * 60;
         const exam_id = urlParams.get('exam_id');
         var result_id = urlParams.get('result_id');
+
+        console.log(exam_id);
+
 
 
 
         // Hàm lấy câu hỏi theo id đề thi
         const getQuestionById = async () => {
             try {
-                const response = await fetch(`exams/question_data.php?exam_id=${exam_id}`);
+                const response = await fetch("exams/question_data.php?exam_id=" + exam_id);
                 const question = await response.json();
 
                 // Xóa câu hỏi cũ khi lấy mới
@@ -133,12 +134,16 @@
                 await getAnswersByQuestionId(questions[0].id);
 
                 // Hàm hiển thị câu hỏi đầu tiên
-                renderFirstQuestion();
+                if (questions.length > 0) {
+                    renderFirstQuestion();
+                }
             } catch (error) {
                 console.error('Error during getQuestionById:', error);
             }
         }
-
+        
+        // Gọi hàm lấy câu hỏi theo id đề thi
+        getQuestionById();
         // Hàm hiển thị câu hỏi và câu trả lời đầu tiên
         const renderFirstQuestion = async () => {
             question_content.innerHTML = questions[currentQuestionIndex].content;
@@ -147,8 +152,6 @@
             questionIndex.innerHTML = currentQuestionIndex + 1 + ' / ' + questions.length;
         }
 
-        // Gọi hàm lấy câu hỏi theo id đề thi
-        getQuestionById();
 
 
         // Lấy đáp án theo id câu hỏi
@@ -259,7 +262,8 @@
 
         prev_question.addEventListener('click', async () => {
             if (questions.length > 0 && currentQuestionIndex > 0) {
-                currentQuestionIndex--; // Giảm giá trị của currentQuestionIndex trước khi kiểm tra điều kiện
+                // Giảm giá trị của currentQuestionIndex trước khi kiểm tra điều kiện
+                currentQuestionIndex--;
                 await getAnswersByQuestionId(questions[currentQuestionIndex].id);
 
                 if (currentQuestionIndex <= 0) {
@@ -324,18 +328,34 @@
 
         // xu ly thoi gian lam bai
         function formatTime(seconds) {
+            var hours = Math.floor(seconds / 3600);
             var minutes = Math.floor(seconds / 60);
             var remainingSeconds = seconds % 60;
 
             // Đảm bảo rằng remainingSeconds hiển thị luôn hai chữ số
             var displaySeconds = remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds;
+            var displayMinutes = minutes < 10 ? "0" + minutes : minutes;
+            var displayHours = hours < 10 ? "0" + hours : hours;
 
-            return minutes + ":" + displaySeconds;
+            return displayHours + ":" + displayMinutes + ":" + displaySeconds;
         }
 
         var examTime = document.getElementById('examTime');
 
         var timerInterval = null;
+
+        function formatTimeString(string) {
+            // Chia chuỗi thời gian thành mảng phút và giây
+            var arrayTime = string.split(":");
+
+            // Lấy giá trị phút và giây từ mảng
+            var hours = parseInt(arrayTime[0], 10);
+            var minutes = parseInt(arrayTime[1], 10);
+            var seconds = parseInt(arrayTime[2], 10);
+
+            // Tính toán tổng thời gian ở đơn vị giây
+            return hours * 3600 + minutes * 60 + seconds;
+        }
 
         // Hàm đếm ngược thời gian khi trang được load
         countdown(exam_time);
@@ -343,26 +363,14 @@
         // Chúng ta sẽ thêm sự kiện click cho nút "Kết thúc" và "Hủy" trong modal
         finishExamButton.addEventListener('click', () => {
             clearInterval(timerInterval);
-            document.querySelector('input[name="exam_time"]').value = examTime.innerHTML;
-        });
+            document.querySelector('input[name="exam_time"]').value = formatTime(exam_time - formatTimeString(examTime.innerHTML));
+        })
 
+
+        const continue_exam = document.getElementById('continue_exam');
         continue_exam.addEventListener('click', () => {
             countdown(formatTimeString(examTime.innerHTML));
-        });
+        })
 
-        // Thêm sự kiện cho nút "Xác nhận kết thúc" trong modal
-        document.getElementById('finish_exam').addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            // Chắc chắn rằng đã lấy được đáp án cho câu hỏi hiện tại trước khi chuyển câu hỏi
-            await getAnswersByQuestionId(questions[currentQuestionIndex].id);
-
-            // Gọi hàm để lưu đáp án đã chọn khi kết thúc bài thi
-            postData(answersDOM.find(answerDOM => answerDOM.checked));
-
-            // Tiếp theo, có thể thực hiện các xử lý khác khi kết thúc bài thi
-
-            // Gửi form để kết thúc bài thi
-            event.target.submit();
-        });
+        document.querySelector('input[name="exam_id"]').value = exam_id;
     </script>

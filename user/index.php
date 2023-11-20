@@ -48,15 +48,6 @@ include '../model/answer.php';
                 switch ($_GET['act']) {
                     case 'home':
                         $categories = getAllCategories();
-                        $colors = [
-                            'bg-primary',
-                            'bg-success',
-                            'bg-danger',
-                            'bg-warning',
-                            'bg-info',
-                            'bg-light'
-                        ];
-                        $count = count($colors);
                         include "./utilities/home.php";
                         break;
                     case 'schedule':
@@ -85,40 +76,24 @@ include '../model/answer.php';
                         echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '&exam_time=' . $exam_time . '&result_id=' . $latest_result_id . '">';
                         break;
                     case 'doing_exam':
-                        // $result_id = $_GET['result_id'];
-                        // if (!getResultById($result_id)['exam_time']) {
-                        //     echo 123;die;
-                        //     $time_start = getResultById($result_id)['time_start'];
-                        //     $dt = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
-                        //     $current_time = $dt->format('Y-m-d H:i:s');
-                        //     $diff = strtotime($current_time) - strtotime($time_start);
-                        //     $remaning_time = $diff - strtotime($exam_time);
-                        //     
-                        // } else {
-                        //     // Xử lý khi người dùng bắt đầu thi
-                        //     $exam_detail = getExamDetailByExamId($_GET['exam_id']);
-                        // }
-
-
                         $type = $_GET['type'];
                         $result_id = $_GET['result_id'];
                         $exam_id = getResultById($result_id)['id'];
                         $exam_detail = getExamDetailByExamId($_GET['exam_id']);
                         // var_dump($_GET['exam_time']);die;
                         // thi do va quay lai
-                        if ($_GET['exam_time'] !== '') {
+                        if ($_GET['exam_time'] === '') {
                             $exam_time = getExamById($_GET['exam_id'])['exam_time'];
                             $time_start = getResultById($result_id)['time_start'];
                             $dt = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
                             $current_time = $dt->format('Y-m-d H:i:s');
                             $diff = strtotime($current_time) - strtotime($time_start);
-                            $remaning_time = strtotime($exam_time) - $diff;
-                            echo $remaning_time;
+                            $remaning_time = intval($exam_time * 60 - $diff);
                             if ($remaning_time <= 0) {
                                 echo '<meta http-equiv="refresh" content="0;url=?act=result">';
                             } else {
-                                $exam_time = $remaning_time / 60;
-                                header("location: ?act=doing_exam&type=$type&exam_id=$exam_id&exam_time=$exam_time&result_id=$result_id");
+                                $exam_time = intval($remaning_time / 60);
+                                echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $exam_id . '&exam_time=' . $exam_time . '&result_id=' . $result_id . '">';
                             }
                         }
                         // bat dau mot bai thi moi
@@ -150,6 +125,9 @@ include '../model/answer.php';
                         $result_detail = getResultDetailByResultId($result_id);
                         $result = getResultById($result_id);
                         include "./results/result_detail.php";
+                        break;
+                    case 'support':
+                        include "./utilities/support.php";
                         break;
                     case 'profile':
                         $id = $_SESSION['user']['id'];
