@@ -40,10 +40,10 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <?php foreach ($results as $result) :
+                    <?php foreach ($results as $result):
                         extract($result);
                         list($start_date, $start_time) = explode(" ", $time_start);
-                    ?>
+                        ?>
                         <tr class="">
                             <td class="align-middle">
                                 <?= $id ?>
@@ -73,7 +73,9 @@
                                 <?= ($exam_time) ? $exam_time : '0' ?>
                             </td>
                             <td class="align-middle col-1">
-                                <a class="btn btn-success btn-sm mx-3" href="?act=tables&data=result_detail&id=<?= $id ?>"><i class="fa-solid fa-circle-info"></i></a>
+                                <a class="btn btn-success btn-sm mx-3"
+                                    href="?act=tables&data=result_detail&id=<?= $id ?>"><i
+                                        class="fa-solid fa-circle-info"></i></a>
                             </td>
                         </tr>
                     <?php endforeach ?>

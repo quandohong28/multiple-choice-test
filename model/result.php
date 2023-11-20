@@ -167,3 +167,28 @@ function getDoingExamByAccountId($id)
         echo $e->getMessage();
     }
 }
+
+function getResultDetail($id)
+{
+    try {
+        $sql = "SELECT 
+        rd.id AS result_detail_id,
+        r.id AS result_id,
+        q.id AS question_id,
+        q.content AS question_content,
+        a.id AS answer_id,
+        a.content AS answer_content
+    FROM 
+        result_details rd
+    INNER JOIN 
+        results r ON r.id = result_id
+    INNER JOIN 
+        questions q ON q.id = question_id
+    INNER JOIN 
+        answers a ON a.id = answer_id
+    WHERE result_id = $id;";
+        return pdo_query($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}

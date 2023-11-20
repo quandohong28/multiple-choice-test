@@ -18,29 +18,37 @@
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">ID chi tiết bài thi</th>
-                        <th scope="col">ID người dùng</th>
+                        <th scope="col">ID kết quả bài thi</th>
+                        <th scope="col">Câu hỏi</th>
                         <th scope="col">Câu trả lời</th>
-                        <th scope="col">Điểm</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">ID chi tiết bài thi</th>
-                        <th scope="col">ID người dùng</th>
+                        <th scope="col">ID kết quả bài thi</th>
+                        <th scope="col">Câu hỏi</th>
                         <th scope="col">Câu trả lời</th>
-                        <th scope="col">Điểm</th>
                     </tr>
                 </tfoot>
                 <tbody>
-                    <tr class="">
-                        <td>R1C1</td>
-                        <td>R1C3</td>
-                        <td>R1C3</td>
-                        <td>R1C3</td>
-                        <td>R1C3</td>
-                    </tr>
+                    <?php foreach ($result_detail as $key => $value): ?>
+                        <tr class="">
+                            <td>
+                                <?= $value['result_detail_id'] ?>
+                            </td>
+                            <td>
+                                <?= $value['result_id'] ?>
+                            </td>
+                            <td>
+                                <?= $value['question_content'] ?>
+                            </td>
+                            <td>
+                                <?= $value['answer_content'] ?>
+                            </td>
+
+                        </tr>
+                    <?php endforeach ?>
                 </tbody>
             </table>
         </div>

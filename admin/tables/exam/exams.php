@@ -4,7 +4,6 @@
     </div>
     <div class="card-body">
         <div class="row mb-3">
-<<<<<<< HEAD
             <form method="post" role="form" class="filter-panel">
                 <div class="row align-items-end">
                     <div class="col-md-3 form-group">
@@ -35,7 +34,8 @@
                             </button>
                             <button type="reset" class="btn btn-sm btn-outline-dark col">
                                 <i class="fa-regular fa-fw fa-window-restore"></i>
-                                <a href="index.php?act=tables&data=exams" class="lg-hidden text-decoration-none">Mặc định</a>
+                                <a href="index.php?act=tables&data=exams" class="lg-hidden text-decoration-none">Mặc
+                                    định</a>
                             </button>
                         </div>
                     </div>
@@ -44,9 +44,6 @@
         </div>
         <div class="row mb-3">
             <?php include '../components/filter.php' ?>
-=======
-            <?php include 'tables/components/filter.php' ?>
->>>>>>> quandohong28
         </div>
         <div class="row mb-3">
             <div class="col">
@@ -80,7 +77,8 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <?php foreach ($exams as $exam) : extract($exam); ?>
+                    <?php foreach ($exams as $exam):
+                        extract($exam); ?>
                         <tr class="">
                             <td class="align-middle">
                                 <?= $exam_id ?>
@@ -101,14 +99,14 @@
                                 <?= $number_question ?>
                             </td>
                             <td class="align-middle">
-                                <a class="btn btn-success btn-sm" href="?act=tables&data=exam_detail&id=<?= $exam_id ?>"><i class="fa-solid fa-circle-info"></i></a>
+                                <a class="btn btn-success btn-sm" href="?act=tables&data=exam_detail&id=<?= $exam_id ?>"><i
+                                        class="fa-solid fa-circle-info"></i></a>
                             </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
             </table>
         </div>
-<<<<<<< HEAD
         <ul class="pagination pagination-sm justify-content-end">
             <li class="page-item disabled">
                 <a class="page-link px-3">
@@ -118,9 +116,11 @@
             <?php
             $currentURL = "index.php?act=tables&data=exams";
             $amountPage = ceil(count(getAllExams()) / 10);
-            for ($page = 1; $page <= $amountPage; $page++) :
-            ?>
-                <li class="page-item"><a class="page-link" href="<?= $currentURL . "&page=$page" ?>"><?= $page ?></a></li>
+            for ($page = 1; $page <= $amountPage; $page++):
+                ?>
+                <li class="page-item"><a class="page-link" href="<?= $currentURL . "&page=$page" ?>">
+                        <?= $page ?>
+                    </a></li>
             <?php endfor; ?>
             <li class="page-item">
                 <a class="page-link px-3" href="#">
@@ -128,8 +128,6 @@
                 </a>
             </li>
         </ul>
-=======
         <?php include 'tables/components/pagination.php' ?>
->>>>>>> quandohong28
     </div>
 </div>
