@@ -112,3 +112,22 @@ function getSchedules($page)
         echo $e->getMessage();
     }
 }
+// function getNumberFinishedExamThisMonth()
+// {
+//     try {
+//         $sql = "SELECT COUNT(*) as value FROM schedules WHERE MONTH(time_start) = MONTH(CURRENT_DATE()) AND YEAR(time_start) = YEAR(CURRENT_DATE());";
+//         return pdo_query_one($sql);
+//     } catch (Exception $e) {
+//         echo $e->getMessage();
+//     }
+// }
+
+// function getLimitShedule($limit)
+// {
+//     try {
+//         $sql = "SELECT * FROM schedules ORDER BY id DESC LIMIT $limit;";
+//         return pdo_query($sql);
+//     } catch (Exception $e) {
+//         echo $e->getMessage();
+//     }
+// }

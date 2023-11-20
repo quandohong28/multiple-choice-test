@@ -41,8 +41,10 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#addcategorymodal">Thêm
-                    chuyên mục</a>
+                <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#addcategorymodal">
+                    <i class="fa-regular fa-fw fa-square-plus fa-lg"></i>
+                    <span>Thêm chuyên mục</span>
+                </a>
             </div>
             <div class="col">
                 <?php include 'components/data_export.php' ?>

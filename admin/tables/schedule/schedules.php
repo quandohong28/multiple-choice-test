@@ -43,8 +43,15 @@
         </div>
         <div class="row mb-3">
             <div class="col">
+<<<<<<< HEAD
                 <a class="btn btn-primary" data-bs-toggle="modal" href="#addSchedule" role="button"><i class="fa-regular me-2 fa-square-plus"></i>Thêm lịch
                     thi</a>
+=======
+                <a class="btn btn-sm btn-primary" data-bs-toggle="modal" href="#addSchedule" role="button">
+                    <i class="fa-regular fa-fw fa-square-plus fa-lg"></i>
+                    <span>Tạo mới lịch thi</span>
+                </a>
+>>>>>>> quandohong28
             </div>
             <div class="col">
                 <?php include 'tables/components/data_export.php' ?>

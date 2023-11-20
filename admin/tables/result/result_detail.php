@@ -4,13 +4,13 @@
     </div>
     <div class="card-body">
         <div class="row mb-3">
-            <?php include '../components/filter.php' ?>
+            <?php include 'tables/components/filter.php' ?>
         </div>
         <div class="row mb-3">
             <div class="col">
             </div>
             <div class="col">
-                <?php include 'components/data_export.php' ?>
+                <?php include 'tables/components/data_export.php' ?>
             </div>
         </div>
         <div class="table-responsive small">
@@ -44,10 +44,6 @@
                 </tbody>
             </table>
         </div>
-        <?php include '../components/pagination.php' ?>
+        <?php include 'tables/components/pagination.php' ?>
     </div>
-    <!----Thêm kết quả thi----->
-    <?php include '../../modals/addresultmodal.php'; ?>
-    <!----Sửa kết quả thi----->
-    <?php include '../../modals/editresultmodal.php'; ?>
 </div>

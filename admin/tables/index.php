@@ -28,18 +28,6 @@
 
 
 <?php
-// Include Model
-include '../model/pdo.php';
-include '../model/account.php';
-include '../model/category.php';
-include '../model/schedule.php';
-include '../model/question.php';
-include '../model/answer.php';
-include '../model/result.php';
-include '../model/exam.php';
-require '../lib/PhpExcel/vendor/autoload.php';
-
-
 if (isset($_GET['data'])) {
 	switch ($_GET['data']) {
 		case 'accounts':
@@ -307,7 +295,7 @@ if (isset($_GET['data'])) {
 			include 'result/results.php';
 			break;
 		case 'result_detail':
-			$result_detail = getResultDetails($id);
+			$result_detail = getResultDetails($_GET['id']);
 			include 'result/result_detail.php';
 			break;
 		case 'exams':
