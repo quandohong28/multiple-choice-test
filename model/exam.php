@@ -140,3 +140,13 @@ function getExamDetailByExamId($exam_id)
         echo $e->getMessage();
     }
 }
+
+function getNumberFinishedExamThisMonth()
+{
+    try {
+        $sql = "SELECT COUNT(*) AS number FROM results WHERE MONTH(time_start) = MONTH(CURRENT_DATE()) AND YEAR(time_start) = YEAR(CURRENT_DATE());";
+        return pdo_query_one($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}

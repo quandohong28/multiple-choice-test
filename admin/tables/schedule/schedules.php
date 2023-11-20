@@ -8,9 +8,10 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <a class="btn btn-primary" data-bs-toggle="modal" href="#addSchedule" role="button"><i
-                        class="fa-regular me-2 fa-square-plus"></i>Thêm lịch
-                    thi</a>
+                <a class="btn btn-sm btn-primary" data-bs-toggle="modal" href="#addSchedule" role="button">
+                    <i class="fa-regular fa-fw fa-square-plus fa-lg"></i>
+                    <span>Tạo mới lịch thi</span>
+                </a>
             </div>
             <div class="col">
                 <?php include 'tables/components/data_export.php' ?>
@@ -43,10 +44,10 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <?php foreach ($schedules as $schedule):
+                    <?php foreach ($schedules as $schedule) :
                         extract($schedule);
                         list($start_date, $start_time) = explode(" ", $time_start);
-                        ?>
+                    ?>
                         <tr class="">
                             <td class="align-middle">
                                 <?= $id ?>
@@ -77,14 +78,11 @@
 
                             </td>
                             <td class="align-middle">
-                                <a class="btn btn-success btn-sm" href="?act=tables&data=schedule_detail"><i
-                                        class="fa-solid fa-circle-info"></i></a>
-                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#editScheduleModal" data-value='<?= json_encode($schedule) ?>'>
+                                <a class="btn btn-success btn-sm" href="?act=tables&data=schedule_detail"><i class="fa-solid fa-circle-info"></i></a>
+                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editScheduleModal" data-value='<?= json_encode($schedule) ?>'>
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </button>
-                                <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm"
-                                    href="?act=tables&data=del_schedule&id=<?= $id; ?>"><i class="fa fa-trash"></i></a>
+                                <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm" href="?act=tables&data=del_schedule&id=<?= $id; ?>"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     <?php endforeach ?>

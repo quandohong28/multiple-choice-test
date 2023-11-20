@@ -8,8 +8,10 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#addcategorymodal">Thêm
-                    chuyên mục</a>
+                <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#addcategorymodal">
+                    <i class="fa-regular fa-fw fa-square-plus fa-lg"></i>
+                    <span>Thêm chuyên mục</span>
+                </a>
             </div>
             <div class="col">
                 <?php include 'components/data_export.php' ?>
@@ -34,7 +36,7 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <?php foreach ($catergories as $category):
+                    <?php foreach ($catergories as $category) :
                         extract($category) ?>
                         <tr class="">
                             <td class="align-middle">
@@ -47,13 +49,10 @@
                                 <img src="../assets/img/categories/<?= $image ?>" alt="" width="50px">
                             </td>
                             <td class="align-middle col-2">
-                                <button type="button" class="btn btn-warning btn-sm btneditcategory" data-bs-toggle="modal"
-                                    data-bs-target="#editCategory" data-value='<?= json_encode($category) ?>'>
+                                <button type="button" class="btn btn-warning btn-sm btneditcategory" data-bs-toggle="modal" data-bs-target="#editCategory" data-value='<?= json_encode($category) ?>'>
                                     <i class=" fa-regular fa-pen-to-square"></i>
                                 </button>
-                                <a name="del_category" onclick="return confirm('Bạn có xác nhận xóa ?');"
-                                    class="btn btn-danger btn-sm" href="?act=tables&data=del_category&id=<?= $id; ?>"><i
-                                        class="fa fa-trash"></i></a>
+                                <a name="del_category" onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm" href="?act=tables&data=del_category&id=<?= $id; ?>"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     <?php endforeach ?>
@@ -67,4 +66,4 @@
 
     <!----Sửa chuyên mục----->
     <?php include 'modals/editcategorymodal.php' ?>
-</div> 
+</div>

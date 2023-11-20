@@ -39,18 +39,6 @@
 
 
 <?php
-// Include Model
-include '../model/pdo.php';
-include '../model/account.php';
-include '../model/category.php';
-include '../model/schedule.php';
-include '../model/question.php';
-include '../model/answer.php';
-include '../model/result.php';
-include '../model/exam.php';
-require '../lib/PhpExcel/vendor/autoload.php';
-
-
 if (isset($_GET['data'])) {
 	switch ($_GET['data']) {
 		case 'accounts':

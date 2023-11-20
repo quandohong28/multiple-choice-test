@@ -5,6 +5,22 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role_id'] != 0) {
 }
 $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
 
+
+
+// Include Model
+include '../model/pdo.php';
+include '../model/account.php';
+include '../model/category.php';
+include '../model/schedule.php';
+include '../model/question.php';
+include '../model/answer.php';
+include '../model/result.php';
+include '../model/exam.php';
+require '../lib/PhpExcel/vendor/autoload.php';
+
+// Số lượng lịch thi trong tháng này
+
+
 ?>
 
 <!doctype html>
@@ -23,6 +39,8 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- font-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body id="page-top">
@@ -49,6 +67,10 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
                     <?php switch ($action) {
                         case 'dashboard':
                         case 'home':
+                            $number_of_schedules_this_month = getNumberScheduleThisMonth();
+                            $number_of_finished_exams_this_month = getNumberFinishedExamThisMonth();
+                            $schedules = getLimitShedule(5);
+                            $categories = getAllCategories();
                             include "./dashboard.php";
                             break;
                         case 'search':
@@ -85,6 +107,13 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
                         case 'user_page':
                             echo '<meta http-equiv="refresh" content="0;url=../user/index.php">';
                             break;
+                        case 'statistic_schedule':
+                            $id = $_GET['id'];
+                            include "./statistic/schedule.php";
+                            break;
+                        case 'statistic_category':
+                            include "./statistic/category.php";
+                            break;
                         default:
                             include "./dashboard.php";
                             break;
@@ -114,6 +143,7 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
     </script>
+
     <script src="../assets/vendor/jquery/jquery.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <!-- Core plugin JavaScript-->
