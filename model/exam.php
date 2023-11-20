@@ -140,3 +140,61 @@ function getExamDetailByExamId($exam_id)
         echo $e->getMessage();
     }
 }
+
+function filterExams($filterByCategory, $filterByLetter, $search, $page)
+{
+    try { 
+        $sql = "SELECT 
+        e.id AS exam_id, e.exam_code AS exam_code, e.number_question AS number_question,
+        s.name AS schedule_name, c.name AS category_name, c.image AS category_image, t.type AS type_name 
+        FROM exams e
+        LEFT JOIN schedules s ON s.id = e.schedule_id
+        INNER JOIN categories c ON c.id = e.category_id
+        INNER JOIN types t ON t.id = e.exam_type_id "; 
+
+        if (!is_null($search) && $search != "") {
+            $sql .= " WHERE exam_code LIKE '%$search%' ";
+        }
+
+        if ($filterByCategory != "id") {
+            if ($filterByCategory == "exam_code") {
+                $sql .= " ORDER BY exam_code";
+
+                $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+            } 
+            if ($filterByCategory == "category") {
+                $sql .= " ORDER BY category_name";
+
+                $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+            }
+            if ($filterByCategory == "types_exam") {
+                $sql .= " ORDER BY type_name";
+
+                $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+            }
+        } else {
+            $sql .= "ORDER BY e.id";
+            $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+        }     
+        $sql .= "$page, 10;";
+        return pdo_query($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function getExams($page)
+{
+    try {
+        $sql = "SELECT 
+        e.id AS exam_id, e.exam_code AS exam_code, e.number_question AS number_question,
+        s.name AS schedule_name, c.name AS category_name, c.image AS category_image, t.type AS type_name 
+        FROM exams e
+        LEFT JOIN schedules s ON s.id = e.schedule_id
+        INNER JOIN categories c ON c.id = e.category_id
+        INNER JOIN types t ON t.id = e.exam_type_id ORDER BY e.id LIMIT $page, 10;";
+        return pdo_query($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+} 

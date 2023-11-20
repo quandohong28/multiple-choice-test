@@ -2,35 +2,24 @@
 	<!-- Tabs navs -->
 	<ul class="nav nav-tabs m-3" id="ex-with-icons" role="tablist">
 		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-1" data-mdb-toggle="tab" href="?act=tables&data=accounts"
-				role="tab" aria-controls="ex-with-icons-tabs-1" aria-selected="true"><i
-					class="fas fa-solid fa-users me-2"></i>Tài khoản</a>
+			<a class="nav-link" id="ex-with-icons-tab-1" data-mdb-toggle="tab" href="?act=tables&data=accounts" role="tab" aria-controls="ex-with-icons-tabs-1" aria-selected="true"><i class="fas fa-solid fa-users me-2"></i>Tài khoản</a>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-2" data-mdb-toggle="tab" href="?act=tables&data=categories"
-				role="tab" aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i
-					class="fas fa-chart-line fa-list me-2"></i>Chuyên mục</a>
+			<a class="nav-link" id="ex-with-icons-tab-2" data-mdb-toggle="tab" href="?act=tables&data=categories" role="tab" aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i class="fas fa-chart-line fa-list me-2"></i>Chuyên mục</a>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=schedules"
-				role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i
-					class="fas fa-calendar-days fa-fw me-2"></i>Lịch thi</a>
+			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=schedules" role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fas fa-calendar-days fa-fw me-2"></i>Lịch thi</a>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=questions"
-				role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i
-					class="fas fa-question fa-fw me-2"></i>Câu
+			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=questions" role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fas fa-question fa-fw me-2"></i>Câu
 				hỏi</a>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=results"
-				role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i
-					class="fa-solid fa-square-poll-vertical me-2"></i>Theo
+			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=results" role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fa-solid fa-square-poll-vertical me-2"></i>Theo
 				dõi điểm</a>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=exams" role="tab"
-				aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fa-solid fa-file-lines me-2"></i>Đề
+			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=exams" role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fa-solid fa-file-lines me-2"></i>Đề
 				thi</a>
 		</li>
 	</ul>
@@ -54,9 +43,24 @@ require '../lib/PhpExcel/vendor/autoload.php';
 if (isset($_GET['data'])) {
 	switch ($_GET['data']) {
 		case 'accounts':
-			$accounts = getAllAccounts();
+			if ($_GET['page']) {
+				$page = $_GET['page'];
+			} else {
+				$page = 1;
+			}
+			$page = ($page - 1) * 10;
 			$getRole = getRoles();
 			$pathImg = '../assets/img/accounts/';
+
+			if (isset($_POST['filter'])) {
+				$filterByCategory = $_POST['filterByCategory'];
+				$filterByLetter = $_POST['filterByLetter'];
+				$search = trim($_POST['search']);
+				$accounts = filterAccount($filterByCategory, $filterByLetter, $search, $page);
+			} else {
+				$accounts = getAccounts($page);
+			}
+
 			include 'accounts.php';
 			break;
 		case 'add_account':
@@ -107,7 +111,21 @@ if (isset($_GET['data'])) {
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=accounts">';
 			break;
 		case 'categories':
-			$catergories = getAllCategories();
+			if ($_GET['page']) {
+				$page = $_GET['page'];
+			} else {
+				$page = 1;
+			}
+			$page = ($page - 1) * 10;
+
+			if (isset($_POST['filter'])) {
+				$filterByCategory = $_POST['filterByCategory'];
+				$filterByLetter = $_POST['filterByLetter'];
+				$search = trim($_POST['search']);
+				$catergories = filterCategory($filterByCategory, $filterByLetter, $search, $page);
+			} else {
+				$catergories = getCategories($page);
+			}
 			include 'categories.php';
 			break;
 		case 'add_category':
@@ -140,7 +158,14 @@ if (isset($_GET['data'])) {
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=categories">';
 			break;
 		case 'schedules':
-			$schedules = getAllSchedules();
+			if ($_GET['page']) {
+				$page = $_GET['page'];
+			} else {
+				$page = 1;
+			}
+			$page = ($page - 1) * 10;
+
+			$schedules = getSchedules($page);
 			include 'schedule/schedules.php';
 			break;
 		case 'add_schedule':
@@ -177,6 +202,13 @@ if (isset($_GET['data'])) {
 		case 'edit_schedule':
 			break;
 		case 'schedule_detail':
+			if ($_GET['page']) {
+				$page = $_GET['page'];
+			} else {
+				$page = 1;
+			}
+			$page = ($page - 1) * 10;
+
 			include 'schedule/schedule_detail.php';
 			break;
 		case 'del_schedule':
@@ -184,11 +216,25 @@ if (isset($_GET['data'])) {
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'questions':
-			$questions = getAllQuestions();
+			if ($_GET['page']) {
+				$page = $_GET['page'];
+			} else {
+				$page = 1;
+			}
+			$page = ($page - 1) * 10;
 			$categories = getAllCategories();
 			$question_type = getTypeQuestions();
 			$question_level = getQuestionLevels();
 			$pathImg = '../assets/img/questions/';
+
+			if (isset($_POST['filter'])) {
+				$filterByCategory = $_POST['filterByCategory'];
+				$filterByLetter = $_POST['filterByLetter'];
+				$search = trim($_POST['search']);
+				$questions = filterQuestions($filterByCategory, $filterByLetter, $search, $page);
+			} else {
+				$questions = getQuestions($page);
+			}
 			include 'questions.php';
 			break;
 		case 'add_question':
@@ -265,7 +311,21 @@ if (isset($_GET['data'])) {
 			include 'result/result_detail.php';
 			break;
 		case 'exams':
-			$exams = getAllExams();
+			if ($_GET['page']) {
+				$page = $_GET['page'];
+			} else {
+				$page = 1;
+			}
+			$page = ($page - 1) * 10;
+
+			if (isset($_POST['filter'])) {
+				$filterByCategory = $_POST['filterByCategory'];
+				$filterByLetter = $_POST['filterByLetter'];
+				$search = trim($_POST['search']);
+				$exams = filterExams($filterByCategory, $filterByLetter, $search, $page);
+			} else {
+				$exams = getExams($page);
+			}
 			include 'exam/exams.php';
 			break;
 		case 'exam_detail':

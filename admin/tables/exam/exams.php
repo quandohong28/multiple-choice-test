@@ -4,6 +4,44 @@
     </div>
     <div class="card-body">
         <div class="row mb-3">
+            <form method="post" role="form" class="filter-panel">
+                <div class="row align-items-end">
+                    <div class="col-md-3 form-group">
+                        <label>Sắp xếp theo</label>
+                        <select name="filterByCategory" class="form-control form-control-sm"> DESC
+                            <option value="id" selected>ID</option>
+                            <option value="exam_code">Mã đề thi</option>
+                            <option value="category">Chuyên mục</option>
+                            <option value="types_exam">Loại đề thi</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Cách sắp xếp</label>
+                        <select name="filterByLetter" class="form-control form-control-sm">
+                            <option value="a-z" selected>A-Z</option>
+                            <option value="z-a">Z-A</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Tìm kiếm</label>
+                        <input type="text" name="search" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-md-3 form-group ">
+                        <div class="row">
+                            <button name="filter" class="btn btn-sm btn-info me-3 col">
+                                <i class="fa fa-fw fa-search fs-6 me-2"></i>
+                                <span class="lg-hidden">Tìm kiếm</span>
+                            </button>
+                            <button type="reset" class="btn btn-sm btn-outline-dark col">
+                                <i class="fa-regular fa-fw fa-window-restore"></i>
+                                <a href="index.php?act=tables&data=exams" class="lg-hidden text-decoration-none">Mặc định</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row mb-3">
             <?php include '../components/filter.php' ?>
         </div>
         <div class="row mb-3">
@@ -66,6 +104,24 @@
                 </tbody>
             </table>
         </div>
-        <?php include 'components/pagination.php' ?>
+        <ul class="pagination pagination-sm justify-content-end">
+            <li class="page-item disabled">
+                <a class="page-link px-3">
+                    <i class="fa-solid fa-caret-left"></i>
+                </a>
+            </li>
+            <?php
+            $currentURL = "index.php?act=tables&data=exams";
+            $amountPage = ceil(count(getAllExams()) / 10);
+            for ($page = 1; $page <= $amountPage; $page++) :
+            ?>
+                <li class="page-item"><a class="page-link" href="<?= $currentURL . "&page=$page" ?>"><?= $page ?></a></li>
+            <?php endfor; ?>
+            <li class="page-item">
+                <a class="page-link px-3" href="#">
+                    <i class="fa-solid fa-caret-right"></i>
+                </a>
+            </li>
+        </ul>
     </div>
 </div>

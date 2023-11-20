@@ -34,7 +34,7 @@ function getQuestionById($id)
 function getAllQuestions()
 {
     try {
-        $sql = "SELECT * FROM questions ORDER BY id DESC LIMIT 10;";
+        $sql = "SELECT * FROM questions ORDER BY id DESC";
         return pdo_query($sql);
     } catch (\Exception $e) {
         echo $e->getMessage();
@@ -52,7 +52,7 @@ function insertQuestion($content, $image, $question_level_id, $question_type_id,
     }
 }
 
-function editQuestion ($id, $content, $image, $question_level_id, $question_type_id, $category_id)
+function editQuestion($id, $content, $image, $question_level_id, $question_type_id, $category_id)
 {
     try {
         $sql = "UPDATE questions SET content = '$content', image = '$image', question_level_id = $question_level_id, question_type_id = $question_type_id, category_id = $category_id WHERE id = $id;";
@@ -108,3 +108,40 @@ function getRandomQuestionIdByLevel($category_id, $question_level_id, $number_qu
     }
 }
 
+function filterQuestions($filterByCategory, $filterByLetter, $search, $page)
+{
+    
+    try { 
+        $sql = "SELECT * FROM questions ";
+
+        if (!is_null($search) && $search != "") {
+            $sql .= " WHERE content LIKE '%$search%' ";
+        }
+
+        if ($filterByCategory != "id") {
+            if ($filterByCategory == "question") {
+                $sql .= " ORDER BY content";
+
+                $sql .= ($filterByLetter != "a-z") ? " DESC " : " ASC ";
+            }
+        } else {
+            $sql .= "ORDER BY id";
+            $sql .= ($filterByLetter != "a-z") ? " DESC " : " ASC ";
+        }
+        $sql .= " LIMIT $page, 10;";
+
+        return pdo_query($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+} 
+
+function getQuestions($page)
+{
+    try { 
+        $sql = "SELECT * FROM questions ORDER BY id DESC LIMIT $page, 10;";
+        return pdo_query($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}

@@ -9,8 +9,6 @@ function getAllSchedules()
     }
 }
 
-
-
 function getSchedulesById($id)
 {
     try {
@@ -100,6 +98,16 @@ function deleteSchedule($id)
     try {
         $sql = "DELETE FROM schedules WHERE id = $id;";
         pdo_execute($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function getSchedules($page)
+{
+    try {
+        $sql = "SELECT * FROM schedules LIMIT $page, 10;";
+        return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }

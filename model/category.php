@@ -78,3 +78,39 @@ function deleteCategory($id)
         echo $e->getMessage();
     }
 }
+
+function filterCategory($filterByCategory, $filterByLetter, $search, $page)
+{
+    try {
+        $sql = "SELECT * FROM categories ";
+
+        if (!is_null($search) && $search != "") {
+            $sql .= " WHERE name LIKE '%$search%'";
+        }
+
+        if ($filterByCategory != "id") {
+            if ($filterByCategory == "category_name") {
+                $sql .= "ORDER BY name";
+
+                $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+            } 
+        } else {
+            $sql .= "ORDER BY id";
+            $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+        }
+
+        $sql .= " LIMIT $page, 10;";    
+        return pdo_query($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+function getCategories($page)
+{
+    try {
+        $sql = "SELECT * FROM categories LIMIT $page, 10;";
+        return pdo_query($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}

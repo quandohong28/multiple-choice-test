@@ -21,12 +21,24 @@ function getAllAccounts()
 {
     try {
         $sql = "SELECT a.id, a.username, a.fullname, a.avatar, a.email, a.address, a.tel, a.introduce, r.role 
-        FROM accounts a INNER JOIN roles r ON a.role_id = r.id ORDER BY a.id DESC;";
+        FROM accounts a INNER JOIN roles r ON a.role_id = r.id ORDER BY a.id ASC;";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
 }
+
+function getAccounts($page)
+{
+    try {
+        $sql = "SELECT a.id, a.username, a.fullname, a.avatar, a.email, a.address, a.tel, a.introduce, r.role 
+        FROM accounts a INNER JOIN roles r ON a.role_id = r.id ORDER BY a.id ASC LIMIT $page,10 ;";
+        return pdo_query($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
 
 function getAccountById($id)
 {
@@ -97,7 +109,7 @@ function changePassword($id, $old_password, $new_password)
                 $hashedPassword = hashPassword($new_password);
                 $sql = "UPDATE accounts
                         SET password = '$hashedPassword'
-                        WHERE id = $id"; 
+                        WHERE id = $id";
                 pdo_execute($sql);
                 return true;
             } else {
@@ -175,6 +187,47 @@ function editProfile($id, $email, $introduce, $avatar, $fullname, $tel, $address
         address = '$address'
         WHERE id = $id";
         pdo_execute($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function filterAccount($filterByCategory, $filterByLetter, $search, $page)
+{
+    try {
+        $sql = "SELECT a.id, a.username, a.fullname, a.avatar, a.email, a.address, a.tel, a.introduce, r.role 
+        FROM accounts a 
+        INNER JOIN roles r ON a.role_id = r.id ";
+
+        if (!is_null($search) && $search != "") {
+            $sql .= " WHERE a.username LIKE '%$search%' OR a.fullname LIKE '%$search%' OR a.id LIKE '%$search%' OR a.email LIKE '%$search%'";
+        }
+
+        if ($filterByCategory != "id") {
+            if ($filterByCategory == "username") {
+                $sql .= "ORDER BY a.username";
+
+                $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+            }
+            if ($filterByCategory == "fullname") {
+                $sql .= "ORDER BY a.fullname";
+
+                $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+            }
+            if ($filterByCategory == "role") {
+                $sql .= "ORDER BY r.role";
+
+                $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+            }
+        } else {
+            $sql .= "ORDER BY a.id";
+            $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+        }
+
+        $sql .= " LIMIT $page,10 ;";
+
+
+        return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }

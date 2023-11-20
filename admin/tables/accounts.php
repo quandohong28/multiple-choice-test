@@ -4,7 +4,42 @@
     </div>
     <div class="card-body">
         <div class="row mb-3">
-            <?php include 'components/filter.php' ?>
+            <form method="post" role="form" class="filter-panel">
+                <div class="row align-items-end">
+                    <div class="col-md-3 form-group">
+                        <label>Sắp xếp theo</label>
+                        <select name="filterByCategory" class="form-control form-control-sm">
+                            <option value="id" selected>ID</option>
+                            <option value="username">Tên đăng nhập</option>
+                            <option value="fullname">Họ và tên</option>
+                            <option value="role">Vai trò</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Cách sắp xếp</label>
+                        <select name="filterByLetter" class="form-control form-control-sm">
+                            <option value="a-z" selected>A-Z</option>
+                            <option value="z-a">Z-A</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Tìm kiếm</label>
+                        <input type="text" name="search" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-md-3 form-group ">
+                        <div class="row">
+                            <button name="filter" class="btn btn-sm btn-info me-3 col">
+                                <i class="fa fa-fw fa-search fs-6 me-2"></i>
+                                <span class="lg-hidden">Tìm kiếm</span>
+                            </button>
+                            <button type="reset" class="btn btn-sm btn-outline-dark col">
+                                <i class="fa-regular fa-fw fa-window-restore"></i>
+                                <a href="index.php?act=tables&data=accounts" class="lg-hidden text-decoration-none">Mặc định</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="row mb-3">
             <div class="col">
@@ -86,7 +121,25 @@
                 </tbody>
             </table>
         </div>
-        <?php include 'components/pagination.php' ?>
+        <ul class="pagination pagination-sm justify-content-end">
+            <li class="page-item disabled">
+                <a class="page-link px-3">
+                    <i class="fa-solid fa-caret-left"></i>
+                </a>
+            </li>
+            <?php
+            $currentURL = "index.php?act=tables&data=accounts";
+            $amountPage = ceil(count(getAllAccounts()) / 10);
+            for ($page = 1; $page <= $amountPage; $page++) :
+            ?>
+                <li class="page-item"><a class="page-link" href="<?= $currentURL . "&page=$page" ?>"><?= $page ?></a></li>
+            <?php endfor; ?>
+            <li class="page-item">
+                <a class="page-link px-3" href="#">
+                    <i class="fa-solid fa-caret-right"></i>
+                </a>
+            </li>
+        </ul>
     </div>
     <!------Thêm tài khoản ----->
     <?php include 'modals/addaccountmodal.php' ?>
@@ -94,5 +147,3 @@
     <!------Sửa tài khoản ----->
     <?php include 'modals/editaccountmodal.php' ?>
 </div>
-
-
