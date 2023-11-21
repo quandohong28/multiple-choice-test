@@ -73,6 +73,11 @@ include '../model/answer.php';
                         $latestExamId = getLatestExam()['id'];
                         addResult($_SESSION['user']['id'], $latestExamId);
                         $latest_result_id = getLatestResult()['id'];
+                        //Tạo bản kết quả tạm thời với câu trả lời là Null
+                        $getQuestionsByExamDetails = getQuestionsByExamDetails($latestExamId);  
+                        for ($question = 0; $question < count($getQuestionsByExamDetails); $question++ ){
+                            addResultDetail($latest_result_id, $getQuestionsByExamDetails[$question]['question_id'] , "null");
+                        } 
                         echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '&exam_time=' . $exam_time . '&result_id=' . $latest_result_id . '">';
                         break;
                     case 'doing_exam':

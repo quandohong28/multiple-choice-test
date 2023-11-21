@@ -93,10 +93,26 @@ function insertPracticeExam($category_id, $exam_type_id, $number_easy_questions,
         $sql = "INSERT INTO exams (exam_code, category_id, exam_type_id, number_question, exam_time)
                 VALUES ('$exam_code', '$category_id', '$exam_type_id', '$number_question', '$exam_time');";
         pdo_execute($sql);
-        $latestExamId = getLatestExam()['id'];
-        insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 1, $number_easy_questions));
-        insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 2,  $number_medium_questions));
-        insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 3, $number_hard_questions));
+        $latestExamId = getLatestExam()['id']; 
+        $getRandomQuestionIdByLevelEasy = getRandomQuestionIdByLevel($category_id, 1, $number_easy_questions);
+        $getRandomQuestionIdByLevelMedium = getRandomQuestionIdByLevel($category_id, 2, $number_easy_questions);
+        $getRandomQuestionIdByLevelHard = getRandomQuestionIdByLevel($category_id, 3, $number_easy_questions);
+
+        foreach ($getRandomQuestionIdByLevelEasy as $question => $value) { 
+            insertExamDetail($latestExamId, $value['id']);
+        }
+        foreach ($getRandomQuestionIdByLevelMedium as $question => $value) { 
+            insertExamDetail($latestExamId, $value['id']);
+        }
+        foreach ($getRandomQuestionIdByLevelHard as $question => $value) { 
+            insertExamDetail($latestExamId, $value['id']);
+        }
+
+        
+
+        // insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 1,  $number_medium_questions));
+        // insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 2,  $number_medium_questions));
+        // insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 3, $number_hard_questions));
     } catch (Exception $e) {
         echo $e->getMessage();
     }
@@ -198,3 +214,14 @@ function getExams($page)
         echo $e->getMessage();
     }
 } 
+
+function getQuestionsByExamDetails($exam_id)
+{
+    try {
+        $sql = "SELECT question_id FROM exam_details
+        WHERE exam_id = '$exam_id';";
+        return pdo_query($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}

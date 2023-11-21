@@ -4,9 +4,8 @@
     </div>
     <div class="card-body">
         <div class="row mb-3">
-<<<<<<< HEAD
             <form method="post" role="form" class="filter-panel">
-                <div class="row align-items-end">
+                <div class="row align-items-end me-1">
                     <div class="col-md-3 form-group">
                         <label>Sắp xếp theo</label>
                         <select name="filterByCategory" class="form-control form-control-sm"> DESC
@@ -44,9 +43,6 @@
         </div>
         <div class="row mb-3">
             <?php include '../components/filter.php' ?>
-=======
-            <?php include 'tables/components/filter.php' ?>
->>>>>>> quandohong28
         </div>
         <div class="row mb-3">
             <div class="col">
@@ -108,7 +104,6 @@
                 </tbody>
             </table>
         </div>
-<<<<<<< HEAD
         <ul class="pagination pagination-sm justify-content-end">
             <li class="page-item disabled">
                 <a class="page-link px-3">
@@ -128,8 +123,5 @@
                 </a>
             </li>
         </ul>
-=======
-        <?php include 'tables/components/pagination.php' ?>
->>>>>>> quandohong28
     </div>
 </div>

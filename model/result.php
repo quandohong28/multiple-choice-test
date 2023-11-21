@@ -136,7 +136,7 @@ function addResultDetail($result_id, $question_id, $answer_id)
 {
     try {
         $sql = "INSERT INTO result_details(result_id, question_id, answer_id)
-        VALUES ($result_id, $question_id, $answer_id)";
+        VALUES ($result_id, $question_id, $answer_id)";  
         pdo_execute($sql);
     } catch (Exception $e) {
         return json_encode($e->getMessage());
