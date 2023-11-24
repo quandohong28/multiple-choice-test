@@ -66,11 +66,28 @@ require '../lib/PhpExcel/vendor/autoload.php';
                 <div class="container-fluid">
                     <?php switch ($action) {
                         case 'dashboard':
-                        // case 'home':
-                        //     $number_of_schedules_this_month = getNumberScheduleThisMonth();
-                        //     $number_of_finished_exams_this_month = getNumberFinishedExamThisMonth();
-                        //     $schedules = getLimitShedule(5);
-                        //     $categories = getAllCategories();
+                            // case 'home':
+                            //     $number_of_schedules_this_month = getNumberScheduleThisMonth();
+                            //     $number_of_finished_exams_this_month = getNumberFinishedExamThisMonth();
+                            // $schedules = getLimitShedule(5);
+                            $schedules = getLimitShedule(10);
+                            $categories = getAllCategories();
+                            $number_schedule = getScheduleThisWeek();
+                            
+                            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                $interval = $_POST['interval'];
+                                if ($interval == 'this-week') {
+                                    $number_schedule = getScheduleThisWeek();
+                                } else if ($interval == 'this-month') {
+                                    $number_schedule = getScheduleThisMonth();
+                                } else if ($interval == 'this-year') {
+                                    $number_schedule = getScheduleThisYear();
+                                } else {
+                                    $start_date = $_POST['start_date'];
+                                    $end_date = $_POST['end_date'];
+                                    $number_schedule = getScheduleByTimePeriod($start_date, $end_date);
+                                }
+                            }
                             include "./dashboard.php";
                             break;
                         case 'search':
@@ -108,11 +125,21 @@ require '../lib/PhpExcel/vendor/autoload.php';
                             echo '<meta http-equiv="refresh" content="0;url=../user/index.php">';
                             break;
                         case 'statistic_schedule':
-                            $id = $_GET['id'];
+                            $schedule_id = $_GET['schedule_id'];
+                            $number_cadidate = getNumberCandidateOfSchedule($schedule_id)['number'];
+                            $number_exam = getScheduleById($schedule_id)['number_exam'];
+                            $exam_time = getScheduleById($schedule_id)['exam_time'];
                             include "./statistic/schedule.php";
                             break;
                         case 'statistic_category':
                             include "./statistic/category.php";
+                            break;
+                        case 'statistic_result_detail':
+                            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                $exam_code = $_POST['exam_code'];
+                                echo $exam_code;
+                            }
+                            include "./statistic/result_detail.php";
                             break;
                         default:
                             include "./dashboard.php";
