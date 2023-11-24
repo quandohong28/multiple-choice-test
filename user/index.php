@@ -3,6 +3,8 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header("location: ../index.php");
 }
+// Kiểm tra các bài thi đang làm
+
 include '../model/pdo.php';
 include '../model/category.php';
 include '../model/question.php';
@@ -44,6 +46,7 @@ include '../model/answer.php';
         <div class="container">
 
             <?php
+            reloadStatusResult($_SESSION['user']['id']);
             if (isset($_GET['act'])) {
                 switch ($_GET['act']) {
                     case 'home':
@@ -68,11 +71,16 @@ include '../model/answer.php';
                             $number_medium_questions = $_POST['number_medium_questions'];
                             $number_hard_questions = $_POST['number_hard_questions'];
                             $exam_time = $_POST['exam_time'];
-                            insertPracticeExam($category_id, $type, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
+                            insertPracticeExam(1, $category_id, $type, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
                         }
                         $latestExamId = getLatestExam()['id'];
                         addResult($_SESSION['user']['id'], $latestExamId);
                         $latest_result_id = getLatestResult()['id'];
+                        //Tạo bản kết quả tạm thời với câu trả lời là Null
+                        $getQuestionsByExamDetails = getQuestionsByExamDetails($latestExamId);
+                        for ($question = 0; $question < count($getQuestionsByExamDetails); $question++) {
+                            addResultDetail($latest_result_id, $getQuestionsByExamDetails[$question]['question_id'], "null");
+                        }
                         echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '&exam_time=' . $exam_time . '&result_id=' . $latest_result_id . '">';
                         break;
                     case 'doing_exam':
@@ -88,11 +96,11 @@ include '../model/answer.php';
                             $dt = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
                             $current_time = $dt->format('Y-m-d H:i:s');
                             $diff = strtotime($current_time) - strtotime($time_start);
-                            $remaning_time = intval($exam_time * 60 - $diff);
+                            $remaning_time = ($exam_time * 60 - $diff);
                             if ($remaning_time <= 0) {
                                 echo '<meta http-equiv="refresh" content="0;url=?act=result">';
                             } else {
-                                $exam_time = intval($remaning_time / 60);
+                                $exam_time = round(($remaning_time / 60), 1);
                                 echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $exam_id . '&exam_time=' . $exam_time . '&result_id=' . $result_id . '">';
                             }
                         }

@@ -5,7 +5,7 @@
     <div class="card-body">
         <div class="row mb-3">
             <form method="post" role="form" class="filter-panel">
-                <div class="row align-items-end">
+                <div class="row align-items-end me-1">
                     <div class="col-md-3 form-group">
                         <label>Sắp xếp theo</label>
                         <select name="filterByCategory" class="form-control form-control-sm"> DESC
@@ -43,15 +43,8 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-<<<<<<< HEAD
                 <a class="btn btn-primary" data-bs-toggle="modal" href="#addSchedule" role="button"><i class="fa-regular me-2 fa-square-plus"></i>Thêm lịch
                     thi</a>
-=======
-                <a class="btn btn-sm btn-primary" data-bs-toggle="modal" href="#addSchedule" role="button">
-                    <i class="fa-regular fa-fw fa-square-plus fa-lg"></i>
-                    <span>Tạo mới lịch thi</span>
-                </a>
->>>>>>> quandohong28
             </div>
             <div class="col">
                 <?php include 'tables/components/data_export.php' ?>

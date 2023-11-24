@@ -2,12 +2,11 @@
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Danh sách câu hỏi</h6>
         </div>
-<<<<<<< HEAD
 
         <div class="card-body">
             <div class="row mb-3">
                 <form method="post" role="form" class="filter-panel">
-                    <div class="row align-items-end">
+                    <div class="row align-items-end me-1">
                         <div class="col-md-3 form-group">
                             <label>Sắp xếp theo</label>
                             <select name="filterByCategory" class="form-control form-control-sm"> DESC
@@ -40,14 +39,6 @@
                         </div>
                     </div>
                 </form>
-=======
-        <div class="row mb-3">
-            <div class="col">
-                <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#addquestionmodal">
-                    <i class="fa-regular fa-fw fa-square-plus fa-lg"></i>
-                    <span>Thêm câu hỏi</span>
-                </a>
->>>>>>> quandohong28
             </div>
             <div class="row mb-3">
                 <div class="col">

@@ -102,7 +102,7 @@ function getRandomQuestionIdByLevel($category_id, $question_level_id, $number_qu
         $sql = "SELECT id FROM questions
         WHERE
         category_id = '$category_id' AND question_level_id = '$question_level_id' ORDER BY RAND() LIMIT $number_question;";
-        return pdo_query_one($sql)['id'];
+        return pdo_query($sql);
     } catch (\Exception $e) {
         echo $e->getMessage();
     }

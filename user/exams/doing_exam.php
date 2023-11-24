@@ -109,6 +109,8 @@
         var result_id = urlParams.get('result_id');
 
         console.log(exam_id);
+        console.log(exam_time);
+        console.log(result_id);
 
 
 
@@ -246,7 +248,7 @@
 
                 // Kiểm tra xem câu hỏi hiện tại đã được chọn đáp án chưa
                 result_detail = await getResultDetailByResultIdAndQuestionId(result_id, questions[currentQuestionIndex].id);
-                if (result_detail !== null && result_detail.answer_id !== null) {
+                if (result_detail !== null || result_detail.answer_id !== null) {
                     answersDOM.forEach((answerDOM) => {
                         if (answerDOM.value == result_detail.answer_id) {
                             answerDOM.checked = true;
@@ -286,7 +288,7 @@
 
                 // Kiểm tra xem câu hỏi hiện tại đã được chọn đáp án chưa
                 result_detail = await getResultDetailByResultIdAndQuestionId(result_id, questions[currentQuestionIndex].id);
-                if (result_detail !== null && result_detail.answer_id !== null) {
+                if (result_detail !== null || result_detail.answer_id !== null) {
                     answersDOM.forEach((answerDOM) => {
                         if (answerDOM.value == result_detail.answer_id) {
                             answerDOM.checked = true;
