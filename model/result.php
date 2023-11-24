@@ -136,7 +136,7 @@ function addResultDetail($result_id, $question_id, $answer_id)
 {
     try {
         $sql = "INSERT INTO result_details(result_id, question_id, answer_id)
-        VALUES ($result_id, $question_id, $answer_id)";  
+        VALUES ($result_id, $question_id, $answer_id)";
         pdo_execute($sql);
     } catch (Exception $e) {
         return json_encode($e->getMessage());
@@ -163,6 +163,49 @@ function getDoingExamByAccountId($id)
                 INNER JOIN exams e ON e.id = r.exam_id
                 WHERE r.account_id = $id AND r.status = 0;";
         return pdo_query($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function reloadStatusResult($id)
+{
+    try {
+        $sql1 = "SELECT
+        r.id as result_id,
+        r.time_start as time_start,
+        e.exam_time as exam_time,
+        r.status as result_status
+    FROM
+        results r
+    INNER JOIN exams e ON
+        r.exam_id = e.id
+    INNER JOIN schedules s ON
+        e.schedule_id = s.id 
+    INNER JOIN accounts a ON
+        r.account_id = a.id
+    WHERE
+        a.id = $id;
+        ";
+
+        $results = pdo_query($sql1);
+        foreach ($results as $result) {
+            extract($result);
+            $result_id = $result_id;
+            $result_status = $result_status;
+            $time_start = $time_start;
+            $exam_time = $exam_time;
+            $time_end = date('Y-m-d H:i:s', strtotime($time_start) + ($exam_time * 60));
+            $dt = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
+            $current_time = $dt->format('Y-m-d H:i:s');
+            $exam_time_finish = sprintf('%02d:%02d:%02d', ($exam_time / 60), ($exam_time % 60),0);
+            if ($result_status == 0) { 
+                if ($current_time >= $time_end) {
+                    $sql = "UPDATE results SET status = 1, exam_time = '$exam_time_finish' WHERE id = $result_id";
+                    pdo_execute($sql);
+                }
+            }
+        }
     } catch (\Exception $e) {
         echo $e->getMessage();
     }

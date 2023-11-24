@@ -1,14 +1,16 @@
+ 
+CREATE DATABASE "multiple_choice_test";
+
+USE "multiple_choice_test";
+
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 13, 2023 at 09:38 AM
+-- Generation Time: Nov 24, 2023 at 05:31 AM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.0.28
-CREATE DATABASE "multiple_choice_test";
-
-USE "multiple_choice_test";
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -49,7 +51,8 @@ CREATE TABLE `accounts` (
 
 INSERT INTO `accounts` (`id`, `username`, `password`, `fullname`, `avatar`, `email`, `address`, `tel`, `introduce`, `role_id`) VALUES
 (1, 'quandohong28', '$2y$10$192QgdCAxxIM9j2/m6oHAu352KuPlMh8fJF73KaLm5ISh0lWeXlku', 'Đỗ Hồng Quân', 'quandohong28.jpg', 'quandohong28@gmail.com', NULL, NULL, NULL, 1),
-(2, 'admin', '$2y$10$Bh3aDHnMSO.kmmkeOnM9ceSmgLWgHPK8Y4jFRnjMNJny7gmUq7Duu', NULL, 'quandohong28.jpg', 'admin@gmail.com', NULL, NULL, NULL, 0);
+(2, 'admin', '$2y$10$Bh3aDHnMSO.kmmkeOnM9ceSmgLWgHPK8Y4jFRnjMNJny7gmUq7Duu', NULL, 'quandohong28.jpg', 'admin@gmail.com', NULL, NULL, NULL, 1),
+(3, 'zthanh13', '$2y$10$oN8Mx20B8BMcir7LXJFE3.F5TuR/4PwsSDBMVFcShqN5xKt5L4PSq', NULL, NULL, 'Anhdo13072004@gmail.com', NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -794,22 +797,6 @@ INSERT INTO `answers` (`id`, `content`, `image`, `question_id`, `is_correct`) VA
 (722, 'Hyper Text Markup Language', NULL, 181, 1),
 (723, 'High-Level Text Markup Language', NULL, 181, 0),
 (724, 'Hyperlink and Text Markup Language', NULL, 181, 0),
-(725, '<h1>', NULL, 182, 1),
-(726, '<header>', NULL, 182, 0),
-(727, '<title>', NULL, 182, 0),
-(728, '<heading>', NULL, 182, 0),
-(729, 'Computer Style Sheets', NULL, 183, 0),
-(730, 'Cascading Style Sheets', NULL, 183, 1),
-(731, 'Creative Style Sheets', NULL, 183, 0),
-(732, 'Colorful Style Sheets', NULL, 183, 0),
-(733, '<link>', NULL, 184, 0),
-(734, '<a>', NULL, 184, 1),
-(735, '<href>', NULL, 184, 0),
-(736, '<url>', NULL, 184, 0),
-(737, '<img>', NULL, 185, 1),
-(738, '<picture>', NULL, 185, 0),
-(739, '<image source>', NULL, 185, 0),
-(740, '<image>', NULL, 185, 0),
 (741, 'border-radius', NULL, 186, 0),
 (742, 'border-style', NULL, 186, 0),
 (743, 'border-color', NULL, 186, 0),
@@ -900,21 +887,12 @@ CREATE TABLE `exams` (
 --
 
 INSERT INTO `exams` (`id`, `exam_code`, `schedule_id`, `category_id`, `exam_type_id`, `number_question`, `exam_time`) VALUES
-(1, 'CODE001', 1, 6, 2, 40, 0),
-(2, 'RYHUIB', NULL, 1, 1, 15, 30),
-(3, 'T0YK63', NULL, 1, 1, 15, 30),
-(4, 'BVT70C', NULL, 1, 1, 15, 30),
-(5, '5HMV1X', NULL, 1, 1, 15, 30),
-(6, '5WZTTF', NULL, 1, 1, 15, 30),
-(7, '5KQ2LF', NULL, 1, 1, 15, 30),
-(8, 'MOKPWJ', NULL, 1, 1, 15, 30),
-(9, 'A9OPN0', NULL, 1, 1, 15, 30),
-(10, 'O9VKDG', NULL, 1, 1, 15, 30),
-(11, 'INDPIB', NULL, 1, 1, 15, 30),
-(12, 'MFXXEE', NULL, 1, 1, 15, 30),
-(13, '1X7CSN', NULL, 1, 1, 15, 30),
-(14, '6O8CGI', NULL, 1, 1, 15, 30),
-(15, '0B7FTQ', NULL, 1, 1, 15, 30);
+(141, 'IO0ASV', NULL, 1, 1, 12, 1),
+(142, 'C799X8', NULL, 1, 1, 12, 60),
+(143, 'GJDLXE', NULL, 1, 1, 15, 1),
+(144, 'P7PQNR', NULL, 1, 1, 12, 1),
+(145, '3YT4H0', NULL, 1, 1, 12, 60),
+(146, 'WT9FJ2', NULL, 1, 1, 12, 1);
 
 -- --------------------------------------------------------
 
@@ -933,126 +911,69 @@ CREATE TABLE `exam_details` (
 --
 
 INSERT INTO `exam_details` (`id`, `exam_id`, `question_id`) VALUES
-(1, 8, 200),
-(2, 8, 7),
-(3, 8, 19),
-(4, 8, 205),
-(5, 8, 202),
-(6, 8, 5),
-(7, 8, 8),
-(8, 8, 8),
-(9, 8, 8),
-(10, 8, 8),
-(11, 8, 196),
-(12, 8, 15),
-(13, 8, 9),
-(14, 8, 18),
-(15, 8, 12),
-(16, 9, 202),
-(17, 9, 202),
-(18, 9, 204),
-(19, 9, 205),
-(20, 9, 10),
-(21, 9, 5),
-(22, 9, 8),
-(23, 9, 17),
-(24, 9, 11),
-(25, 9, 2),
-(26, 9, 12),
-(27, 9, 12),
-(28, 9, 6),
-(29, 9, 9),
-(30, 9, 9),
-(31, 10, 7),
-(32, 10, 4),
-(33, 10, 201),
-(34, 10, 7),
-(35, 10, 19),
-(36, 10, 14),
-(37, 10, 14),
-(38, 10, 5),
-(39, 10, 11),
-(40, 10, 8),
-(41, 10, 18),
-(42, 10, 6),
-(43, 10, 196),
-(44, 10, 18),
-(45, 10, 18),
-(46, 11, 203),
-(47, 11, 1),
-(48, 11, 197),
-(49, 11, 205),
-(50, 11, 203),
-(51, 11, 11),
-(52, 11, 8),
-(53, 11, 5),
-(54, 11, 5),
-(55, 11, 11),
-(56, 11, 18),
-(57, 11, 9),
-(58, 11, 9),
-(59, 11, 9),
-(60, 11, 196),
-(61, 12, 19),
-(62, 12, 204),
-(63, 12, 203),
-(64, 12, 10),
-(65, 12, 16),
-(66, 12, 14),
-(67, 12, 17),
-(68, 12, 17),
-(69, 12, 14),
-(70, 12, 17),
-(71, 12, 9),
-(72, 12, 196),
-(73, 12, 6),
-(74, 12, 15),
-(75, 12, 12),
-(76, 13, 200),
-(77, 13, 4),
-(78, 13, 205),
-(79, 13, 200),
-(80, 13, 198),
-(81, 13, 20),
-(82, 13, 17),
-(83, 13, 11),
-(84, 13, 2),
-(85, 13, 14),
-(86, 13, 196),
-(87, 13, 6),
-(88, 13, 196),
-(89, 13, 18),
-(90, 13, 9),
-(91, 14, 200),
-(92, 14, 13),
-(93, 14, 200),
-(94, 14, 1),
-(95, 14, 201),
-(96, 14, 5),
-(97, 14, 20),
-(98, 14, 17),
-(99, 14, 2),
-(100, 14, 17),
-(101, 14, 196),
-(102, 14, 12),
-(103, 14, 3),
-(104, 14, 196),
-(105, 14, 18),
-(106, 15, 197),
-(107, 15, 203),
-(108, 15, 204),
-(109, 15, 200),
-(110, 15, 7),
-(111, 15, 14),
-(112, 15, 11),
-(113, 15, 20),
-(114, 15, 11),
-(115, 15, 8),
-(116, 15, 12),
-(117, 15, 18),
-(118, 15, 6),
-(119, 15, 196),
-(120, 15, 9);
+(909, 141, 19),
+(910, 141, 7),
+(911, 141, 10),
+(912, 141, 4),
+(913, 141, 20),
+(914, 141, 2),
+(915, 141, 5),
+(916, 141, 11),
+(917, 141, 18),
+(918, 141, 3),
+(919, 141, 9),
+(920, 141, 12),
+(921, 142, 19),
+(922, 142, 4),
+(923, 142, 13),
+(924, 142, 7),
+(925, 142, 17),
+(926, 142, 8),
+(927, 142, 14),
+(928, 142, 11),
+(929, 142, 9),
+(930, 142, 6),
+(931, 142, 15),
+(932, 142, 18),
+(933, 143, 13),
+(934, 143, 2),
+(935, 143, 15),
+(936, 144, 19),
+(937, 144, 4),
+(938, 144, 10),
+(939, 144, 16),
+(940, 144, 14),
+(941, 144, 17),
+(942, 144, 2),
+(943, 144, 5),
+(944, 144, 9),
+(945, 144, 6),
+(946, 144, 12),
+(947, 144, 18),
+(948, 145, 1),
+(949, 145, 16),
+(950, 145, 4),
+(951, 145, 13),
+(952, 145, 17),
+(953, 145, 5),
+(954, 145, 14),
+(955, 145, 11),
+(956, 145, 3),
+(957, 145, 18),
+(958, 145, 12),
+(959, 145, 9),
+(960, 146, 19),
+(961, 146, 16),
+(962, 146, 7),
+(963, 146, 1),
+(964, 146, 2),
+(965, 146, 14),
+(966, 146, 5),
+(967, 146, 11),
+(968, 146, 3),
+(969, 146, 12),
+(970, 146, 9),
+(971, 146, 18);
 
 -- --------------------------------------------------------
 
@@ -1255,10 +1176,6 @@ INSERT INTO `questions` (`id`, `content`, `image`, `question_level_id`, `questio
 (179, 'Trong phát triển phần mềm, \"Unit Testing\" đề cập đến việc gì?', NULL, 3, 1, 9),
 (180, 'Trong Agile, làm thế nào để xác định ưu tiên của các yêu cầu?', NULL, 3, 1, 9),
 (181, 'HTML là viết tắt của gì?', NULL, 1, 1, 10),
-(182, 'Định dạng tiêu đề lớn nhất trong HTML bằng thẻ nào?', NULL, 1, 1, 10),
-(183, 'CSS là viết tắt của gì?', NULL, 1, 1, 10),
-(184, 'Thẻ HTML để tạo liên kết đến một trang web khác là gì?', NULL, 1, 1, 10),
-(185, 'Để thêm một hình ảnh vào trang web, bạn sử dụng thẻ nào trong HTML?', NULL, 1, 1, 10),
 (186, 'Để tạo một đường viền xung quanh một phần tử HTML, bạn sử dụng thuộc tính CSS nào?', NULL, 2, 1, 10),
 (187, 'Lựa chọn CSS display: flex; định dạng phần tử HTML như thế nào?', NULL, 2, 1, 10),
 (188, 'Để tạo một biểu đồ hình tròn đơn giản trong HTML và CSS, bạn sử dụng loại hình nào?', NULL, 2, 1, 10),
@@ -1268,17 +1185,7 @@ INSERT INTO `questions` (`id`, `content`, `image`, `question_level_id`, `questio
 (192, 'Để chuyển đổi một chuỗi sang số trong JavaScript, bạn sử dụng hàm nào?', NULL, 3, 1, 10),
 (193, 'CSS position: absolute; làm gì cho một phần tử?', NULL, 3, 1, 10),
 (194, 'Để thực hiện tính năng đổi màu khi di chuột qua một phần tử trong JavaScript, bạn sử dụng sự kiện nào?', NULL, 3, 1, 10),
-(195, 'Để tạo một trang web đáng tin cậy và an toàn, bạn nên tuân thủ các nguyên tắc gì?', NULL, 3, 1, 10),
-(196, 'Quân là người đẹp trai nhất??', NULL, 3, 2, 1),
-(197, 'Ai là người đẹp trai nhất', 'quan.jpg', 1, 1, 1),
-(198, 'Ai là người đẹp trai nhất', 'quan.jpg', 1, 1, 1),
-(199, 'Ai là người đẹp trai nhất', 'quan.jpg', 1, 1, 1),
-(200, 'Quân có phải người đẹp trai nhất không?', 'quan.jpg', 1, 1, 1),
-(201, 'Quân có phải người đẹp trai nhất không?', 'quan.jpg', 1, 1, 1),
-(202, 'Quân có phải người đẹp trai nhất không?', 'quan.jpg', 1, 1, 1),
-(203, 'Quân có phải người đẹp trai nhất không?', 'quan.jpg', 1, 1, 1),
-(204, 'Quân có phải người đẹp trai nhất không?', 'quan.jpg', 1, 1, 1),
-(205, 'Quân có phải người đẹp trai nhất không?', 'quan.jpg', 1, 1, 1);
+(195, 'Để tạo một trang web đáng tin cậy và an toàn, bạn nên tuân thủ các nguyên tắc gì?', 'Screenshot from 2023-11-18 21-04-56.png', 3, 1, 10);
 
 -- --------------------------------------------------------
 
@@ -1312,8 +1219,18 @@ CREATE TABLE `results` (
   `account_id` int(11) NOT NULL,
   `points` float DEFAULT NULL,
   `time_start` datetime NOT NULL DEFAULT current_timestamp(),
-  `exam_time` time DEFAULT NULL
+  `exam_time` time DEFAULT NULL,
+  `status` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `results`
+--
+
+INSERT INTO `results` (`id`, `exam_id`, `account_id`, `points`, `time_start`, `exam_time`, `status`) VALUES
+(121, 144, 3, 0, '2023-11-21 13:22:39', '00:01:00', 1),
+(122, 145, 3, NULL, '2023-11-21 13:27:46', NULL, 0),
+(123, 146, 3, 0, '2023-11-21 13:31:23', '00:00:21', 1);
 
 -- --------------------------------------------------------
 
@@ -1325,8 +1242,50 @@ CREATE TABLE `result_details` (
   `id` int(11) NOT NULL,
   `result_id` int(11) NOT NULL,
   `question_id` int(11) NOT NULL,
-  `answer_id` int(11) NOT NULL
+  `answer_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `result_details`
+--
+
+INSERT INTO `result_details` (`id`, `result_id`, `question_id`, `answer_id`) VALUES
+(138, 121, 19, 74),
+(139, 121, 4, 16),
+(140, 121, 10, 37),
+(141, 121, 16, 64),
+(142, 121, 14, NULL),
+(143, 121, 17, NULL),
+(144, 121, 2, NULL),
+(145, 121, 5, NULL),
+(146, 121, 9, NULL),
+(147, 121, 6, NULL),
+(148, 121, 12, NULL),
+(149, 121, 18, NULL),
+(150, 122, 1, NULL),
+(151, 122, 16, NULL),
+(152, 122, 4, NULL),
+(153, 122, 13, NULL),
+(154, 122, 17, NULL),
+(155, 122, 5, NULL),
+(156, 122, 14, NULL),
+(157, 122, 11, NULL),
+(158, 122, 3, NULL),
+(159, 122, 18, NULL),
+(160, 122, 12, NULL),
+(161, 122, 9, NULL),
+(162, 123, 19, 73),
+(163, 123, 16, 62),
+(164, 123, 7, 27),
+(165, 123, 1, 4),
+(166, 123, 2, 7),
+(167, 123, 14, 56),
+(168, 123, 5, 18),
+(169, 123, 11, 44),
+(170, 123, 3, 12),
+(171, 123, 12, 47),
+(172, 123, 9, 36),
+(173, 123, 18, 72);
 
 -- --------------------------------------------------------
 
@@ -1510,7 +1469,7 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `answers`
@@ -1528,13 +1487,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `exams`
 --
 ALTER TABLE `exams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 
 --
 -- AUTO_INCREMENT for table `exam_details`
 --
 ALTER TABLE `exam_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=972;
 
 --
 -- AUTO_INCREMENT for table `questions`
@@ -1552,13 +1511,13 @@ ALTER TABLE `question_levels`
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 --
 -- AUTO_INCREMENT for table `result_details`
 --
 ALTER TABLE `result_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
 
 --
 -- AUTO_INCREMENT for table `schedules`

@@ -3,6 +3,8 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header("location: ../index.php");
 }
+// Kiểm tra các bài thi đang làm
+
 include '../model/pdo.php';
 include '../model/category.php';
 include '../model/question.php';
@@ -44,6 +46,7 @@ include '../model/answer.php';
         <div class="container">
 
             <?php
+            reloadStatusResult($_SESSION['user']['id']);
             if (isset($_GET['act'])) {
                 switch ($_GET['act']) {
                     case 'home':
@@ -68,7 +71,7 @@ include '../model/answer.php';
                             $number_medium_questions = $_POST['number_medium_questions'];
                             $number_hard_questions = $_POST['number_hard_questions'];
                             $exam_time = $_POST['exam_time'];
-                            insertPracticeExam($category_id, $type, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
+                            insertPracticeExam(1, $category_id, $type, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
                         }
                         $latestExamId = getLatestExam()['id'];
                         addResult($_SESSION['user']['id'], $latestExamId);
@@ -81,14 +84,6 @@ include '../model/answer.php';
                         echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '&exam_time=' . $exam_time . '&result_id=' . $latest_result_id . '">';
                         break;
                     case 'doing_exam':
-                        // if (isset($_SESSION['page_refreshed'])) {
-                        //     echo "yessir";
-                        //     $_SESSION['page_refreshed'] = true;
-                        // } else {
-                        //     // Trang chưa được làm mới
-                        //     echo "nonono";
-                        //     // ...
-                        // }
                         $type = $_GET['type'];
                         $result_id = $_GET['result_id'];
                         $exam_id = getResultById($result_id)['id'];

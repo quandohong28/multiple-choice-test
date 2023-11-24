@@ -85,13 +85,13 @@ function insertExam($schedule_id, $category_id, $exam_type_id, $number_easy_ques
     }
 }
 
-function insertPracticeExam($category_id, $exam_type_id, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time)
+function insertPracticeExam($schedule_id, $category_id, $exam_type_id, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time)
 {
     $number_question = $number_easy_questions + $number_medium_questions + $number_hard_questions;
     try {
         $exam_code = generateRandomString();
-        $sql = "INSERT INTO exams (exam_code, category_id, exam_type_id, number_question, exam_time)
-                VALUES ('$exam_code', '$category_id', '$exam_type_id', '$number_question', '$exam_time');";
+        $sql = "INSERT INTO exams (schedule_id, exam_code, category_id, exam_type_id, number_question, exam_time)
+                VALUES ('$schedule_id', '$exam_code', '$category_id', '$exam_type_id', '$number_question', '$exam_time');";
         pdo_execute($sql);
         $latestExamId = getLatestExam()['id']; 
         $getRandomQuestionIdByLevelEasy = getRandomQuestionIdByLevel($category_id, 1, $number_easy_questions);
