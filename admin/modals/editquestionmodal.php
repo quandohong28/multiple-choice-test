@@ -1,4 +1,5 @@
-<div class="modal fade" id="editquestionmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editquestionmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,7 +12,8 @@
                 <div class="col-11 m-4 text-center">
                     <div class="form-outline">
                         <label class="form-label" for="content">Câu hỏi</label>
-                        <textarea type="text" value="" name="edit_content" id="content" class="form-control form-control-sm"></textarea>
+                        <textarea type="text" value="" name="edit_content" id="content"
+                            class="form-control form-control-sm"></textarea>
                     </div>
                 </div>
                 <div class="col-11 m-4 text-center">
@@ -26,8 +28,10 @@
                         <label class="form-label select-label" name="question_level_id">Loại câu hỏi</label>
                         <select name="edit_question_type_id" class="select form-control form-control-sm">
                             <option value="?" selected>Chọn loại câu hỏi</option>
-                            <?php foreach ($question_type as $key => $value) : ?>
-                                <option value="<?= $value['id'] ?>"><?= $value['type'] == "practice_test" ? "Thi thử" : "Thi thật" ?></option>
+                            <?php foreach ($question_type as $key => $value): ?>
+                                <option value="<?= $value['id'] ?>">
+                                    <?= $value['type'] == "practice_test" ? "Thi thử" : "Thi thật" ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -35,8 +39,10 @@
                         <label class="form-label select-label" name="question_level_id">Mức độ câu hỏi</label>
                         <select name="edit_question_level_id" class="select form-control form-control-sm">
                             <option value="?" selected>Chọn loại câu hỏi</option>
-                            <?php foreach ($question_level as $key => $value) : ?>
-                                <option value="<?= $value['id'] ?>"><?= $value['level'] ?></option>
+                            <?php foreach ($question_level as $key => $value): ?>
+                                <option value="<?= $value['id'] ?>">
+                                    <?= $value['level'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -44,8 +50,10 @@
                         <label class="form-label select-label" name="id_category">Chuyên mục</label>
                         <select name="edit_category_id" class="select form-control form-control-sm">
                             <option value="?" selected>Chọn chuyên mục</option>
-                            <?php foreach ($categories as $key => $value) : ?>
-                                <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+                            <?php foreach ($categories as $key => $value): ?>
+                                <option value="<?= $value['id'] ?>">
+                                    <?= $value['name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -54,27 +62,35 @@
                     <label class="form-label" for="answer">Câu trả lời</label>
                     <div class="col-5 d-flex justify-content-between mx-3">
                         <input type="hidden" name="edit_id_answer[]" class="id_answer" value="">
-                        <input class="edit-form-check-input" onclick="check_update()" name="edit_check_answer" type="radio" id="flexCheckDefault1">
+                        <input class="edit-form-check-input" onclick="check_update()" name="edit_check_answer"
+                            type="radio" id="flexCheckDefault1">
                         <input class="check-input" type="hidden" value="" name="edit_correct_answer[]">
-                        <textarea type="text" value="" id="answer1" name="edit_answer[]" class="form-control form-control-sm"></textarea>
+                        <textarea type="text" value="" id="answer1" name="edit_answer[]"
+                            class="form-control form-control-sm"></textarea>
                     </div>
                     <div class="col-5 d-flex justify-content-between mx-3">
                         <input type="hidden" name="edit_id_answer[]" class="id_answer" value="">
-                        <input class="edit-form-check-input" onclick="check_update()" name="edit_check_answer" type="radio" id="flexCheckDefault2">
+                        <input class="edit-form-check-input" onclick="check_update()" name="edit_check_answer"
+                            type="radio" id="flexCheckDefault2">
                         <input class="check-input" type="hidden" value="" name="edit_correct_answer[]">
-                        <textarea type="text" value="" id="answer2" name="edit_answer[]" class="form-control form-control-sm"></textarea>
+                        <textarea type="text" value="" id="answer2" name="edit_answer[]"
+                            class="form-control form-control-sm"></textarea>
                     </div>
                     <div class="col-5 d-flex justify-content-between mx-3">
                         <input type="hidden" name="edit_id_answer[]" class="id_answer" value="">
-                        <input class="edit-form-check-input" onclick="check_update()" name="edit_check_answer" type="radio" id="flexCheckDefault3">
+                        <input class="edit-form-check-input" onclick="check_update()" name="edit_check_answer"
+                            type="radio" id="flexCheckDefault3">
                         <input class="check-input" type="hidden" value="" name="edit_correct_answer[]">
-                        <textarea type="text" value="" id="answer3" name="edit_answer[]" class="form-control form-control-sm"></textarea>
+                        <textarea type="text" value="" id="answer3" name="edit_answer[]"
+                            class="form-control form-control-sm"></textarea>
                     </div>
                     <div class="col-5 d-flex justify-content-between mx-3">
                         <input type="hidden" name="edit_id_answer[]" class="id_answer" value="">
-                        <input class="edit-form-check-input" onclick="check_update()" name="edit_check_answer" type="radio" id="flexCheckDefault4">
+                        <input class="edit-form-check-input" onclick="check_update()" name="edit_check_answer"
+                            type="radio" id="flexCheckDefault4">
                         <input class="check-input" type="hidden" value="" name="edit_correct_answer[]">
-                        <textarea type="text" value="" id="answer4" name="edit_answer[]" class="form-control form-control-sm"></textarea>
+                        <textarea type="text" value="" id="answer4" name="edit_answer[]"
+                            class="form-control form-control-sm"></textarea>
                     </div>
                 </div>
                 <input type="hidden" value="" placeholder="" name="edit_id" id="id">
@@ -91,7 +107,7 @@
 <script>
     const myModal = document.getElementById('editquestionmodal')
 
-    myModal.addEventListener('shown.bs.modal', function() {
+    myModal.addEventListener('shown.bs.modal', function () {
         const id = document.querySelector('input[name="edit_id"]');
         const content = document.querySelector('textarea[name="edit_content"]');
         const question_type_id = document.querySelector('select[name="edit_question_type_id"]');
