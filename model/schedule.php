@@ -49,45 +49,11 @@ function getScheduleByUserId($account_id)
     }
 }
 
-function addCandidates($schedule_id, $account_id, $username)
+function addSchedule($name, $time_start, $exam_time, $number_exam, $category_id, $numeber_question)
 {
     try {
-        $sql = "INSERT INTO schedule_detail (schedule_id, account_id)
-        VALUES ('$schedule_id', '$account_id');";
+        $sql = "INSERT INTO schedules(name, time_start, exam_time, number_exam, category_id, numeber_question) VALUES ('$name', '$time_start', '$exam_time', '$number_exam', '$category_id', '$numeber_question');";
         return pdo_execute($sql);
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-}
-
-function addNewSchedule($name, $time_start, $number_exam, $exam_time)
-{
-    try {
-        $sql = "INSERT INTO schedules (name, time_start, number_exam, exam_time)
-                VALUES ('$name', '$time_start', '$number_exam', '$exam_time');";
-        return pdo_execute($sql);
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-}
-
-function getLatestSchedule()
-{
-    try {
-        $sql = "SELECT * FROM schedules ORDER BY id DESC LIMIT 1;";
-        return pdo_query_one($sql);
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-}
-
-function addSchedule($name, $time_start, $number_exam, $exam_time, $category_id, $number_easy_questions, $number_medium_questions, $number_hard_questions)
-{
-    try {
-        $number_question = $number_easy_questions + $number_medium_questions + $number_hard_questions;
-        addNewSchedule($name, $time_start, $number_exam, $exam_time);
-        $schedule_id = getLatestSchedule()['id'];
-        $addScheduleDetail = "INSERT INTO schedule_detail (schedule_id, category_id, number_question);";
     } catch (Exception $e) {
         echo $e->getMessage();
     }

@@ -43,7 +43,7 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <a class="btn btn-primary" data-bs-toggle="modal" href="#addSchedule" role="button"><i class="fa-regular me-2 fa-square-plus"></i>Thêm lịch
+                <a class="btn btn-primary btn-sm" data-bs-toggle="modal" href="#addSchedule" role="button"><i class="fa-regular me-2 fa-square-plus fa-lg"></i>Thêm lịch
                     thi</a>
             </div>
             <div class="col">

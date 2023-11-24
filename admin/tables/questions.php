@@ -42,13 +42,16 @@
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#addquestionmodal">Thêm câu hỏi</a>
+                    <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#addquestionmodal">
+                        <i class="fa-regular me-2 fa-square-plus fa-lg"></i>
+                        Thêm câu hỏi
+                    </a>
                 </div>
                 <div class="col">
                     <?php include 'components/data_export.php' ?>
                 </div>
             </div>
-            <div class="container-fuild"> 
+            <div class="container-fuild">
                 <?php foreach ($questions as $question) :
                     extract($question);
                     $answers = getAnswersByQuestionId($id);
@@ -93,7 +96,7 @@
                         <i class="fa-solid fa-caret-left"></i>
                     </a>
                 </li>
-                <?php 
+                <?php
                 $currentURL = "index.php?act=tables&data=questions";
                 $amountPage = ceil(count(getAllQuestions()) / 10);
                 for ($page = 1; $page <= $amountPage; $page++) :

@@ -31,7 +31,7 @@
 if (isset($_GET['data'])) {
 	switch ($_GET['data']) {
 		case 'accounts':
-			if ($_GET['page']) {
+			if (isset($_GET['page'])) {
 				$page = $_GET['page'];
 			} else {
 				$page = 1;
@@ -99,7 +99,7 @@ if (isset($_GET['data'])) {
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=accounts">';
 			break;
 		case 'categories':
-			if ($_GET['page']) {
+			if (isset($_GET['page'])) {
 				$page = $_GET['page'];
 			} else {
 				$page = 1;
@@ -146,7 +146,8 @@ if (isset($_GET['data'])) {
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=categories">';
 			break;
 		case 'schedules':
-			if ($_GET['page']) {
+			$categories = getAllCategories();
+			if (isset($_GET['page'])) {
 				$page = $_GET['page'];
 			} else {
 				$page = 1;
@@ -157,33 +158,33 @@ if (isset($_GET['data'])) {
 			include 'schedule/schedules.php';
 			break;
 		case 'add_schedule':
-			if (isset($_POST['add_schedule'])) {
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$name = $_POST['name'];
 				$time_start = $_POST['time_start'];
-				$number_exam = $_POST['number_exam'];
 				$exam_time = $_POST['exam_time'];
+				$number_exam = $_POST['number_exam'];
 				$category_id = $_POST['category_id'];
 				$number_easy_questions = $_POST['number_easy_questions'];
 				$number_medium_questions = $_POST['number_medium_questions'];
 				$number_hard_questions = $_POST['number_hard_questions'];
-				$file = $_FILES['accounts']['tmp_name'];
-				// var_dump($file);
-				// Tạo một đối tượng PHPExcel để đọc dữ liệu từ tệp Excel
-				$objPHPExcel = PHPExcel_IOFactory::load($file);
-
-				// Lấy sheet đầu tiên
-				$sheet = $objPHPExcel->getActiveSheet();
-
-				// Lấy tất cả các dữ liệu từ sheet và đưa chúng vào một mảng
-				$accounts = $sheet->toArray();
-
-				// duyệt mảng dữ liệu để thêm vào cơ sở dữ liệu
-				foreach ($accounts as $account) {
-					$schedule_id = 1;
-					$account_id = $account[0];
-					$username = $account[1];
-					// addCandidates($schedule_id, $account_id, $username);
+				$file = $_FILES['accounts'];
+				$file_name = $file['name'];
+				$tmp_file = $file['tmp_name'];
+				$extension = pathinfo($file_name, PATHINFO_EXTENSION);
+				$upload_directory = '../assets/public/user_upload/';
+				if ($extension == 'xlsx') {
+					if (move_uploaded_file($tmp_file, $upload_directory . $file_name)) {
+						echo "Upload file thành công";
+					} else {
+						echo "Lỗi trong quá trình upload file";
+					}
+				} else {
+					echo "File không đúng định dạng";
 				}
+				$number_question = $number_easy_questions + $number_medium_questions + $number_hard_questions;
+				addSchedule($name, $time_start, $exam_time, $number_exam, $category_id, $numeber_question);
+
+				// var_dump($name, $time_start, $number_exam, $exam_time, $category_id, $number_easy_questions, $number_medium_questions, $number_hard_questions);
 			}
 			// echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
@@ -204,7 +205,7 @@ if (isset($_GET['data'])) {
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'questions':
-			if ($_GET['page']) {
+			if (isset($_GET['page'])) {
 				$page = $_GET['page'];
 			} else {
 				$page = 1;

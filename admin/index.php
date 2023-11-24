@@ -66,14 +66,10 @@ require '../lib/PhpExcel/vendor/autoload.php';
                 <div class="container-fluid">
                     <?php switch ($action) {
                         case 'dashboard':
-                            // case 'home':
-                            //     $number_of_schedules_this_month = getNumberScheduleThisMonth();
-                            //     $number_of_finished_exams_this_month = getNumberFinishedExamThisMonth();
-                            // $schedules = getLimitShedule(5);
                             $schedules = getLimitShedule(10);
                             $categories = getAllCategories();
                             $number_schedule = getScheduleThisWeek();
-                            
+
                             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 $interval = $_POST['interval'];
                                 if ($interval == 'this-week') {
@@ -142,6 +138,24 @@ require '../lib/PhpExcel/vendor/autoload.php';
                             include "./statistic/result_detail.php";
                             break;
                         default:
+                            $schedules = getLimitShedule(10);
+                            $categories = getAllCategories();
+                            $number_schedule = getScheduleThisWeek();
+
+                            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                $interval = $_POST['interval'];
+                                if ($interval == 'this-week') {
+                                    $number_schedule = getScheduleThisWeek();
+                                } else if ($interval == 'this-month') {
+                                    $number_schedule = getScheduleThisMonth();
+                                } else if ($interval == 'this-year') {
+                                    $number_schedule = getScheduleThisYear();
+                                } else {
+                                    $start_date = $_POST['start_date'];
+                                    $end_date = $_POST['end_date'];
+                                    $number_schedule = getScheduleByTimePeriod($start_date, $end_date);
+                                }
+                            }
                             include "./dashboard.php";
                             break;
                     } ?>
