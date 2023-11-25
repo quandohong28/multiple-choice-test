@@ -28,7 +28,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Đóng</button>
-                    <a href="?act=doing_exam&type=real&id=21" class="btn btn-sm btn-primary">Bắt đầu làm bài</a>
+                    <a id="start-btn" class="btn btn-sm btn-primary">Bắt đầu làm bài</a>
                 </div>
             </form>
         </div>
@@ -43,7 +43,8 @@
         let button = event.relatedTarget;
         // Extract info from data-bs-* attributes
         let recipient = JSON.parse(button.getAttribute('data-bs-value'));
-        
+        console.log(recipient);
+
         const category = document.getElementById('category');
         const number_question = document.getElementById('number_question');
 
@@ -52,5 +53,8 @@
 
         const categoryImage = document.querySelector('.category-image');
         categoryImage.src = `../assets/img/categories/${recipient.image}`;
+
+        const startBtn = document.querySelector('#start-btn');
+        startBtn.href = `?act=start_exam&type=2&schedule_id=${recipient.schedule_id}&category_id=${recipient.category_id}&exam_time=${recipient.exam_time}`;
     });
 </script>

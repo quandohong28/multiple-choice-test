@@ -31,13 +31,17 @@ function getExamsByScheduleId($schedule_id)
 {
     try {
         $sql = "SELECT
+        c.id as category_id,
         c.name as category_name,
         c.image,
-        e.number_question
+        e.number_question,
+        e.schedule_id,
+        e.exam_time
         FROM
         exams e
         INNER JOIN categories c ON e.category_id = c.id
         WHERE schedule_id = '$schedule_id';";
+        // echo $sql;die;
         return pdo_query_one($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -93,26 +97,20 @@ function insertPracticeExam($schedule_id, $category_id, $exam_type_id, $number_e
         $sql = "INSERT INTO exams (schedule_id, exam_code, category_id, exam_type_id, number_question, exam_time)
                 VALUES ('$schedule_id', '$exam_code', '$category_id', '$exam_type_id', '$number_question', '$exam_time');";
         pdo_execute($sql);
-        $latestExamId = getLatestExam()['id']; 
+        $latestExamId = getLatestExam()['id'];
         $getRandomQuestionIdByLevelEasy = getRandomQuestionIdByLevel($category_id, 1, $number_easy_questions);
         $getRandomQuestionIdByLevelMedium = getRandomQuestionIdByLevel($category_id, 2, $number_easy_questions);
         $getRandomQuestionIdByLevelHard = getRandomQuestionIdByLevel($category_id, 3, $number_easy_questions);
 
-        foreach ($getRandomQuestionIdByLevelEasy as $question => $value) { 
+        foreach ($getRandomQuestionIdByLevelEasy as $question => $value) {
             insertExamDetail($latestExamId, $value['id']);
         }
-        foreach ($getRandomQuestionIdByLevelMedium as $question => $value) { 
+        foreach ($getRandomQuestionIdByLevelMedium as $question => $value) {
             insertExamDetail($latestExamId, $value['id']);
         }
-        foreach ($getRandomQuestionIdByLevelHard as $question => $value) { 
+        foreach ($getRandomQuestionIdByLevelHard as $question => $value) {
             insertExamDetail($latestExamId, $value['id']);
         }
-
-        
-
-        // insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 1,  $number_medium_questions));
-        // insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 2,  $number_medium_questions));
-        // insertExamDetail($latestExamId, getRandomQuestionIdByLevel($category_id, 3, $number_hard_questions));
     } catch (Exception $e) {
         echo $e->getMessage();
     }
@@ -131,9 +129,15 @@ function getLatestExam()
 function getQuestionsByExamId($exam_id)
 {
     try {
-        $sql = "SELECT e.id as id, q.content as question_content FROM exam_details e
-        INNER JOIN questions q ON q.id = e.id 
-        WHERE e.exam_id = '$exam_id';";
+        $sql = "SELECT
+        e.id AS id,
+        q.content AS question_content
+    FROM
+        exam_details e
+    INNER JOIN questions q ON
+        q.id = e.question_id
+    WHERE
+        e.exam_id = '$exam_id';";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -159,14 +163,14 @@ function getExamDetailByExamId($exam_id)
 
 function filterExams($filterByCategory, $filterByLetter, $search, $page)
 {
-    try { 
+    try {
         $sql = "SELECT 
         e.id AS exam_id, e.exam_code AS exam_code, e.number_question AS number_question,
         s.name AS schedule_name, c.name AS category_name, c.image AS category_image, t.type AS type_name 
         FROM exams e
         LEFT JOIN schedules s ON s.id = e.schedule_id
         INNER JOIN categories c ON c.id = e.category_id
-        INNER JOIN types t ON t.id = e.exam_type_id "; 
+        INNER JOIN types t ON t.id = e.exam_type_id ";
 
         if (!is_null($search) && $search != "") {
             $sql .= " WHERE exam_code LIKE '%$search%' ";
@@ -177,7 +181,7 @@ function filterExams($filterByCategory, $filterByLetter, $search, $page)
                 $sql .= " ORDER BY exam_code";
 
                 $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
-            } 
+            }
             if ($filterByCategory == "category") {
                 $sql .= " ORDER BY category_name";
 
@@ -191,7 +195,7 @@ function filterExams($filterByCategory, $filterByLetter, $search, $page)
         } else {
             $sql .= "ORDER BY e.id";
             $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
-        }     
+        }
         $sql .= "$page, 10;";
         return pdo_query($sql);
     } catch (Exception $e) {
@@ -213,7 +217,7 @@ function getExams($page)
     } catch (Exception $e) {
         echo $e->getMessage();
     }
-} 
+}
 
 function getQuestionsByExamDetails($exam_id)
 {
@@ -221,6 +225,16 @@ function getQuestionsByExamDetails($exam_id)
         $sql = "SELECT question_id FROM exam_details
         WHERE exam_id = '$exam_id';";
         return pdo_query($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function getRandomExam($schedule_id)
+{
+    try {
+        $sql = "SELECT * FROM exams WHERE schedule_id = '$schedule_id' ORDER BY RAND() LIMIT 1;";
+        return pdo_query_one($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }

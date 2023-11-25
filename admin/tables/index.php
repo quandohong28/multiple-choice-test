@@ -159,14 +159,31 @@ if (isset($_GET['data'])) {
 			break;
 		case 'add_schedule':
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+				// Thêm một lịch thi
 				$name = $_POST['name'];
 				$time_start = $_POST['time_start'];
+				$dateTime = new DateTime($time_start);
+
+				$time_start = $dateTime->format('Y-m-d H:i:00');
+				// echo $time_start;
 				$exam_time = $_POST['exam_time'];
 				$number_exam = $_POST['number_exam'];
 				$category_id = $_POST['category_id'];
 				$number_easy_questions = $_POST['number_easy_questions'];
 				$number_medium_questions = $_POST['number_medium_questions'];
 				$number_hard_questions = $_POST['number_hard_questions'];
+				$number_question = $number_easy_questions + $number_medium_questions + $number_hard_questions;
+				addSchedule($name, $time_start, $exam_time, $number_exam);
+
+				// Tạo ra các đề thi từ lịch thi vừa tạo
+				$schedule_id = getLatestSchedule()['id'];
+				$exam_type_id = 1;
+				for ($i = 1; $i <= $number_exam; $i++) {
+					insertPracticeExam($schedule_id, $category_id, $exam_type_id, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
+				}
+
+				// xử lý thêm thí sinh từ file ở đây
 				$file = $_FILES['accounts'];
 				$file_name = $file['name'];
 				$tmp_file = $file['tmp_name'];
@@ -181,16 +198,19 @@ if (isset($_GET['data'])) {
 				} else {
 					echo "File không đúng định dạng";
 				}
-				$number_question = $number_easy_questions + $number_medium_questions + $number_hard_questions;
-				addSchedule($name, $time_start, $exam_time, $number_exam, $category_id, $numeber_question);
-
-				// var_dump($name, $time_start, $number_exam, $exam_time, $category_id, $number_easy_questions, $number_medium_questions, $number_hard_questions);
+				$accounts = readDataFromExcelBySheetName($upload_directory . $file_name, 'accounts');
+				foreach ($accounts as $account) {
+					if ($account['A'] !== 'username') {
+						addScheduleDetail($schedule_id, $account['A']);
+					}
+				}
 			}
-			// echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'edit_schedule':
 			break;
 		case 'schedule_detail':
+			// Xử lý phân trang
 			if ($_GET['page']) {
 				$page = $_GET['page'];
 			} else {
@@ -198,7 +218,47 @@ if (isset($_GET['data'])) {
 			}
 			$page = ($page - 1) * 10;
 
+			// Xử lý thêm thí sinh
+			if (isset($_GET['schedule_id'])) {
+				$schedule_id = $_GET['schedule_id'];
+				$schedule_detail = getScheduleDetail($schedule_id);
+				if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+					if ($_POST['username']) {
+						$username = $_POST['username'];
+						addScheduleDetail($schedule_id, $username);
+					} else {
+						$file = $_FILES['accounts'];
+						$file_name = $file['name'];
+						$tmp_file = $file['tmp_name'];
+						$extension = pathinfo($file_name, PATHINFO_EXTENSION);
+						$upload_directory = '../assets/public/user_upload/';
+						if ($extension == 'xlsx') {
+							if (move_uploaded_file($tmp_file, $upload_directory . $file_name)) {
+								echo "Upload file thành công";
+							} else {
+								echo "Lỗi trong quá trình upload file";
+							}
+						} else {
+							echo "File không đúng định dạng";
+						}
+						$accounts = readDataFromExcelBySheetName($upload_directory . $file_name, 'accounts');
+						foreach ($accounts as $account) {
+							if ($account['A'] !== 'username') {
+								addScheduleDetail($schedule_id, $account['A']);
+							}
+						}
+					}
+				}
+			}
 			include 'schedule/schedule_detail.php';
+			break;
+		case 'del_candidate':
+			$schedule_id = $_GET['schedule_id'];
+			$candidate_id = $_GET['candidate_id'];
+			echo $candidate_id;
+			echo $schedule_id;
+			deleteCandidate($schedule_id, $candidate_id);
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'del_schedule':
 			deleteSchedule($_GET['id']);
@@ -337,5 +397,4 @@ if (isset($_GET['data'])) {
 	$pathImg = '../assets/img/accounts/';
 	include 'accounts.php';
 }
-
 ?>

@@ -38,21 +38,40 @@ function getSchedulesByName($name)
 function getScheduleByUserId($account_id)
 {
     try {
-        $sql = "SELECT * FROM
-        schedules
-        INNER JOIN schedule_detail ON schedules.id = schedule_detail.schedule_id
-        WHERE
-        account_id = $account_id;";
+        $sql = "SELECT
+        s.id as schedule_id,
+        s.name,
+        s.time_start,
+        s.exam_time,
+        s.number_exam,
+        sd.id as schedule_detail_id,
+        sd.account_id
+    FROM
+        schedules s
+    INNER JOIN schedule_detail sd ON s.id = sd.schedule_id
+    WHERE
+        sd.account_id = '$account_id' AND s.name <> 'test'";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
 }
 
-function addSchedule($name, $time_start, $exam_time, $number_exam, $category_id, $numeber_question)
+function addSchedule($name, $time_start, $exam_time, $number_exam)
 {
     try {
-        $sql = "INSERT INTO schedules(name, time_start, exam_time, number_exam, category_id, numeber_question) VALUES ('$name', '$time_start', '$exam_time', '$number_exam', '$category_id', '$numeber_question');";
+        $sql = "INSERT INTO schedules(name, time_start, exam_time, number_exam) VALUES ('$name', '$time_start', '$exam_time', '$number_exam');";
+        return pdo_execute($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function addScheduleDetail($schedule_id, $username)
+{
+    try {
+        $account_id = getAccountByUsername($username)['id'];
+        $sql = "INSERT INTO schedule_detail(schedule_id, account_id) VALUES ('$schedule_id', '$account_id');";
         return pdo_execute($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -64,6 +83,16 @@ function deleteSchedule($id)
     try {
         $sql = "DELETE FROM schedules WHERE id = $id;";
         pdo_execute($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function getLatestSchedule()
+{
+    try {
+        $sql = "SELECT * FROM schedules ORDER BY id DESC LIMIT 1;";
+        return pdo_query_one($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
@@ -186,6 +215,33 @@ function getScheduleByTimePeriod($start_date, $end_date)
     WHERE r.status = 1
     AND (s.time_start BETWEEN '$start_date' AND '$end_date');";
         return pdo_query_one($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function getScheduleDetail($schedule_id)
+{
+    try {
+        $sql = "SELECT
+        sd.id,
+        a.id AS account_id,
+        a.username,
+        a.fullname
+        FROM schedule_detail sd
+        INNER JOIN accounts a ON sd.account_id = a.id
+        WHERE sd.schedule_id = '$schedule_id';";
+        return pdo_query($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function deleteCandidate($schedule_id, $candidate_id)
+{
+    try {
+        $sql = "DELETE FROM schedule_detail WHERE schedule_id = '$schedule_id' AND account_id = '$candidate_id';";
+        pdo_execute($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }

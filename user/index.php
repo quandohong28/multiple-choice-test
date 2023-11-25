@@ -66,22 +66,38 @@ include '../model/answer.php';
                     case 'start_exam':
                         $category_id = $_GET['category_id'];
                         $type = $_GET['type'];
-                        if (isset($_POST['btn_submit'])) {
-                            $number_easy_questions = $_POST['number_easy_questions'];
-                            $number_medium_questions = $_POST['number_medium_questions'];
-                            $number_hard_questions = $_POST['number_hard_questions'];
-                            $exam_time = $_POST['exam_time'];
-                            insertPracticeExam(1, $category_id, $type, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
+                        // Xu ly logic cho chuan bi thi thu
+                        if ($type == 1) {
+                            if (isset($_POST['btn_submit'])) {
+                                $number_easy_questions = $_POST['number_easy_questions'];
+                                $number_medium_questions = $_POST['number_medium_questions'];
+                                $number_hard_questions = $_POST['number_hard_questions'];
+                                $exam_time = $_POST['exam_time'];
+                                insertPracticeExam(1, $category_id, $type, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
+                            }
+                            $latestExamId = getLatestExam()['id'];
+                            addResult($_SESSION['user']['id'], $latestExamId);
+                            $latest_result_id = getLatestResult()['id'];
+                            //Tạo bản kết quả tạm thời với câu trả lời là Null
+                            $getQuestionsByExamDetails = getQuestionsByExamDetails($latestExamId);
+                            for ($question = 0; $question < count($getQuestionsByExamDetails); $question++) {
+                                addResultDetail($latest_result_id, $getQuestionsByExamDetails[$question]['question_id'], "null");
+                            }
                         }
-                        $latestExamId = getLatestExam()['id'];
-                        addResult($_SESSION['user']['id'], $latestExamId);
-                        $latest_result_id = getLatestResult()['id'];
-                        //Tạo bản kết quả tạm thời với câu trả lời là Null
-                        $getQuestionsByExamDetails = getQuestionsByExamDetails($latestExamId);
-                        for ($question = 0; $question < count($getQuestionsByExamDetails); $question++) {
-                            addResultDetail($latest_result_id, $getQuestionsByExamDetails[$question]['question_id'], "null");
+                        // Xu ly cho chuan bi thi that
+                        else {
+                            $schedule_id = $_GET['schedule_id'];
+                            $exam_id = getRandomExam($schedule_id)['id'];
+                            $exam_time = $_GET['exam_time'];
+                            addResult($_SESSION['user']['id'], $exam_id);
+                            $latest_result_id = getLatestResult()['id'];
+                            //Tạo bản kết quả tạm thời với câu trả lời là Null
+                            $getQuestionsByExamDetails = getQuestionsByExamDetails($exam_id);
+                            for ($question = 0; $question < count($getQuestionsByExamDetails); $question++) {
+                                addResultDetail($latest_result_id, $getQuestionsByExamDetails[$question]['question_id'], "null");
+                            }
                         }
-                        echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '&exam_time=' . $exam_time . '&result_id=' . $latest_result_id . '">';
+                        echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $exam_id . '&exam_time=' . $exam_time . '&result_id=' . $latest_result_id . '">';
                         break;
                     case 'doing_exam':
                         $type = $_GET['type'];

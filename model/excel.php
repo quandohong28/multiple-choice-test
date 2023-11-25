@@ -64,19 +64,9 @@ function readDataFromExcelBySheetName($filename, $sheetName)
     }
 }
 
-function getRowNumber($filename, $sheetName)
+function getFirstSheetName($filename)
 {
-    try {
-        $objPHPExcel = PHPExcel_IOFactory::load($filename);
-        $worksheet = $objPHPExcel->getSheetByName($sheetName);
-
-        if (!$worksheet) {
-            return false; // Trang không tồn tại
-        }
-
-        $highestRow = $worksheet->getHighestRow();
-        return $highestRow;
-    } catch (Exception $e) {
-        return $e->getMessage();
-    }
+    $objPHPExcel = PHPExcel_IOFactory::load($filename);
+    $sheetNames = $objPHPExcel->getSheetNames();
+    return $sheetNames[0];
 }

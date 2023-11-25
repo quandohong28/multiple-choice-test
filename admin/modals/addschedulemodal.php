@@ -6,7 +6,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addScheduleLabel">Thêm lịch thi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn btn-sm-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="row justify-content-center align-items-center h-100 m-5">
                     <div class="col-11">
@@ -22,13 +22,13 @@
                             <div class="col-md-6 mb-4 d-flex align-items-center">
                                 <div class="form-outline datepicker w-100">
                                     <label for="time_start" class="form-label">Thời gian bắt đầu</label>
-                                    <input type="date" name="time_start" class="form-control form-control-sm" id="time_start" />
+                                    <input type="datetime-local" name="time_start" class="form-control form-control-sm" id="time_start" />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-4">
                                 <div class="form-outline">
                                     <label class="form-label" for="exam_time">Thời gian làm bài</label>
-                                    <input type="number" id="exam_time" name="exam_time" class="form-control form-control-sm" />
+                                    <input type="number" id="exam_time" name="exam_time" min="0" class="form-control form-control-sm" />
                                 </div>
                             </div>
                         </div>
@@ -80,8 +80,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Hủy</button>
-                    <button type="button" class="btn btn-primary" data-bs-target="#addCandidate" data-bs-toggle="modal">Thêm thí sinh</button>
+                    <button class="btn btn-sm btn-secondary" type="button" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-bs-target="#addCandidate" data-bs-toggle="modal">Thêm thí sinh</button>
                 </div>
             </div>
         </div>
@@ -93,17 +93,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalToggleLabel2">Thêm thí sinh</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn btn-sm-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="md-6 mb-4 pb-2">
                             <div class="form-outline">
-                                <a href="../assets/public/candidates_partten.xlsx" class="btn btn-sm btn-success mb-3">
+                                <a href="../assets/public/candidates_partten.xlsx" class="btn btn-sm btn-sm btn-success mb-3">
                                     <i class="fa-regular fa-file-excel fa-fw"></i>
                                     File mẫu
                                 </a>
-                                <a href="../assets/public/manual.docx" type="button" class="btn btn-sm btn-outline-dark mb-3">
+                                <a href="../assets/public/manual.docx" type="button" class="btn btn-sm btn-sm btn-outline-dark mb-3">
                                     <i class="fa fa-file-download fa-fw"></i>
                                     Hướng dẫn sử dụng
                                 </a>
@@ -118,8 +118,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-target="#addSchedule" data-bs-toggle="modal">Trở về</button>
-                    <button class="btn btn-primary" name="submit" type="submit">Xác nhận</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-target="#addSchedule" data-bs-toggle="modal">Trở về</button>
+                    <button class="btn btn-sm btn-primary" name="submit" type="submit">Xác nhận</button>
                 </div>
             </div>
         </div>

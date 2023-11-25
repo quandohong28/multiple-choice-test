@@ -16,6 +16,7 @@ include '../model/question.php';
 include '../model/answer.php';
 include '../model/result.php';
 include '../model/exam.php';
+include '../model/excel.php';
 require '../lib/PhpExcel/vendor/autoload.php';
 
 // Số lượng lịch thi trong tháng này

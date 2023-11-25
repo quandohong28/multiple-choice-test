@@ -60,7 +60,6 @@
                         <th scope="col">Thời gian làm bài</th>
                         <th scope="col">Số lượng đề thi</th>
                         <th scope="col">Số lượng thí sinh</th>
-                        <th scope="col">Mã lịch thi</th>
                         <th scope="col">Chức năng</th>
                     </tr>
                 </thead>
@@ -72,7 +71,6 @@
                         <th scope="col">Thời gian làm bài</th>
                         <th scope="col">Số lượng đề thi</th>
                         <th scope="col">Số lượng thí sinh</th>
-                        <th scope="col">Mã lịch thi</th>
                         <th scope="col">Chức năng</th>
                     </tr>
                 </tfoot>
@@ -108,10 +106,7 @@
                                 R1C3
                             </td>
                             <td class="align-middle">
-
-                            </td>
-                            <td class="align-middle">
-                                <a class="btn btn-success btn-sm" href="?act=tables&data=schedule_detail"><i class="fa-solid fa-circle-info"></i></a>
+                                <a class="btn btn-success btn-sm" href="?act=tables&data=schedule_detail&schedule_id=<?= $id?>"><i class="fa-solid fa-circle-info"></i></a>
                                 <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editScheduleModal" data-value='<?= json_encode($schedule) ?>'>
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </button>
