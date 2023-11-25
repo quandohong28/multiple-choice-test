@@ -271,6 +271,8 @@ if (isset($_GET['data'])) {
 				$page = 1;
 			}
 			$page = ($page - 1) * 10;
+			$questions = getQuestions($page);
+
 			$categories = getAllCategories();
 			$question_type = getTypeQuestions();
 			$question_level = getQuestionLevels();
@@ -280,10 +282,8 @@ if (isset($_GET['data'])) {
 				$filterByCategory = $_POST['filterByCategory'];
 				$filterByLetter = $_POST['filterByLetter'];
 				$search = trim($_POST['search']);
-				$questions = filterQuestions($filterByCategory, $filterByLetter, $search, $page);
-			} else {
-				$questions = getQuestions($page);
-			}
+				$questions = filterQuestions($filterByCategory, $filterByLetter, $search, $questions);
+			} 
 			include 'questions.php';
 			break;
 		case 'add_question':

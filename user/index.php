@@ -102,9 +102,8 @@ include '../model/answer.php';
                     case 'doing_exam':
                         $type = $_GET['type'];
                         $result_id = $_GET['result_id'];
-                        $exam_id = getResultById($result_id)['id'];
+                        $exam_id = getResultById($result_id)['exam_id'];
                         $exam_detail = getExamDetailByExamId($_GET['exam_id']);
-                        // var_dump($_GET['exam_time']);die;
                         // thi do va quay lai
                         if ($_GET['exam_time'] === '') {
                             $exam_time = getExamById($_GET['exam_id'])['exam_time'];
@@ -136,6 +135,7 @@ include '../model/answer.php';
                                 $exam_time = $_GET['exam_time'];
                             }
                             updateResult($exam_time, $points, $exam_id);
+                            examResult($exam_id);
                             echo '<meta http-equiv="refresh" content="0;url=?act=result">';
                         }
                         break;
@@ -195,7 +195,7 @@ include '../model/answer.php';
                         unset($_SESSION['user']);
                         // var_dump($_SESSION['user']);
                         echo '<meta http-equiv="refresh" content="0;url=../index.php">';
-                        break;
+                        break; 
                     default:
                         $categories = getAllCategories();
                         $colors = [
