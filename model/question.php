@@ -108,37 +108,19 @@ function getRandomQuestionIdByLevel($category_id, $question_level_id, $number_qu
     }
 }
 
-function filterQuestions($filterByCategory, $filterByLetter, $search, $page)
+function filterQuestions($filterByCategory, $filterByLetter, $search, $questions)
 {
-    
-    try { 
-        $sql = "SELECT * FROM questions ";
 
-        if (!is_null($search) && $search != "") {
-            $sql .= " WHERE content LIKE '%$search%' ";
-        }
+    try {
 
-        if ($filterByCategory != "id") {
-            if ($filterByCategory == "question") {
-                $sql .= " ORDER BY content";
-
-                $sql .= ($filterByLetter != "a-z") ? " DESC " : " ASC ";
-            }
-        } else {
-            $sql .= "ORDER BY id";
-            $sql .= ($filterByLetter != "a-z") ? " DESC " : " ASC ";
-        }
-        $sql .= " LIMIT $page, 10;";
-
-        return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
-} 
+}
 
 function getQuestions($page)
 {
-    try { 
+    try {
         $sql = "SELECT * FROM questions ORDER BY id DESC LIMIT $page, 10;";
         return pdo_query($sql);
     } catch (\Exception $e) {
