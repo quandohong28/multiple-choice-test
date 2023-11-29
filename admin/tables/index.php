@@ -42,7 +42,7 @@
 if (isset($_GET['data'])) {
 	switch ($_GET['data']) {
 		case 'accounts':
-			if ($_GET['page']) {
+			if (isset($_GET['page'])) {
 				$page = $_GET['page'];
 			} else {
 				$page = 1;
@@ -110,7 +110,7 @@ if (isset($_GET['data'])) {
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=accounts">';
 			break;
 		case 'categories':
-			if ($_GET['page']) {
+			if (isset($_GET['page'])) {
 				$page = $_GET['page'];
 			} else {
 				$page = 1;
@@ -157,7 +157,8 @@ if (isset($_GET['data'])) {
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=categories">';
 			break;
 		case 'schedules':
-			if ($_GET['page']) {
+			$categories = getAllCategories();
+			if (isset($_GET['page'])) {
 				$page = $_GET['page'];
 			} else {
 				$page = 1;
@@ -168,39 +169,59 @@ if (isset($_GET['data'])) {
 			include 'schedule/schedules.php';
 			break;
 		case 'add_schedule':
-			if (isset($_POST['add_schedule'])) {
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+				// Thêm một lịch thi
 				$name = $_POST['name'];
 				$time_start = $_POST['time_start'];
-				$number_exam = $_POST['number_exam'];
+				$dateTime = new DateTime($time_start);
+
+				$time_start = $dateTime->format('Y-m-d H:i:00');
+				// echo $time_start;
 				$exam_time = $_POST['exam_time'];
+				$number_exam = $_POST['number_exam'];
 				$category_id = $_POST['category_id'];
 				$number_easy_questions = $_POST['number_easy_questions'];
 				$number_medium_questions = $_POST['number_medium_questions'];
 				$number_hard_questions = $_POST['number_hard_questions'];
-				$file = $_FILES['accounts']['tmp_name'];
-				// var_dump($file);
-				// Tạo một đối tượng PHPExcel để đọc dữ liệu từ tệp Excel
-				$objPHPExcel = PHPExcel_IOFactory::load($file);
+				$number_question = $number_easy_questions + $number_medium_questions + $number_hard_questions;
+				addSchedule($name, $time_start, $exam_time, $number_exam);
 
-				// Lấy sheet đầu tiên
-				$sheet = $objPHPExcel->getActiveSheet();
+				// Tạo ra các đề thi từ lịch thi vừa tạo
+				$schedule_id = getLatestSchedule()['id'];
+				$exam_type_id = 1;
+				for ($i = 1; $i <= $number_exam; $i++) {
+					insertPracticeExam($schedule_id, $category_id, $exam_type_id, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
+				}
 
-				// Lấy tất cả các dữ liệu từ sheet và đưa chúng vào một mảng
-				$accounts = $sheet->toArray();
-
-				// duyệt mảng dữ liệu để thêm vào cơ sở dữ liệu
+				// xử lý thêm thí sinh từ file ở đây
+				$file = $_FILES['accounts'];
+				$file_name = $file['name'];
+				$tmp_file = $file['tmp_name'];
+				$extension = pathinfo($file_name, PATHINFO_EXTENSION);
+				$upload_directory = '../assets/public/user_upload/';
+				if ($extension == 'xlsx') {
+					if (move_uploaded_file($tmp_file, $upload_directory . $file_name)) {
+						echo "Upload file thành công";
+					} else {
+						echo "Lỗi trong quá trình upload file";
+					}
+				} else {
+					echo "File không đúng định dạng";
+				}
+				$accounts = readDataFromExcelBySheetName($upload_directory . $file_name, 'accounts');
 				foreach ($accounts as $account) {
-					$schedule_id = 1;
-					$account_id = $account[0];
-					$username = $account[1];
-					// addCandidates($schedule_id, $account_id, $username);
+					if ($account['A'] !== 'username') {
+						addScheduleDetail($schedule_id, $account['A']);
+					}
 				}
 			}
-			// echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'edit_schedule':
 			break;
 		case 'schedule_detail':
+			// Xử lý phân trang
 			if ($_GET['page']) {
 				$page = $_GET['page'];
 			} else {
@@ -208,19 +229,61 @@ if (isset($_GET['data'])) {
 			}
 			$page = ($page - 1) * 10;
 
+			// Xử lý thêm thí sinh
+			if (isset($_GET['schedule_id'])) {
+				$schedule_id = $_GET['schedule_id'];
+				$schedule_detail = getScheduleDetail($schedule_id);
+				if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+					if ($_POST['username']) {
+						$username = $_POST['username'];
+						addScheduleDetail($schedule_id, $username);
+					} else {
+						$file = $_FILES['accounts'];
+						$file_name = $file['name'];
+						$tmp_file = $file['tmp_name'];
+						$extension = pathinfo($file_name, PATHINFO_EXTENSION);
+						$upload_directory = '../assets/public/user_upload/';
+						if ($extension == 'xlsx') {
+							if (move_uploaded_file($tmp_file, $upload_directory . $file_name)) {
+								echo "Upload file thành công";
+							} else {
+								echo "Lỗi trong quá trình upload file";
+							}
+						} else {
+							echo "File không đúng định dạng";
+						}
+						$accounts = readDataFromExcelBySheetName($upload_directory . $file_name, 'accounts');
+						foreach ($accounts as $account) {
+							if ($account['A'] !== 'username') {
+								addScheduleDetail($schedule_id, $account['A']);
+							}
+						}
+					}
+				}
+			}
 			include 'schedule/schedule_detail.php';
+			break;
+		case 'del_candidate':
+			$schedule_id = $_GET['schedule_id'];
+			$candidate_id = $_GET['candidate_id'];
+			echo $candidate_id;
+			echo $schedule_id;
+			deleteCandidate($schedule_id, $candidate_id);
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'del_schedule':
 			deleteSchedule($_GET['id']);
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'questions':
-			if ($_GET['page']) {
+			if (isset($_GET['page'])) {
 				$page = $_GET['page'];
 			} else {
 				$page = 1;
 			}
 			$page = ($page - 1) * 10;
+			$questions = getQuestions($page);
+
 			$categories = getAllCategories();
 			$question_type = getTypeQuestions();
 			$question_level = getQuestionLevels();
@@ -230,10 +293,8 @@ if (isset($_GET['data'])) {
 				$filterByCategory = $_POST['filterByCategory'];
 				$filterByLetter = $_POST['filterByLetter'];
 				$search = trim($_POST['search']);
-				$questions = filterQuestions($filterByCategory, $filterByLetter, $search, $page);
-			} else {
-				$questions = getQuestions($page);
-			}
+				$questions = filterQuestions($filterByCategory, $filterByLetter, $search, $questions);
+			} 
 			include 'questions.php';
 			break;
 		case 'add_question':
@@ -347,5 +408,4 @@ if (isset($_GET['data'])) {
 	$pathImg = '../assets/img/accounts/';
 	include 'accounts.php';
 }
-
 ?>

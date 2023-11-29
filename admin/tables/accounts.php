@@ -3,9 +3,9 @@
         <h6 class="m-0 font-weight-bold text-primary">Danh sách tài khoản</h6>
     </div>
     <div class="card-body">
-        <div class="row mb-3">
+        <d  iv class="row mb-3">
             <form method="post" role="form" class="filter-panel">
-                <div class="row align-items-end">
+                <div class="row align-items-end me-1">
                     <div class="col-md-3 form-group">
                         <label>Sắp xếp theo</label>
                         <select name="filterByCategory" class="form-control form-control-sm">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </form>
-        </div>
+        </d>
         <div class="row mb-3">
             <div class="col">
                 <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#addaccountmodal">

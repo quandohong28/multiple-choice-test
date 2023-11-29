@@ -19,7 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($flag) {
             updateResultDetail($data->result_id, $data->question_id, $data->answer_id);
-        } else {
+        }
+        else {
             addResultDetail($data->result_id, $data->question_id, $data->answer_id);
         }
 

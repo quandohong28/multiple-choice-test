@@ -108,7 +108,9 @@
         const exam_id = urlParams.get('exam_id');
         var result_id = urlParams.get('result_id');
 
-        console.log(exam_id);
+        // console.log(exam_id);
+        // console.log(exam_time);
+        // console.log(result_id);
 
 
 
@@ -117,18 +119,18 @@
         const getQuestionById = async () => {
             try {
                 const response = await fetch("exams/question_data.php?exam_id=" + exam_id);
+                console.log(response);
                 const question = await response.json();
-
+                
                 // Xóa câu hỏi cũ khi lấy mới
                 questions = [];
-
                 for (let index = 0; index < question.length; index++) {
                     questions.push({
                         id: question[index].id,
                         content: question[index].content,
                         question_level_id: question[index].question_level_id
                     });
-                }
+                } 
 
                 // Sau khi lấy câu hỏi thành công, gọi hàm để lấy câu trả lời cho câu hỏi đầu tiên
                 await getAnswersByQuestionId(questions[0].id);
@@ -137,13 +139,12 @@
                 if (questions.length > 0) {
                     renderFirstQuestion();
                 }
-            } catch (error) {
+            } catch (error) { 
                 console.error('Error during getQuestionById:', error);
             }
-        }
-        
+        } 
         // Gọi hàm lấy câu hỏi theo id đề thi
-        getQuestionById();
+        getQuestionById(); 
         // Hàm hiển thị câu hỏi và câu trả lời đầu tiên
         const renderFirstQuestion = async () => {
             question_content.innerHTML = questions[currentQuestionIndex].content;
@@ -246,7 +247,7 @@
 
                 // Kiểm tra xem câu hỏi hiện tại đã được chọn đáp án chưa
                 result_detail = await getResultDetailByResultIdAndQuestionId(result_id, questions[currentQuestionIndex].id);
-                if (result_detail !== null && result_detail.answer_id !== null) {
+                if (result_detail !== null || result_detail.answer_id !== null) {
                     answersDOM.forEach((answerDOM) => {
                         if (answerDOM.value == result_detail.answer_id) {
                             answerDOM.checked = true;
@@ -286,7 +287,7 @@
 
                 // Kiểm tra xem câu hỏi hiện tại đã được chọn đáp án chưa
                 result_detail = await getResultDetailByResultIdAndQuestionId(result_id, questions[currentQuestionIndex].id);
-                if (result_detail !== null && result_detail.answer_id !== null) {
+                if (result_detail !== null || result_detail.answer_id !== null) {
                     answersDOM.forEach((answerDOM) => {
                         if (answerDOM.value == result_detail.answer_id) {
                             answerDOM.checked = true;

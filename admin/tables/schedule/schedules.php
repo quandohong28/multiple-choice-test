@@ -5,7 +5,7 @@
     <div class="card-body">
         <div class="row mb-3">
             <form method="post" role="form" class="filter-panel">
-                <div class="row align-items-end">
+                <div class="row align-items-end me-1">
                     <div class="col-md-3 form-group">
                         <label>Sắp xếp theo</label>
                         <select name="filterByCategory" class="form-control form-control-sm"> DESC
@@ -43,10 +43,15 @@
         </div>
         <div class="row mb-3">
             <div class="col">
+<<<<<<< HEAD
                 <a class="btn btn-sm btn-primary" data-bs-toggle="modal" href="#addSchedule" role="button">
                     <i class="fa-regular fa-fw fa-square-plus fa-lg"></i>
                     <span>Tạo mới lịch thi</span>
                 </a>
+=======
+                <a class="btn btn-primary btn-sm" data-bs-toggle="modal" href="#addSchedule" role="button"><i class="fa-regular me-2 fa-square-plus fa-lg"></i>Thêm lịch
+                    thi</a>
+>>>>>>> test
             </div>
             <div class="col">
                 <?php include 'tables/components/data_export.php' ?>
@@ -62,7 +67,6 @@
                         <th scope="col">Thời gian làm bài</th>
                         <th scope="col">Số lượng đề thi</th>
                         <th scope="col">Số lượng thí sinh</th>
-                        <th scope="col">Mã lịch thi</th>
                         <th scope="col">Chức năng</th>
                     </tr>
                 </thead>
@@ -74,7 +78,6 @@
                         <th scope="col">Thời gian làm bài</th>
                         <th scope="col">Số lượng đề thi</th>
                         <th scope="col">Số lượng thí sinh</th>
-                        <th scope="col">Mã lịch thi</th>
                         <th scope="col">Chức năng</th>
                     </tr>
                 </tfoot>
@@ -110,6 +113,7 @@
                                 R1C3
                             </td>
                             <td class="align-middle">
+<<<<<<< HEAD
 
                             </td>
                             <td class="align-middle">
@@ -117,6 +121,10 @@
                                         class="fa-solid fa-circle-info"></i></a>
                                 <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#editScheduleModal" data-value='<?= json_encode($schedule) ?>'>
+=======
+                                <a class="btn btn-success btn-sm" href="?act=tables&data=schedule_detail&schedule_id=<?= $id?>"><i class="fa-solid fa-circle-info"></i></a>
+                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editScheduleModal" data-value='<?= json_encode($schedule) ?>'>
+>>>>>>> test
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </button>
                                 <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm"

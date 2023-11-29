@@ -5,7 +5,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <img src="../assets/img/logo/logo_while.png" alt="" width="50px">
         </div>
-        <div class="sidebar-brand-text mx-3">Tech Quiz Hero</div>
+        <div class="sidebar-brand-text small fw-bold ms-3">TechQuiz Hero</div>
     </a>
 
     <!-- Divider -->

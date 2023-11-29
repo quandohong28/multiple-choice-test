@@ -3,6 +3,8 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header("location: ../index.php");
 }
+// Kiểm tra các bài thi đang làm
+
 include '../model/pdo.php';
 include '../model/category.php';
 include '../model/question.php';
@@ -44,6 +46,7 @@ include '../model/answer.php';
         <div class="container">
 
             <?php
+            reloadStatusResult($_SESSION['user']['id']);
             if (isset($_GET['act'])) {
                 switch ($_GET['act']) {
                     case 'home':
@@ -63,24 +66,44 @@ include '../model/answer.php';
                     case 'start_exam':
                         $category_id = $_GET['category_id'];
                         $type = $_GET['type'];
-                        if (isset($_POST['btn_submit'])) {
-                            $number_easy_questions = $_POST['number_easy_questions'];
-                            $number_medium_questions = $_POST['number_medium_questions'];
-                            $number_hard_questions = $_POST['number_hard_questions'];
-                            $exam_time = $_POST['exam_time'];
-                            insertPracticeExam($category_id, $type, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
+                        // Xu ly logic cho chuan bi thi thu
+                        if ($type == 1) {
+                            if (isset($_POST['btn_submit'])) {
+                                $number_easy_questions = $_POST['number_easy_questions'];
+                                $number_medium_questions = $_POST['number_medium_questions'];
+                                $number_hard_questions = $_POST['number_hard_questions'];
+                                $exam_time = $_POST['exam_time'];
+                                insertPracticeExam(1, $category_id, $type, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
+                            }
+                            $latestExamId = getLatestExam()['id'];
+                            addResult($_SESSION['user']['id'], $latestExamId);
+                            $latest_result_id = getLatestResult()['id'];
+                            //Tạo bản kết quả tạm thời với câu trả lời là Null
+                            $getQuestionsByExamDetails = getQuestionsByExamDetails($latestExamId);
+                            for ($question = 0; $question < count($getQuestionsByExamDetails); $question++) {
+                                addResultDetail($latest_result_id, $getQuestionsByExamDetails[$question]['question_id'], "null");
+                            }
                         }
-                        $latestExamId = getLatestExam()['id'];
-                        addResult($_SESSION['user']['id'], $latestExamId);
-                        $latest_result_id = getLatestResult()['id'];
-                        echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $latestExamId . '&exam_time=' . $exam_time . '&result_id=' . $latest_result_id . '">';
+                        // Xu ly cho chuan bi thi that
+                        else {
+                            $schedule_id = $_GET['schedule_id'];
+                            $exam_id = getRandomExam($schedule_id)['id'];
+                            $exam_time = $_GET['exam_time'];
+                            addResult($_SESSION['user']['id'], $exam_id);
+                            $latest_result_id = getLatestResult()['id'];
+                            //Tạo bản kết quả tạm thời với câu trả lời là Null
+                            $getQuestionsByExamDetails = getQuestionsByExamDetails($exam_id);
+                            for ($question = 0; $question < count($getQuestionsByExamDetails); $question++) {
+                                addResultDetail($latest_result_id, $getQuestionsByExamDetails[$question]['question_id'], "null");
+                            }
+                        }
+                        echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $exam_id . '&exam_time=' . $exam_time . '&result_id=' . $latest_result_id . '">';
                         break;
                     case 'doing_exam':
                         $type = $_GET['type'];
                         $result_id = $_GET['result_id'];
-                        $exam_id = getResultById($result_id)['id'];
+                        $exam_id = getResultById($result_id)['exam_id'];
                         $exam_detail = getExamDetailByExamId($_GET['exam_id']);
-                        // var_dump($_GET['exam_time']);die;
                         // thi do va quay lai
                         if ($_GET['exam_time'] === '') {
                             $exam_time = getExamById($_GET['exam_id'])['exam_time'];
@@ -88,11 +111,11 @@ include '../model/answer.php';
                             $dt = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
                             $current_time = $dt->format('Y-m-d H:i:s');
                             $diff = strtotime($current_time) - strtotime($time_start);
-                            $remaning_time = intval($exam_time * 60 - $diff);
+                            $remaning_time = ($exam_time * 60 - $diff);
                             if ($remaning_time <= 0) {
                                 echo '<meta http-equiv="refresh" content="0;url=?act=result">';
                             } else {
-                                $exam_time = intval($remaning_time / 60);
+                                $exam_time = round(($remaning_time / 60), 1);
                                 echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $exam_id . '&exam_time=' . $exam_time . '&result_id=' . $result_id . '">';
                             }
                         }
@@ -112,6 +135,7 @@ include '../model/answer.php';
                                 $exam_time = $_GET['exam_time'];
                             }
                             updateResult($exam_time, $points, $exam_id);
+                            examResult($exam_id);
                             echo '<meta http-equiv="refresh" content="0;url=?act=result">';
                         }
                         break;
@@ -171,7 +195,7 @@ include '../model/answer.php';
                         unset($_SESSION['user']);
                         // var_dump($_SESSION['user']);
                         echo '<meta http-equiv="refresh" content="0;url=../index.php">';
-                        break;
+                        break; 
                     default:
                         $categories = getAllCategories();
                         $colors = [

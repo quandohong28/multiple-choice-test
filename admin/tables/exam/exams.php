@@ -5,7 +5,7 @@
     <div class="card-body">
         <div class="row mb-3">
             <form method="post" role="form" class="filter-panel">
-                <div class="row align-items-end">
+                <div class="row align-items-end me-1">
                     <div class="col-md-3 form-group">
                         <label>Sắp xếp theo</label>
                         <select name="filterByCategory" class="form-control form-control-sm"> DESC
@@ -128,6 +128,9 @@
                 </a>
             </li>
         </ul>
+<<<<<<< HEAD
         <?php include 'tables/components/pagination.php' ?>
+=======
+>>>>>>> test
     </div>
 </div>

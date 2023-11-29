@@ -67,10 +67,10 @@
                     <tbody>
                         <?php foreach ($schedules as $schedule) : extract($schedule);
                             list($start_date, $start_time) = explode(" ", $time_start);
-                            $exam = getExamsByScheduleId($id);
+                            $exam = getExamsByScheduleId($schedule_id);
                         ?>
                             <tr class="">
-                                <td><?= $id ?></td>
+                                <td><?= $schedule_id ?></td>
                                 <td class="small" scope="row"><?= $name ?></td>
                                 <td class="small" scope="row">
                                     <span>Ngày: <?= $start_date ?></span><br>
@@ -80,7 +80,7 @@
                                     <?= $exam_time ?> Phút
                                 </td>
                                 <td class="small" scope="row">
-                                    <?= $number_exam ?> Phút
+                                    <?= $number_exam ?> Mã đề
                                 </td>
                                 <td class="small" class="">
                                     <a class="badge bg-info px-3 py-2" type="button" data-bs-toggle="modal" data-bs-target="#scheduledeatilmodal" data-bs-value='<?= json_encode($exam) ?>'>
