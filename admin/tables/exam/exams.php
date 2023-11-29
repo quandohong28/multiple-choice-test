@@ -128,9 +128,5 @@
                 </a>
             </li>
         </ul>
-<<<<<<< HEAD
-        <?php include 'tables/components/pagination.php' ?>
-=======
->>>>>>> test
     </div>
 </div>
