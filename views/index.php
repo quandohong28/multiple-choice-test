@@ -32,8 +32,9 @@ if (isset($_GET['act']) && $_GET['act'] !== '') {
                 $username = htmlspecialchars($_POST['username']);
                 $password = htmlspecialchars($_POST['password']);
                 $conf_pass = htmlspecialchars($_POST['conf_pass']);
+                $avatar = "profile.png";
                 if ($password === $conf_pass) {
-                    signup($email, $username, $password);
+                    signup($email, $username, $password, $avatar);
                     header('Location: ../views/login.php');
                     exit;
                 } else {
