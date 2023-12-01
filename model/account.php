@@ -86,14 +86,14 @@ function login($username, $password)
     }
 }
 
-function signup($email, $username, $password)
+function signup($email, $username, $password, $avatar)
 {
     try {
         $hashedPassword = hashPassword($password);
         $sql = "INSERT INTO
-        accounts (email, username, password)
+        accounts (email, username, password, avatar)
         VALUES
-        ('$email', '$username', '$hashedPassword');";
+        ('$email', '$username', '$hashedPassword', '$avatar');";
         pdo_execute($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -192,43 +192,3 @@ function editProfile($id, $email, $introduce, $avatar, $fullname, $tel, $address
     }
 }
 
-function filterAccount($filterByCategory, $filterByLetter, $search, $page)
-{
-    try {
-        $sql = "SELECT a.id, a.username, a.fullname, a.avatar, a.email, a.address, a.tel, a.introduce, r.role 
-        FROM accounts a 
-        INNER JOIN roles r ON a.role_id = r.id ";
-
-        if (!is_null($search) && $search != "") {
-            $sql .= " WHERE a.username LIKE '%$search%' OR a.fullname LIKE '%$search%' OR a.id LIKE '%$search%' OR a.email LIKE '%$search%'";
-        }
-
-        if ($filterByCategory != "id") {
-            if ($filterByCategory == "username") {
-                $sql .= "ORDER BY a.username";
-
-                $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
-            }
-            if ($filterByCategory == "fullname") {
-                $sql .= "ORDER BY a.fullname";
-
-                $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
-            }
-            if ($filterByCategory == "role") {
-                $sql .= "ORDER BY r.role";
-
-                $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
-            }
-        } else {
-            $sql .= "ORDER BY a.id";
-            $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
-        }
-
-        $sql .= " LIMIT $page,10 ;";
-
-
-        return pdo_query($sql);
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-}

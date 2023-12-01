@@ -76,6 +76,7 @@ include '../model/answer.php';
                                 insertPracticeExam(1, $category_id, $type, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
                             }
                             $latestExamId = getLatestExam()['id'];
+                            $exam_id = $latestExamId;
                             addResult($_SESSION['user']['id'], $latestExamId);
                             $latest_result_id = getLatestResult()['id'];
                             //Tạo bản kết quả tạm thời với câu trả lời là Null
@@ -102,7 +103,7 @@ include '../model/answer.php';
                     case 'doing_exam':
                         $type = $_GET['type'];
                         $result_id = $_GET['result_id'];
-                        $exam_id = getResultById($result_id)['exam_id'];
+                        $exam_id = getResultById($result_id)[0]['exam_id'];
                         $exam_detail = getExamDetailByExamId($_GET['exam_id']);
                         // thi do va quay lai
                         if ($_GET['exam_time'] === '') {
@@ -121,7 +122,7 @@ include '../model/answer.php';
                         }
                         // bat dau mot bai thi moi
                         else {
-                            $exam_time = getResultById($result_id)['exam_time'];
+                            $exam_time = getResultById($result_id)[0]['exam_time'];
                         }
                         include "./exams/doing_exam.php";
                         break;
@@ -147,7 +148,19 @@ include '../model/answer.php';
                         $avatarPath = '../assets/img/accounts/';
                         $result_id = $_GET['result_id'];
                         $result_detail = getResultDetailByResultId($result_id);
-                        $result = getResultById($result_id);
+                        $result = getResultById($result_id); 
+                        $number_incorrect = 0;
+                        $number_correct = 0; 
+                        $points = $result[0]['points'];
+                        $exam_time = $result[0]['exam_time'];
+                        foreach ($result as $question) {
+                            extract($question);
+                            if ($user_answer_id == $answer_correct_id) {
+                                $number_correct++;
+                            } else {
+                                $number_incorrect++;    
+                            }
+                        }
                         include "./results/result_detail.php";
                         break;
                     case 'support':

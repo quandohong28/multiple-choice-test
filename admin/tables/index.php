@@ -25,9 +25,10 @@
 	</ul>
 </div>
 
-
-
 <?php
+// include function
+include '../functions/filter.php';
+
 if (isset($_GET['data'])) {
 	switch ($_GET['data']) {
 		case 'accounts':
@@ -43,7 +44,7 @@ if (isset($_GET['data'])) {
 			if (isset($_POST['filter'])) {
 				$filterByCategory = $_POST['filterByCategory'];
 				$filterByLetter = $_POST['filterByLetter'];
-				$search = trim($_POST['search']);
+				$search = mb_strtolower(trim($_POST['search']));
 				$accounts = filterAccount($filterByCategory, $filterByLetter, $search, $page);
 			} else {
 				$accounts = getAccounts($page);
@@ -109,8 +110,8 @@ if (isset($_GET['data'])) {
 			if (isset($_POST['filter'])) {
 				$filterByCategory = $_POST['filterByCategory'];
 				$filterByLetter = $_POST['filterByLetter'];
-				$search = trim($_POST['search']);
-				$catergories = filterCategory($filterByCategory, $filterByLetter, $search, $page);
+				$search = mb_strtolower(trim($_POST['search'])); 
+				// $catergories = filterCategory($filterByCategory, $filterByLetter, $search, $page);
 			} else {
 				$catergories = getCategories($page);
 			}
@@ -271,7 +272,7 @@ if (isset($_GET['data'])) {
 				$page = 1;
 			}
 			$page = ($page - 1) * 10;
-			$questions = getQuestions($page);
+
 
 			$categories = getAllCategories();
 			$question_type = getTypeQuestions();
@@ -281,9 +282,11 @@ if (isset($_GET['data'])) {
 			if (isset($_POST['filter'])) {
 				$filterByCategory = $_POST['filterByCategory'];
 				$filterByLetter = $_POST['filterByLetter'];
-				$search = trim($_POST['search']);
-				$questions = filterQuestions($filterByCategory, $filterByLetter, $search, $questions);
-			} 
+				$search = mb_strtolower(trim($_POST['search']));
+				$questions = filterQuestions($filterByCategory, $filterByLetter, $search, $page);
+			} else {
+				$questions = getQuestions($page);
+			}
 			include 'questions.php';
 			break;
 		case 'add_question':

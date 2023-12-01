@@ -12,16 +12,16 @@
                     <div class="col d-flex justify-content-center align-items-center">
                         <div class="col">
                             <div class="col-md-12 pb-1 border-bottom">
-                                <h5 class="text-primary text-uppercase">Đỗ Hồng Quân</h5>
-                                <p>Bài thi: Tên bài thi</p>
-                                <p class="small">Hình thức: Thi thử</p>
+                                <h5 class="text-primary text-uppercase"><?= $_SESSION['user']['fullname']?></h5>
+                                <p>Mã đề thi: <?= $exam_code ?></p>
+                                <p class="small">Hình thức: <?= $type ?></p>
                             </div>
                             <div class="col-md-12 mt-4">
                                 <div class="col d-flex gap-3">
-                                    <p class="badge bg-primary">Điểm: <?= $result['points'] ?></p>
-                                    <p class="badge bg-success">Số câu đúng: 12</p>
-                                    <p class="badge bg-danger">Số câu sai: 43</p>
-                                    <p class="badge bg-dark">Thời gian làm bài: <?= $result['exam_time'] ?></p>
+                                    <p class="badge bg-primary">Điểm: <?= $points ?></p>
+                                    <p class="badge bg-success">Số câu đúng: <?= $number_correct ?></p>
+                                    <p class="badge bg-danger">Số câu sai: <?= $number_incorrect ?></p>
+                                    <p class="badge bg-dark">Thời gian làm bài: <?= $exam_time ?></p>
                                 </div>
                             </div>
                         </div>

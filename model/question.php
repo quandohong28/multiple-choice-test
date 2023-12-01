@@ -108,16 +108,6 @@ function getRandomQuestionIdByLevel($category_id, $question_level_id, $number_qu
     }
 }
 
-function filterQuestions($filterByCategory, $filterByLetter, $search, $questions)
-{
-
-    try {
-
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-}
-
 function getQuestions($page)
 {
     try {
@@ -127,3 +117,4 @@ function getQuestions($page)
         echo $e->getMessage();
     }
 }
+
