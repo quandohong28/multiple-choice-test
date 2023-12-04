@@ -1,14 +1,14 @@
 <div class="modal fade" id="editCategory" tabindex="-1" aria-labelledby="editCategoryLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editCategoryLabel">Sửa chuyên mục</h5>
+                <h6 class="modal-title" id="editCategoryLabel">Sửa chuyên mục</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="?act=tables&data=edit_category" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="row justify-content-center align-items-center h-100 mt-5">
-                        <div class="col-12 col-lg-9 col-xl-7">
+                        <div class="px-5">
                             <div class="row">
                                 <div class="col-md-12 mb-4 pb-2">
                                     <div class="form-outline">
@@ -32,8 +32,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                    <button type="submit" name="btn_edit" class="btn btn-primary">Xác nhận</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" name="btn_edit" class="btn btn-sm btn-primary">Xác nhận</button>
                 </div>
             </form>
         </div>

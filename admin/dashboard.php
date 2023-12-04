@@ -104,7 +104,7 @@
                         <div class="mb-3">
                             <label for="" class="form-label">Exam code</label>
                             <div class="input-group">
-                                <input type="text" name="exam_code" id="exam_code" class="form-control form-control-sm" placeholder="VD: PFNDIEK" aria-describedby="helpId">
+                                <input type="text" class="form-control form-control-sm" name="exam_code">
                                 <button type="submit" class="btn btn-sm btn-primary">Thực hiện</button>
                             </div>
                             <small id="helpId" class="text-muted">Nhập vào mã đề thi để xem thống kê chi tiết</small>
@@ -118,10 +118,12 @@
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Hệ thống TechQuiz Hero</h6>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Menu:</div>
                             <a class="dropdown-item" href="#">Xem chi tiết</a>
                         </div>
@@ -160,10 +162,12 @@
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Lịch thi gần đây</h6>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Menu:</div>
                             <a class="dropdown-item" href="#">Xem chi tiết</a>
                         </div>
@@ -174,12 +178,13 @@
                     <!-- Nội dung viết ở đây -->
                     <ul class="list-group list-group-flush">
                         <?php foreach ($schedules as $key => $value) : ?>
-                            <div class="card text-start mb-3">
-                                <div class="card-body">
-                                    <h6 class="card-title fw-bold text-success"><?= $value['name'] ?></h6>
-                                    <a href="?act=statistic_schedule&schedule_id=<?= $value['id'] ?>" class="card-text">Xem chi tiết &rarr;</a>
-                                </div>
+                        <div class="card text-start mb-3">
+                            <div class="card-body">
+                                <h6 class="card-title fw-bold text-success"><?= $value['name'] ?></h6>
+                                <a href="?act=statistic_schedule&schedule_id=<?= $value['id'] ?>"
+                                    class="card-text">Xem chi tiết &rarr;</a>
                             </div>
+                        </div>
                         <?php endforeach ?>
                     </ul>
                 </div>
@@ -193,10 +198,12 @@
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Chuyên mục</h6>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Menu:</div>
                             <a class="dropdown-item" href="?act=statistic_category">Xem chi tiết</a>
                         </div>
@@ -205,11 +212,11 @@
                 <!-- Card Body -->
                 <div class="card-body">
                     <?php foreach ($categories as $key => $value) : ?>
-                        <div class="card text-start mb-3">
-                            <div class="card-body pb-2">
-                                <h6 class="card-title fw-bold text-success"><?= $value['name'] ?></h6>
-                            </div>
+                    <div class="card text-start mb-3">
+                        <div class="card-body pb-2">
+                            <h6 class="card-title fw-bold text-success"><?= $value['name'] ?></h6>
                         </div>
+                    </div>
                     <?php endforeach ?>
                 </div>
             </div>
