@@ -1,70 +1,45 @@
     <section><!-- Start: Features Cards -->
         <div class="container bg-primary-gradient pb-5 pt-4 mb-5 rounded">
-            <div class="d-flex justify-content-between mb-5 px-5">
-                <div class="d-flex align-items-center gap-3">
-                    <div class=" p-3 fw-bold text-primary" id="questionIndex"></div>
+            <div class="d-flex justify-content-between mb-5 px-5 align-items-start">
+                <div class="">
+                    <div class="fw-bold text-primary" id="questionIndex"></div>
                 </div>
                 <div class="text-center">
-                    <div class="fw-bold text-primary">Thời gian còn lại</div>
-                    <a class="p-3 fs-3" id="examTime"></a>
+                    <h6 class="fw-bold text-primary">Thời gian còn lại</h6>
+                    <h6 class="fs-3" id="examTime"></h6>
                 </div>
 
                 <div>
-                    <button type="submit" name="submit" class="btn btn-sm btn-sm btn-success" style="display: none" id="finishExamButton" data-bs-toggle="modal" data-bs-target="#finish_exam_modal">Kết thúc</button>
+                    <button type="submit" name="submit" class="btn btn-sm btn-sm btn-success" style="display: none" id="finishExamButton" data-bs-toggle="modal" data-bs-target="#finish_exam_modal">Kết
+                        thúc</button>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
-                    <h3 class="fw-bold" id="question_content"></h3>
-                    <small class="badge bg-danger fw-bold" id="question_level"></small>
+                    <h4 class="fw-bold" id="question_content"></h4>
+                    <small class="badge fw-bold" id="question_level"></small>
                     <small class="text-muted">Chọn một đáp án</small>
                 </div>
             </div>
             <form class="py-5 p-lg-5" method="post">
                 <div class="row row-cols-1 row-cols-md-2 mx-auto" style="max-width: 900px;">
-
-                    <label class="col mb-5 ">
-                        <div class="card shadow-sm">
-                            <div class="card-body shadow rounded px-md-5">
-                                <input class="me-2" type="radio" name="answer" id="answer1">
-                                <span class="text-muted card-text answer_content" id="answer_content_1"></span>
+                    <?php for ($i = 0; $i < 4; $i++) : ?>
+                        <label class="col mb-3">
+                            <div class="card shadow-sm h-100" style="min-height: 100px">
+                                <div class="card-body shadow rounded px-md-5">
+                                    <input class="me-2" type="radio" name="answer" id="answer1">
+                                    <span class="text-muted card-text answer_content" id="answer_content_1"></span>
+                                </div>
                             </div>
-                        </div>
-                    </label>
-
-                    <label class="col mb-5">
-                        <div class="card shadow-sm">
-                            <div class="card-body shadow rounded px-md-5">
-                                <input class="me-2" type="radio" name="answer" id="answer1">
-                                <span class="text-muted card-text answer_content" id="answer_content_1"></span>
-                            </div>
-                        </div>
-                    </label>
-
-                    <label class="col mb-5">
-                        <div class="card shadow-sm">
-                            <div class="card-body shadow rounded px-md-5">
-                                <input class="me-2" type="radio" name="answer" id="answer1">
-                                <span class="text-muted card-text answer_content" id="answer_content_1"></span>
-                            </div>
-                        </div>
-                    </label>
-
-                    <label class="col mb-5">
-                        <div class="card shadow-sm">
-                            <div class="card-body shadow rounded px-md-5">
-                                <input class="me-2" type="radio" name="answer" id="answer1">
-                                <span class="text-muted card-text answer_content" id="answer_content_1"></span>
-                            </div>
-                        </div>
-                    </label>
+                        </label>
+                    <?php endfor ?>
                 </div>
             </form>
 
             <div class="row shadow rounded px-md-5 px-5 py-3 mx-5 justify-content-between align-items-center gap-4">
                 <button class="col-1 btn btn-sm btn-sm btn-outline-primary" id="prev_question" disabled><i class="fa-solid fa-arrow-left-long"></i></button>
-                <div class="col-8 progress" style="height:6px;">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="col-8 progress p-0" style="height:6px;">
+                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <button class="col-2 btn btn-sm btn-sm btn-primary d-flex gap-2 align-items-center justify-content-center" id="next_question">
                     Tiếp theo<i class="fa-solid fa-arrow-right"></i></span>
@@ -121,7 +96,7 @@
                 const response = await fetch("exams/question_data.php?exam_id=" + exam_id);
                 console.log(response);
                 const question = await response.json();
-                
+
                 // Xóa câu hỏi cũ khi lấy mới
                 questions = [];
                 for (let index = 0; index < question.length; index++) {
@@ -130,7 +105,7 @@
                         content: question[index].content,
                         question_level_id: question[index].question_level_id
                     });
-                } 
+                }
 
                 // Sau khi lấy câu hỏi thành công, gọi hàm để lấy câu trả lời cho câu hỏi đầu tiên
                 await getAnswersByQuestionId(questions[0].id);
@@ -139,16 +114,25 @@
                 if (questions.length > 0) {
                     renderFirstQuestion();
                 }
-            } catch (error) { 
+            } catch (error) {
                 console.error('Error during getQuestionById:', error);
             }
-        } 
+        }
         // Gọi hàm lấy câu hỏi theo id đề thi
-        getQuestionById(); 
+        getQuestionById();
         // Hàm hiển thị câu hỏi và câu trả lời đầu tiên
         const renderFirstQuestion = async () => {
             question_content.innerHTML = questions[currentQuestionIndex].content;
-            question_level.innerHTML = questions[currentQuestionIndex].question_level_id;
+            if (questions[currentQuestionIndex].question_level_id == 1) {
+                question_level.innerHTML = 'Dễ';
+                question_level.classList.add('bg-success');
+            } else if (questions[currentQuestionIndex].question_level_id == 2) {
+                question_level.innerHTML = 'Trung bình';
+                question_level.classList.add('bg-warning');
+            } else {
+                question_level.innerHTML = 'Khó';
+                question_level.classList.add('bg-danger');
+            }
             await getAnswersByQuestionId(questions[currentQuestionIndex].id);
             questionIndex.innerHTML = currentQuestionIndex + 1 + ' / ' + questions.length;
         }
@@ -173,7 +157,8 @@
 
         // Hàm lấy ra id câu hỏi hiện tại ở bảng result_detail
         const getResultDetailByResultIdAndQuestionId = async (result_id, question_id) => {
-            const response = await fetch(`exams/result_detail_data.php?result_id=${result_id}&question_id=${question_id}`);
+            const response = await fetch(
+                `exams/result_detail_data.php?result_id=${result_id}&question_id=${question_id}`);
             return result_detail = await response.json();
         }
 
@@ -189,7 +174,8 @@
                         'Content-Type': 'application/json; charset=UTF-8'
                     },
                     body: JSON.stringify({
-                        question_id: questions[currentQuestionIndex].id, // Sử dụng question_id phù hợp
+                        question_id: questions[currentQuestionIndex]
+                            .id, // Sử dụng question_id phù hợp
                         answer_id: selectedAnswerId,
                         result_id: result_id
                     })
@@ -235,7 +221,16 @@
                 // Đảm bảo câu hỏi đã được lấy từ server
                 if (questions[currentQuestionIndex]) {
                     question_content.innerHTML = questions[currentQuestionIndex].content;
-                    question_level.innerHTML = questions[currentQuestionIndex].question_level_id;
+                    if (questions[currentQuestionIndex].question_level_id == 1) {
+                        question_level.innerHTML = 'Dễ';
+                        question_level.classList.add('bg-success');
+                    } else if (questions[currentQuestionIndex].question_level_id == 2) {
+                        question_level.innerHTML = 'Trung bình';
+                        question_level.classList.add('bg-warning');
+                    } else {
+                        question_level.innerHTML = 'Khó';
+                        question_level.classList.add('bg-danger');
+                    }
                 }
 
                 if (currentQuestionIndex === questions.length - 1) {
@@ -246,18 +241,22 @@
                 prev_question.disabled = false;
 
                 // Kiểm tra xem câu hỏi hiện tại đã được chọn đáp án chưa
-                result_detail = await getResultDetailByResultIdAndQuestionId(result_id, questions[currentQuestionIndex].id);
+                let flag = false;
+                result_detail = await getResultDetailByResultIdAndQuestionId(result_id, questions[
+                    currentQuestionIndex].id);
                 if (result_detail !== null || result_detail.answer_id !== null) {
                     answersDOM.forEach((answerDOM) => {
                         if (answerDOM.value == result_detail.answer_id) {
                             answerDOM.checked = true;
                             answerDOM.setAttribute('selected', true); // Thêm thuộc tính selected
+                            flag = true;
                         } else {
                             answerDOM.checked = false;
                             answerDOM.removeAttribute('selected'); // Xóa thuộc tính selected
                         }
                     });
                 }
+                handleProgress(flag);
             }
         });
 
@@ -274,7 +273,16 @@
                 // Đảm bảo câu hỏi đã được lấy từ server
                 if (questions[currentQuestionIndex]) {
                     question_content.innerHTML = questions[currentQuestionIndex].content;
-                    question_level.innerHTML = questions[currentQuestionIndex].question_level_id;
+                    if (questions[currentQuestionIndex].question_level_id == 1) {
+                        question_level.innerHTML = 'Dễ';
+                        question_level.classList.add('bg-success');
+                    } else if (questions[currentQuestionIndex].question_level_id == 2) {
+                        question_level.innerHTML = 'Trung bình';
+                        question_level.classList.add('bg-warning');
+                    } else {
+                        question_level.innerHTML = 'Khó';
+                        question_level.classList.add('bg-danger');
+                    }
                 }
 
                 if (currentQuestionIndex !== questions.length - 1) {
@@ -286,18 +294,22 @@
 
 
                 // Kiểm tra xem câu hỏi hiện tại đã được chọn đáp án chưa
-                result_detail = await getResultDetailByResultIdAndQuestionId(result_id, questions[currentQuestionIndex].id);
+                let flag = false;
+                result_detail = await getResultDetailByResultIdAndQuestionId(result_id, questions[
+                    currentQuestionIndex].id);
                 if (result_detail !== null || result_detail.answer_id !== null) {
                     answersDOM.forEach((answerDOM) => {
                         if (answerDOM.value == result_detail.answer_id) {
                             answerDOM.checked = true;
                             answerDOM.setAttribute('selected', true); // Thêm thuộc tính selected
+                            flag = false;
                         } else {
                             answerDOM.checked = false;
                             answerDOM.removeAttribute('selected'); // Xóa thuộc tính selected
                         }
                     });
                 }
+                handleProgress(flag);
             }
         });
 
@@ -364,7 +376,8 @@
         // Chúng ta sẽ thêm sự kiện click cho nút "Kết thúc" và "Hủy" trong modal
         finishExamButton.addEventListener('click', () => {
             clearInterval(timerInterval);
-            document.querySelector('input[name="exam_time"]').value = formatTime(exam_time - formatTimeString(examTime.innerHTML));
+            document.querySelector('input[name="exam_time"]').value = formatTime(exam_time - formatTimeString(
+                examTime.innerHTML));
         })
 
 
@@ -374,4 +387,18 @@
         })
 
         document.querySelector('input[name="exam_id"]').value = exam_id;
+
+        // Xử lý thanh progress
+
+
+        function handleProgress(boolean) {
+            var progress = document.querySelector('.progress-bar');
+            var percent = (currentQuestionIndex + 1) / questions.length * 100;
+            progress.style.width = percent + '%';
+            if (flag) {
+                progress.classList.add('bg-success');
+            } else {
+                progress.classList.remove('bg-success');
+            }
+        }
     </script>

@@ -2,10 +2,10 @@
 function getAllResults()
 {
     try {
-        $sql = "SELECT 
+        $sql = "SELECT
         r.id AS id, e.id AS exam_code, e.exam_type_id AS exam_type, a.fullname AS fullname,
-        r.points AS points, r.time_start AS time_start, r.exam_time AS exam_time FROM results r 
-        INNER JOIN accounts a ON a.id = r.account_id 
+        r.points AS points, r.time_start AS time_start, r.exam_time AS exam_time FROM results r
+        INNER JOIN accounts a ON a.id = r.account_id
         INNER JOIN exams e ON e.id = r.exam_id
         INNER JOIN types t ON t.id = e.exam_type_id;";
         return pdo_query($sql);
@@ -23,7 +23,6 @@ function getResultById($id)
         return $e->getMessage();
     }
 }
-
 
 function getResultsByUserId($account_id)
 {
@@ -45,6 +44,34 @@ function getResultsByUserId($account_id)
     }
 }
 
+function getResultDetailByExamCode($exam_code)
+{
+    try {
+        $sql = "SELECT
+        rd.question_id as question_id,
+        q.content AS question_content,
+        a.content AS selected_answer_content,
+        e.exam_code,
+        e.number_question,
+        e.exam_time
+FROM
+    result_details rd
+INNER JOIN results r ON
+    r.id = rd.result_id
+INNER JOIN exams e ON
+    e.id = r.exam_id
+INNER JOIN questions q ON
+    q.id = rd.question_id
+INNER JOIN answers a ON
+    a.id = rd.answer_id
+WHERE
+    e.exam_code = '$exam_code'";
+        return pdo_query($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
 function getResultsByExamId($exam_id)
 {
     try {
@@ -58,10 +85,10 @@ function getResultsByExamId($exam_id)
 function getResultDetails($id)
 {
     try {
-        $sql = "SELECT 
+        $sql = "SELECT
         rd.answer_id AS selected_answer_id,
-        rd.id AS result_detail_id, q.content AS question_content, 
-        a.content as answer_content FROM result_details rd 
+        rd.id AS result_detail_id, q.content AS question_content,
+        a.content as answer_content FROM result_details rd
         INNER JOIN questions q ON q.id = rd.id
         INNER JOIN answers a ON a.id = rd.id
         WHERE rd.id = '$id';";
@@ -105,7 +132,7 @@ function updateResult($exam_time, $points, $exam_id)
 function getLatestResult()
 {
     try {
-        $sql = "SELECT * FROM results ORDER BY id DESC LIMIT 1";
+        $sql = 'SELECT * FROM results ORDER BY id DESC LIMIT 1';
         return pdo_query_one($sql);
     } catch (Exception $e) {
         return $e->getMessage();
@@ -156,7 +183,7 @@ function updateResultDetail($result_id, $question_id, $answer_id)
 function getDoingExamByAccountId($id)
 {
     try {
-        $sql = "SELECT 
+        $sql = "SELECT
                 r.id AS result_id, r.status AS result_status, r.exam_time AS exam_time,
                 e.id AS exam_id, e.exam_code AS exam_code, e.exam_type_id AS type
                 FROM results r
@@ -182,7 +209,7 @@ function reloadStatusResult($id)
     INNER JOIN exams e ON
         r.exam_id = e.id
     INNER JOIN schedules s ON
-        e.schedule_id = s.id 
+        e.schedule_id = s.id
     INNER JOIN accounts a ON
         r.account_id = a.id
     WHERE
@@ -197,10 +224,10 @@ function reloadStatusResult($id)
             $result_status = $result_status;
             $time_start = $time_start;
             $exam_time = $exam_time;
-            $time_end = date('Y-m-d H:i:s', strtotime($time_start) + ($exam_time * 60));
+            $time_end = date('Y-m-d H:i:s', strtotime($time_start) + $exam_time * 60);
             $dt = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
             $current_time = $dt->format('Y-m-d H:i:s');
-            $exam_time_finish = sprintf('%02d:%02d:%02d', ($exam_time / 60), ($exam_time % 60), 0);
+            $exam_time_finish = sprintf('%02d:%02d:%02d', $exam_time / 60, $exam_time % 60, 0);
             if ($result_status == 0) {
                 if ($current_time >= $time_end) {
                     $sql = "UPDATE results SET status = 1, exam_time = '$exam_time_finish' WHERE id = $result_id";
@@ -217,7 +244,7 @@ function reloadStatusResult($id)
 function examResult($exam_id)
 {
     try {
-        $sql = "SELECT 
+        $sql = "SELECT
         rd.result_id,
         rd.question_id,
         rd.answer_id,
@@ -225,7 +252,7 @@ function examResult($exam_id)
     FROM result_details rd
     JOIN questions q ON q.id = rd.question_id
     JOIN results r ON r.id = rd.result_id
-    JOIN answers a ON a.question_id = q.id 
+    JOIN answers a ON a.question_id = q.id
     WHERE r.exam_id = '$exam_id' AND a.is_correct = 1;";
 
         $result_details = pdo_query($sql);

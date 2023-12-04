@@ -63,7 +63,7 @@
                                 </svg></div>
                             <h5 class="fw-bold card-title">Thông tin phúc khảo</h5>
                             <p class="text-muted card-text mb-4">Thông tin phúc khảo liên quan đến quá trình bạn yêu cầu kiểm tra lại kết quả hoặc điểm số sau khi kết quả đã được công bố.</p>
-                            <a href="?act=help" class="btn btn-sm btn-outline-dark shadow">Trợ giúp</a>
+                            <a href="?act=support" class="btn btn-sm btn-outline-dark shadow">Trợ giúp</a>
                         </div>
                     </div>
                 </div>
