@@ -40,14 +40,13 @@ if (isset($_GET['data'])) {
 			$page = ($page - 1) * 10;
 			$getRole = getRoles();
 			$pathImg = '../assets/img/accounts/';
+			$accounts = getAccounts($page);
 
 			if (isset($_POST['filter'])) {
 				$filterByCategory = $_POST['filterByCategory'];
 				$filterByLetter = $_POST['filterByLetter'];
 				$search = mb_strtolower(trim($_POST['search']));
-				$accounts = filterAccount($filterByCategory, $filterByLetter, $search, $page);
-			} else {
-				$accounts = getAccounts($page);
+				$accounts = filterAccounts($filterByCategory, $filterByLetter, $search, $accounts);
 			}
 
 			include 'accounts.php';
@@ -107,13 +106,12 @@ if (isset($_GET['data'])) {
 			}
 			$page = ($page - 1) * 10;
 
+			$catergories = getCategories($page);
 			if (isset($_POST['filter'])) {
 				$filterByCategory = $_POST['filterByCategory'];
 				$filterByLetter = $_POST['filterByLetter'];
-				$search = mb_strtolower(trim($_POST['search'])); 
-				// $catergories = filterCategory($filterByCategory, $filterByLetter, $search, $page);
-			} else {
-				$catergories = getCategories($page);
+				$search = mb_strtolower(trim($_POST['search']));
+				$catergories = filterCategories($filterByCategory, $filterByLetter, $search, $catergories);
 			}
 			include 'categories.php';
 			break;
@@ -156,6 +154,12 @@ if (isset($_GET['data'])) {
 			$page = ($page - 1) * 10;
 
 			$schedules = getSchedules($page);
+			if (isset($_POST['filter'])) {
+				$filterByCategory = $_POST['filterByCategory'];
+				$filterByLetter = $_POST['filterByLetter']; 
+				$search = mb_strtolower(trim($_POST['search']));
+				$schedules = filterSchedules($filterByCategory, $filterByLetter, $search, $schedules);
+			}
 			include 'schedule/schedules.php';
 			break;
 		case 'add_schedule':
@@ -266,6 +270,7 @@ if (isset($_GET['data'])) {
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'questions':
+
 			if (isset($_GET['page'])) {
 				$page = $_GET['page'];
 			} else {
@@ -274,6 +279,7 @@ if (isset($_GET['data'])) {
 			$page = ($page - 1) * 10;
 
 
+			$questions = getQuestions($page);
 			$categories = getAllCategories();
 			$question_type = getTypeQuestions();
 			$question_level = getQuestionLevels();
@@ -283,9 +289,7 @@ if (isset($_GET['data'])) {
 				$filterByCategory = $_POST['filterByCategory'];
 				$filterByLetter = $_POST['filterByLetter'];
 				$search = mb_strtolower(trim($_POST['search']));
-				$questions = filterQuestions($filterByCategory, $filterByLetter, $search, $page);
-			} else {
-				$questions = getQuestions($page);
+				$questions = filterQuestions($filterByCategory, $filterByLetter, $search, $questions);
 			}
 			include 'questions.php';
 			break;
