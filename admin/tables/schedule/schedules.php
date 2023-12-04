@@ -12,7 +12,7 @@
                             <option value="id" selected>ID</option>
                             <option value="name_schedules">Tên lịch thi</option>
                             <option value="time_schedules">Thời gian bắt đầu</option>
-                            <option value="time_schedules">Số lượng đề thi</option>
+                            <option value="quantity_schedules">Số lượng đề thi</option>
                         </select>
                     </div>
                     <div class="col-md-3 form-group">
