@@ -367,7 +367,7 @@ if (isset($_GET['data'])) {
 			include 'result/results.php';
 			break;
 		case 'result_detail':
-			$result_detail = getResultDetail($_GET['id']);
+			$result_detail = getResultDetails($_GET['id']);
 			include 'result/result_detail.php';
 			break;
 		case 'exams':

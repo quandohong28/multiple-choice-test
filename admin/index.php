@@ -86,6 +86,7 @@ require '../lib/PhpExcel/vendor/autoload.php';
                                 }
                             }
                             include "./dashboard.php";
+                            $values = getNumberFinishedExamThisMonth();
                             break;
                         case 'search':
                             include "./search.php";
