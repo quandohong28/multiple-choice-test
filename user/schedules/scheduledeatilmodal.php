@@ -5,7 +5,7 @@
                 <h6 class="modal-title" id="modalTitleId">Lịch thi chi tiết</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="">
+            <form method="POST" action="?act=start_exam">
                 <div class="modal-body">
                     <div class="py-3">
                         <div class="">
@@ -23,12 +23,15 @@
                                 <img src="" alt="" class="category-image">
                             </div>
                         </div>
-
                     </div>
+                    <input type="hidden" name="type" value="2">
+                    <input type="hidden" name="schedule_id" id="schedule_id">
+                    <input type="hidden" name="category_id" id="category_id">
+                    <input type="hidden" name="exam_time" id="exam_time"> 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Đóng</button>
-                    <a id="start-btn" class="btn btn-sm btn-primary">Bắt đầu làm bài</a>
+                    <button type="submit" name="start-btn" class="btn btn-sm btn-primary">Bắt đầu làm bài</button>
                 </div>
             </form>
         </div>
@@ -54,7 +57,14 @@
         const categoryImage = document.querySelector('.category-image');
         categoryImage.src = `../assets/img/categories/${recipient.image}`;
 
-        const startBtn = document.querySelector('#start-btn');
-        startBtn.href = `?act=start_exam&type=2&schedule_id=${recipient.schedule_id}&category_id=${recipient.category_id}&exam_time=${recipient.exam_time}`;
+        var type = document.querySelector('#type');
+        var schedule_id = document.querySelector('#schedule_id');
+        var category_id = document.querySelector('#category_id');
+        var exam_time = document.querySelector('#exam_time');
+
+        schedule_id.value = recipient.schedule_id;
+        category_id.value = recipient.category_id;
+        exam_time.value = recipient.exam_time;
+
     });
 </script>

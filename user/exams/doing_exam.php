@@ -77,10 +77,13 @@
     <script>
         var currentQuestionIndex = 0;
         var questions = [];
-        const urlParams = new URLSearchParams(window.location.search);
-        var exam_time = urlParams.get('exam_time') * 60;
-        const exam_id = urlParams.get('exam_id');
-        var result_id = urlParams.get('result_id');
+
+        var arrayData = JSON.parse(localStorage.getItem('arrayData'));
+        var type = arrayData.type;
+        var exam_id = arrayData.exam_id;
+        var result_id = arrayData.result_id;
+        var exam_time = arrayData.exam_time * 60;
+
         // Hàm lấy câu hỏi theo id đề thi
         const getQuestionById = async () => {
             try {
@@ -321,6 +324,12 @@
                     form.action = `?act=finish_exam&exam_time=${formatTime(urlParams.get('exam_time') * 60)}`;
                     form.submit();
                 }
+
+                // Lưu thời gian còn lại vào localStorage
+                arrayData.exam_time = seconds / 60; // Thay đổi giá trị exam_time
+                localStorage.setItem('arrayData', JSON.stringify(arrayData));
+                
+ 
             }
 
             // Gọi hàm updateTimer mỗi giây

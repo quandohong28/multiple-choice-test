@@ -35,8 +35,7 @@ include '../model/answer.php';
     <!-- select2 -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </head>
 
 <body class="mt-5 pt-5">
@@ -68,32 +67,30 @@ include '../model/answer.php';
                         include './exams/practice.php';
                         break;
                     case 'start_exam':
-                        $category_id = $_GET['category_id'];
-                        $type = $_GET['type'];
-                        // Xu ly logic cho chuan bi thi thu
-                        if ($type == 1) {
-                            if (isset($_POST['btn_submit'])) {
+                        if (isset($_POST['start-btn'])) {
+                            $type = $_POST['type'];
+                            $exam_time = $_POST['exam_time'];
+                            $category_id = $_POST['category_id'];
+
+                            // Xu ly logic cho chuan bi thi thu
+                            if ($type == 1) {
                                 $number_easy_questions = $_POST['number_easy_questions'];
                                 $number_medium_questions = $_POST['number_medium_questions'];
                                 $number_hard_questions = $_POST['number_hard_questions'];
-                                $exam_time = $_POST['exam_time'];
                                 insertPracticeExam(1, $category_id, $type, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
+                                $latestExamId = getLatestExam()['id'];
+                                $exam_id = $latestExamId; 
+                                $exam_code = getLatestExam()['code'];
                             }
-                            $latestExamId = getLatestExam()['id'];
-                            $exam_id = $latestExamId;
-                            addResult($_SESSION['user']['id'], $latestExamId);
-                            $latest_result_id = getLatestResult()['id'];
-                            //Tạo bản kết quả tạm thời với câu trả lời là Null
-                            $getQuestionsByExamDetails = getQuestionsByExamDetails($latestExamId);
-                            for ($question = 0; $question < count($getQuestionsByExamDetails); $question++) {
-                                addResultDetail($latest_result_id, $getQuestionsByExamDetails[$question]['question_id'], 'null');
-                            }
-                        }
-                        // Xu ly cho chuan bi thi that
-                        else {
-                            $schedule_id = $_GET['schedule_id'];
-                            $exam_id = getRandomExam($schedule_id)['id'];
-                            $exam_time = $_GET['exam_time'];
+
+                            // Xu ly cho chuan bi thi that
+                            else {
+                                $schedule_id = $_POST['schedule_id'];
+                                $exam_id = getRandomExam($schedule_id)['id'];
+                                $exam_code = getExamById($exam_id)['exam_code'];
+                            }   
+
+
                             addResult($_SESSION['user']['id'], $exam_id);
                             $latest_result_id = getLatestResult()['id'];
                             //Tạo bản kết quả tạm thời với câu trả lời là Null
@@ -101,8 +98,20 @@ include '../model/answer.php';
                             for ($question = 0; $question < count($getQuestionsByExamDetails); $question++) {
                                 addResultDetail($latest_result_id, $getQuestionsByExamDetails[$question]['question_id'], 'null');
                             }
+                            $$exam_id = [
+                                'type' => $type,
+                                'exam_id' => $exam_id,
+                                'exam_time' => $exam_time,
+                                'result_id' => $latest_result_id
+                            ];
+                            echo "<script>  
+                                if (localStorage.getItem('arrayData') === null) {
+                                    localStorage.setItem('arrayData', JSON.stringify(" . json_encode($$exam_id) . ")); 
+                                } 
+                            </script>";
+
+                            echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam">';
                         }
-                        echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $exam_id . '&exam_time=' . $exam_time . '&result_id=' . $latest_result_id . '">';
                         break;
                     case 'doing_exam':
                         $type = $_GET['type'];
@@ -124,10 +133,13 @@ include '../model/answer.php';
                                 echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $exam_id . '&exam_time=' . $exam_time . '&result_id=' . $result_id . '">';
                             }
                         }
+                        
                         // bat dau mot bai thi moi
                         else {
                             $exam_time = getResultById($result_id)[0]['exam_time'];
                         }
+
+
                         include './exams/doing_exam.php';
                         break;
                     case 'finish_exam':
@@ -187,7 +199,7 @@ include '../model/answer.php';
                             $account = getAccountById($id);
                             $email = $_POST['email'];
                             $introduce = $_POST['introduce'];
-            
+
                             if ($_FILES['avatar']['name'] != '') {
                                 $targetDir = '../assets/img/accounts/';
                                 $avatar = $_FILES['avatar']['name'];
@@ -195,13 +207,13 @@ include '../model/answer.php';
                             } else {
                                 $avatar = $account['avatar'];
                             }
-            
+
                             $fullname = trim($_POST['fullname']);
-            
+
                             $tel = $_POST['tel'];
-            
+
                             $address = ucfirst(trim($_POST['address']));
-            
+
                             editProfile($id, $email, $introduce, $avatar, $fullname, $tel, $address);
                             echo '<meta http-equiv="refresh" content="0;url=?act=profile">';
                         }
@@ -243,11 +255,9 @@ include '../model/answer.php';
         <?php include './layouts/footer.php'; ?>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="../assets/js/script.min.js"></script>

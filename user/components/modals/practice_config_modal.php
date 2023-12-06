@@ -5,7 +5,7 @@
                 <h6 class="modal-title" id="practiceConfigModalLabel">Tùy chỉnh đề thi</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" method="post" id="practiceConfigForm">
+            <form action="?act=start_exam" method="post" id="practiceConfigForm">
                 <div class="form-body p-5">
                     <p>Chọn level</p>
                     <div class="row mb-3">
@@ -30,11 +30,13 @@
                             <option value="45">45 Phút</option>
                             <option value="60">1 Tiếng</option>
                         </select>
+                        <input type="hidden" name="type" value="1">
+                        <input type="hidden" name="category_id" id="category_id">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-outline-dark" data-bs-dismiss="modal">Huỷ</button>
-                    <button type="submit" name="btn_submit" class="btn btn-sm btn-success">Bắt đầu</button>
+                    <button type="submit" name="start-btn" class="btn btn-sm btn-success">Bắt đầu</button>
                 </div>
             </form>
         </div>
@@ -51,14 +53,11 @@
         // Extract info from data-bs-* attributes
         let category = JSON.parse(button.getAttribute('data-bs-value'));
 
-        console.log(category);
-        // Use above variables to manipulate the DOM
-
         const title = document.getElementById('practiceConfigModalLabel');
         title.innerHTML = category.name;
 
         const form =document.querySelector('#practiceConfigForm');
-        form.action = '?act=start_exam&type=1&category_id=' + category.id;
+        form.querySelector("#category_id").value = category.id;
 
     });
 </script>
