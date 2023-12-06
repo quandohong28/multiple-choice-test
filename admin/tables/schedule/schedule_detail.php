@@ -4,7 +4,41 @@
     </div>
     <div class="card-body">
         <div class="row mb-3">
-            <?php include '../components/filter.php' ?>
+            <form method="post" role="form" class="filter-panel">
+                <div class="row align-items-end me-1">
+                    <div class="col-md-3 form-group">
+                        <label>Sắp xếp theo</label>
+                        <select name="filterByCategory" class="form-control form-control-sm">
+                            <option value="id" selected>ID</option>
+                            <option value="id_candidates">Mã thí sinh</option>
+                            <option value="name_candidates">Họ tên thí sinh</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Cách sắp xếp</label>
+                        <select name="filterByLetter" class="form-control form-control-sm">
+                            <option value="a-z" selected>A-Z</option>
+                            <option value="z-a">Z-A</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Tìm kiếm</label>
+                        <input type="text" name="search" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-md-3 form-group ">
+                        <div class="row">
+                            <button name="filter" class="btn btn-sm btn-info me-3 col">
+                                <i class="fa fa-fw fa-search fs-6 me-2"></i>
+                                <span class="lg-hidden">Tìm kiếm</span>
+                            </button>
+                            <button type="reset" class="btn btn-sm btn-outline-dark col">
+                                <i class="fa-regular fa-fw fa-window-restore"></i>
+                                <span class="lg-hidden">Mặc định</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="row mb-3">
             <div class="col">
@@ -14,7 +48,26 @@
                 </button>
             </div>
             <div class="col">
-                <?php include 'components/data_export.php' ?>
+                <div class="row">
+                    <div class="btn-group float-end">
+                        <button class="btn btn-sm btn-success rounded-1 py-1 px-2 me-2">
+                            <i class="fa-solid fw-fs fa-file-export"></i>
+                            <span class="md-hidden">Excel</span>
+                        </button>
+                        <button class="btn btn-sm btn-outline-success rounded-1 py-1 px-2 me-2" disabled>
+                            <i class="fa-solid fw-fs fa-print"></i>
+                            <span class="md-hidden">Print</span>
+                        </button>
+                        <button class="btn btn-sm btn-outline-success rounded-1 py-1 px-2 me-2" disabled>
+                            <i class="fa-solid fw-fs fa-file-csv"></i>
+                            <span class="md-hidden">CSV</span>
+                        </button>
+                        <button class="btn btn-sm btn-outline-success rounded-1 py-1 px-2" disabled>
+                            <i class="fa-solid fw-fs fa-file-pdf"></i>
+                            <span class="md-hidden">PDF</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="table-responsive small">
@@ -49,7 +102,25 @@
                 </tbody>
             </table>
         </div>
-        <?php include '../components/pagination.php' ?>
+        <ul class="pagination pagination-sm justify-content-end">
+            <li class="page-item disabled">
+                <a class="page-link px-3">
+                    <i class="fa-solid fa-caret-left"></i>
+                </a>
+            </li>
+            <?php
+            $currentURL = "index.php?act=tables&data=schedule_detail&schedule_id=" . $schedule_id;
+            $amountPage = ceil(count(countScheduleDetail($schedule_id)) / 10);
+            for ($page = 1; $page <= $amountPage; $page++) :
+            ?>
+                <li class="page-item"><a class="page-link" href="<?= $currentURL . "&page=$page" ?>"><?= $page ?></a></li>
+            <?php endfor; ?>
+            <li class="page-item">
+                <a class="page-link px-3" href="#">
+                    <i class="fa-solid fa-caret-right"></i>
+                </a>
+            </li>
+        </ul>
     </div>
 </div>
 

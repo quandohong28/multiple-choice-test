@@ -156,7 +156,7 @@ if (isset($_GET['data'])) {
 			$schedules = getSchedules($page);
 			if (isset($_POST['filter'])) {
 				$filterByCategory = $_POST['filterByCategory'];
-				$filterByLetter = $_POST['filterByLetter']; 
+				$filterByLetter = $_POST['filterByLetter'];
 				$search = mb_strtolower(trim($_POST['search']));
 				$schedules = filterSchedules($filterByCategory, $filterByLetter, $search, $schedules);
 			}
@@ -216,7 +216,7 @@ if (isset($_GET['data'])) {
 			break;
 		case 'schedule_detail':
 			// Xử lý phân trang
-			if ($_GET['page']) {
+			if (isset($_GET['page'])) {
 				$page = $_GET['page'];
 			} else {
 				$page = 1;
@@ -226,7 +226,7 @@ if (isset($_GET['data'])) {
 			// Xử lý thêm thí sinh
 			if (isset($_GET['schedule_id'])) {
 				$schedule_id = $_GET['schedule_id'];
-				$schedule_detail = getScheduleDetail($schedule_id);
+				$schedule_detail = getScheduleDetail($schedule_id, $page);
 				if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					if ($_POST['username']) {
 						$username = $_POST['username'];
@@ -254,7 +254,7 @@ if (isset($_GET['data'])) {
 						}
 					}
 				}
-			}
+			} 
 			include 'schedule/schedule_detail.php';
 			break;
 		case 'del_candidate':
