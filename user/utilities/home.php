@@ -80,10 +80,9 @@
                 <div class="row row-cols-1 row-cols-md-2 d-flex justify-content-center">
                     <?php foreach ($categories as $category) :
                     ?>
-                        <div class="col mb-4">
+                        <div class="col mb-5">
                             <div class="card bg-gradient-light shadow">
                                 <div class="card-body text-center px-4 py-5 px-md-5">
-                                    <p class="fw-bold text-dark card-text mb-2">Fully Managed</p>
                                     <h5 class="fw-bold card-title mb-3"><?= $category['name'] ?></h5>
                                     <button class="btn btn-sm btn-outline-dark" type="button">Xem chi tiết</button>
                                 </div>

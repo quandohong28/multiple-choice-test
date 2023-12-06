@@ -108,15 +108,11 @@ include '../model/answer.php';
                         $type = $_GET['type'];
                         $result_id = $_GET['result_id'];
                         $exam_id = getResultById($result_id)[0]['exam_id'];
-                        $exam_detail = getExamDetailByExamId($_GET['exam_id']);
-                        // thi do va quay lai
-                        // $exam_id = getResultById($result_id)['exam_id'];
-                        // echo ">>> test exam_id =>>> $exam_id <<<";
-                        // $exam_detail = getExamDetailByExamId($exam_id);
+                        $exam_detail = getExamDetailByExamId($exam_id);
                         // Dang thi va quay lai tiep tuc
                         if ($_GET['exam_time'] === '') {
                             $exam_time = getExamById($_GET['exam_id'])['exam_time'];
-                            $time_start = getResultById($result_id)['time_start'];
+                            $time_start = getResultById($result_id)[0]['time_start'];
                             $dt = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
                             $current_time = $dt->format('Y-m-d H:i:s');
                             $diff = strtotime($current_time) - strtotime($time_start);
@@ -149,16 +145,20 @@ include '../model/answer.php';
                         }
                         break;
                     case 'result':
-                        $results = getResultsByUserId($_SESSION['user']['id']);
+                        if (isset($_GET['sort'])) {
+                            $results = getResultsByUserId($_SESSION['user']['id'], $_GET['sort']);
+                        } else {
+                            $results = getResultsByUserId($_SESSION['user']['id']);
+                        }
                         include './results/result.php';
                         break;
                     case 'result_detail':
                         $avatarPath = '../assets/img/accounts/';
                         $result_id = $_GET['result_id'];
                         $result_detail = getResultDetailByResultId($result_id);
-                        $result = getResultById($result_id); 
+                        $result = getResultById($result_id);
                         $number_incorrect = 0;
-                        $number_correct = 0; 
+                        $number_correct = 0;
                         $points = $result[0]['points'];
                         $exam_time = $result[0]['exam_time'];
                         foreach ($result as $question) {
@@ -166,10 +166,10 @@ include '../model/answer.php';
                             if ($user_answer_id == $answer_correct_id) {
                                 $number_correct++;
                             } else {
-                                $number_incorrect++;    
+                                $number_incorrect++;
                             }
                         }
-                        include "./results/result_detail.php";
+                        include './results/result_detail.php';
                         break;
                     case 'support':
                         include './utilities/support.php';

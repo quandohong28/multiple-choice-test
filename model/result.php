@@ -7,7 +7,9 @@ function getAllResults()
         r.points AS points, r.time_start AS time_start, r.exam_time AS exam_time FROM results r
         INNER JOIN accounts a ON a.id = r.account_id
         INNER JOIN exams e ON e.id = r.exam_id
-        INNER JOIN types t ON t.id = e.exam_type_id;";
+        INNER JOIN types t ON t.id = e.exam_type_id
+        ORDER BY r.id DESC
+        ;";
         return pdo_query($sql);
     } catch (Exception $e) {
         return $e->getMessage();
@@ -24,6 +26,7 @@ function getResultById($id)
         r.exam_id AS exam_id, 
         r.exam_time,
         r.points,
+        r.time_start,
         rd.question_id,
         rd.answer_id AS user_answer_id,
         a.id AS answer_correct_id
@@ -42,9 +45,9 @@ function getResultById($id)
     }
 }
 
-function getResultsByUserId($account_id)
+function getResultsByUserId($account_id, $sort = null)
 {
-    try {
+    if($sort === null) {
         $sql = "SELECT
         r.id as id,
         e.exam_code as exam_code,
@@ -55,7 +58,24 @@ function getResultsByUserId($account_id)
         FROM results r
         INNER JOIN exams e ON r.exam_id = e.id
         INNER JOIN types t ON e.exam_type_id = t.id
-        WHERE r.account_id = '$account_id'";
+        WHERE r.account_id = '$account_id'
+        ORDER BY r.id DESC;";
+    }
+    else {
+        $sql = "SELECT
+        r.id as id,
+        e.exam_code as exam_code,
+        r.points as points,
+        t.type as type,
+        r.time_start as time_start,
+        r.exam_time as exam_time
+        FROM results r
+        INNER JOIN exams e ON r.exam_id = e.id
+        INNER JOIN types t ON e.exam_type_id = t.id
+        WHERE r.account_id = '$account_id'
+        ORDER BY $sort DESC;";
+    }
+    try {
         return pdo_query($sql);
     } catch (Exception $e) {
         return $e->getMessage();

@@ -7,37 +7,31 @@
         <thead>
             <tr>
                 <th class="small p-2" scope="col">
-                    <a href="?act=result&sortbyindex">
-                        ID
-                        <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
-                    </a>
-                </th>
-                <th class="small p-2" scope="col">
-                    <a href="?act=result&sortbydate">
+                    <a href="?act=result&sort=exam_id">
                         Mã đề thi
                         <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
                     </a>
                 </th>
                 <th class="small p-2" scope="col">
-                    <a href="?act=result&sortbylocation">
+                    <a href="?act=result&sort=points">
                         Điểm
                         <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
                     </a>
                 </th>
                 <th class="small p-2" scope="col">
-                    <a href="?act=result&sortbyindex">
+                    <a href="?act=result&sort=type">
                         Hình thức
                         <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
                     </a>
                 </th>
                 <th class="small p-2" scope="col">
-                    <a href="?act=result&sortbyindex">
+                    <a href="?act=result&sort=time_start">
                         Thời gian bắt đầu
                         <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
                     </a>
                 </th>
                 <th class="small p-2" scope="col">
-                    <a href="?act=result&sortbyindex">
+                    <a href="?act=result&sort=exam_time">
                         Thời gian làm bài
                         <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
                     </a>
@@ -48,37 +42,31 @@
         <tfoot>
             <tr>
                 <th class="small p-2" scope="col">
-                    <a href="?act=result&sortbyindex">
-                        ID
-                        <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
-                    </a>
-                </th>
-                <th class="small p-2" scope="col">
-                    <a href="?act=result&sortbydate">
+                    <a href="?act=result&exam_id">
                         Mã đề thi
                         <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
                     </a>
                 </th>
                 <th class="small p-2" scope="col">
-                    <a href="?act=result&sortbylocation">
+                    <a href="?act=result&sort=points">
                         Điểm
                         <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
                     </a>
                 </th>
                 <th class="small p-2" scope="col">
-                    <a href="?act=result&sortbyindex">
+                    <a href="?act=result&sort=type">
                         Hình thức
                         <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
                     </a>
                 </th>
                 <th class="small p-2" scope="col">
-                    <a href="?act=result&sortbyindex">
+                    <a href="?act=result&sort=time_start">
                         Thời gian bắt đầu
                         <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
                     </a>
                 </th>
                 <th class="small p-2" scope="col">
-                    <a href="?act=result&sortbyindex">
+                    <a href="?act=result&sort=exam_time">
                         Thời gian làm bài
                         <span class="ms-2"><i class="fa-solid fa-sort"></i></span>
                     </a>
@@ -89,7 +77,6 @@
         <tbody>
             <?php foreach ($results as $result) : ?>
                 <tr>
-                    <td class="py-3"><?= $result['id'] ?></td>
                     <td class="py-3"><?= $result['exam_code'] ?></td>
                     <td class="py-3"><?= $result['points'] ?></td>
                     <td class="py-3"><?= $result['type'] ?></td>
