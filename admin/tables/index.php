@@ -39,10 +39,10 @@
 
 
 <?php
-if (isset($_GET['data'])) {
-	switch ($_GET['data']) {
+if(isset($_GET['data'])) {
+	switch($_GET['data']) {
 		case 'accounts':
-			if (isset($_GET['page'])) {
+			if(isset($_GET['page'])) {
 				$page = $_GET['page'];
 			} else {
 				$page = 1;
@@ -51,7 +51,7 @@ if (isset($_GET['data'])) {
 			$getRole = getRoles();
 			$pathImg = '../assets/img/accounts/';
 
-			if (isset($_POST['filter'])) {
+			if(isset($_POST['filter'])) {
 				$filterByCategory = $_POST['filterByCategory'];
 				$filterByLetter = $_POST['filterByLetter'];
 				$search = trim($_POST['search']);
@@ -63,7 +63,7 @@ if (isset($_GET['data'])) {
 			include 'accounts.php';
 			break;
 		case 'add_account':
-			if (isset($_POST['btn_add'])) {
+			if(isset($_POST['btn_add'])) {
 				$username = $_POST['username'];
 				$password = hashPassword($_POST['password']);
 				$fullname = $_POST['fullname'];
@@ -72,10 +72,10 @@ if (isset($_GET['data'])) {
 				$tel = $_POST['tel'];
 				$role_id = $_POST['role_id'];
 
-				if ($_FILES['avatar']['name'] != "") {
+				if($_FILES['avatar']['name'] != "") {
 					$targetDir = '../assets/img/accounts/';
 					$avatar = $_FILES['avatar']['name'];
-					move_uploaded_file($_FILES['avatar']['tmp_name'], $targetDir . $avatar);
+					move_uploaded_file($_FILES['avatar']['tmp_name'], $targetDir.$avatar);
 				} else {
 					$avatar = "profile.png";
 				}
@@ -85,7 +85,7 @@ if (isset($_GET['data'])) {
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=accounts">';
 			break;
 		case 'edit_account':
-			if (isset($_POST['btn_edit'])) {
+			if(isset($_POST['btn_edit'])) {
 
 				$id = $_POST['edit_id'];
 				$fullname = $_POST['edit_fullname'];
@@ -94,10 +94,10 @@ if (isset($_GET['data'])) {
 				$tel = $_POST['edit_tel'];
 
 
-				if ($_FILES['edit_avatar']['name'] != "") {
+				if($_FILES['edit_avatar']['name'] != "") {
 					$targetDir = '../assets/img/accounts/';
 					$avatar = $_FILES['edit_avatar']['name'];
-					move_uploaded_file($_FILES['edit_avatar']['tmp_name'], $targetDir . $avatar);
+					move_uploaded_file($_FILES['edit_avatar']['tmp_name'], $targetDir.$avatar);
 				} else {
 					$avatar = $_POST['edit_avatar'];
 				}
@@ -110,14 +110,14 @@ if (isset($_GET['data'])) {
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=accounts">';
 			break;
 		case 'categories':
-			if (isset($_GET['page'])) {
+			if(isset($_GET['page'])) {
 				$page = $_GET['page'];
 			} else {
 				$page = 1;
 			}
 			$page = ($page - 1) * 10;
 
-			if (isset($_POST['filter'])) {
+			if(isset($_POST['filter'])) {
 				$filterByCategory = $_POST['filterByCategory'];
 				$filterByLetter = $_POST['filterByLetter'];
 				$search = trim($_POST['search']);
@@ -128,23 +128,23 @@ if (isset($_GET['data'])) {
 			include 'categories.php';
 			break;
 		case 'add_category':
-			if (isset($_POST['submit'])) {
+			if(isset($_POST['submit'])) {
 				$name = $_POST['name'];
 				$file = $_FILES['image'];
 				$image = $file['name'];
 				insertCategory($name, $image);
-				move_uploaded_file($file['tmp_name'], '../assets/img/categories' . $image);
+				move_uploaded_file($file['tmp_name'], '../assets/img/categories'.$image);
 				echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=categories">';
 			}
 			break;
 		case 'edit_category':
-			if (isset($_POST['btn_edit'])) {
+			if(isset($_POST['btn_edit'])) {
 				$id = $_POST['edit_id'];
 				$name = $_POST['edit_name'];
-				if ($_FILES['edit_image']['name'] != "") {
+				if($_FILES['edit_image']['name'] != "") {
 					$targetDir = '../assets/img/categories/';
 					$image = $_FILES['edit_image']['name'];
-					move_uploaded_file($_FILES['edit_image']['tmp_name'], $targetDir . $image);
+					move_uploaded_file($_FILES['edit_image']['tmp_name'], $targetDir.$image);
 				} else {
 					$image = $_POST['edit_image'];
 				}
@@ -158,7 +158,7 @@ if (isset($_GET['data'])) {
 			break;
 		case 'schedules':
 			$categories = getAllCategories();
-			if (isset($_GET['page'])) {
+			if(isset($_GET['page'])) {
 				$page = $_GET['page'];
 			} else {
 				$page = 1;
@@ -166,10 +166,13 @@ if (isset($_GET['data'])) {
 			$page = ($page - 1) * 10;
 
 			$schedules = getSchedules($page);
+
+			$all_schedule = getAllSchedulesAndNumberCandidates();
+
 			include 'schedule/schedules.php';
 			break;
 		case 'add_schedule':
-			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 				// Thêm một lịch thi
 				$name = $_POST['name'];
@@ -190,7 +193,7 @@ if (isset($_GET['data'])) {
 				// Tạo ra các đề thi từ lịch thi vừa tạo
 				$schedule_id = getLatestSchedule()['id'];
 				$exam_type_id = 1;
-				for ($i = 1; $i <= $number_exam; $i++) {
+				for($i = 1; $i <= $number_exam; $i++) {
 					insertPracticeExam($schedule_id, $category_id, $exam_type_id, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
 				}
 
@@ -200,8 +203,8 @@ if (isset($_GET['data'])) {
 				$tmp_file = $file['tmp_name'];
 				$extension = pathinfo($file_name, PATHINFO_EXTENSION);
 				$upload_directory = '../assets/public/user_upload/';
-				if ($extension == 'xlsx') {
-					if (move_uploaded_file($tmp_file, $upload_directory . $file_name)) {
+				if($extension == 'xlsx') {
+					if(move_uploaded_file($tmp_file, $upload_directory.$file_name)) {
 						echo "Upload file thành công";
 					} else {
 						echo "Lỗi trong quá trình upload file";
@@ -209,9 +212,9 @@ if (isset($_GET['data'])) {
 				} else {
 					echo "File không đúng định dạng";
 				}
-				$accounts = readDataFromExcelBySheetName($upload_directory . $file_name, 'accounts');
-				foreach ($accounts as $account) {
-					if ($account['A'] !== 'username') {
+				$accounts = readDataFromExcelBySheetName($upload_directory.$file_name, 'accounts');
+				foreach($accounts as $account) {
+					if($account['A'] !== 'username') {
 						addScheduleDetail($schedule_id, $account['A']);
 					}
 				}
@@ -219,10 +222,23 @@ if (isset($_GET['data'])) {
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'edit_schedule':
+			if($_SERVER['REQUEST_METHOD'] == 'POST') {
+				$id = $_POST['edit_id'];
+				$name = $_POST['edit_name'];
+				$time_start = $_POST['edit_time_start'];
+				$dateTime = new DateTime($time_start);
+
+				$time_start = $dateTime->format('Y-m-d H:i:s');
+				$exam_time = $_POST['edit_exam_time'];
+				$number_exam = $_POST['edit_number_exam'];
+				
+				editSchedule($id, $name, $time_start, $exam_time, $number_exam);
+			}
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'schedule_detail':
 			// Xử lý phân trang
-			if ($_GET['page']) {
+			if($_GET['page']) {
 				$page = $_GET['page'];
 			} else {
 				$page = 1;
@@ -230,11 +246,11 @@ if (isset($_GET['data'])) {
 			$page = ($page - 1) * 10;
 
 			// Xử lý thêm thí sinh
-			if (isset($_GET['schedule_id'])) {
+			if(isset($_GET['schedule_id'])) {
 				$schedule_id = $_GET['schedule_id'];
 				$schedule_detail = getScheduleDetail($schedule_id);
-				if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-					if ($_POST['username']) {
+				if($_SERVER['REQUEST_METHOD'] == 'POST') {
+					if($_POST['username']) {
 						$username = $_POST['username'];
 						addScheduleDetail($schedule_id, $username);
 					} else {
@@ -243,8 +259,8 @@ if (isset($_GET['data'])) {
 						$tmp_file = $file['tmp_name'];
 						$extension = pathinfo($file_name, PATHINFO_EXTENSION);
 						$upload_directory = '../assets/public/user_upload/';
-						if ($extension == 'xlsx') {
-							if (move_uploaded_file($tmp_file, $upload_directory . $file_name)) {
+						if($extension == 'xlsx') {
+							if(move_uploaded_file($tmp_file, $upload_directory.$file_name)) {
 								echo "Upload file thành công";
 							} else {
 								echo "Lỗi trong quá trình upload file";
@@ -252,9 +268,9 @@ if (isset($_GET['data'])) {
 						} else {
 							echo "File không đúng định dạng";
 						}
-						$accounts = readDataFromExcelBySheetName($upload_directory . $file_name, 'accounts');
-						foreach ($accounts as $account) {
-							if ($account['A'] !== 'username') {
+						$accounts = readDataFromExcelBySheetName($upload_directory.$file_name, 'accounts');
+						foreach($accounts as $account) {
+							if($account['A'] !== 'username') {
 								addScheduleDetail($schedule_id, $account['A']);
 							}
 						}
@@ -276,7 +292,7 @@ if (isset($_GET['data'])) {
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'questions':
-			if (isset($_GET['page'])) {
+			if(isset($_GET['page'])) {
 				$page = $_GET['page'];
 			} else {
 				$page = 1;
@@ -289,25 +305,25 @@ if (isset($_GET['data'])) {
 			$question_level = getQuestionLevels();
 			$pathImg = '../assets/img/questions/';
 
-			if (isset($_POST['filter'])) {
+			if(isset($_POST['filter'])) {
 				$filterByCategory = $_POST['filterByCategory'];
 				$filterByLetter = $_POST['filterByLetter'];
 				$search = trim($_POST['search']);
 				$questions = filterQuestions($filterByCategory, $filterByLetter, $search, $questions);
-			} 
+			}
 			include 'questions.php';
 			break;
 		case 'add_question':
-			if (isset($_POST['btn_add'])) {
+			if(isset($_POST['btn_add'])) {
 				$content_question = $_POST['content'];
 				$question_level_id = $_POST['question_level_id'];
 				$question_type_id = $_POST['question_type_id'];
 				$category_id = $_POST['id_category'];
 
-				if ($_FILES['image']['name'] != "") {
+				if($_FILES['image']['name'] != "") {
 					$targetDir = '../assets/img/questions/';
 					$image = $_FILES['image']['name'];
-					move_uploaded_file($_FILES['image']['tmp_name'], $targetDir . $image);
+					move_uploaded_file($_FILES['image']['tmp_name'], $targetDir.$image);
 				} else {
 					$image = null;
 				}
@@ -318,26 +334,26 @@ if (isset($_GET['data'])) {
 				$answer = $_POST['answer'];
 				$correct_answer = $_POST['correct_answer'];
 
-				foreach ($answer as $key => $value) {
+				foreach($answer as $key => $value) {
 					$content = $value;
-					$is_correct = (int) $correct_answer[$key];
+					$is_correct = (int)$correct_answer[$key];
 					addAnswer($content, $question_id['id'], $is_correct);
 				}
 			}
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=questions">';
 			break;
 		case 'edit_question':
-			if (isset($_POST['btn_edit'])) {
+			if(isset($_POST['btn_edit'])) {
 				$content_question = $_POST['edit_content'];
 				$question_level_id = $_POST['edit_question_level_id'];
 				$question_type_id = $_POST['edit_question_type_id'];
 				$category_id = $_POST['edit_category_id'];
 				$question_id = $_POST['edit_id'];
 
-				if ($_FILES['edit_image']['name'] != "") {
+				if($_FILES['edit_image']['name'] != "") {
 					$targetDir = '../assets/img/questions/';
 					$image = $_FILES['edit_image']['name'];
-					move_uploaded_file($_FILES['edit_image']['tmp_name'], $targetDir . $image);
+					move_uploaded_file($_FILES['edit_image']['tmp_name'], $targetDir.$image);
 				} else {
 					$image = $_POST['edit_image'];
 				}
@@ -349,10 +365,10 @@ if (isset($_GET['data'])) {
 				$correct_answer = $_POST['edit_correct_answer'];
 				$leng_answer = count($answer);
 
-				for ($i = 0; $i < $leng_answer; $i++) {
-					$id = (int) $id_answer[$i];
+				for($i = 0; $i < $leng_answer; $i++) {
+					$id = (int)$id_answer[$i];
 					$content = $answer[$i];
-					$is_correct = (int) $correct_answer[$i];
+					$is_correct = (int)$correct_answer[$i];
 					editAnswer($id, $content, $question_id, $is_correct);
 				}
 			}
@@ -371,14 +387,14 @@ if (isset($_GET['data'])) {
 			include 'result/result_detail.php';
 			break;
 		case 'exams':
-			if ($_GET['page']) {
+			if($_GET['page']) {
 				$page = $_GET['page'];
 			} else {
 				$page = 1;
 			}
 			$page = ($page - 1) * 10;
 
-			if (isset($_POST['filter'])) {
+			if(isset($_POST['filter'])) {
 				$filterByCategory = $_POST['filterByCategory'];
 				$filterByLetter = $_POST['filterByLetter'];
 				$search = trim($_POST['search']);

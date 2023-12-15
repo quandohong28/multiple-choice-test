@@ -8,92 +8,44 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <form method="POST" enctype="multipart/form-data">
+            <form action="?act=tables&data=edit_schedule" method="POST" enctype="multipart/form-data">
                 <div class="row justify-content-center align-items-center h-100 m-5">
                     <div class="col-12 col-lg-9 col-xl-7">
                         <div class="row">
-                            <div class="col mb-4">
+                            <div class="col-md-6 mb-4">
                                 <div class="form-outline">
                                     <label class="form-label" for="name">Tên lịch thi</label>
-                                    <input type="text" id="name" class="form-control form-control-sm" />
+                                    <input type="text" name="edit_name" id="name"
+                                        class="form-control form-control-sm" />
                                 </div>
                             </div>
-
+                            <div class="col-md-6 mb-4 pb-2">
+                                <div class="form-outline">
+                                    <label class="form-label" for="number_exam">Số lượng đề thi</label>
+                                    <input type="number" id="number_exam" name="edit_number_exam"
+                                        class="form-control form-control-sm" />
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
-
                             <div class="col-md-6 mb-4 d-flex align-items-center">
                                 <div class="form-outline datepicker w-100">
                                     <label for="time_start" class="form-label">Thời gian bắt đầu</label>
-                                    <input type="date" name="time_start" class="form-control form-control-sm"
-                                        id="time_start" />
+                                    <input type="datetime-local" name="edit_time_start"
+                                        class="form-control form-control-sm" id="time_start" />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-4">
                                 <div class="form-outline">
-                                    <label class="form-label" for="time_exam">Thời gian làm bài</label>
-                                    <input type="number" id="time_exam" name="time_exam"
+                                    <label class="form-label" for="exam_time">Thời gian làm bài</label>
+                                    <input type="number" id="exam_time" name="edit_exam_time"
                                         class="form-control form-control-sm" />
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-4 pb-2">
-                                <div class="form-outline">
-                                    <label class="form-label" for="number_exam">Số lượng đề thi</label>
-                                    <input type="number" id="number_exam" name="number_exam"
-                                        class="form-control form-control-sm" />
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4 pb-2">
-                                <div class="form-outline">
-                                    <label class="form-label" for="number_easy_questions">Số lượng câu dễ</label>
-                                    <input type="number" id="number_easy_questions" name="number_easy_questions"
-                                        class="form-control form-control-sm" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-4 pb-2">
-                                <div class="form-outline">
-                                    <label class="form-label" for="number_medium_questions">Số lượng câu trung
-                                        bình</label>
-                                    <input type="number" id="number_medium_questions" name="number_medium_questions"
-                                        class="form-control form-control-sm" />
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4 pb-2">
-                                <div class="form-outline">
-                                    <label class="form-label" for="number_hard_questions">Số lượng câu khó</label>
-                                    <input type="number" id="number_hard_questions" name="number_hard_questions"
-                                        class="form-control form-control-sm" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="md-6 mb-4 pb-2">
-                                <div class="form-outline">
-                                    <label class="form-label" for="category_id">Chuyên mục</label>
-                                    <div class="mb-3">
-                                        <select name="category_id" class="select form-control form-control-sm">
-                                            <option>Chọn chuyên mục</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="md-6 mb-4 pb-2">
-                                <div class="form-outline">
-                                    <label class="form-label" for="accounts">Thêm thí sinh</label>
-                                    <input type="file" id="accounts" name="accounts"
-                                        class="form-control form-control-sm" />
-                                </div>
-                            </div>
-                        </div>
+                        <input type="hidden" value="" placeholder="" name="edit_id" id="id">
                     </div>
                 </div>
-
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Hủy</button>
                     <button class="btn btn-primary" name="submit" type="submit">Xác nhận</button>
@@ -102,3 +54,26 @@
         </div>
     </div>
 </div>
+
+<script>
+    const myModal = document.getElementById('editScheduleModal')
+    myModal.addEventListener('shown.bs.modal', function () {
+        const id = document.querySelector('input[name="edit_id"]');
+        const name = document.querySelector('input[name="edit_name"]');
+        const time_start = document.querySelector('input[name="edit_time_start"]');
+        const exam_time = document.querySelector('input[name="edit_exam_time"]');
+        const number_exam = document.querySelector('input[name="edit_number_exam"]');
+        
+
+        const button = event.relatedTarget
+        const recipient = button.getAttribute('data-value')
+        const val = JSON.parse(recipient)
+
+        name.setAttribute('value', val.name);
+        time_start.setAttribute('value', val.time_start);
+        exam_time.setAttribute('value', val.exam_time);
+        number_exam.setAttribute('value', val.number_exam);
+        
+        id.setAttribute('value', val.id);
+    })
+</script>
