@@ -89,7 +89,7 @@ function insertExam($schedule_id, $category_id, $exam_type_id, $number_easy_ques
     }
 }
 
-function insertPracticeExam($schedule_id, $category_id, $exam_type_id, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time)
+function insertPracticeExam($schedule_id = null, $category_id, $exam_type_id, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time)
 {
     $number_question = $number_easy_questions + $number_medium_questions + $number_hard_questions;
     try {
@@ -110,7 +110,7 @@ function insertPracticeExam($schedule_id, $category_id, $exam_type_id, $number_e
         }
         foreach ($getRandomQuestionIdByLevelHard as $question => $value) {
             insertExamDetail($latestExamId, $value['id']);
-        }
+        } 
     } catch (Exception $e) {
         echo $e->getMessage();
     }

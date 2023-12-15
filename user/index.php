@@ -79,8 +79,8 @@ include '../model/answer.php';
                                 $number_hard_questions = $_POST['number_hard_questions'];
                                 insertPracticeExam(1, $category_id, $type, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
                                 $latestExamId = getLatestExam()['id'];
-                                $exam_id = $latestExamId; 
-                                $exam_code = getLatestExam()['code'];
+                                $exam_id = $latestExamId;
+                                $exam_code = getLatestExam()['exam_code'];
                             }
 
                             // Xu ly cho chuan bi thi that
@@ -88,57 +88,74 @@ include '../model/answer.php';
                                 $schedule_id = $_POST['schedule_id'];
                                 $exam_id = getRandomExam($schedule_id)['id'];
                                 $exam_code = getExamById($exam_id)['exam_code'];
-                            }   
-
+                            }
 
                             addResult($_SESSION['user']['id'], $exam_id);
                             $latest_result_id = getLatestResult()['id'];
+                            $time_start = getResultById($latest_result_id)[0]['time_start'];
                             //Tạo bản kết quả tạm thời với câu trả lời là Null
                             $getQuestionsByExamDetails = getQuestionsByExamDetails($exam_id);
                             for ($question = 0; $question < count($getQuestionsByExamDetails); $question++) {
                                 addResultDetail($latest_result_id, $getQuestionsByExamDetails[$question]['question_id'], 'null');
                             }
-                            $$exam_id = [
+                            $$exam_code = [
+                                'exam_code' => $exam_code,
                                 'type' => $type,
                                 'exam_id' => $exam_id,
-                                'exam_time' => $exam_time,
+                                'exam_time' => $exam_time, // Thoi gian lam bai thi
+                                'time_start' => $time_start, // Thoi gian bat dau lam bai thi
+                                'remaining_time' => $exam_time, // Thoi gian con lai de lam bai thi
                                 'result_id' => $latest_result_id
                             ];
                             echo "<script>  
-                                if (localStorage.getItem('arrayData') === null) {
-                                    localStorage.setItem('arrayData', JSON.stringify(" . json_encode($$exam_id) . ")); 
+                                if (localStorage.getItem('" . $exam_code . "') === null) {
+                                    localStorage.setItem('" . $exam_code . "', JSON.stringify(" . json_encode($$exam_code) . ")); 
                                 } 
                             </script>";
 
-                            echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam">';
+                            echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&exam_code=' . $exam_code . '">';
                         }
                         break;
                     case 'doing_exam':
-                        $type = $_GET['type'];
-                        $result_id = $_GET['result_id'];
-                        $exam_id = getResultById($result_id)[0]['exam_id'];
-                        $exam_detail = getExamDetailByExamId($exam_id);
-                        // Dang thi va quay lai tiep tuc
-                        if ($_GET['exam_time'] === '') {
-                            $exam_time = getExamById($_GET['exam_id'])['exam_time'];
-                            $time_start = getResultById($result_id)[0]['time_start'];
-                            $dt = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
-                            $current_time = $dt->format('Y-m-d H:i:s');
-                            $diff = strtotime($current_time) - strtotime($time_start);
-                            $remaning_time = $exam_time * 60 - $diff;
-                            if ($remaning_time <= 0) {
-                                echo '<meta http-equiv="refresh" content="0;url=?act=result">';
-                            } else {
-                                $exam_time = round($remaning_time / 60, 1);
-                                echo '<meta http-equiv="refresh" content="0;url=?act=doing_exam&type=' . $type . '&exam_id=' . $exam_id . '&exam_time=' . $exam_time . '&result_id=' . $result_id . '">';
-                            }
-                        }
-                        
-                        // bat dau mot bai thi moi
-                        else {
-                            $exam_time = getResultById($result_id)[0]['exam_time'];
-                        }
+                        echo "<script>
+                            if (localStorage.getItem('" . $_GET['exam_code'] . "') === null) {
+                                window.location.href = '?act=practice'; 
+                            } else { 
+                                var exam = JSON.parse(localStorage.getItem('" . $_GET['exam_code'] . "'));
 
+                                var exam_time = exam.exam_time; 
+                                var time_start = exam.time_start;
+                                var remaining_time = exam.remaining_time;
+                                if (remaining_time <= 0) {
+                                    window.location.href = '?act=result';
+                                } else {
+                                    dt = new Date();
+                                    var day = dt.getDate();
+                                    var month = dt.getMonth() + 1; // Tháng bắt đầu từ 0 nên cần cộng thêm 1
+                                    var year = dt.getFullYear();
+
+                                    var hours = dt.getHours().toString().padStart(2, '0');
+                                    var minutes = dt.getMinutes().toString().padStart(2, '0');
+                                    var seconds = dt.getSeconds().toString().padStart(2, '0');
+
+                                    // Định dạng ngày và giờ thành chuỗi
+                                    var current_time = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+                                    console.log(current_time);
+                                    console.log(time_start);
+                                    var diff = (Date.parse(current_time) - Date.parse(time_start)) / 1000;
+                                    console.log(diff);
+                                    var remaining_time = exam_time * 60 - diff;
+                                    console.log(remaining_time);
+                                    if (remaining_time <= 0) {
+                                        window.location.href = '?act=result';
+                                    } else {
+                                        remaining_time = remaining_time / 60;
+                                        exam.remaining_time = remaining_time;
+                                        localStorage.setItem('" . $_GET['exam_code'] . "', JSON.stringify(exam));
+                                    }
+                                }
+                            }
+                        </script>"; 
 
                         include './exams/doing_exam.php';
                         break;

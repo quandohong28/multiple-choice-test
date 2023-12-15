@@ -31,12 +31,12 @@ function getResultById($id)
         rd.answer_id AS user_answer_id,
         a.id AS answer_correct_id
     FROM results r 
-    JOIN result_details rd ON rd.result_id = r.id 
-    JOIN exam_details ed ON ed.exam_id = r.exam_id
-    JOIN exams e ON e.id = r.exam_id
-    JOIN questions q ON q.id = rd.question_id
-    JOIN answers a ON a.question_id = q.id
-    JOIN types t ON t.id = e.exam_type_id
+    LEFT JOIN result_details rd ON rd.result_id = r.id 
+    LEFT JOIN exam_details ed ON ed.exam_id = r.exam_id
+    LEFT JOIN exams e ON e.id = r.exam_id
+    LEFT JOIN questions q ON q.id = rd.question_id
+    LEFT JOIN answers a ON a.question_id = q.id
+    LEFT JOIN types t ON t.id = e.exam_type_id
     WHERE r.id = $id
     GROUP BY rd.id;";
         return pdo_query($sql);

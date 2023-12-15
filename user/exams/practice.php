@@ -39,7 +39,7 @@
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                     <?php foreach ($doingExams as $doingExam) :
                                         extract($doingExam) ?>
-                                        <li><a href="?act=doing_exam&result_id=<?= $result_id ?>&exam_id=<?= $exam_id ?>&type=<?= $type ?>&exam_time=<?= $exam_time ?>" class="link-dark">
+                                        <li><a href="?act=doing_exam&exam_code=<?= $exam_code ?>" class="link-dark">
                                                 <?= $exam_code ?>
                                             </a>
                                         </li>

@@ -45,8 +45,7 @@
         // Button that triggered the modal
         let button = event.relatedTarget;
         // Extract info from data-bs-* attributes
-        let recipient = JSON.parse(button.getAttribute('data-bs-value'));
-        console.log(recipient);
+        let recipient = JSON.parse(button.getAttribute('data-bs-value')); 
 
         const category = document.getElementById('category');
         const number_question = document.getElementById('number_question');

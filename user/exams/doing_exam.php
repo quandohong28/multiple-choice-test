@@ -78,11 +78,15 @@
         var currentQuestionIndex = 0;
         var questions = [];
 
-        var arrayData = JSON.parse(localStorage.getItem('arrayData'));
-        var type = arrayData.type;
-        var exam_id = arrayData.exam_id;
-        var result_id = arrayData.result_id;
-        var exam_time = arrayData.exam_time * 60;
+        // Lấy ra tham số truyền vào từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        var exam_code = urlParams.get('exam_code');
+
+        var exam_code = JSON.parse(localStorage.getItem(exam_code));
+        var type = exam_code.type;
+        var exam_id = exam_code.exam_id;
+        var result_id = exam_code.result_id; 
+        var exam_time = exam_code.remaining_time * 60; 
 
         // Hàm lấy câu hỏi theo id đề thi
         const getQuestionById = async () => {
@@ -326,16 +330,13 @@
                 }
 
                 // Lưu thời gian còn lại vào localStorage
-                arrayData.exam_time = seconds / 60; // Thay đổi giá trị exam_time
-                localStorage.setItem('arrayData', JSON.stringify(arrayData));
-                
+                exam_code.remaining_time = seconds / 60; // Thay đổi giá trị exam_time
+                localStorage.setItem(exam_code.exam_code, JSON.stringify(exam_code));
  
-            }
-
+            }  
             // Gọi hàm updateTimer mỗi giây
             timerInterval = setInterval(updateTimer, 1000);
-        }
-
+        }  
         // xu ly thoi gian lam bai
         function formatTime(seconds) {
             var hours = Math.floor(seconds / 3600);
