@@ -8,7 +8,7 @@
                 <div class="row align-items-end me-1">
                     <div class="col-md-3 form-group">
                         <label>Sắp xếp theo</label>
-                        <select name="filterByCategory" class="form-control form-control-sm"> DESC
+                        <select name="filterByCategory" class="form-control form-control-sm">
                             <option value="id" selected>ID</option>
                             <option value="name_schedules">Tên lịch thi</option>
                             <option value="time_schedules">Thời gian bắt đầu</option>

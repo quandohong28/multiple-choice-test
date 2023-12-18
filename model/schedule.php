@@ -274,7 +274,7 @@ function getScheduleByTimePeriod($start_date, $end_date)
     }
 }
 
-function getScheduleDetail($schedule_id)
+function getScheduleDetail($schedule_id, $page)
 {
     try {
         $sql = "SELECT
@@ -284,7 +284,8 @@ function getScheduleDetail($schedule_id)
         a.fullname
         FROM schedule_detail sd
         INNER JOIN accounts a ON sd.account_id = a.id
-        WHERE sd.schedule_id = '$schedule_id';";
+        WHERE sd.schedule_id = '$schedule_id'
+        LIMIT $page, 10;";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -296,6 +297,20 @@ function deleteCandidate($schedule_id, $candidate_id)
     try {
         $sql = "DELETE FROM schedule_detail WHERE schedule_id = '$schedule_id' AND account_id = '$candidate_id';";
         pdo_execute($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function countScheduleDetail($schedule_id)
+{
+    try {
+        $sql = "SELECT
+        *
+        FROM schedule_detail sd
+        INNER JOIN accounts a ON sd.account_id = a.id
+        WHERE sd.schedule_id = '$schedule_id'";
+        return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }

@@ -10,20 +10,31 @@ function filterQuestions($filterByCategory, $filterByLetter, $search, $questions
                 }
             }
         } else {
-            if ($filterByCategory == 'id') {
-                if ($filterByLetter == 'a-z') {
-                    array_multisort(array_column($questions, 'id'), SORT_ASC, $questions);
-                } else {
-                    array_multisort(array_column($questions, 'id'), SORT_DESC, $questions);
-                }
-                $newQuestions = $questions;
-            } else {
-                if ($filterByLetter == 'a-z') {
-                    array_multisort(array_column($questions, 'content'), SORT_ASC, $questions);
-                } else {
-                    array_multisort(array_column($questions, 'content'), SORT_DESC, $questions);
-                }
-                $newQuestions = $questions;
+            switch ($filterByCategory) {
+                case 'value':
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($questions, 'id'), SORT_ASC, $questions);
+                    } else {
+                        array_multisort(array_column($questions, 'id'), SORT_DESC, $questions);
+                    }
+                    $newQuestions = $questions;
+                    break;
+                case 'question';
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($questions, 'content'), SORT_ASC, $questions);
+                    } else {
+                        array_multisort(array_column($questions, 'content'), SORT_DESC, $questions);
+                    }
+                    $newQuestions = $questions;
+                    break;
+                default:
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($questions, 'id'), SORT_ASC, $questions);
+                    } else {
+                        array_multisort(array_column($questions, 'id'), SORT_DESC, $questions);
+                    }
+                    $newQuestions = $questions;
+                    break;
             }
         }
         return $newQuestions;
@@ -43,33 +54,46 @@ function filterAccounts($filterByCategory, $filterByLetter, $search, $accounts)
                 }
             }
         } else {
-            if ($filterByCategory == 'id') {
-                if ($filterByLetter == 'a-z') {
-                    array_multisort(array_column($accounts, 'id'), SORT_ASC, $accounts);
-                } else {
-                    array_multisort(array_column($accounts, 'id'), SORT_DESC, $accounts);
-                }
-                $newAccounts = $accounts;
-            } else if ($filterByLetter == 'username') {
-                if ($filterByLetter == 'a-z') {
-                    array_multisort(array_column($accounts, 'username'), SORT_DESC, $accounts);
-                } else {
-                    array_multisort(array_column($accounts, 'username'), SORT_ASC, $accounts);
-                }
-                $newAccounts = $accounts;
-            } else if ($filterByLetter == 'fullname') {
-                if ($filterByLetter == 'a-z') {
-                    array_multisort(array_column($accounts, 'fullname'), SORT_ASC, $accounts);
-                } else {
-                    array_multisort(array_column($accounts, 'fullname'), SORT_DESC, $accounts);
-                }
-            } else {
-                if ($filterByLetter == 'a-z') {
-                    array_multisort(array_column($accounts, 'role'), SORT_ASC, $accounts);
-                } else {
-                    array_multisort(array_column($accounts, 'role'), SORT_DESC, $accounts);
-                }
-                $newAccounts = $accounts;
+            switch ($filterByCategory) {
+                case 'value':
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($accounts, 'id'), SORT_ASC, $accounts);
+                    } else {
+                        array_multisort(array_column($accounts, 'id'), SORT_DESC, $accounts);
+                    }
+                    $newAccounts = $accounts;
+                    break;
+                case 'username':
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($accounts, 'username'), SORT_DESC, $accounts);
+                    } else {
+                        array_multisort(array_column($accounts, 'username'), SORT_ASC, $accounts);
+                    }
+                    $newAccounts = $accounts;
+                    break;
+                case 'fullname':
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($accounts, 'fullname'), SORT_ASC, $accounts);
+                    } else {
+                        array_multisort(array_column($accounts, 'fullname'), SORT_DESC, $accounts);
+                    }
+                    break;
+                case 'role':
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($accounts, 'role'), SORT_ASC, $accounts);
+                    } else {
+                        array_multisort(array_column($accounts, 'role'), SORT_DESC, $accounts);
+                    }
+                    $newAccounts = $accounts;
+                    break;
+                default:
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($accounts, 'id'), SORT_ASC, $accounts);
+                    } else {
+                        array_multisort(array_column($accounts, 'id'), SORT_DESC, $accounts);
+                    }
+                    $newAccounts = $accounts;
+                    break;
             }
         }
         return $newAccounts;
@@ -89,20 +113,31 @@ function filterCategories($filterByCategory, $filterByLetter, $search, $catergor
                 }
             }
         } else {
-            if ($filterByCategory == 'id') {
-                if ($filterByLetter == 'a-z') {
-                    array_multisort(array_column($catergories, 'id'), SORT_ASC, $catergories);
-                } else {
-                    array_multisort(array_column($catergories, 'id'), SORT_DESC, $catergories);
-                }
-                $newCategories = $catergories;
-            } else {
-                if ($filterByLetter == 'a-z') {
-                    array_multisort(array_column($catergories, 'name'), SORT_ASC, $catergories);
-                } else {
-                    array_multisort(array_column($catergories, 'name'), SORT_DESC, $catergories);
-                }
-                $newCategories = $catergories;
+            switch ($filterByCategory) {
+                case 'id':
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($catergories, 'id'), SORT_ASC, $catergories);
+                    } else {
+                        array_multisort(array_column($catergories, 'id'), SORT_DESC, $catergories);
+                    }
+                    $newCategories = $catergories;
+                    break;
+                case 'category_name':
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($catergories, 'name'), SORT_ASC, $catergories);
+                    } else {
+                        array_multisort(array_column($catergories, 'name'), SORT_DESC, $catergories);
+                    }
+                    $newCategories = $catergories;
+                    break;
+                default:
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($catergories, 'id'), SORT_ASC, $catergories);
+                    } else {
+                        array_multisort(array_column($catergories, 'id'), SORT_DESC, $catergories);
+                    }
+                    $newCategories = $catergories;
+                    break;
             }
         }
         return $newCategories;
@@ -113,11 +148,7 @@ function filterCategories($filterByCategory, $filterByLetter, $search, $catergor
 
 function filterSchedules($filterByCategory, $filterByLetter, $search, $schedules)
 {
-    try {
-        echo $filterByCategory;
-        echo "<br>";
-        echo $filterByLetter;
-        die;
+    try { 
         $newSchedules = [];
         if ($search != '') {
             foreach ($schedules as $schedule) {
@@ -126,40 +157,110 @@ function filterSchedules($filterByCategory, $filterByLetter, $search, $schedules
                 }
             }
         } else {
-            if ($filterByCategory == 'id') {
-                if ($filterByLetter == 'a-z') {
-                    array_multisort(array_column($schedules, 'id'), SORT_ASC, $schedules);
-                } else {
-                    array_multisort(array_column($schedules, 'id'), SORT_DESC, $schedules);
-                }
-                $newSchedules = $schedules;
-            } else if ($filterByLetter == 'name_schedules') {
-                if ($filterByLetter == 'a-z') {
-                    array_multisort(array_column($schedules, 'name'), SORT_ASC, $schedules);
-                } else {
-                    array_multisort(array_column($schedules, 'name'), SORT_DESC, $schedules);
-                }
-                $newSchedules = $schedules;
-            } else if ($filterByLetter == 'time_schedules') {
-                if ($filterByLetter == 'a-z') {
-                    array_multisort(array_column($schedules, 'time_start'), SORT_ASC, $schedules);
-                } else {
-                    array_multisort(array_column($schedules, 'time_start'), SORT_DESC, $schedules);
-                }
-            } else {
-                if ($filterByLetter == 'a-z') {
-                    array_multisort(array_column($schedules, 'number_exam'), SORT_ASC, $schedules);
-                } else {
-                    array_multisort(array_column($schedules, 'number_exam'), SORT_DESC, $schedules);
-                }
-                $newSchedules = $schedules;
+            switch ($filterByCategory) {
+                case 'id':
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($schedules, 'id'), SORT_ASC, $schedules);
+                    } else {
+                        array_multisort(array_column($schedules, 'id'), SORT_DESC, $schedules);
+                    }
+                    $newSchedules = $schedules;
+                    break;
+                case 'name_schedules':
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($schedules, 'name'), SORT_ASC, $schedules);
+                    } else {
+                        array_multisort(array_column($schedules, 'name'), SORT_DESC, $schedules);
+                    }
+                    $newSchedules = $schedules;
+                    break;
+                case 'time_schedules':
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($schedules, 'time_start'), SORT_ASC, $schedules);
+                    } else {
+                        array_multisort(array_column($schedules, 'time_start'), SORT_DESC, $schedules);
+                    }
+                    $newSchedules = $schedules;
+                    break;
+                case 'time_schedules':
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($schedules, 'time_start'), SORT_ASC, $schedules);
+                    } else {
+                        array_multisort(array_column($schedules, 'time_start'), SORT_DESC, $schedules);
+                    }
+                    $newSchedules = $schedules;
+                    break;
+                case 'quantity_schedules':
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($schedules, 'number_exam'), SORT_ASC, $schedules);
+                    } else {
+                        array_multisort(array_column($schedules, 'number_exam'), SORT_DESC, $schedules);
+                    }
+                    $newSchedules = $schedules;
+                    break;
+                default:
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($schedules, 'id'), SORT_ASC, $schedules);
+                    } else {
+                        array_multisort(array_column($schedules, 'id'), SORT_DESC, $schedules);
+                    }
+                    $newSchedules = $schedules;
+                    break;
             }
         }
-        // echo "<pre>";
-        // array_multisort(array_column($schedules, 'time_start'), SORT_ASC, $schedules);
-        // var_dump($newSchedules);
-        // echo "</pre>";
         return $newSchedules;
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function filterSchedulesDetail($filterByCategory, $filterByLetter, $search, $schedule_detail)
+{
+    try { 
+        $newSchedulesDetail = [];
+        if ($search != '') {
+            foreach ($schedule_detail as $schedule_dt) {
+                if (strpos(mb_strtolower($schedule_dt['fullname'], 'UTF-8'), $search) !== false) {
+                    array_push($newSchedulesDetail, $schedule_dt);
+                }
+            }
+        } else {
+            switch ($filterByCategory) {
+                case 'id':
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($schedule_detail, 'id'), SORT_ASC, $schedule_detail);
+                    } else {
+                        array_multisort(array_column($schedule_detail, 'id'), SORT_DESC, $schedule_detail);
+                    }
+                    $newSchedulesDetail = $schedule_detail;
+                    break;
+                case 'id_candidates':
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($schedule_detail, 'account_id'), SORT_ASC, $schedule_detail);
+                    } else {
+                        array_multisort(array_column($schedule_detail, 'account_id'), SORT_DESC, $schedule_detail);
+                    }
+                    $newSchedulesDetail = $schedule_detail;
+                    break;
+                case 'name_candidates':
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($schedule_detail, 'fullname'), SORT_ASC, $schedule_detail);
+                    } else {
+                        array_multisort(array_column($schedule_detail, 'fullname'), SORT_DESC, $schedule_detail);
+                    }
+                    $newSchedulesDetail = $schedule_detail;
+                    break; 
+                default:
+                    if ($filterByLetter == 'a-z') {
+                        array_multisort(array_column($schedule_detail, 'id'), SORT_ASC, $schedule_detail);
+                    } else {
+                        array_multisort(array_column($schedule_detail, 'id'), SORT_DESC, $schedule_detail);
+                    }
+                    $newSchedulesDetail = $schedule_detail;
+                    break;
+            }
+        }
+        return $newSchedulesDetail;
     } catch (Exception $e) {
         echo $e->getMessage();
     }
