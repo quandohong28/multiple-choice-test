@@ -27,7 +27,7 @@ function getExamById($id)
 }
 
 
-function getExamsByScheduleId($schedule_id)
+function getExamsByScheduleId($account_id, $schedule_id)
 {
     try {
         $sql = "SELECT
@@ -36,12 +36,15 @@ function getExamsByScheduleId($schedule_id)
         c.image,
         e.number_question,
         e.schedule_id,
-        e.exam_time
+        e.exam_time,
+        e.exam_code
         FROM
         exams e
         INNER JOIN categories c ON e.category_id = c.id
-        WHERE schedule_id = '$schedule_id';";
-        // echo $sql;die;
+        INNER JOIN schedules s ON s.id = e.schedule_id
+        INNER JOIN schedule_detail sd ON sd.schedule_id = s.id 
+        WHERE s.id = '$schedule_id' AND sd.account_id = '$account_id';";
+
         return pdo_query_one($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -110,7 +113,7 @@ function insertPracticeExam($schedule_id = null, $category_id, $exam_type_id, $n
         }
         foreach ($getRandomQuestionIdByLevelHard as $question => $value) {
             insertExamDetail($latestExamId, $value['id']);
-        } 
+        }
     } catch (Exception $e) {
         echo $e->getMessage();
     }

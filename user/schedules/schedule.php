@@ -68,7 +68,7 @@
                     <tbody>
                         <?php foreach ($schedules as $schedule) : extract($schedule);
                             list($start_date, $start_time) = explode(" ", $time_start);
-                            $exam = getExamsByScheduleId($schedule_id);
+                            $exam = getExamsByScheduleId($_SESSION['user']['id'], $schedule_id); 
                         ?>
                             <tr class="">
                                 <td><?= $schedule_id ?></td>

@@ -77,7 +77,8 @@ include '../model/answer.php';
                                 $number_easy_questions = $_POST['number_easy_questions'];
                                 $number_medium_questions = $_POST['number_medium_questions'];
                                 $number_hard_questions = $_POST['number_hard_questions'];
-                                insertPracticeExam(1, $category_id, $type, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
+                                $schedule_id = 1;
+                                insertPracticeExam($schedule_id, $category_id, $type, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
                                 $latestExamId = getLatestExam()['id'];
                                 $exam_id = $latestExamId;
                                 $exam_code = getLatestExam()['exam_code'];
@@ -88,6 +89,7 @@ include '../model/answer.php';
                                 $schedule_id = $_POST['schedule_id'];
                                 $exam_id = getRandomExam($schedule_id)['id'];
                                 $exam_code = getExamById($exam_id)['exam_code'];
+                                updateStatusScheduleDetail($schedule_id, $_SESSION['user']['id'], 1);
                             }
 
                             addResult($_SESSION['user']['id'], $exam_id);
@@ -99,6 +101,7 @@ include '../model/answer.php';
                                 addResultDetail($latest_result_id, $getQuestionsByExamDetails[$question]['question_id'], 'null');
                             }
                             $$exam_code = [
+                                'schedule_id' => $schedule_id, 
                                 'exam_code' => $exam_code,
                                 'type' => $type,
                                 'exam_id' => $exam_id,
@@ -163,13 +166,13 @@ include '../model/answer.php';
                         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             $exam_time = $_POST['exam_time'];
                             $exam_id = $_POST['exam_id'];
-                            // $points = $_POST['points'];
+                            $schedule_id = $_POST['schedule_id'];
                             $points = 0;
                             if ($exam_time == '') {
                                 $exam_time = $_GET['exam_time'];
                             }
+                            updateStatusScheduleDetail($schedule_id, $_SESSION['user']['id'], 2);
                             updateResult($exam_time, $points, $exam_id);
-                            updateStatusScheduleDetail($schedule_id, $account_id, $status);
                             examResult($exam_id);
                             echo '<meta http-equiv="refresh" content="0;url=?act=result">';
                         }

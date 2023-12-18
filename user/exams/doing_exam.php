@@ -86,6 +86,7 @@
         var exam_code = JSON.parse(localStorage.getItem(exam_code));
         var type = exam_code.type;
         var exam_id = exam_code.exam_id;
+        var schedule_id = exam_code.schedule_id;
         var result_id = exam_code.result_id; 
         var exam_time = exam_code.remaining_time * 60; 
 
@@ -357,7 +358,7 @@
         var timerInterval = null;
 
         function formatTimeString(string) {
-            // Chia chuỗi thời gian thành mảng phút và giây
+            // Chia chuỗi thời gian thành mảng phút và giây15
             var arrayTime = string.split(":");
 
             // Lấy giá trị phút và giây từ mảng
@@ -384,8 +385,9 @@
         continue_exam.addEventListener('click', () => {
             countdown(formatTimeString(examTime.innerHTML));
         })
-
+        
         document.querySelector('input[name="exam_id"]').value = exam_id;
+        document.querySelector('input[name="schedule_id"]').value = schedule_id;
 
         // Xử lý thanh progress
 

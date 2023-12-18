@@ -5,7 +5,15 @@
                 <h6 class="modal-title" id="modalTitleId">Lịch thi chi tiết</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="POST" action="?act=start_exam">
+            <form method="POST" action="<?php
+            if($schedule_detail_status == 0) {
+                echo "?act=start_exam";
+            }
+            if($schedule_detail_status == 1) { 
+                echo "?act=doing_exam&exam_code=" . $exam_code;
+                var_dump($exam);
+            } 
+            ?>">
                 <div class="modal-body">
                     <div class="py-3">
                         <div class="">
@@ -27,32 +35,31 @@
                     <input type="hidden" name="type" value="2">
                     <input type="hidden" name="schedule_id" id="schedule_id">
                     <input type="hidden" name="category_id" id="category_id">
-                    <input type="hidden" name="exam_time" id="exam_time"> 
+                    <input type="hidden" name="exam_time" id="exam_time">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Đóng</button>
-                    <a id="start-btn" class="btn btn-sm btn-primary" style="<?php if (($status != 1 && $schedule_detail_status == 0 ) || ($status != 1 && $schedule_detail_status == 1 )) echo "pointer-events: none;"; ?>">
-                        <?php 
-                            if($schedule_detail_status == 0) echo "Bắt đầu bài thi";
-                            else if($schedule_detail_status == 1) echo "Tiếp tục làm bài";
-                            else if($schedule_detail_status == 2) echo "Bài thi đã kết thúc";
+                    <button type="submit" name="start-btn" class="btn btn-sm btn-primary">
+                        <?php
+                        if ($schedule_detail_status == 0) echo "Bắt đầu bài thi";
+                        else if ($schedule_detail_status == 1) echo "Tiếp tục làm bài";
+                        else if ($schedule_detail_status == 2) echo "Bài thi đã kết thúc";
                         ?>
-                    </a>
+                    </button> 
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<script>
+<script> 
     var scheduledeatilmodal = document.getElementById('scheduledeatilmodal');
 
     scheduledeatilmodal.addEventListener('show.bs.modal', function(event) {
         // Button that triggered the modal
         let button = event.relatedTarget;
         // Extract info from data-bs-* attributes
-        let recipient = JSON.parse(button.getAttribute('data-bs-value')); 
-
+        let recipient = JSON.parse(button.getAttribute('data-bs-value'));
         const category = document.getElementById('category');
         const number_question = document.getElementById('number_question');
 
