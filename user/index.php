@@ -90,6 +90,8 @@ include '../model/answer.php';
                             $schedule_id = $_GET['schedule_id'];
                             $exam_id = getRandomExam($schedule_id)['id'];
                             $exam_time = $_GET['exam_time'];
+                            updateStatusScheduleDetail($schedule_id, $_SESSION['user']['id'], 1);
+
                             addResult($_SESSION['user']['id'], $exam_id);
                             $latest_result_id = getLatestResult()['id'];
                             //Tạo bản kết quả tạm thời với câu trả lời là Null
@@ -136,6 +138,7 @@ include '../model/answer.php';
                                 $exam_time = $_GET['exam_time'];
                             }
                             updateResult($exam_time, $points, $exam_id);
+                            updateStatusScheduleDetail($schedule_id, $account_id, $status);
                             examResult($exam_id);
                             echo '<meta http-equiv="refresh" content="0;url=?act=result">';
                         }

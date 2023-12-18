@@ -61,7 +61,8 @@
                                     <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
-                            <th class="small p-2">Chức năng</th>
+                            <th class="small p-2">Trạng thái</th>
+                            <th class="small p-2">Chi tiết</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,11 +84,20 @@
                                     <?= $number_exam ?> Mã đề
                                 </td>
                                 <td class="small" class="">
+                                    <span>
+                                        <?php
+                                        if ($status == 0) echo "<span class='text-danger'>Chưa mở</span>";
+                                        else if ($status == 1) echo "<span class='text-success'>Đang mở</span>";
+                                        else if ($status == 2) echo "<span class='text-warning'>Đang diễn ra</span>";
+                                        else echo "<span class='text-secondary'>Đã đóng</span>";
+                                        ?>
+                                    </span>
+                                </td>
+                                <td class="small" class="">
                                     <a class="badge bg-info px-3 py-2" type="button" data-bs-toggle="modal" data-bs-target="#scheduledeatilmodal" data-bs-value='<?= json_encode($exam) ?>'>
                                         <i class="fa-solid fa-circle-info fa-xl me-2"></i>
-                                        <span>Chi tiết</span>
+                                        <span>Xem chi tiết</span>
                                     </a>
-
                                 </td>
                             </tr>
                         <?php endforeach ?>

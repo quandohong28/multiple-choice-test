@@ -56,7 +56,7 @@ function getResultsByUserId($account_id)
         FROM results r
         INNER JOIN exams e ON r.exam_id = e.id
         INNER JOIN types t ON e.exam_type_id = t.id
-        WHERE r.account_id = '$account_id'";
+        WHERE r.account_id = '$account_id' ORDER BY r.id DESC;";
         return pdo_query($sql);
     } catch (Exception $e) {
         return $e->getMessage();

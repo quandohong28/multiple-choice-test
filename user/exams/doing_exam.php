@@ -87,6 +87,7 @@
                                 <p>Bạn có muốn kết thúc bài thi?</p>
                                 <input type="hidden" name="exam_id">
                                 <input type="hidden" name="exam_time">
+                                <input type="hidden" name="schedule_id">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -361,5 +362,6 @@
             countdown(formatTimeString(examTime.innerHTML));
         })
 
+        document.querySelector('input[name="exam_id"]').value = exam_id;
         document.querySelector('input[name="exam_id"]').value = exam_id;
     </script>

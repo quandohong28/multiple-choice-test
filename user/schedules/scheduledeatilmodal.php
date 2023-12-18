@@ -28,7 +28,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Đóng</button>
-                    <a id="start-btn" class="btn btn-sm btn-primary">Bắt đầu làm bài</a>
+                    <a id="start-btn" class="btn btn-sm btn-primary" style="<?php if (($status != 1 && $schedule_detail_status == 0 ) || ($status != 1 && $schedule_detail_status == 1 )) echo "pointer-events: none;"; ?>">
+                        <?php 
+                            if($schedule_detail_status == 0) echo "Bắt đầu bài thi";
+                            else if($schedule_detail_status == 1) echo "Tiếp tục làm bài";
+                            else if($schedule_detail_status == 2) echo "Bài thi đã kết thúc";
+                        ?>
+                    </a>
                 </div>
             </form>
         </div>
