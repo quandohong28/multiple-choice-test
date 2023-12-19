@@ -226,7 +226,7 @@ function getDoingExamByAccountId($id)
                 e.id AS exam_id, e.exam_code AS exam_code, e.exam_type_id AS type
                 FROM results r
                 INNER JOIN exams e ON e.id = r.exam_id
-                WHERE r.account_id = $id AND r.status = 0;";
+                WHERE r.account_id = $id AND r.status = 0 AND e.exam_type_id = 1;";
         return pdo_query($sql);
     } catch (\Exception $e) {
         echo $e->getMessage();
@@ -257,11 +257,6 @@ function reloadStatusResult($id)
         $results = pdo_query($sql1);
         foreach ($results as $result) {
             extract($result);
-            $exam_id = $exam_id;
-            $result_id = $result_id;
-            $result_status = $result_status;
-            $time_start = $time_start;
-            $exam_time = $exam_time;
             $time_end = date('Y-m-d H:i:s', strtotime($time_start) + $exam_time * 60);
             $dt = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
             $current_time = $dt->format('Y-m-d H:i:s');
