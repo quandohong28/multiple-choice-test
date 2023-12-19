@@ -215,6 +215,11 @@ if (isset($_GET['data'])) {
 		case 'edit_schedule':
 			break;
 		case 'schedule_detail':
+			// xử lý lấy ra danh sách đề thi thuộc một lịch thi
+			if (isset($_GET['schedule_id'])) {
+				$exams = getExamsByScheduleId($_GET['schedule_id']);
+			}
+
 			// Xử lý phân trang
 			if (isset($_GET['page'])) {
 				$page = $_GET['page'];
@@ -254,7 +259,7 @@ if (isset($_GET['data'])) {
 						}
 					}
 				}
-			} 
+			}
 			include 'schedule/schedule_detail.php';
 			break;
 		case 'del_candidate':

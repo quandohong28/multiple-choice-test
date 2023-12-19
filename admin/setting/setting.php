@@ -32,7 +32,7 @@
     </div>
     <div class="p-5 bg-white col-12 mt-3 rounded-3">
         <?php
-        if(isset($_GET['controller'])) {
+        if (isset($_GET['controller'])) {
             switch ($_GET['controller']) {
                 case 'general':
                     include 'setting/general.php';

@@ -16,6 +16,7 @@ include '../model/result.php';
 include '../model/exam.php';
 include '../model/excel.php';
 require '../lib/PhpExcel/vendor/autoload.php';
+include '../functions/core.php';
 
 // Xử lý lấy ra các config trong file config
 // Đường dẫn đến file .config

@@ -36,7 +36,8 @@ function getExamsByScheduleId($schedule_id)
         c.image,
         e.number_question,
         e.schedule_id,
-        e.exam_time
+        e.exam_time,
+        e.exam_code
         FROM
         exams e
         INNER JOIN categories c ON e.category_id = c.id
