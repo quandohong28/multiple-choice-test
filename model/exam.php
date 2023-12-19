@@ -27,7 +27,7 @@ function getExamById($id)
 }
 
 
-function getExamsByScheduleId($schedule_id)
+function getExamByScheduleId($schedule_id)
 {
     try {
         $sql = "SELECT
@@ -42,8 +42,29 @@ function getExamsByScheduleId($schedule_id)
         exams e
         INNER JOIN categories c ON e.category_id = c.id
         WHERE schedule_id = '$schedule_id';";
-       
+
         return pdo_query_one($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function getExamsByScheduleId($schedule_id)
+{
+    try {
+        $sql = "SELECT
+        e.id as exam_id,
+        e.exam_code,
+        e.number_question,
+        s.name as schedule_name,
+        c.name as category_name,
+        t.type
+        FROM exams e
+        LEFT JOIN schedules s ON s.id = e.schedule_id
+        LEFT JOIN categories c ON c.id = e.category_id
+        LEFT JOIN types t ON t.id = e.exam_type_id
+        WHERE s.id = '$schedule_id';";
+        return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
@@ -131,8 +152,9 @@ function getQuestionsByExamId($exam_id)
 {
     try {
         $sql = "SELECT
-        e.id AS id,
-        q.content AS question_content
+        q.id AS question_id,
+        q.content AS question_content,
+        q.question_level_id AS level
     FROM
         exam_details e
     INNER JOIN questions q ON

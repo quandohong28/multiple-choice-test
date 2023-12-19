@@ -1,4 +1,3 @@
-
 <!-- Danh sách đề thuộc một lịch thi -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
@@ -61,7 +60,7 @@
                         <th scope="col">Mã đề thi</th>
                         <th scope="col">Lịch thi</th>
                         <th scope="col">Chuyên mục</th>
-                        <th scope="col">Loại đề thi</th>
+                        <th scope="col">Hình thức</th>
                         <th scope="col">Số lượng câu hỏi</th>
                         <th scope="col">Chức năng</th>
                     </tr>
@@ -72,35 +71,47 @@
                         <th scope="col">Mã đề thi</th>
                         <th scope="col">Lịch thi</th>
                         <th scope="col">Chuyên mục</th>
-                        <th scope="col">Loại đề thi</th>
+                        <th scope="col">Hình thức</th>
                         <th scope="col">Số lượng câu hỏi</th>
                         <th scope="col">Chức năng</th>
                     </tr>
                 </tfoot>
                 <tbody>
-                    <?php foreach ($exams as $exam) : extract($exam); ?>
+                    <?php foreach ($exams as $exam) :
+                        $results = getResultsByExamId($exam['exam_id']);
+                        foreach ($results as &$result) {
+                            $result['exam_code'] = $exam['exam_code'];
+                            $result['schedule_name'] = $exam['schedule_name'];
+                            $result['category_name'] = $exam['category_name'];
+                            $result['type'] = $exam['type'];
+                            $result['number_question'] = $exam['number_question'];
+                        }
+                        unset($result);
+                    ?>
                         <tr class="">
                             <td class="align-middle">
-                                <?= $exam_id ?>
+                                <?= $exam['exam_id'] ?>
                             </td>
                             <td class="align-middle">
-                                <?= $exam_code ?>
+                                <?= $exam['exam_code'] ?>
                             </td>
                             <td class="align-middle">
-                                <?= $schedule_name ? $schedule_name : '<span class="badge bg-danger p-2">Thi thử không thuộc Lịch thi nào!</span>' ?>
+                                <?= $exam['schedule_name'] ?>
                             </td>
                             <td class="align-middle">
-                                <?= $category_name ?>
+                                <?= $exam['category_name'] ?>
                             </td>
                             <td class="align-middle">
-                                <?= $type_name ?>
+                                <?= $exam['type'] ?>
                             </td>
                             <td class="align-middle">
-                                <?= $number_question ?>
+                                <?= $exam['number_question'] ?>
                             </td>
-                            <td class="align-middle">
-                                <a class="btn btn-success btn-sm" href="?act=tables&data=exam_detail&id=<?= $exam_id ?>"><i class="fa-solid fa-circle-info"></i></a>
+                            <td class="align-middle col-2">
+                                <a class="btn btn-success btn-sm" href="?act=tables&data=exam_detail&id=<?= $exam['exam_id'] ?>"><i class="fa-solid fa-circle-info"></i></a>
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#results" data-bs-value='<?= json_encode($results) ?>'>Theo dõi điểm</button>
                             </td>
+
                         </tr>
                     <?php endforeach ?>
                 </tbody>
@@ -306,7 +317,127 @@
     </div>
 </div>
 
+<!-- Modal xem danh sách kết quả 1 đề thi-->
+<div class="modal fade" id="results" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleId">
+                    Danh sách kết quả thi
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <?php if (!isset($results) || $results == null) : ?>
+                    <div class="alert alert-warning" role="alert">
+                        Không có kết quả thi nào
+                    </div>
+                <?php else : ?>
+                    <div class="mb-4 px-3">
+                        <div class="row">
+                            <h6 class="col">Mã đề thi: <span class="exam-code"></span></h6>
+                            <h6 class="col text-end">Tên lịch thi: <span class="schedule-name"></span></h6>
+                        </div>
+                        <div class="row">
+                            <h6 class="col">Chuyên mục: <span class="category-name"></span></h6>
+                            <h6 class="col text-end">Hình thức: <span class="type"></span></h6>
+                        </div>
+                        <div class="row">
+                            <h6 class="col">Số lượng câu hỏi: <span class="number-question"></span></h6>
+                        </div>
+                    </div>
+                    <div class="table-responsive small">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Họ và tên thí sinh</th>
+                                    <th scope="col">Điểm</th>
+                                    <th scope="col">Thời gian bắt đầu</th>
+                                    <th scope="col">Thời gian làm bài</th>
+                                    <th scope="col">Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th scope="col">Họ và tên thí sinh</th>
+                                    <th scope="col">Điểm</th>
+                                    <th scope="col">Thời gian bắt đầu</th>
+                                    <th scope="col">Thời gian làm bài</th>
+                                    <th scope="col">Chức năng</th>
+                                </tr>
+                            </tfoot>
+                            <tbody id="results-body-table">
+
+                            </tbody>
+                        </table>
+                    </div>
+                <?php endif ?>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+    var results = document.getElementById('results');
+
+    results.addEventListener('show.bs.modal', function(event) {
+        // Button that triggered the modal
+        let button = event.relatedTarget;
+        // Extract info from data-bs-* attributes
+        let results = JSON.parse(button.getAttribute('data-bs-value'));
+        let tableBody = document.getElementById('results-body-table');
+        results.forEach(result => {
+            // Chung
+            const exam_code = document.querySelector('.exam-code');
+            const schedule_name = document.querySelector('.schedule-name');
+            const category_name = document.querySelector('.category-name');
+            const type = document.querySelector('.type');
+            const number_question = document.querySelector('.number-question');
+            exam_code.innerHTML = result['exam_code'];
+            schedule_name.innerHTML = result['schedule_name'];
+            category_name.innerHTML = result['category_name'];
+            type.innerHTML = result['type'];
+            number_question.innerHTML = result['number_question'];
+
+            // append child ra các row trong table
+            let resultDOM = document.createElement('tr');
+            let fullname = document.createElement('td');
+            fullname.innerHTML = result['fullname'];
+            resultDOM.appendChild(fullname);
+
+            let points = document.createElement('td');
+            points.innerHTML = result['points'];
+            resultDOM.appendChild(points);
+
+            let time_start = document.createElement('td');
+            time_start.innerHTML = result['time_start'];
+            resultDOM.appendChild(time_start);
+
+            let exam_time = document.createElement('td');
+            exam_time.innerHTML = result['exam_time'];
+            resultDOM.appendChild(exam_time);
+
+            let btnInfo = document.createElement('td');
+            let btnInfoLink = document.createElement('a');
+            btnInfoLink.classList.add('btn', 'btn-sm', 'btn-success');
+            btnInfoLink.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
+            btnInfoLink.href = "?act=tables&data=result_detail&result_id=" + result['id'];
+            btnInfo.appendChild(btnInfoLink);
+            resultDOM.appendChild(btnInfo);
+
+            tableBody.appendChild(resultDOM);
+        });
+
+
+    });
+
+    // Xử lý khi nhập vào ô input username
     const username = document.getElementById('username');
     const fileUpload = document.querySelector('.file-upload');
 
