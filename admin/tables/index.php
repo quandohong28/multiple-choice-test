@@ -183,7 +183,7 @@ if (isset($_GET['data'])) {
 
 				// Tạo ra các đề thi từ lịch thi vừa tạo
 				$schedule_id = getLatestSchedule()['id'];
-				$exam_type_id = 1;
+				$exam_type_id = 2;
 				for ($i = 1; $i <= $number_exam; $i++) {
 					insertPracticeExam($schedule_id, $category_id, $exam_type_id, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
 				}

@@ -74,7 +74,7 @@
                 <th class="small p-2" scope="col">Chức năng</th>
             </tr>
         </tfoot>
-        <tbody>
+        <tbody> 
             <?php foreach ($results as $result) : ?>
                 <tr>
                     <td class="py-3"><?= $result['exam_code'] ?></td>

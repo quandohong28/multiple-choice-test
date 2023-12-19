@@ -73,7 +73,7 @@ include '../model/answer.php';
                             $category_id = $_POST['category_id'];
 
                             // Xu ly logic cho chuan bi thi thu
-                            if ($type == 1) {
+                            if ($type == 1) { 
                                 $number_easy_questions = $_POST['number_easy_questions'];
                                 $number_medium_questions = $_POST['number_medium_questions'];
                                 $number_hard_questions = $_POST['number_hard_questions'];
