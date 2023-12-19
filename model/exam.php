@@ -27,7 +27,7 @@ function getExamById($id)
 }
 
 
-function getExamsByScheduleId($account_id, $schedule_id)
+function getExamsByScheduleId($schedule_id)
 {
     try {
         $sql = "SELECT
@@ -36,15 +36,12 @@ function getExamsByScheduleId($account_id, $schedule_id)
         c.image,
         e.number_question,
         e.schedule_id,
-        e.exam_time,
-        e.exam_code
+        e.exam_time
         FROM
         exams e
         INNER JOIN categories c ON e.category_id = c.id
-        INNER JOIN schedules s ON s.id = e.schedule_id
-        INNER JOIN schedule_detail sd ON sd.schedule_id = s.id 
-        WHERE s.id = '$schedule_id' AND sd.account_id = '$account_id';";
-
+        WHERE schedule_id = '$schedule_id';";
+       
         return pdo_query_one($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -238,6 +235,16 @@ function getRandomExam($schedule_id)
     try {
         $sql = "SELECT * FROM exams WHERE schedule_id = '$schedule_id' ORDER BY RAND() LIMIT 1;";
         return pdo_query_one($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function addExamToScheduleDetail($account_id, $schedule_id, $exam_code)
+{
+    try {
+        $sql = "UPDATE schedule_detail SET exam_code = '$exam_code', status = 1 WHERE schedule_id = '$schedule_id' AND account_id  = '$account_id';";
+        return pdo_execute($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }

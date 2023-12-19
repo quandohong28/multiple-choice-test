@@ -88,10 +88,10 @@ include '../model/answer.php';
                             else {
                                 $schedule_id = $_POST['schedule_id'];
                                 $exam_id = getRandomExam($schedule_id)['id'];
-                                $exam_code = getExamById($exam_id)['exam_code'];
-                                updateStatusScheduleDetail($schedule_id, $_SESSION['user']['id'], 1);
+                                $exam_code = getExamById($exam_id)['exam_code']; 
                             }
 
+                            addExamToScheduleDetail($_SESSION['user']['id'], $schedule_id, $exam_code);
                             addResult($_SESSION['user']['id'], $exam_id);
                             $latest_result_id = getLatestResult()['id'];
                             $time_start = getResultById($latest_result_id)[0]['time_start'];

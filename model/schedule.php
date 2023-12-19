@@ -89,12 +89,13 @@ function getScheduleByUserId($account_id)
         sd.id as schedule_detail_id,
         sd.account_id,
         s.status,
-        sd.status as schedule_detail_status
+        sd.status as schedule_detail_status,
+        sd.exam_code
     FROM
         schedules s
     INNER JOIN schedule_detail sd ON s.id = sd.schedule_id
     WHERE
-        (sd.account_id = '$account_id') AND (s.status = 1) ORDER BY s.time_start DESC;";
+        (sd.account_id = '$account_id') ORDER BY s.time_start DESC;";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
