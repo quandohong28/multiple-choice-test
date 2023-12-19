@@ -17,6 +17,27 @@ include '../model/exam.php';
 include '../model/excel.php';
 require '../lib/PhpExcel/vendor/autoload.php';
 
+// Xử lý lấy ra các config trong file config
+// Đường dẫn đến file .config
+$configFilePath = '../.config';
+
+// Đọc file .config và lấy nội dung
+$configContent = file_get_contents($configFilePath);
+
+// Phân tích nội dung để lấy các biến môi trường và giá trị tương ứng
+$configVariables = explode("\n", $configContent);
+
+// Tạo một mảng để lưu trữ các biến môi trường
+$config = [];
+foreach ($configVariables as $variable) {
+    // Tách biến và giá trị tương ứng
+    $parts = explode('=', $variable, 2);
+    if (count($parts) === 2) {
+        // Gán giá trị biến môi trường vào mảng
+        $config[$parts[0]] = $parts[1];
+    }
+}
+
 // Số lượng lịch thi trong tháng này
 
 ?>
@@ -102,7 +123,7 @@ require '../lib/PhpExcel/vendor/autoload.php';
                             include './profile.php';
                             break;
                         case 'setting':
-                            include './setting.php';
+                            include './setting/setting.php';
                             break;
                         case 'userlog':
                             include './userlog.php';
