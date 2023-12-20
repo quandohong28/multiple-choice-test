@@ -68,7 +68,7 @@
                     <tbody>
                         <?php foreach ($schedules as $schedule) : extract($schedule);
                             list($start_date, $start_time) = explode(" ", $time_start);
-                            $exam = getExamsByScheduleId($schedule_id); 
+                            $exam = getExamByScheduleId($schedule_id); 
                             $exam['status'] = $status;
                             $exam['schedule_detail_status'] = $schedule_detail_status;
                             $exam['exam_code'] = $exam_code;

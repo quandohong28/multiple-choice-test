@@ -42,35 +42,20 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#addquestionmodal">
-                    <i class="fa-regular me-2 fa-square-plus fa-lg"></i>
-                    Thêm câu hỏi
-                </a>
-            </div>
-            <div class="col">
                 <?php include 'components/data_export.php' ?>
             </div>
         </div>
         <div class="container-fuild">
-            <?php foreach ($questions as $question) :
-                extract($question);
-                $answers = getAnswersByQuestionId($id);
-                // $getQuestion = [$question, $answers];
+            <?php foreach ($questions as $key => $value) :
+                $answers = getAnswersByQuestionId($value['question_id']);
             ?>
 
                 <div class="expandable-container border border-2 rounded my-3">
                     <div class="py-2 px-5 bg-light text-dark d-flex justify-content-between user-select-none">
                         <div id="toggleButton" class="content">
-                            <p><?= $content ?></p>
-                        </div>
-                        <div class="">
-                            <button type="button" class="btn btn-warning btn-sm btneditquestion" data-bs-toggle="modal" data-bs-target="#editquestionmodal" data-value='<?= json_encode($getQuestion) ?>'>
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-
-                            <a name="dlt_btn" onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm" href="?act=tables&data=del_question&id=<?= $id; ?>">
-                                <i class="fa fa-trash"></i>
-                            </a>
+                            <span class="fw-bold">Câu hỏi <?= $key + 1 ?>: </span>
+                            <span><?= $value['question_content'] ?></span>
+                            <span class="level badge"><?= $value['level']?></span>
                         </div>
                     </div>
                     <div class="expandable" style="display:none">
@@ -87,7 +72,7 @@
                 </div>
             <?php endforeach ?>
         </div>
-        <ul class="pagination pagination-sm justify-content-end">
+        <!-- <ul class="pagination pagination-sm justify-content-end">
             <li class="page-item disabled">
                 <a class="page-link px-3">
                     <i class="fa-solid fa-caret-left"></i>
@@ -105,7 +90,7 @@
                     <i class="fa-solid fa-caret-right"></i>
                 </a>
             </li>
-        </ul>
+        </ul> -->
     </div>
     <!----Thêm câu hỏi & trả lời----->
     <?php include 'modals/addquestionmodal.php' ?>
@@ -128,5 +113,20 @@
                 expandableContents[index].style.display = "none";
             }
         });
+    });
+
+    // Xử lý hiển thị độ khó câu hỏi
+    const levels = document.querySelectorAll(".level");
+    levels.forEach(level => {
+        if (level.textContent === "1") {
+            level.textContent = "Dễ";
+            level.classList.add("bg-success");
+        } else if (level.textContent === "2") {
+            level.textContent = "Trung bình";
+            level.classList.add("bg-warning");
+        } else {
+            level.textContent = "Khó";
+            level.classList.add("bg-danger");
+        }
     });
 </script>

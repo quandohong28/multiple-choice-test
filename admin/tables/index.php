@@ -14,14 +14,6 @@
 			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=questions" role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fas fa-question fa-fw me-2"></i>Câu
 				hỏi</a>
 		</li>
-		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=results" role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fa-solid fa-square-poll-vertical me-2"></i>Theo
-				dõi điểm</a>
-		</li>
-		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=exams" role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fa-solid fa-file-lines me-2"></i>Đề
-				thi</a>
-		</li>
 	</ul>
 </div>
 
@@ -215,6 +207,12 @@ if (isset($_GET['data'])) {
 		case 'edit_schedule':
 			break;
 		case 'schedule_detail':
+			// xử lý lấy ra danh sách đề thi thuộc một lịch thi
+			if (isset($_GET['schedule_id'])) {
+				$exams = getExamsByScheduleId($_GET['schedule_id']);
+				// dd($exams);
+			}
+
 			// Xử lý phân trang
 			if (isset($_GET['page'])) {
 				$page = $_GET['page'];
@@ -254,7 +252,7 @@ if (isset($_GET['data'])) {
 						}
 					}
 				}
-			} 
+			}
 			include 'schedule/schedule_detail.php';
 			break;
 		case 'del_candidate':
@@ -363,31 +361,13 @@ if (isset($_GET['data'])) {
 			include 'result/results.php';
 			break;
 		case 'result_detail':
-			$result_detail = getResultDetails($_GET['id']);
-			include 'result/result_detail.php';
-			break;
-		case 'exams':
-			if ($_GET['page']) {
-				$page = $_GET['page'];
-			} else {
-				$page = 1;
-			}
-			$page = ($page - 1) * 10;
-
-			if (isset($_POST['filter'])) {
-				$filterByCategory = $_POST['filterByCategory'];
-				$filterByLetter = $_POST['filterByLetter'];
-				$search = trim($_POST['search']);
-				$exams = filterExams($filterByCategory, $filterByLetter, $search, $page);
-			} else {
-				$exams = getExams($page);
-			}
-			include 'exam/exams.php';
+			$result_detail = getResultDetails($_GET['result_id']);
+			include 'schedule/result_detail.php';
 			break;
 		case 'exam_detail':
 			$exam_id = $_GET['id'];
-			$exam_detail = getQuestionsByExamId($exam_id);
-			include 'exam/exam_detail.php';
+			$questions = getQuestionsByExamId($exam_id);
+			include 'schedule/exam_detail.php';
 			break;
 		case 'add_candidate':
 			break;

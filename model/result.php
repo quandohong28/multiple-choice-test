@@ -113,9 +113,20 @@ WHERE
 function getResultsByExamId($exam_id)
 {
     try {
-        $sql = "SELECT * FROM results WHERE exam_id = $exam_id";
+        $sql = "SELECT
+        r.id,
+        r.time_start,
+        r.exam_time,
+        r.points,
+        a.fullname
+        FROM results r
+        LEFT JOIN accounts a ON a.id = r.account_id
+        WHERE exam_id = $exam_id
+        ";
+
         return pdo_query($sql);
     } catch (Exception $e) {
+
         return $e->getMessage();
     }
 }
@@ -124,12 +135,13 @@ function getResultDetails($id)
 {
     try {
         $sql = "SELECT
-        rd.answer_id AS selected_answer_id,
-        rd.id AS result_detail_id, q.content AS question_content,
-        a.content as answer_content FROM result_details rd
-        INNER JOIN questions q ON q.id = rd.id
-        INNER JOIN answers a ON a.id = rd.id
-        WHERE rd.id = '$id';";
+        q.content AS question_content,
+        a.content as answer_content
+        FROM results r
+        LEFT JOIN result_details rd ON rd.result_id = r.id
+        LEFT JOIN questions q ON q.id = rd.question_id
+        LEFT JOIN answers a ON a.id = rd.answer_id
+        WHERE r.id = '$id';";
         return pdo_query($sql);
     } catch (Exception $e) {
         return $e->getMessage();
@@ -257,11 +269,6 @@ function reloadStatusResult($id)
         $results = pdo_query($sql1);
         foreach ($results as $result) {
             extract($result);
-            $exam_id = $exam_id;
-            $result_id = $result_id;
-            $result_status = $result_status;
-            $time_start = $time_start;
-            $exam_time = $exam_time;
             $time_end = date('Y-m-d H:i:s', strtotime($time_start) + $exam_time * 60);
             $dt = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
             $current_time = $dt->format('Y-m-d H:i:s');

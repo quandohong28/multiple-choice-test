@@ -51,18 +51,6 @@
             <span>Câu hỏi</span>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="?act=tables&data=results">
-            <i class="fa fa-fw fa-square-poll-vertical"></i>
-            <span>Theo dõi điểm</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="?act=tables&data=exams">
-            <i class="fa fa-fw fa-file-lines"></i>
-            <span>Đề thi</span>
-        </a>
-    </li>
 
     <hr class="sidebar-divider d-none d-md-block">
 

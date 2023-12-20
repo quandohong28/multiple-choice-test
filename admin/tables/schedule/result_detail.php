@@ -1,6 +1,6 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh sách chi tiết kết quả thi</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Chi tiết kết quả thi</h6>
     </div>
     <div class="card-body">
         <div class="row mb-3">
@@ -17,30 +17,26 @@
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">ID chi tiết bài thi</th>
-                        <th scope="col">ID người dùng</th>
+                        <th scope="col">STT</th>
+                        <th scope="col">Câu hỏi</th>
                         <th scope="col">Câu trả lời</th>
-                        <th scope="col">Điểm</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">ID chi tiết bài thi</th>
-                        <th scope="col">ID người dùng</th>
+                        <th scope="col">STT</th>
+                        <th scope="col">Câu hỏi</th>
                         <th scope="col">Câu trả lời</th>
-                        <th scope="col">Điểm</th>
                     </tr>
                 </tfoot>
                 <tbody>
-                    <tr class="">
-                        <td>R1C1</td>
-                        <td>R1C3</td>
-                        <td>R1C3</td>
-                        <td>R1C3</td>
-                        <td>R1C3</td>
-                    </tr>
+                    <?php foreach ($result_detail as $key => $value) : ?>
+                        <tr class="">
+                            <td><?= $key + 1?></td>
+                            <td><?= $value['question_content']?></td>
+                            <td><?= isset($value['answer_content']) ? $value['answer_content'] : '<span class="badge bg-danger">Không chọn</span>'?></td>
+                        </tr>
+                    <?php endforeach ?>
                 </tbody>
             </table>
         </div>
