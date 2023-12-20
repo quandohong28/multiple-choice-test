@@ -59,6 +59,7 @@
                     <form action="?act=finish_exam" method="post" id="finish_exam">
                         <div class="modal-body">
                             <div class="container-fluid">
+                                <p class="status_exam"></p>
                                 <p>Bạn có muốn kết thúc bài thi?</p>
                                 <input type="hidden" name="exam_id">
                                 <input type="hidden" name="exam_time">
@@ -87,8 +88,10 @@
         var type = exam_code.type;
         var exam_id = exam_code.exam_id;
         var schedule_id = exam_code.schedule_id;
-        var result_id = exam_code.result_id; 
-        var exam_time = exam_code.remaining_time * 60; 
+        var result_id = exam_code.result_id;
+        var exam_time = exam_code.remaining_time * 60;
+        var number_selected_answer = 0;
+        var status_exam = document.getElementsByClassName('status_exam')[0];
 
         // Hàm lấy câu hỏi theo id đề thi
         const getQuestionById = async () => {
@@ -135,8 +138,6 @@
             questionIndex.innerHTML = currentQuestionIndex + 1 + ' / ' + questions.length;
         }
 
-
-
         // Lấy đáp án theo id câu hỏi
         const answersDOM = document.querySelectorAll('input[name="answer"]');
 
@@ -164,7 +165,6 @@
         const postData = async (answerDOM) => {
             try {
                 const selectedAnswerId = answerDOM.value;
-                console.log(selectedAnswerId); // Kiểm tra giá trị của selectedAnswerId
 
                 const response = await fetch('exams/exam_detail_post.php', {
                     method: 'POST',
@@ -181,7 +181,6 @@
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
                 } else {
                     throw new Error('Response not OK');
                 }
@@ -229,7 +228,10 @@
                         question_level.classList.add('bg-danger');
                     }
                 }
-
+                // Hiển thị nút "Kết thúc" khi hết 2/3 thời gian hoặc đến câu hỏi cuối cùng
+                if (formatTimeString(examTime.innerHTML) <= exam_time * 2 / 3) {
+                    finishExamButton.style.display = 'block';
+                }
                 if (currentQuestionIndex === questions.length - 1) {
                     finishExamButton.style.display = 'block';
                 }
@@ -282,13 +284,13 @@
                     }
                 }
 
-                if (currentQuestionIndex !== questions.length - 1) {
-                    finishExamButton.style.display = 'none';
+                // Hiển thị nút "Kết thúc" khi hết 2/3 thời gian  
+                if (formatTimeString(examTime.innerHTML) <= exam_time * 2 / 3) {
+                    finishExamButton.style.display = 'block';
                 }
 
                 questionIndex.innerHTML = currentQuestionIndex + 1 + ' / ' + questions.length;
                 next_question.disabled = false;
-
 
                 // Kiểm tra xem câu hỏi hiện tại đã được chọn đáp án chưa
                 let flag = false;
@@ -334,11 +336,11 @@
                 // Lưu thời gian còn lại vào localStorage
                 exam_code.remaining_time = seconds / 60; // Thay đổi giá trị exam_time
                 localStorage.setItem(exam_code.exam_code, JSON.stringify(exam_code));
- 
-            }  
+
+            }
             // Gọi hàm updateTimer mỗi giây
             timerInterval = setInterval(updateTimer, 1000);
-        }  
+        }
         // xu ly thoi gian lam bai
         function formatTime(seconds) {
             var hours = Math.floor(seconds / 3600);
@@ -385,12 +387,11 @@
         continue_exam.addEventListener('click', () => {
             countdown(formatTimeString(examTime.innerHTML));
         })
-        
+
         document.querySelector('input[name="exam_id"]').value = exam_id;
         document.querySelector('input[name="schedule_id"]').value = schedule_id;
 
         // Xử lý thanh progress
-
 
         function handleProgress(boolean) {
             var progress = document.querySelector('.progress-bar');
@@ -402,4 +403,6 @@
                 progress.classList.remove('bg-success');
             }
         }
+        // Xử lý status khi người dùng bấm nộp bài
+        status_exam.innerHTML = 'Bạn đã chọn ' + number_selected_answer + '/' + questions.length + ' câu trả lời';
     </script>

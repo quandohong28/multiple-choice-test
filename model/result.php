@@ -47,7 +47,7 @@ function getResultById($id)
 
 function getResultsByUserId($account_id, $sort = null)
 {
-    if($sort === null) {
+    if ($sort === null) {
         $sql = "SELECT
         r.id as id,
         e.exam_code as exam_code,
@@ -60,8 +60,7 @@ function getResultsByUserId($account_id, $sort = null)
         INNER JOIN types t ON e.exam_type_id = t.id
         WHERE r.account_id = '$account_id'
         ORDER BY r.id DESC;";
-    }
-    else {
+    } else {
         $sql = "SELECT
         r.id as id,
         e.exam_code as exam_code,
@@ -189,7 +188,7 @@ function getLatestResult()
     }
 }
 
-function getResultDetailByResultId($result_id)
+function getResultDetailByResultId($result_id, $page = null)
 {
     try {
         $sql = "SELECT
@@ -203,6 +202,10 @@ function getResultDetailByResultId($result_id)
         rd.question_id = q.id
     WHERE
         rd.result_id = $result_id";
+
+        if ($page !== null) {
+            $sql .= " LIMIT 10 OFFSET $page";
+        }
         return pdo_query($sql);
     } catch (Exception $e) {
         return json_encode($e->getMessage());

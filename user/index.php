@@ -13,6 +13,7 @@ include '../model/schedule.php';
 include '../model/exam.php';
 include '../model/result.php';
 include '../model/answer.php';
+include '../functions/core.php';
 
 ?>
 
@@ -73,7 +74,7 @@ include '../model/answer.php';
                             $category_id = $_POST['category_id'];
 
                             // Xu ly logic cho chuan bi thi thu
-                            if ($type == 1) { 
+                            if ($type == 1) {
                                 $number_easy_questions = $_POST['number_easy_questions'];
                                 $number_medium_questions = $_POST['number_medium_questions'];
                                 $number_hard_questions = $_POST['number_hard_questions'];
@@ -88,7 +89,7 @@ include '../model/answer.php';
                             else {
                                 $schedule_id = $_POST['schedule_id'];
                                 $exam_id = getRandomExam($schedule_id)['id'];
-                                $exam_code = getExamById($exam_id)['exam_code']; 
+                                $exam_code = getExamById($exam_id)['exam_code'];
                             }
 
                             addExamToScheduleDetail($_SESSION['user']['id'], $schedule_id, $exam_code);
@@ -101,7 +102,7 @@ include '../model/answer.php';
                                 addResultDetail($latest_result_id, $getQuestionsByExamDetails[$question]['question_id'], 'null');
                             }
                             $$exam_code = [
-                                'schedule_id' => $schedule_id, 
+                                'schedule_id' => $schedule_id,
                                 'exam_code' => $exam_code,
                                 'type' => $type,
                                 'exam_id' => $exam_id,
@@ -143,12 +144,8 @@ include '../model/answer.php';
 
                                     // Định dạng ngày và giờ thành chuỗi
                                     var current_time = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-                                    console.log(current_time);
-                                    console.log(time_start);
                                     var diff = (Date.parse(current_time) - Date.parse(time_start)) / 1000;
-                                    console.log(diff);
                                     var remaining_time = exam_time * 60 - diff;
-                                    console.log(remaining_time);
                                     if (remaining_time <= 0) {
                                         window.location.href = '?act=result';
                                     } else {
@@ -158,7 +155,7 @@ include '../model/answer.php';
                                     }
                                 }
                             }
-                        </script>"; 
+                        </script>";
 
                         include './exams/doing_exam.php';
                         break;
@@ -188,7 +185,16 @@ include '../model/answer.php';
                     case 'result_detail':
                         $avatarPath = '../assets/img/accounts/';
                         $result_id = $_GET['result_id'];
-                        $result_detail = getResultDetailByResultId($result_id);
+                        // Phân trang
+                        if (isset($_GET['page'])) {
+                            $page = $_GET['page'];
+                        } else {
+                            $page = 1;
+                        }
+                        $i = $page * 10 - 9; // Số thứ tự câu hỏi
+                        $page = ($page - 1) * 10;
+                        $result_detail = getResultDetailByResultId($result_id, $page);
+                        // Xử lý logic tính điểm
                         $result = getResultById($result_id);
                         $number_incorrect = 0;
                         $number_correct = 0;
@@ -255,7 +261,7 @@ include '../model/answer.php';
                         unset($_SESSION['user']);
                         // var_dump($_SESSION['user']);
                         echo '<meta http-equiv="refresh" content="0;url=../index.php">';
-                        break; 
+                        break;
                     default:
                         $categories = getAllCategories();
                         $colors = ['bg-primary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light'];
