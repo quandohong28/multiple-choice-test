@@ -1,12 +1,14 @@
-<?php session_start()?>
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="quandohong28 chunghieu vanthanh" />
     <title>Landing Page</title>
+    <link rel="icon" type="image/png" href="../assets/img/logo/favicon.ico"> 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
@@ -22,7 +24,7 @@
             <img width="80" src="../assets/img/logo/logo.png" alt="">
             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start my-5">
                 <?php
-                if (!isset($_SESSION['user'])):
+                if (!isset($_SESSION['user'])) :
                 ?>
                     <a class="btn btn-primary btn-lg btn-sm-sm px-5 py-3 fs-6 fw-bolder" href="./login.php">
                         <span>Đăng nhập</span>
@@ -30,7 +32,7 @@
                     <a class="btn btn-outline-light btn-lg btn-sm-sm px-5 py-3 fs-6 fw-bolder" href="./signup.php">
                         <span>Đăng ký</span>
                     </a>
-                <?php  else: ?>
+                <?php else : ?>
                     <a class="btn btn-outline-light btn-lg btn-sm-sm px-5 py-3 fs-6 fw-bolder" href="../index.php?act=home">
                         <span>Trang chủ</span>
                     </a>
@@ -49,7 +51,7 @@
                             <h1 class="display-3 fw-bolder mb-5">
                                 <p class="text-dark">Trí tuệ của bạn</p>
                                 <p class="text-light">Hệ thống của chúng tôi!</p>
-                            </h1> 
+                            </h1>
                         </div>
                     </div>
                 </div>

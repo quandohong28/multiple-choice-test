@@ -5,6 +5,7 @@ if (!isset($_SESSION['user'])) {
 }
 // Kiểm tra các bài thi đang làm
 
+include '../model/mailer.php';
 include '../model/pdo.php';
 include '../model/category.php';
 include '../model/question.php';
@@ -14,7 +15,7 @@ include '../model/exam.php';
 include '../model/result.php';
 include '../model/answer.php';
 include '../functions/core.php';
-include '../model/notification.php';
+include '../model/notification.php';      
 
 ?>
 
@@ -22,7 +23,8 @@ include '../model/notification.php';
 <html lang="en">
 
 <head>
-    <title>Trang chủ</title>
+    <title></title>
+    <link rel="icon" type="image/png" href="../assets/img/logo/favicon.ico">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -38,6 +40,14 @@ include '../model/notification.php';
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <style>
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+        }
+    </style>
 </head>
 
 <body class="mt-5 pt-5">
@@ -58,6 +68,25 @@ include '../model/notification.php';
                 switch ($_GET['act']) {
                     case 'home':
                         $categories = getAllCategories();
+                        if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
+                            $from = $_POST['email'];
+                            $to = 'techquizhero@gmail.com';
+                            $content = $_POST['message'];
+                            $subject = "Tech Quiz Hero - Hỗ trợ";
+                            if ($_FILES['attachment']['name'] != '') {
+                                $attachment = $_FILES['attachment']['tmp_name'];
+                                $attachment_name = $_FILES['attachment']['name'];
+                            } else {
+                                $attachment = null;
+                                $attachment_name = null;
+                            }
+                            if(sendEmail($from, $to, $subject, $content, $attachment, $attachment_name)){
+                                $message = 'Gửi email thành công';
+                            } else {
+                                $message = 'Gửi email thất bại';
+                            }
+                            
+                        }
                         include './utilities/home.php';
                         break;
                     case 'schedule':
@@ -71,11 +100,7 @@ include '../model/notification.php';
                         include './exams/practice.php';
                         break;
                     case 'start_exam':
-                        // Xu ly lay ra so luong cau hoi theo do kho trong moi chuyen muc
-
-
-
-
+                        // Xu ly lay ra so luong cau hoi theo do kho trong moi chuyen muc 
 
                         if (isset($_POST['start-btn'])) {
                             $type = $_POST['type'];
@@ -283,8 +308,18 @@ include '../model/notification.php';
             }
             ?>
         </div>
-
     </main>
+
+    <!-- Scroll to Top Button-->
+    <!-- <span id="scrollToTop" class="fixed-end fixed-bottom mb-3 bg-light d-flex justify-content-center align-items-center" style="width: 50px; height: 50px">
+        <a class="scroll-to-top" href="#page-top" role="button">
+            
+        </a>
+    </span> -->
+    <button type="button" class="btn btn-light btn-floating " id="btn-back-to-top">
+        <i class="fas fa-angle-up"></i>
+    </button>
+
     <footer>
         <?php include './layouts/footer.php'; ?>
     </footer>
@@ -296,6 +331,37 @@ include '../model/notification.php';
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="../assets/js/script.min.js"></script>
     <script src="../assets/js/validator.js"></script>
+    <script>
+        var title = document.title;
+        var act = '<?php echo $_GET['act']; ?>';
+        document.title = act.charAt(0).toUpperCase() + act.slice(1) + ' | TechQuizHero ';
+
+        //Get the button
+        let mybutton = document.getElementById("btn-back-to-top");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (
+                document.body.scrollTop > 20 ||
+                document.documentElement.scrollTop > 20
+            ) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+        // When the user clicks on the button, scroll to the top of the document
+        mybutton.addEventListener("click", backToTop);
+
+        function backToTop() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
 </body>
 
 </html>

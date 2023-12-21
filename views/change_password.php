@@ -1,8 +1,9 @@
 <head>
-    <title>Trang chủ</title>
+    <title>Change Password | TechQuizHero</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" type="image/png" href="../assets/img/logo/favicon.ico">
 
     <!-- Bootstrap CSS v5.2.1 -->
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css?h=a36b09c30de7308fcdcc873e9287b73a">

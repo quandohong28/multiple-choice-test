@@ -1,2 +1,0 @@
-Những đầu việc 
-+ tính điểm -> thống kê điểm ở một lịch thi

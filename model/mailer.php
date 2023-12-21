@@ -1,12 +1,10 @@
 <?php
+include '../lib/PhpMailer/vendor/autoload.php'; // Đảm bảo đường dẫn đúng
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-
-require './lib/PhpMailer/vendor/autoload.php'; // Đảm bảo đường dẫn đúng
-
-function sendEmail($to, $subject, $body)
+function sendEmail($from, $to, $subject, $body, $attachment = null, $attachment_name = null)
 {
     $mail = new PHPMailer(true);
 
@@ -21,7 +19,7 @@ function sendEmail($to, $subject, $body)
         $mail->Port = 587; // Cổng SMTP
 
         // Cài đặt thông tin người gửi và người nhận
-        $mail->setFrom('techquizhero@gmail.com', 'Tech Quiz Hero');
+        $mail->setFrom($from);
         $mail->addAddress($to);
 
         // Cài đặt tiêu đề và nội dung email
@@ -32,10 +30,13 @@ function sendEmail($to, $subject, $body)
         // Nếu muốn dùng file php thì dùng đoạn code này
         $mail->isHTML(true);
         $mail->Subject = $subject;
-        $mail->Body = file_get_contents($body);
+        // $mail->Body = file_get_contents($body);
+        $mail->Body = $body;
 
-        // Nếu muốn gửi 1 file đính kèm thì dùng đoạn code này
-        // $mail->addAttachment('attachment.pdf');
+        // Nếu muốn gửi 1 file đính kèm thì dùng đoạn code này 
+        if ($attachment != null) {
+            $mail->addAttachment($attachment, $attachment_name);
+        }
 
 
         // Cài đặt ký tự tiếng Việt
@@ -45,8 +46,8 @@ function sendEmail($to, $subject, $body)
 
         // Gửi email
         $mail->send();
-        echo 'Gửi email thành công';
+        return true;
     } catch (Exception $e) {
-        echo 'Gửi email thất bại. Lỗi: ', $mail->ErrorInfo;
+        return false;
     }
 }

@@ -114,17 +114,29 @@
         </div><!-- End: Testimonials -->
     </section>
     <section class="py-5">
-        <div class="container">
+        <a href="#f-contact"></a>
+        <div id="f-contact" class="container">
             <div class="row mb-5">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
                     <p class="fw-bold text-success mb-2">Liên hệ trực tiếp</p>
                     <h2 class="fw-bold">Bạn không tìm thấy vấn đề đang gặp phải?</h2>
                 </div>
             </div>
+            <?php
+            if ($message) :
+                echo '<meta http-equiv="refresh" content="0;url=?act=home#f-contact">';
+            ?>
+                <div class="col-md-8 col-xl-6 text-center mx-auto">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?= $message ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            <?php endif ?>
             <div class="row d-flex justify-content-center">
                 <div class="col-md-6 col-xl-4">
                     <div>
-                        <form class="p-3 p-xl-4" method="post" data-bs-theme="light" id="form-support">
+                        <form class="p-3 p-xl-4" method="post" data-bs-theme="light" id="form-support" enctype="multipart/form-data" action="">
                             <div class="mb-3 form-group">
                                 <input id="fullname" class="form-control" type="text" name="name" placeholder="Họ và tên" value="<?= $_SESSION['user']['fullname'] ?>">
                                 <span class="form-message text-danger"></span>
@@ -132,13 +144,17 @@
                             <div class="mb-3 form-group">
                                 <input id="email" class="form-control" type="email" name="email" placeholder="Email" value="<?= $_SESSION['user']['email'] ?>">
                                 <span class="form-message text-danger"></span>
-                            </div><!-- End: Error Example -->
+                            </div>
                             <div class="mb-3 form-group">
                                 <textarea id="message" class="form-control" name="message" rows="6" placeholder="Miêu tả cho chúng tôi vấn đề của bạn"></textarea>
                                 <span class="form-message text-danger"></span>
                             </div>
+                            <div class="mb-3 form-group">
+                                <input type="file" name="attachment" id="" class="form-control mb-2">
+                                <small class="text-end">Upload file của bạn (nếu có)</small>
+                            </div>
                             <div>
-                                <button class="btn btn-primary shadow d-block w-100" type="submit">Gửi</button>
+                                <button name="sendEmail" class="btn btn-primary shadow d-block w-100" type="submit">Gửi</button>
                             </div>
                         </form>
                     </div>

@@ -49,7 +49,8 @@ foreach ($configVariables as $variable) {
 <html lang="en">
 
 <head>
-    <title>Trang quản trị</title>
+    <title></title>
+    <link rel="shortcut icon" type="image/png" href="../assets/img/logo/favicon.ico">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -233,7 +234,16 @@ foreach ($configVariables as $variable) {
 
     <!-- Validate form -->
     <script src="../assets/js/validator.js"></script>
-
+    <script>
+        var title = document.title;
+        var act = '<?php echo $_GET['act']; ?>';
+        if (act != "tables") {
+            document.title = act.charAt(0).toUpperCase() + act.slice(1) + ' | TechQuizHero ';
+        } else {
+            var data = '<?php echo $_GET['data']; ?>';
+            document.title = data.charAt(0).toUpperCase() + data.slice(1) + ' | TechQuizHero ';
+        }
+    </script>
 
 </body>
 

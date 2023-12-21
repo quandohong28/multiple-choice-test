@@ -4,7 +4,7 @@
         <!-- Section: Social media -->
         <section class="mb-4">
             <!-- Facebook -->
-            <a class="btn text-white btn-floating m-1" style="background-color: #3b5998;" href="#!" role="button"><i
+            <a class="btn text-white btn-floating m-1" style="background-color: #3b5998;" href="https://www.facebook.com/techquizhero" role="button"><i
                     class="fab fa-facebook-f"></i></a>
 
             <!-- Twitter -->
@@ -12,7 +12,7 @@
                     class="fab fa-twitter"></i></a>
 
             <!-- Google -->
-            <a class="btn text-white btn-floating m-1" style="background-color: #dd4b39;" href="#!" role="button"><i
+            <a class="btn text-white btn-floating m-1" style="background-color: #dd4b39;" href="mailto:techquizhero@gmail.com" role="button"><i
                     class="fab fa-google"></i></a>
 
             <!-- Instagram -->
