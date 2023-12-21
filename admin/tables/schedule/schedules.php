@@ -60,6 +60,7 @@
                         <th scope="col">Thời gian bắt đầu</th>
                         <th scope="col">Thời gian làm bài</th>
                         <th scope="col">Số lượng đề thi</th>
+                        <th scope="col">Số lượng thí sinh</th>
                         <th scope="col">Chức năng</th>
                     </tr>
                 </thead>
@@ -70,11 +71,12 @@
                         <th scope="col">Thời gian bắt đầu</th>
                         <th scope="col">Thời gian làm bài</th>
                         <th scope="col">Số lượng đề thi</th>
+                        <th scope="col">Số lượng thí sinh</th>
                         <th scope="col">Chức năng</th>
                     </tr>
                 </tfoot>
                 <tbody>
-                    <?php foreach($all_schedule as $schedule):
+                    <?php foreach ($all_schedule as $schedule):
                         extract($schedule);
                         list($start_date, $start_time) = explode(" ", $time_start);
                         ?>
@@ -87,11 +89,11 @@
                             </td>
                             <td class="align-middle">
                                 <span>
-                                    <?= 'Ngày : '.$start_date ?>
+                                    <?= 'Ngày : ' . $start_date ?>
                                 </span>
                                 <br>
                                 <span>
-                                    <?= 'Giờ : '.$start_time ?>
+                                    <?= 'Giờ : ' . $start_time ?>
                                 </span>
                             </td>
                             <td class="align-middle">
@@ -99,6 +101,9 @@
                             </td>
                             <td class="align-middle">
                                 <?= $number_exam ?>
+                            </td>
+                            <td class="align-middle">
+                                <?= $number_candidate ? $number_candidate : 'Không có' ?>
                             </td>
                             <td class="align-middle">
                                 <a class="btn btn-success btn-sm"
@@ -126,9 +131,9 @@
             <?php
             $currentURL = "index.php?act=tables&data=schedules";
             $amountPage = ceil(count(getAllSchedules()) / 10);
-            for($page = 1; $page <= $amountPage; $page++):
+            for ($page = 1; $page <= $amountPage; $page++):
                 ?>
-                <li class="page-item"><a class="page-link" href="<?= $currentURL."&page=$page" ?>">
+                <li class="page-item"><a class="page-link" href="<?= $currentURL . "&page=$page" ?>">
                         <?= $page ?>
                     </a></li>
             <?php endfor; ?>

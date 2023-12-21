@@ -1,5 +1,6 @@
 <?php
-function getAllSchedules() {
+function getAllSchedules()
+{
     try {
         $sql = "SELECT * FROM schedules;";
         return pdo_query($sql);
@@ -9,7 +10,8 @@ function getAllSchedules() {
 }
 
 
-function getScheduleById($id) {
+function getScheduleById($id)
+{
     try {
         $sql = "SELECT * FROM
         schedules
@@ -21,7 +23,8 @@ function getScheduleById($id) {
     }
 }
 
-function getSchedulesByName($name) {
+function getSchedulesByName($name)
+{
     try {
         $sql = "SELECT * FROM
         schedules
@@ -33,7 +36,8 @@ function getSchedulesByName($name) {
     }
 }
 
-function getScheduleByUserId($account_id) {
+function getScheduleByUserId($account_id)
+{
     try {
         $sql = "SELECT
         s.id as schedule_id,
@@ -54,7 +58,8 @@ function getScheduleByUserId($account_id) {
     }
 }
 
-function addSchedule($name, $time_start, $exam_time, $number_exam) {
+function addSchedule($name, $time_start, $exam_time, $number_exam)
+{
     try {
         $sql = "INSERT INTO schedules(name, time_start, exam_time, number_exam) VALUES ('$name', '$time_start', '$exam_time', '$number_exam');";
         return pdo_execute($sql);
@@ -63,7 +68,8 @@ function addSchedule($name, $time_start, $exam_time, $number_exam) {
     }
 }
 
-function addScheduleDetail($schedule_id, $username) {
+function addScheduleDetail($schedule_id, $username)
+{
     try {
         $account_id = getAccountByUsername($username)['id'];
         $sql = "INSERT INTO schedule_detail(schedule_id, account_id) VALUES ('$schedule_id', '$account_id');";
@@ -73,7 +79,8 @@ function addScheduleDetail($schedule_id, $username) {
     }
 }
 
-function deleteSchedule($id) {
+function deleteSchedule($id)
+{
     try {
         $sql = "DELETE FROM schedules WHERE id = $id;";
         pdo_execute($sql);
@@ -82,7 +89,8 @@ function deleteSchedule($id) {
     }
 }
 
-function getLatestSchedule() {
+function getLatestSchedule()
+{
     try {
         $sql = "SELECT * FROM schedules ORDER BY id DESC LIMIT 1;";
         return pdo_query_one($sql);
@@ -91,7 +99,8 @@ function getLatestSchedule() {
     }
 }
 
-function getSchedules($page) {
+function getSchedules($page)
+{
     try {
         $sql = "SELECT * FROM schedules LIMIT $page, 10;";
         return pdo_query($sql);
@@ -100,7 +109,8 @@ function getSchedules($page) {
     }
 }
 
-function getNumberFinishedExamThisMonth() {
+function getNumberFinishedExamThisMonth()
+{
     try {
         $sql = "SELECT COUNT(*) as value FROM schedules WHERE MONTH(time_start) = MONTH(CURRENT_DATE()) AND YEAR(time_start) = YEAR(CURRENT_DATE());";
         return pdo_query_one($sql);
@@ -109,7 +119,8 @@ function getNumberFinishedExamThisMonth() {
     }
 }
 
-function getLimitShedule($limit) {
+function getLimitShedule($limit)
+{
     try {
         $sql = "SELECT * FROM schedules ORDER BY id DESC LIMIT $limit;";
         return pdo_query($sql);
@@ -118,7 +129,8 @@ function getLimitShedule($limit) {
     }
 }
 
-function getNumberCandidateOfSchedule($schedule_id) {
+function getNumberCandidateOfSchedule($schedule_id)
+{
     try {
         $sql = "SELECT COUNT(*) AS number FROM schedule_detail WHERE schedule_id = '$schedule_id';";
         return pdo_query_one($sql);
@@ -127,7 +139,8 @@ function getNumberCandidateOfSchedule($schedule_id) {
     }
 }
 
-function getScheduleThisWeek() {
+function getScheduleThisWeek()
+{
     try {
         $sql = "SELECT
         COUNT(s.id) AS number_schedule,
@@ -146,7 +159,8 @@ function getScheduleThisWeek() {
     }
 }
 
-function getScheduleThisMonth() {
+function getScheduleThisMonth()
+{
     try {
         $sql = "SELECT
         COUNT(s.id) AS number_schedule,
@@ -165,7 +179,8 @@ function getScheduleThisMonth() {
     }
 }
 
-function getScheduleThisYear() {
+function getScheduleThisYear()
+{
     try {
         $sql = "SELECT
         COUNT(s.id) AS number_schedule,
@@ -186,7 +201,8 @@ function getScheduleThisYear() {
 
 
 
-function getScheduleByTimePeriod($start_date, $end_date) {
+function getScheduleByTimePeriod($start_date, $end_date)
+{
     try {
         $sql = "SELECT
         COUNT(s.id) AS number_schedule,
@@ -205,7 +221,8 @@ function getScheduleByTimePeriod($start_date, $end_date) {
     }
 }
 
-function getScheduleDetail($schedule_id) {
+function getScheduleDetail($schedule_id)
+{
     try {
         $sql = "SELECT
         sd.id,
@@ -221,7 +238,8 @@ function getScheduleDetail($schedule_id) {
     }
 }
 
-function deleteCandidate($schedule_id, $candidate_id) {
+function deleteCandidate($schedule_id, $candidate_id)
+{
     try {
         $sql = "DELETE FROM schedule_detail WHERE schedule_id = '$schedule_id' AND account_id = '$candidate_id';";
         pdo_execute($sql);
@@ -230,7 +248,8 @@ function deleteCandidate($schedule_id, $candidate_id) {
     }
 }
 
-function getAllSchedulesAndNumberCandidates() {
+function getAllSchedulesAndNumberCandidates()
+{
     try {
         $sql = "SELECT
                     s.*,
@@ -257,7 +276,8 @@ function getAllSchedulesAndNumberCandidates() {
     }
 }
 
-function editSchedule($id, $name, $time_start, $exam_time, $number_exam) {
+function editSchedule($id, $name, $time_start, $exam_time, $number_exam)
+{
     try {
         $sql = "UPDATE schedules 
             SET
@@ -272,6 +292,78 @@ function editSchedule($id, $name, $time_start, $exam_time, $number_exam) {
         echo $e->getMessage();
     }
 }
+
+
+function getNumbersScheduleLast6Month()
+{
+    try {
+        $sql = "SELECT
+    SUM(
+        CASE WHEN MONTH(s.time_start) = MONTH(NOW()) AND YEAR(s.time_start) = YEAR(NOW()) THEN 1 ELSE 0
+        END) AS ThisMonth,
+        SUM(
+            CASE WHEN MONTH(s.time_start) = MONTH(NOW() - INTERVAL 1 MONTH) AND YEAR(s.time_start) = YEAR(NOW() - INTERVAL 1 MONTH) THEN 1 ELSE 0
+            END) AS LastMonth,
+            SUM(
+                CASE WHEN MONTH(s.time_start) = MONTH(NOW() - INTERVAL 2 MONTH) AND YEAR(s.time_start) = YEAR(NOW() - INTERVAL 2 MONTH) THEN 1 ELSE 0
+                END) AS Month2,
+                SUM(
+                    CASE WHEN MONTH(s.time_start) = MONTH(NOW() - INTERVAL 3 MONTH) AND YEAR(s.time_start) = YEAR(NOW() - INTERVAL 3 MONTH) THEN 1 ELSE 0
+                    END) AS Month3,
+                    SUM(
+                        CASE WHEN MONTH(s.time_start) = MONTH(NOW() - INTERVAL 4 MONTH) AND YEAR(s.time_start) = YEAR(NOW() - INTERVAL 4 MONTH) THEN 1 ELSE 0
+                        END) AS Month4,
+                        SUM(
+                            CASE WHEN MONTH(s.time_start) = MONTH(NOW() - INTERVAL 5 MONTH) AND YEAR(s.time_start) = YEAR(NOW() - INTERVAL 5 MONTH) THEN 1 ELSE 0
+                            END) AS Month5
+                        FROM
+                            schedules s
+                        WHERE
+                            s.time_start BETWEEN DATE_FORMAT(NOW(), '%Y-01-01') AND LAST_DAY(NOW()) OR s.time_start BETWEEN DATE_FORMAT(
+                                NOW() - INTERVAL 6 MONTH, '%Y-07-01') AND LAST_DAY(NOW());";
+        return pdo_query_one($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function getPointRateFromSchedule($schedule_id)
+{
+    try {
+        $sql = "SELECT
+                    s.id AS schedule_id,
+                    s.name AS schedule_name,
+                    COUNT(DISTINCT e.id) AS number_of_exams,
+                    COUNT(r.id) AS total_results,
+                    SUM(
+                        CASE WHEN r.points >= 1 AND r.points <= 5 THEN 1 ELSE 0
+                    END
+                ) AS count_1_to_5,
+                SUM(
+                    CASE WHEN r.points > 5 AND r.points <= 8 THEN 1 ELSE 0
+                END
+                ) AS count_5_to_8,
+                SUM(
+                    CASE WHEN r.points > 8 THEN 1 ELSE 0
+                END
+                ) AS count_8_and_above
+                FROM
+                    results r
+                LEFT JOIN exams e ON
+                    r.exam_id = e.id
+                LEFT JOIN schedules s ON
+                    s.id = e.schedule_id
+                WHERE
+                    s.id = '$schedule_id'
+                GROUP BY
+                    s.id,
+                    s.name;";
+        return pdo_query_one($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
 
 
 ?>

@@ -1,6 +1,6 @@
 <div class="modal fade text-center" id="addcategorymodal" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Thêm chuyên mục</h5>
@@ -9,7 +9,7 @@
                 </button>
             </div>
             <form action="?act=tables&data=add_category" method="POST" enctype="multipart/form-data">
-                <div class="row justify-content-center align-items-center h-100 my-5">
+                <div class="row justify-content-center align-items-center h-100 my-5 px-5">
                     <div class="row">
                         <div class="col-md-12 mb-4 pb-2">
                             <div class="form-outline">

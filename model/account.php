@@ -6,7 +6,8 @@ function hashPassword($password)
     } catch (Exception $e) {
         echo $e->getMessage();
     }
-};
+}
+;
 
 function verifyPassword($password, $hashedPassword)
 {
@@ -229,6 +230,18 @@ function filterAccount($filterByCategory, $filterByLetter, $search, $page)
 
         return pdo_query($sql);
     } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+
+}
+function getNumberUser()
+{
+    try {
+        $sql = "SELECT COUNT(*) AS number_user 
+                FROM accounts 
+                WHERE role_id = 1;";
+        return pdo_query_one($sql);
+    } catch (\Exception $e) {
         echo $e->getMessage();
     }
 }

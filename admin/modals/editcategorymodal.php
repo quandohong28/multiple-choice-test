@@ -24,6 +24,8 @@
                                             value="" type="hidden" />
                                         <input class="form-control form-control-sm" id="image" name="edit_image"
                                             type="file" value="" />
+                                        <img class="pt-3" id="imagePreview" src=""
+                                            style="max-width: 100%; height: auto;">
                                     </div>
                                 </div>
                             </div>
@@ -46,6 +48,7 @@
         const id = document.querySelector('input[name="edit_id"]');
         const name = document.querySelector('input[name="edit_name"]');
         const image = document.querySelector('input[name="edit_image"]');
+        const imagePreview = document.getElementById('imagePreview');
 
         const button = event.relatedTarget
         const recipient = button.getAttribute('data-value')
@@ -54,5 +57,8 @@
         name.setAttribute('value', val.name);
         image.setAttribute('value', val.image);
         id.setAttribute('value', val.id);
+
+        const imagePath = '../assets/img/categories/' + val.image;
+        imagePreview.src = imagePath;
     })
 </script>

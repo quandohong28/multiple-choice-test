@@ -239,3 +239,4 @@ function getRandomExam($schedule_id)
         echo $e->getMessage();
     }
 }
+

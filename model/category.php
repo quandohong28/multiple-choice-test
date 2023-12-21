@@ -93,13 +93,13 @@ function filterCategory($filterByCategory, $filterByLetter, $search, $page)
                 $sql .= "ORDER BY name";
 
                 $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
-            } 
+            }
         } else {
             $sql .= "ORDER BY id";
             $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
         }
 
-        $sql .= " LIMIT $page, 10;";    
+        $sql .= " LIMIT $page, 10;";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -110,6 +110,16 @@ function getCategories($page)
     try {
         $sql = "SELECT * FROM categories LIMIT $page, 10;";
         return pdo_query($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function getNumberCategory()
+{
+    try {
+        $sql = "SELECT COUNT(*) AS number_category FROM categories WHERE id;";
+        return pdo_query_one($sql);
     } catch (\Exception $e) {
         echo $e->getMessage();
     }
