@@ -47,7 +47,7 @@ function getResultById($id)
 
 function getResultsByUserId($account_id, $sort = null)
 {
-    if($sort === null) {
+    if ($sort === null) {
         $sql = "SELECT
         r.id as id,
         e.exam_code as exam_code,
@@ -60,8 +60,7 @@ function getResultsByUserId($account_id, $sort = null)
         INNER JOIN types t ON e.exam_type_id = t.id
         WHERE r.account_id = '$account_id'
         ORDER BY r.id DESC;";
-    }
-    else {
+    } else {
         $sql = "SELECT
         r.id as id,
         e.exam_code as exam_code,
@@ -189,7 +188,7 @@ function getLatestResult()
     }
 }
 
-function getResultDetailByResultId($result_id)
+function getResultDetailByResultId($result_id, $page = null)
 {
     try {
         $sql = "SELECT
@@ -203,6 +202,10 @@ function getResultDetailByResultId($result_id)
         rd.question_id = q.id
     WHERE
         rd.result_id = $result_id";
+
+        if ($page !== null) {
+            $sql .= " LIMIT 10 OFFSET $page";
+        }
         return pdo_query($sql);
     } catch (Exception $e) {
         return json_encode($e->getMessage());
@@ -313,6 +316,22 @@ function examResult($exam_id)
         $points = round($points, 1);
         $sql = "UPDATE results SET points = '$points' WHERE id = '$result_id'";
         pdo_execute($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function confirmExam($exam_code)
+{
+    try {
+        $sql = "SELECT
+        COUNT(rd.answer_id) AS number_select,
+        COUNT(*) AS number_exam
+        FROM results r
+        INNER JOIN exams e ON e.id = r.exam_id
+        INNER JOIN result_details rd ON rd.result_id = r.id
+        WHERE e.exam_code = '$exam_code';"; 
+        return pdo_query_one($sql);
     } catch (\Exception $e) {
         echo $e->getMessage();
     }
