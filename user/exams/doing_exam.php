@@ -46,8 +46,7 @@
                 </button>
             </div>
         </div><!-- End: Features Cards -->
-        <!-- Button trigger modal -->
-
+        <!-- Button trigger modal --> 
 
         <!-- Modal -->
         <div class="modal fade" id="finish_exam_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
@@ -83,14 +82,13 @@
         // Lấy ra tham số truyền vào từ URL
         const urlParams = new URLSearchParams(window.location.search);
         var exam_code = urlParams.get('exam_code');
-
+        var exam_code_input = exam_code;
         var exam_code = JSON.parse(localStorage.getItem(exam_code));
         var type = exam_code.type;
         var exam_id = exam_code.exam_id;
         var schedule_id = exam_code.schedule_id;
         var result_id = exam_code.result_id;
         var exam_time = exam_code.remaining_time * 60;
-        var number_selected_answer = 0;
         var status_exam = document.getElementsByClassName('status_exam')[0];
 
         // Hàm lấy câu hỏi theo id đề thi
@@ -136,6 +134,24 @@
             }
             await getAnswersByQuestionId(questions[currentQuestionIndex].id);
             questionIndex.innerHTML = currentQuestionIndex + 1 + ' / ' + questions.length;
+
+            // Kiểm tra xem câu hỏi hiện tại đã được chọn đáp án chưa
+            let flag = false;
+            result_detail = await getResultDetailByResultIdAndQuestionId(result_id, questions[
+                currentQuestionIndex].id);
+            if (result_detail !== null || result_detail.answer_id !== null) {
+                answersDOM.forEach((answerDOM) => {
+                    if (answerDOM.value == result_detail.answer_id) {
+                        answerDOM.checked = true;
+                        answerDOM.setAttribute('selected', true); // Thêm thuộc tính selected
+                        flag = true;
+                    } else {
+                        answerDOM.checked = false;
+                        answerDOM.removeAttribute('selected'); // Xóa thuộc tính selected
+                    }
+                });
+            }
+            handleProgress(flag);
         }
 
         // Lấy đáp án theo id câu hỏi
@@ -374,12 +390,24 @@
 
         // Hàm đếm ngược thời gian khi trang được load
         countdown(exam_time);
+        const confirmExam = async () => {
+            const response = await fetch("exams/confirm_exam.php?exam_code_input=" + exam_code_input);
+            const result = await response.json();
+            if(result.number_select != result.number_exam){
+                status_exam.classList.add('text-danger');
+                status_exam.innerHTML = 'Bạn đã chọn ' + result.number_select + '/' + result.number_exam + ' câu hỏi';
+            }else {
+                status_exam.classList.add('text-success');
+                status_exam.innerHTML = 'Bạn đã hoàn thành bài thi';
+            }
+        }
 
-        // Chúng ta sẽ thêm sự kiện click cho nút "Kết thúc" và "Hủy" trong modal
+        // Thêm sự kiện click cho nút "Kết thúc" và "Hủy" trong modal
         finishExamButton.addEventListener('click', () => {
             clearInterval(timerInterval);
             document.querySelector('input[name="exam_time"]').value = formatTime(exam_time - formatTimeString(
                 examTime.innerHTML));
+            confirmExam();
         })
 
 
@@ -403,6 +431,4 @@
                 progress.classList.remove('bg-success');
             }
         }
-        // Xử lý status khi người dùng bấm nộp bài
-        status_exam.innerHTML = 'Bạn đã chọn ' + number_selected_answer + '/' + questions.length + ' câu trả lời';
     </script>

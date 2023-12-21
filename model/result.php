@@ -320,3 +320,19 @@ function examResult($exam_id)
         echo $e->getMessage();
     }
 }
+
+function confirmExam($exam_code)
+{
+    try {
+        $sql = "SELECT
+        COUNT(rd.answer_id) AS number_select,
+        COUNT(*) AS number_exam
+        FROM results r
+        INNER JOIN exams e ON e.id = r.exam_id
+        INNER JOIN result_details rd ON rd.result_id = r.id
+        WHERE e.exam_code = '$exam_code';"; 
+        return pdo_query_one($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
