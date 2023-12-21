@@ -2,16 +2,24 @@
 	<!-- Tabs navs -->
 	<ul class="nav nav-tabs m-3" id="ex-with-icons" role="tablist">
 		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-1" data-mdb-toggle="tab" href="?act=tables&data=accounts" role="tab" aria-controls="ex-with-icons-tabs-1" aria-selected="true"><i class="fas fa-solid fa-users me-2"></i>Tài khoản</a>
+			<a class="nav-link" id="ex-with-icons-tab-1" data-mdb-toggle="tab" href="?act=tables&data=accounts"
+				role="tab" aria-controls="ex-with-icons-tabs-1" aria-selected="true"><i
+					class="fas fa-solid fa-users me-2"></i>Tài khoản</a>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-2" data-mdb-toggle="tab" href="?act=tables&data=categories" role="tab" aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i class="fas fa-chart-line fa-list me-2"></i>Chuyên mục</a>
+			<a class="nav-link" id="ex-with-icons-tab-2" data-mdb-toggle="tab" href="?act=tables&data=categories"
+				role="tab" aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i
+					class="fas fa-chart-line fa-list me-2"></i>Chuyên mục</a>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=schedules" role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fas fa-calendar-days fa-fw me-2"></i>Lịch thi</a>
+			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=schedules"
+				role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i
+					class="fas fa-calendar-days fa-fw me-2"></i>Lịch thi</a>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=questions" role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fas fa-question fa-fw me-2"></i>Câu
+			<a class="nav-link" id="ex-with-icons-tab-3" data-mdb-toggle="tab" href="?act=tables&data=questions"
+				role="tab" aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i
+					class="fas fa-question fa-fw me-2"></i>Câu
 				hỏi</a>
 		</li>
 	</ul>
@@ -112,8 +120,9 @@ if (isset($_GET['data'])) {
 				$name = $_POST['name'];
 				$file = $_FILES['image'];
 				$image = $file['name'];
+				$targetDir = '../assets/img/categories/';
 				insertCategory($name, $image);
-				move_uploaded_file($file['tmp_name'], '../assets/img/categories' . $image);
+				move_uploaded_file($file['tmp_name'], $targetDir . $image);
 				echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=categories">';
 			}
 			break;
@@ -196,15 +205,40 @@ if (isset($_GET['data'])) {
 					echo "File không đúng định dạng";
 				}
 				$accounts = readDataFromExcelBySheetName($upload_directory . $file_name, 'accounts');
+
+				$content = "Bạn có một lịch thi mới vào : $time_start";
+				$action = "?act=schedule";
+
 				foreach ($accounts as $account) {
 					if ($account['A'] !== 'username') {
 						addScheduleDetail($schedule_id, $account['A']);
+						$receiver = getAccountByUsername($account['A'])['id'];
+						insertAutoNotification($receiver, $content, $action);
 					}
 				}
+				// Thêm thông báo cho admin
+				$content = "Bạn đã tạo thành công một lịch thi mới vào : $time_start";
+				$action = "?act=tables&data=schedules";
+				$receiver = $_SESSION['user']['id'];
+
+				insertAutoNotification($receiver, $content, $action);
 			}
 			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'edit_schedule':
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+				$id = $_POST['edit_id'];
+				$name = $_POST['edit_name'];
+				$time_start = $_POST['edit_time_start'];
+				$dateTime = new DateTime($time_start);
+
+				$time_start = $dateTime->format('Y-m-d H:i:s');
+				$exam_time = $_POST['edit_exam_time'];
+				$number_exam = $_POST['edit_number_exam'];
+
+				editSchedule($id, $name, $time_start, $exam_time, $number_exam);
+			}
+			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=schedules">';
 			break;
 		case 'schedule_detail':
 			// xử lý lấy ra danh sách đề thi thuộc một lịch thi
@@ -344,9 +378,9 @@ if (isset($_GET['data'])) {
 				$leng_answer = count($answer);
 
 				for ($i = 0; $i < $leng_answer; $i++) {
-					$id = (int)$id_answer[$i];
+					$id = (int) $id_answer[$i];
 					$content = $answer[$i];
-					$is_correct = (int)$correct_answer[$i];
+					$is_correct = (int) $correct_answer[$i];
 					editAnswer($id, $content, $question_id, $is_correct);
 				}
 			}

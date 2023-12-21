@@ -20,6 +20,45 @@
                 <input type="search" class="form-control" placeholder="Tìm kiếm..." aria-label="Search">
             </form>
 
+
+
+            <div class="dropdown text-end me-3">
+                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bell fa-fw"></i>
+                    <!-- Counter - Alerts -->
+
+                </a>
+                <div class="dropdown-menu dropdown-menu-end mt-3">
+                    <h6 class="dropdown-header">
+                        Trung tâm thông báo
+                    </h6>
+                    <?php foreach ($notifications as $notification):
+                        extract($notification) ?>
+                        <a class="dropdown-item d-flex align-items-center <?= ($status == 0) ? 'bg-light' : 'bg-white' ?>"
+                            href="<?= $action ?>">
+                            <div>
+                                <div class="fw-bold">
+                                    <?= $fullname ?>
+                                </div>
+                                <div class="small text-gray-500">
+                                    <?= $created_at ?>
+                                </div>
+                                <span class="font-weight-bold">
+                                    <?= $content ?>
+                                </span>
+                            </div>
+                        </a>
+                    <?php endforeach ?>
+                    <a class="dropdown-item text-center small text-gray-500" href="#">Xem Tất Cả Thông Báo</a>
+                </div>
+            </div>
+
+
+
+
+
+
             <div class="dropdown text-end">
                 <a href="" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -60,4 +99,4 @@
 </nav><!-- End: Navbar Centered Links -->
 
 <!-- logout modal -->
-<?php include 'components/modals/logout_modal.php'; ?>
+<?php include 'components/modals/logout_modal.php' ?>

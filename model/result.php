@@ -330,7 +330,33 @@ function confirmExam($exam_code)
         FROM results r
         INNER JOIN exams e ON e.id = r.exam_id
         INNER JOIN result_details rd ON rd.result_id = r.id
-        WHERE e.exam_code = '$exam_code';"; 
+        WHERE e.exam_code = '$exam_code';";
+
+        return pdo_query($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
+function calAvgPointByScheduleId($schedule_id)
+{
+    try {
+        $sql = "SELECT
+                    AVG(subquery.average_points) AS avg_point
+                FROM
+                    (
+                        SELECT
+                            AVG(r.points) AS average_points
+                        FROM
+                            results r
+                        LEFT JOIN
+                            exams e ON r.exam_id = e.id
+                        LEFT JOIN
+                            schedules s ON e.schedule_id = s.id
+                        WHERE
+                            s.id = '$schedule_id'
+                        GROUP BY
+                            r.exam_id
+                    ) subquery;";
         return pdo_query_one($sql);
     } catch (\Exception $e) {
         echo $e->getMessage();

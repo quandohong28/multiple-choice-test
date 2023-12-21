@@ -6,7 +6,8 @@ function hashPassword($password)
     } catch (Exception $e) {
         echo $e->getMessage();
     }
-};
+}
+;
 
 function verifyPassword($password, $hashedPassword)
 {
@@ -189,6 +190,58 @@ function editProfile($id, $email, $introduce, $avatar, $fullname, $tel, $address
         WHERE id = $id";
         pdo_execute($sql);
     } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+function filterAccount($filterByCategory, $filterByLetter, $search, $page)
+{
+    try {
+        $sql = "SELECT a.id, a.username, a.fullname, a.avatar, a.email, a.address, a.tel, a.introduce, r.role 
+        FROM accounts a 
+        INNER JOIN roles r ON a.role_id = r.id ";
+
+        if (!is_null($search) && $search != "") {
+            $sql .= " WHERE a.username LIKE '%$search%' OR a.fullname LIKE '%$search%' OR a.id LIKE '%$search%' OR a.email LIKE '%$search%'";
+        }
+
+        if ($filterByCategory != "id") {
+            if ($filterByCategory == "username") {
+                $sql .= "ORDER BY a.username";
+
+                $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+            }
+            if ($filterByCategory == "fullname") {
+                $sql .= "ORDER BY a.fullname";
+
+                $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+            }
+            if ($filterByCategory == "role") {
+                $sql .= "ORDER BY r.role";
+
+                $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+            }
+        } else {
+            $sql .= "ORDER BY a.id";
+            $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+        }
+
+        $sql .= " LIMIT $page,10 ;";
+
+
+        return pdo_query($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+
+}
+function getNumberUser()
+{
+    try {
+        $sql = "SELECT COUNT(*) AS number_user 
+                FROM accounts 
+                WHERE role_id = 1;";
+        return pdo_query_one($sql);
+    } catch (\Exception $e) {
         echo $e->getMessage();
     }
 }

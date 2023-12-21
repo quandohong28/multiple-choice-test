@@ -14,6 +14,7 @@ include '../model/exam.php';
 include '../model/result.php';
 include '../model/answer.php';
 include '../functions/core.php';
+include '../model/notification.php';
 
 ?>
 
@@ -43,7 +44,11 @@ include '../functions/core.php';
     <header>
 
         <?php
-        include './layouts/header.php';
+        $notifications = getNotificationsByUserId($_SESSION['user']['id']);
+        $number_notification = getNumberNotification($_SESSION['user']['id']);
+        include "./layouts/header.php";
+
+
         ?>
     </header>
     <main>

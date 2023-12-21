@@ -1,6 +1,6 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh sách lịch thi</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách đề thi</h6>
     </div>
     <div class="card-body">
         <div class="row mb-3">
@@ -8,11 +8,11 @@
                 <div class="row align-items-end me-1">
                     <div class="col-md-3 form-group">
                         <label>Sắp xếp theo</label>
-                        <select name="filterByCategory" class="form-control form-control-sm">
+                        <select name="filterByCategory" class="form-control form-control-sm"> DESC
                             <option value="id" selected>ID</option>
-                            <option value="name_schedules">Tên lịch thi</option>
-                            <option value="time_schedules">Thời gian bắt đầu</option>
-                            <option value="quantity_schedules">Số lượng đề thi</option>
+                            <option value="exam_code">Mã đề thi</option>
+                            <option value="category">Chuyên mục</option>
+                            <option value="types_exam">Loại đề thi</option>
                         </select>
                     </div>
                     <div class="col-md-3 form-group">
@@ -34,7 +34,8 @@
                             </button>
                             <button type="reset" class="btn btn-sm btn-outline-dark col">
                                 <i class="fa-regular fa-fw fa-window-restore"></i>
-                                <span class="lg-hidden">Mặc định</span>
+                                <a href="index.php?act=tables&data=exams" class="lg-hidden text-decoration-none">Mặc
+                                    định</a>
                             </button>
                         </div>
                     </div>
@@ -42,10 +43,10 @@
             </form>
         </div>
         <div class="row mb-3">
+            <?php include '../components/filter.php' ?>
+        </div>
+        <div class="row mb-3">
             <div class="col">
-                <a class="btn btn-primary btn-sm" data-bs-toggle="modal" href="#addSchedule" role="button"><i
-                        class="fa-regular me-2 fa-square-plus fa-lg"></i>Thêm lịch
-                    thi</a>
             </div>
             <div class="col">
                 <?php include 'tables/components/data_export.php' ?>
@@ -56,71 +57,55 @@
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Tên lịch thi</th>
-                        <th scope="col">Thời gian bắt đầu</th>
-                        <th scope="col">Thời gian làm bài</th>
-                        <th scope="col">Số lượng đề thi</th>
-                        <th scope="col">Số lượng thí sinh</th>
+                        <th scope="col">Mã đề thi</th>
+                        <th scope="col">Lịch thi</th>
+                        <th scope="col">Chuyên mục</th>
+                        <th scope="col">Loại đề thi</th>
+                        <th scope="col">Số lượng câu hỏi</th>
                         <th scope="col">Chức năng</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Tên lịch thi</th>
-                        <th scope="col">Thời gian bắt đầu</th>
-                        <th scope="col">Thời gian làm bài</th>
-                        <th scope="col">Số lượng đề thi</th>
-                        <th scope="col">Số lượng thí sinh</th>
+                        <th scope="col">Mã đề thi</th>
+                        <th scope="col">Lịch thi</th>
+                        <th scope="col">Chuyên mục</th>
+                        <th scope="col">Loại đề thi</th>
+                        <th scope="col">Số lượng câu hỏi</th>
                         <th scope="col">Chức năng</th>
                     </tr>
                 </tfoot>
                 <tbody>
-                    <?php foreach ($all_schedule as $schedule):
-                        extract($schedule);
-                        list($start_date, $start_time) = explode(" ", $time_start);
-                        ?>
+                    <?php foreach ($exams as $exam):
+                        extract($exam); ?>
                         <tr class="">
                             <td class="align-middle">
-                                <?= $id ?>
+                                <?= $exam_id ?>
                             </td>
                             <td class="align-middle">
-                                <?= $name ?>
+                                <?= $exam_code ?>
                             </td>
                             <td class="align-middle">
-                                <span>
-                                    <?= 'Ngày : ' . $start_date ?>
-                                </span>
-                                <br>
-                                <span>
-                                    <?= 'Giờ : ' . $start_time ?>
-                                </span>
+                                <?= $schedule_name ? $schedule_name : '<span class="badge bg-danger p-2">Thi thử không thuộc Lịch thi nào!</span>' ?>
                             </td>
                             <td class="align-middle">
-                                <?= $exam_time ?>
+                                <?= $category_name ?>
                             </td>
                             <td class="align-middle">
-                                <?= $number_exam ?>
+                                <?= $type_name ?>
                             </td>
                             <td class="align-middle">
-                                <?= $number_candidate ? $number_candidate : 'Không có' ?>
+                                <?= $number_question ?>
                             </td>
                             <td class="align-middle">
-                                <a class="btn btn-success btn-sm"
-                                    href="?act=tables&data=schedule_detail&schedule_id=<?= $id ?>"><i
+                                <a class="btn btn-success btn-sm" href="?act=tables&data=exam_detail&id=<?= $exam_id ?>"><i
                                         class="fa-solid fa-circle-info"></i></a>
-                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#editScheduleModal" data-value='<?= json_encode($schedule) ?>'>
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                <a onclick="return confirm('Bạn có xác nhận xóa ?');" class="btn btn-danger btn-sm"
-                                    href="?act=tables&data=del_schedule&id=<?= $id; ?>"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
             </table>
-
         </div>
         <ul class="pagination pagination-sm justify-content-end">
             <li class="page-item disabled">
@@ -129,8 +114,8 @@
                 </a>
             </li>
             <?php
-            $currentURL = "index.php?act=tables&data=schedules";
-            $amountPage = ceil(count(getAllSchedules()) / 10);
+            $currentURL = "index.php?act=tables&data=exams";
+            $amountPage = ceil(count(getAllExams()) / 10);
             for ($page = 1; $page <= $amountPage; $page++):
                 ?>
                 <li class="page-item"><a class="page-link" href="<?= $currentURL . "&page=$page" ?>">
@@ -144,8 +129,4 @@
             </li>
         </ul>
     </div>
-    <!----Thêm lịch thi----->
-    <?php include './modals/addschedulemodal.php' ?>
-    <!----Sửa lịch thi----->
-    <?php include './modals/editschedulemodal.php' ?>
 </div>

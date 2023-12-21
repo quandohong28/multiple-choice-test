@@ -9,6 +9,7 @@ function getAllSchedules()
     }
 }
 
+
 function getScheduleById($id)
 {
     try {
@@ -316,3 +317,122 @@ function countScheduleDetail($schedule_id)
         echo $e->getMessage();
     }
 }
+function getAllSchedulesAndNumberCandidates()
+{
+    try {
+        $sql = "SELECT
+                    s.*,
+                    e.category_id,
+                    COUNT(DISTINCT sd.account_id) AS number_candidate,
+                    SUM(q.question_level_id = 1) AS number_easy_questions,
+                    SUM(q.question_level_id = 2) AS number_medium_questions,
+                    SUM(q.question_level_id = 3) AS number_hard_questions
+                FROM
+                    schedules s
+                JOIN exams e ON
+                    s.id = e.schedule_id
+                LEFT JOIN schedule_detail sd ON
+                    s.id = sd.schedule_id
+                LEFT JOIN exam_details ed ON
+                    e.id = ed.exam_id
+                LEFT JOIN questions q ON
+                    ed.question_id = q.id
+                GROUP BY
+                    s.id;";
+        return pdo_query($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function editSchedule($id, $name, $time_start, $exam_time, $number_exam)
+{
+    try {
+        $sql = "UPDATE schedules 
+            SET
+            name = '$name',
+            time_start = '$time_start',
+            exam_time = $exam_time,
+            number_exam = $number_exam
+        WHERE
+            id = $id;";
+        pdo_execute($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+
+function getNumbersScheduleLast6Month()
+{
+    try {
+        $sql = "SELECT
+    SUM(
+        CASE WHEN MONTH(s.time_start) = MONTH(NOW()) AND YEAR(s.time_start) = YEAR(NOW()) THEN 1 ELSE 0
+        END) AS ThisMonth,
+        SUM(
+            CASE WHEN MONTH(s.time_start) = MONTH(NOW() - INTERVAL 1 MONTH) AND YEAR(s.time_start) = YEAR(NOW() - INTERVAL 1 MONTH) THEN 1 ELSE 0
+            END) AS LastMonth,
+            SUM(
+                CASE WHEN MONTH(s.time_start) = MONTH(NOW() - INTERVAL 2 MONTH) AND YEAR(s.time_start) = YEAR(NOW() - INTERVAL 2 MONTH) THEN 1 ELSE 0
+                END) AS Month2,
+                SUM(
+                    CASE WHEN MONTH(s.time_start) = MONTH(NOW() - INTERVAL 3 MONTH) AND YEAR(s.time_start) = YEAR(NOW() - INTERVAL 3 MONTH) THEN 1 ELSE 0
+                    END) AS Month3,
+                    SUM(
+                        CASE WHEN MONTH(s.time_start) = MONTH(NOW() - INTERVAL 4 MONTH) AND YEAR(s.time_start) = YEAR(NOW() - INTERVAL 4 MONTH) THEN 1 ELSE 0
+                        END) AS Month4,
+                        SUM(
+                            CASE WHEN MONTH(s.time_start) = MONTH(NOW() - INTERVAL 5 MONTH) AND YEAR(s.time_start) = YEAR(NOW() - INTERVAL 5 MONTH) THEN 1 ELSE 0
+                            END) AS Month5
+                        FROM
+                            schedules s
+                        WHERE
+                            s.time_start BETWEEN DATE_FORMAT(NOW(), '%Y-01-01') AND LAST_DAY(NOW()) OR s.time_start BETWEEN DATE_FORMAT(
+                                NOW() - INTERVAL 6 MONTH, '%Y-07-01') AND LAST_DAY(NOW());";
+        return pdo_query_one($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function getPointRateFromSchedule($schedule_id)
+{
+    try {
+        $sql = "SELECT
+                    s.id AS schedule_id,
+                    s.name AS schedule_name,
+                    COUNT(DISTINCT e.id) AS number_of_exams,
+                    COUNT(r.id) AS total_results,
+                    SUM(
+                        CASE WHEN r.points >= 1 AND r.points <= 5 THEN 1 ELSE 0
+                    END
+                ) AS count_1_to_5,
+                SUM(
+                    CASE WHEN r.points > 5 AND r.points <= 8 THEN 1 ELSE 0
+                END
+                ) AS count_5_to_8,
+                SUM(
+                    CASE WHEN r.points > 8 THEN 1 ELSE 0
+                END
+                ) AS count_8_and_above
+                FROM
+                    results r
+                LEFT JOIN exams e ON
+                    r.exam_id = e.id
+                LEFT JOIN schedules s ON
+                    s.id = e.schedule_id
+                WHERE
+                    s.id = '$schedule_id'
+                GROUP BY
+                    s.id,
+                    s.name;";
+        return pdo_query_one($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+
+
+?>

@@ -38,6 +38,8 @@ foreach ($configVariables as $variable) {
         $config[$parts[0]] = $parts[1];
     }
 }
+include '../model/notification.php';
+
 
 // Số lượng lịch thi trong tháng này
 
@@ -84,7 +86,10 @@ foreach ($configVariables as $variable) {
             <div id="content">
 
                 <!-- Topbar -->
-                <?php include 'layouts/header.php'; ?>
+                <?php
+                // $notifications = getNotificationsByUserId($_SESSION['user']['id']);
+                // $number_notification = getNumberNotification($_SESSION['user']['id']);
+                include 'layouts/header.php' ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -94,7 +99,6 @@ foreach ($configVariables as $variable) {
                             $schedules = getLimitShedule(10);
                             $categories = getAllCategories();
                             $number_schedule = getScheduleThisWeek();
-                    
                             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 $interval = $_POST['interval'];
                                 if ($interval == 'this-week') {
@@ -109,7 +113,12 @@ foreach ($configVariables as $variable) {
                                     $number_schedule = getScheduleByTimePeriod($start_date, $end_date);
                                 }
                             }
-                            include './dashboard.php';
+                            $number_schedule6month = getNumbersScheduleLast6Month();
+                            $number_user = getNumberUser();
+                            $number_category = getNumberCategory();
+                            $number_question = getNumberQuestion();
+                            include "./dashboard.php";
+                            $values = getNumberFinishedExamThisMonth();
                             break;
                         case 'search':
                             include './search.php';
@@ -150,7 +159,10 @@ foreach ($configVariables as $variable) {
                             $number_cadidate = getNumberCandidateOfSchedule($schedule_id)['number'];
                             $number_exam = getScheduleById($schedule_id)['number_exam'];
                             $exam_time = getScheduleById($schedule_id)['exam_time'];
-                            include './statistic/schedule.php';
+                            $pointRate = getPointRateFromSchedule($schedule_id);
+                            $avgPoint = calAvgPointByScheduleId($schedule_id);
+                            // var_dump($avgPoint);die;
+                            include "./statistic/schedule.php";
                             break;
                         case 'statistic_category':
                             include './statistic/category.php';
@@ -181,7 +193,11 @@ foreach ($configVariables as $variable) {
                                     $number_schedule = getScheduleByTimePeriod($start_date, $end_date);
                                 }
                             }
-                            include './dashboard.php';
+                            $number_schedule6month = getNumbersScheduleLast6Month();
+                            $number_user = getNumberUser();
+                            $number_category = getNumberCategory();
+                            $number_question = getNumberQuestion();
+                            include "./dashboard.php";
                             break;
                     } ?>
                 </div>

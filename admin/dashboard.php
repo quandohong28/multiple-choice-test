@@ -26,7 +26,9 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <h1 class="text-gray-800 fw-bold"><?= $number_schedule['number_schedule'] ?></h1>
+                        <h1 class="text-gray-800 fw-bold">
+                            <?= $number_schedule['number_schedule'] ?>
+                        </h1>
                     </div>
                 </div>
             </div>
@@ -48,7 +50,9 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <h1 class="text-gray-800 fw-bold"><?= $number_schedule['number_finished_exam'] ?></h1>
+                        <h1 class="text-gray-800 fw-bold">
+                            <?= $number_schedule['number_finished_exam'] ?>
+                        </h1>
                     </div>
                 </div>
             </div>
@@ -104,7 +108,8 @@
                         <div class="mb-3 form-group">
                             <label for="" class="form-label">Exam code</label>
                             <div class="input-group">
-                                <input id="exam-code" type="text" class="form-control form-control-sm" name="exam_code">
+                                <input type="text" name="exam_code" id="exam_code" class="form-control form-control-sm"
+                                    placeholder="VD: PFNDIEK" aria-describedby="helpId">
                                 <button type="submit" class="btn btn-sm btn-primary">Thực hiện</button>
                             </div>
                             <small class="form-message text-danger"></small>
@@ -120,10 +125,12 @@
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Hệ thống TechQuiz Hero</h6>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Menu:</div>
                             <a class="dropdown-item" href="#">Xem chi tiết</a>
                         </div>
@@ -131,9 +138,15 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <p>Người dùng: </p>
-                    <p>Chuyên mục: </p>
-                    <p>Câu hỏi: </p>
+                    <p>Người dùng:
+                        <?= $number_user['number_user'] ?>
+                    </p>
+                    <p>Chuyên mục:
+                        <?= $number_category['number_category'] ?>
+                    </p>
+                    <p>Câu hỏi:
+                        <?= $number_question['number_question'] ?>
+                    </p>
                 </div>
             </div>
         </div>
@@ -142,10 +155,10 @@
 
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Sáu tháng gần đây</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Số lượng lịch thi đã tạo sáu tháng gần đây</h6>
                 </div>
                 <div class="card-body">
-                    <canvas id="myChart"></canvas>
+                    <canvas id="scheduleChart"></canvas>
                 </div>
             </div>
         </div>
@@ -162,10 +175,12 @@
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Lịch thi gần đây</h6>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Menu:</div>
                             <a class="dropdown-item" href="#">Xem chi tiết</a>
                         </div>
@@ -175,11 +190,14 @@
                 <div class="card-body">
                     <!-- Nội dung viết ở đây -->
                     <ul class="list-group list-group-flush">
-                        <?php foreach ($schedules as $key => $value) : ?>
+                        <?php foreach ($schedules as $key => $value): ?>
                             <div class="card text-start mb-3">
                                 <div class="card-body">
-                                    <h6 class="card-title fw-bold text-success"><?= $value['name'] ?></h6>
-                                    <a href="?act=statistic_schedule&schedule_id=<?= $value['id'] ?>" class="card-text">Xem chi tiết &rarr;</a>
+                                    <h6 class="card-title fw-bold text-success">
+                                        <?= $value['name'] ?>
+                                    </h6>
+                                    <a href="?act=statistic_schedule&schedule_id=<?= $value['id'] ?>" class="card-text">Xem
+                                        chi tiết &rarr;</a>
                                 </div>
                             </div>
                         <?php endforeach ?>
@@ -195,10 +213,12 @@
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Chuyên mục</h6>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Menu:</div>
                             <a class="dropdown-item" href="?act=statistic_category">Xem chi tiết</a>
                         </div>
@@ -206,10 +226,12 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <?php foreach ($categories as $key => $value) : ?>
+                    <?php foreach ($categories as $key => $value): ?>
                         <div class="card text-start mb-3">
                             <div class="card-body pb-2">
-                                <h6 class="card-title fw-bold text-success"><?= $value['name'] ?></h6>
+                                <h6 class="card-title fw-bold text-success">
+                                    <?= $value['name'] ?>
+                                </h6>
                             </div>
                         </div>
                     <?php endforeach ?>
@@ -224,7 +246,7 @@
     const customDate = document.querySelector('.custom-date');
     const filterNames = document.querySelectorAll('.filter-name');
     console.log(filterNames);
-    interval.addEventListener('change', function() {
+    interval.addEventListener('change', function () {
         if (this.value === 'custom-date') {
             customDate.classList.add('d-flex');
         } else {
@@ -236,15 +258,32 @@
         });
     });
 
-    const ctx = document.getElementById('myChart');
+
+</script>
+
+
+<!-- Xử lý biểu đồ cột render ra lịch đã tạo trong 6 tháng gần nhất -->
+
+<script type="text/javascript">
+    
+    const ctx = document.getElementById('scheduleChart');
+
+    var number_schedule6month = <?= json_encode($number_schedule6month); ?>;
 
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Năm tháng', 'Bốn tháng', 'Ba Tháng', 'Hai Tháng', 'Tháng trước', 'Tháng này'],
+            labels: ['Tháng 5', 'Tháng 4', 'Tháng 3', 'Tháng 2', 'Tháng trước', 'Tháng này'],
             datasets: [{
                 label: 'Số lượng lịch thi được tạo',
-                data: [2, 19, 3, 5, 2, 3],
+                data: [
+                    number_schedule6month["Month5"],
+                    number_schedule6month["Month4"],
+                    number_schedule6month["Month3"],
+                    number_schedule6month["Month2"],
+                    number_schedule6month["LastMonth"],
+                    number_schedule6month["ThisMonth"]
+                ],
                 borderWidth: 1
             }]
         },

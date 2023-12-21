@@ -137,3 +137,13 @@ function getNumberQuestionLevelByCategoryId($category_id)
         echo $e->getMessage();
     }
 }
+
+function getNumberQuestion()
+{
+    try {
+        $sql = "SELECT COUNT(*) AS number_question FROM questions WHERE id;";
+        return pdo_query_one($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
