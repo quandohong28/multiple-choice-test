@@ -76,7 +76,7 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <?php foreach ($all_schedule as $schedule):
+                    <?php foreach ($schedules as $schedule):
                         extract($schedule);
                         list($start_date, $start_time) = explode(" ", $time_start);
                         ?>

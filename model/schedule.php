@@ -111,7 +111,7 @@ function updateStatusScheduleDetail($schedule_id, $account_id, $status)
     } catch (Exception $e) {
         echo $e->getMessage();
     }
-} 
+}
 
 function addSchedule($name, $time_start, $exam_time, $number_exam)
 {
@@ -157,7 +157,19 @@ function getLatestSchedule()
 function getSchedules($page)
 {
     try {
-        $sql = "SELECT * FROM schedules ORDER BY time_start DESC LIMIT $page, 10;";
+        $sql = "SELECT
+                    s.*,
+                    COUNT(sd.account_id) AS number_candidate
+                FROM
+                    schedules s
+                LEFT JOIN schedule_detail sd ON
+                    s.id = sd.schedule_id
+                GROUP BY
+                    s.id
+                ORDER BY
+                    time_start
+                DESC
+                LIMIT $page, 10;";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -317,33 +329,6 @@ function countScheduleDetail($schedule_id)
         echo $e->getMessage();
     }
 }
-function getAllSchedulesAndNumberCandidates()
-{
-    try {
-        $sql = "SELECT
-                    s.*,
-                    e.category_id,
-                    COUNT(DISTINCT sd.account_id) AS number_candidate,
-                    SUM(q.question_level_id = 1) AS number_easy_questions,
-                    SUM(q.question_level_id = 2) AS number_medium_questions,
-                    SUM(q.question_level_id = 3) AS number_hard_questions
-                FROM
-                    schedules s
-                JOIN exams e ON
-                    s.id = e.schedule_id
-                LEFT JOIN schedule_detail sd ON
-                    s.id = sd.schedule_id
-                LEFT JOIN exam_details ed ON
-                    e.id = ed.exam_id
-                LEFT JOIN questions q ON
-                    ed.question_id = q.id
-                GROUP BY
-                    s.id;";
-        return pdo_query($sql);
-    } catch (\Exception $e) {
-        echo $e->getMessage();
-    }
-}
 
 function editSchedule($id, $name, $time_start, $exam_time, $number_exam)
 {
@@ -432,7 +417,3 @@ function getPointRateFromSchedule($schedule_id)
         echo $e->getMessage();
     }
 }
-
-
-
-?>

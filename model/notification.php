@@ -14,7 +14,8 @@ function insertAutoNotification($receiver, $content, $action)
 function getNotificationsByUserId($user_id)
 {
     try {
-        $sql = "SELECT notifications.*, accounts.fullname
+        $sql = "SELECT notifications.*,
+                accounts.fullname
                 FROM notifications
                 INNER JOIN accounts ON notifications.sender = accounts.id
                 WHERE receiver = $user_id;";

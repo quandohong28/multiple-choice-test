@@ -47,8 +47,6 @@ include '../model/notification.php';
         $notifications = getNotificationsByUserId($_SESSION['user']['id']);
         $number_notification = getNumberNotification($_SESSION['user']['id']);
         include "./layouts/header.php";
-
-
         ?>
     </header>
     <main>
@@ -74,7 +72,7 @@ include '../model/notification.php';
                         break;
                     case 'start_exam':
                         // Xu ly lay ra so luong cau hoi theo do kho trong moi chuyen muc
-                        
+
 
 
 
@@ -285,6 +283,7 @@ include '../model/notification.php';
             }
             ?>
         </div>
+
     </main>
     <footer>
         <?php include './layouts/footer.php'; ?>
