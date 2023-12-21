@@ -417,3 +417,26 @@ function getPointRateFromSchedule($schedule_id)
         echo $e->getMessage();
     }
 }
+
+
+
+function getNumberScheduleFromCategory($category_id)
+{
+    try {
+        $sql = "SELECT
+                    c.id AS category_id,
+                    c.name AS category_name,
+                    COUNT(s.id) AS total_schedules
+                FROM
+                    categories c
+                LEFT JOIN exams e ON
+                    c.id = e.category_id
+                LEFT JOIN schedules s ON
+                    e.schedule_id = s.id
+                WHERE
+                    c.id = $category_id;";
+        return pdo_query_one($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
