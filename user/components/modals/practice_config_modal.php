@@ -9,17 +9,20 @@
                 <div class="form-body p-5">
                     <p>Chọn level</p>
                     <div class="row mb-3">
-                        <div class="col">
+                        <div class="col form-group">
                             <label for="number_easy_questions" class="form-label form-label"><span class="badge bg-success">Dễ</span></label>
                             <input type="number" name="number_easy_questions" id="number_easy_questions" class="form-control form-control-sm">
+                            <small class="form-message text-danger"></small>
                         </div>
-                        <div class="col">
+                        <div class="col form-group">
                             <label for="number_medium_questions" class="form-label form-label"><span class="badge bg-warning">Trung Bình</span></label>
                             <input type="number" name="number_medium_questions" id="number_medium_questions" class="form-control form-control-sm">
+                            <small class="form-message text-danger"></small>
                         </div>
-                        <div class="col">
+                        <div class="col form-group">
                             <label for="number_hard_questions" class="form-label form-label"><span class="badge bg-danger">Khó</span></label>
                             <input type="number" name="number_hard_questions" id="number_hard_questions" class="form-control form-control-sm">
+                            <small class="form-message text-danger"></small>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -46,18 +49,38 @@
 
 <script>
     var practiceConfigModal = document.getElementById('practiceConfigModal');
-
     practiceConfigModal.addEventListener('show.bs.modal', function(event) {
         // Button that triggered the modal
-        let button = event.relatedTarget;
         // Extract info from data-bs-* attributes
+        let button = event.relatedTarget;
         let category = JSON.parse(button.getAttribute('data-bs-value'));
 
-        const title = document.getElementById('practiceConfigModalLabel');
+        const title = document.querySelector('#practiceConfigModalLabel');
         title.innerHTML = category.name;
 
-        const form =document.querySelector('#practiceConfigForm');
+        const form = document.querySelector('#practiceConfigForm');
         form.querySelector("#category_id").value = category.id;
-
+        if(category) {
+            validate();
+        }
     });
+
+    // Validate form
+    function validate() {
+        document.addEventListener('DOMContentLoaded', function() {
+            Validator({
+                form: '#practiceConfigForm',
+                formGroupSelector: '.form-group',
+                errorSelector: '.form-message',
+                rules: [
+                    Validator.isRequired('#number_easy_questions', 'Vui lòng nhập số lượng câu hỏi'),
+                    Validator.isRequired('#number_medium_questions', 'Vui lòng nhập số lượng câu hỏi'),
+                    Validator.isRequired('#number_hard_questions', 'Vui lòng nhập số lượng câu hỏi'),
+                    Validator.max('#number_easy_questions', `Số lượng câu hỏi không hợp lệ , tối đa ${category.easy}`, category.easy),
+                    Validator.max('#number_medium_questions', `Số lượng câu hỏi không hợp lệ , tối đa ${category.medium}`, category.medium),
+                    Validator.max('#number_hard_questions', `Số lượng câu hỏi không hợp lệ , tối đa ${category.hard}`, category.hard),
+                ]
+            });
+        });
+    }
 </script>

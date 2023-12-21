@@ -124,14 +124,22 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-md-6 col-xl-4">
                     <div>
-                        <form class="p-3 p-xl-4" method="post" data-bs-theme="light"><!-- Start: Success Example -->
-                            <div class="mb-3">
-                                <input class="form-control" type="text" name="name" placeholder="Họ và tên" value="<?= $_SESSION['user']['fullname'] ?>">
+                        <form class="p-3 p-xl-4" method="post" data-bs-theme="light" id="form-support">
+                            <div class="mb-3 form-group">
+                                <input id="fullname" class="form-control" type="text" name="name" placeholder="Họ và tên" value="<?= $_SESSION['user']['fullname'] ?>">
+                                <span class="form-message text-danger"></span>
                             </div>
-                            <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email" value="<?= $_SESSION['user']['email'] ?>">
+                            <div class="mb-3 form-group">
+                                <input id="email" class="form-control" type="email" name="email" placeholder="Email" value="<?= $_SESSION['user']['email'] ?>">
+                                <span class="form-message text-danger"></span>
                             </div><!-- End: Error Example -->
-                            <div class="mb-3"><textarea class="form-control" name="message" rows="6" placeholder="Miêu tả cho chúng tôi vấn đề của bạn"></textarea></div>
-                            <div><button class="btn btn-primary shadow d-block w-100" type="submit">Gửi</button></div>
+                            <div class="mb-3 form-group">
+                                <textarea id="message" class="form-control" name="message" rows="6" placeholder="Miêu tả cho chúng tôi vấn đề của bạn"></textarea>
+                                <span class="form-message text-danger"></span>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary shadow d-block w-100" type="submit">Gửi</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -170,7 +178,7 @@
                             </div>
                             <div class="px-2">
                                 <h6 class="fw-bold mb-0">Địa chỉ</h6>
-                                <p class="text-muted mb-0">Nhà hát lon</p>
+                                <p class="text-muted mb-0">Toà nhà FPT đường Trịnh Văn Bô, Phương Canh, Nam Từ Liêm, Hà Nội</p>
                             </div>
                         </a>
                     </div>
@@ -178,4 +186,21 @@
             </div>
         </div>
     </section>
-</section>
+    </section>
+
+    <script>
+        // Validate form
+        document.addEventListener('DOMContentLoaded', function() {
+            Validator({
+                form: '#form-support',
+                formGroupSelector: '.form-group',
+                errorSelector: '.form-message',
+                rules: [
+                    Validator.isRequired('#fullname', 'Vui lòng nhập đầy đủ họ và tên'),
+                    Validator.isRequired('#email', 'Vui lòng nhập email'),
+                    Validator.isEmail('#email', 'Email không hợp lệ'),
+                    Validator.isRequired('#message', 'Vui lòng mô tả vấn đề của bạn'),
+                ]
+            });
+        });
+    </script>

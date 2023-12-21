@@ -157,6 +157,7 @@ Validator.isEmail = function (selector, message) {
     };
 }
 
+
 Validator.minLength = function (selector, min, message) {
     return {
         selector: selector,
@@ -173,4 +174,34 @@ Validator.isConfirmed = function (selector, getConfirmValue, message) {
             return value === getConfirmValue() ? undefined : message || 'Giá trị nhập vào không chính xác';
         }
     }
+}
+
+
+Validator.isPhoneNumber = function (selector, message) {
+    return {
+        selector: selector,
+        test: function (value) {
+            var regex = /([\+84|84|0]+(3|5|7|8|9|1[2|6|8|9]))+([0-9]{8})\b/;
+            return regex.test(value) ? undefined : message || 'Trường này phải là số điện thoại';
+        }
+    };
+}
+
+Validator.isNumber = function (selector, message) {
+    return {
+        selector: selector,
+        test: function (value) {
+            var regex = /^[0-9]+$/;
+            return regex.test(value) ? undefined : message || 'Trường này phải là số';
+        }
+    };
+}
+
+Validate.max = function (selector, message, max) {
+    return {
+        selector: selector,
+        test: function (value) {
+            return value <= max ? undefined : message || `Nhập giá trị nhỏ hơn ${max}`;
+        }
+    };
 }

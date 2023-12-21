@@ -14,14 +14,14 @@
                                 Tất cả
                             </button>
                             <div class="collapse ps-5 show" id="home-collapse">
-
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                     <?php foreach ($categories as $category) :
                                         extract($category);
                                     ?>
                                         <li><a href="#" data-bs-toggle="modal" data-bs-target="#practiceConfigModal" class="link-dark">•
                                                 <?= $name ?>
-                                            </a></li>
+                                            </a>
+                                        </li>
                                     <?php endforeach ?>
                                 </ul>
                             </div>
@@ -94,8 +94,12 @@
                     <div class="row gx-5">
                         <div class="">
                             <!-- Chuyên mục -->
-                            <?php foreach ($categories as $category) :
+                            <?php foreach ($categories as &$category) :
                                 extract($category);
+                                $question_levels = getNumberQuestionLevelByCategoryId($id);
+                                $category['easy'] = $question_levels[0]['count'];
+                                $category['medium'] = $question_levels[1]['count'];
+                                $category['hard'] = $question_levels[2]['count'];
                                 $category_image = '../assets/img/categories/';
                                 $quantity = getQuantityOfQuestions($id);
                             ?>
@@ -135,3 +139,7 @@
     <?php include 'components/modals/practice_config_modal.php' ?>
 
 </section> 
+
+<script>
+
+</script>

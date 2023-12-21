@@ -44,7 +44,7 @@ if (isset($_GET['data'])) {
 			include 'accounts.php';
 			break;
 		case 'add_account':
-			if (isset($_POST['btn_add'])) {
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$username = $_POST['username'];
 				$password = hashPassword($_POST['password']);
 				$fullname = $_POST['fullname'];
@@ -60,10 +60,10 @@ if (isset($_GET['data'])) {
 				} else {
 					$avatar = "profile.png";
 				}
-
+				echo 123;
 				insertAccount($username, $password, $fullname, $avatar, $email, $address, $tel, $role_id);
 			}
-			echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=accounts">';
+			// echo '<meta http-equiv="refresh" content="0;url=?act=tables&data=accounts">';
 			break;
 		case 'edit_account':
 			if (isset($_POST['btn_edit'])) {

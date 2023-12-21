@@ -1,5 +1,5 @@
 <div class="profile bg-primary-gradient p-3 rounded">
-    <form action="?act=edit_profile" method="post" enctype="multipart/form-data">
+    <form action="?act=edit_profile" method="post" enctype="multipart/form-data" id="form-update-profile">
         <div class="d-flex gap-5 my-5">
             <div class="col-3 px-3">
                 <p class="fw-bold fs-4">Hồ sơ</p>
@@ -12,11 +12,12 @@
                 <small> Thông tin cá nhân của bạn sẽ được hiển thị công khai, vì vậy hãy thận trọng với những thông tin này.</small>
             </div>
             <div class="col-8 p-5 bg-white rounded shadow">
-                <div class="mb-5">
+                <div class="mb-5 form-group">
                     <label for="email" class="form-label fw-bold">Email</label>
                     <input type="email" name="email" id="email" class="form-control form-control-sm" placeholder="@example.com" value="<?= $email ?>" aria-describedby="helpId">
+                    <span class="form-message text-danger"></span>
                 </div>
-                <div class="mb-5">
+                <div class="mb-5 form-group">
                     <label for="description" class="form-label fw-bold">Cập nhật ảnh đại diện</label>
                     <div class="border border-1 p-5 rounded d-flex flex-column align-items-center">
                         <label for="cover-photo" class="text-center">
@@ -33,31 +34,55 @@
                     </div>
                 </div>
 
-                <div class="mb-5">
+                <div class="mb-5 form-group">
                     <label for="description" class="form-label fw-bold">Giới thiệu về bản thân</label>
-                    <textarea class="form-control form-control-sm" name="introduce" id="" cols="30" rows="5" placeholder="Viết vài dòng giới thiệu về bản thân!"><?= $introduce ?></textarea>
+                    <textarea class="form-control form-control-sm" name="introduce" id="introduce" cols="30" rows="5" placeholder="Viết vài dòng giới thiệu về bản thân!"><?= $introduce ?></textarea>
+                    <span class="form-message text-danger"></span>
                 </div>
 
                 <div class="d-flex mb-5 gap-5">
-                    <div class="col">
+                    <div class="col form-group">
                         <label for="fullname" class="form-label fw-bold">Họ và tên</label>
                         <input type="fullname" name="fullname" id="fullname" class="form-control form-control-sm" aria-describedby="helpId" value="<?= $fullname ?>">
+                        <span class="form-message text-danger"></span>
                     </div>
-                    <div class="col">
+                    <div class="col form-group">
                         <label for="tel" class="form-label fw-bold">Số điện thoại</label>
                         <input type="tel" name="tel" id="tel" class="form-control form-control-sm" placeholder="+84" aria-describedby="helpId" value="<?= $tel ?>">
+                        <span class="form-message text-danger"></span>
                     </div>
                 </div>
-                <div class="mb-5">
+                <div class="mb-5 form-group">
                     <label for="address" class="form-label fw-bold">Địa chỉ chi tiết</label>
                     <textarea class="form-control form-control-sm" name="address" id="address" cols="30" rows="2"><?= $address ?></textarea>
+                    <span class="form-message text-danger"></span>
                 </div>
                 <hr>
                 <div class="text-end">
                     <button class="btn btn-sm btn-outline-white">Huỷ</button>
-                    <button type="submit" name="btn_edit" class="btn btn-sm btn-primary">Lưu</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Lưu</button>
                 </div>
             </div>
         </div>
     </form>
 </div>
+
+<script>
+    // Validate form
+    document.addEventListener('DOMContentLoaded', function() {
+        Validator({
+            form: '#form-update-profile',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('#email', 'Vui lòng nhập email'),
+                Validator.isEmail('#email', 'Email không hợp lệ'),
+                Validator.isRequired('#email', 'Email không hợp lệ'),
+                Validator.isRequired('#tel', 'Vui lòng nhập số điện thoại'),
+                Validator.isPhoneNumber('#tel', 'Số điện thoại không hợp lệ'),
+                Validator.isRequired('#tel', 'Vui lòng nhập số điện thoại'),
+                Validator.isRequired('#address', 'Vui lòng nhập địa chỉ')
+            ]
+        });
+    });
+</script>

@@ -13,6 +13,7 @@ include '../model/schedule.php';
 include '../model/exam.php';
 include '../model/result.php';
 include '../model/answer.php';
+include '../functions/core.php';
 
 ?>
 
@@ -67,6 +68,12 @@ include '../model/answer.php';
                         include './exams/practice.php';
                         break;
                     case 'start_exam':
+                        // Xu ly lay ra so luong cau hoi theo do kho trong moi chuyen muc
+                        
+
+
+
+
                         if (isset($_POST['start-btn'])) {
                             $type = $_POST['type'];
                             $exam_time = $_POST['exam_time'];
@@ -215,12 +222,14 @@ include '../model/answer.php';
                         include './accounts/profile.php';
                         break;
                     case 'edit_profile':
-                        if (isset($_POST['btn_edit'])) {
+                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             $id = $_SESSION['user']['id'];
                             $account = getAccountById($id);
                             $email = $_POST['email'];
                             $introduce = $_POST['introduce'];
-
+                            $fullname = trim($_POST['fullname']);
+                            $tel = $_POST['tel'];
+                            $address = ucfirst(trim($_POST['address']));
                             if ($_FILES['avatar']['name'] != '') {
                                 $targetDir = '../assets/img/accounts/';
                                 $avatar = $_FILES['avatar']['name'];
@@ -229,11 +238,6 @@ include '../model/answer.php';
                                 $avatar = $account['avatar'];
                             }
 
-                            $fullname = trim($_POST['fullname']);
-
-                            $tel = $_POST['tel'];
-
-                            $address = ucfirst(trim($_POST['address']));
 
                             editProfile($id, $email, $introduce, $avatar, $fullname, $tel, $address);
                             echo '<meta http-equiv="refresh" content="0;url=?act=profile">';
@@ -282,6 +286,7 @@ include '../model/answer.php';
     </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="../assets/js/script.min.js"></script>
+    <script src="../assets/js/validator.js"></script>
 </body>
 
 </html>

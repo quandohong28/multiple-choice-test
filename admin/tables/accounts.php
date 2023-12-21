@@ -3,7 +3,7 @@
         <h6 class="m-0 font-weight-bold text-primary">Danh sách tài khoản</h6>
     </div>
     <div class="card-body">
-        <d  iv class="row mb-3">
+        <div class="row mb-3">
             <form method="post" role="form" class="filter-panel">
                 <div class="row align-items-end me-1">
                     <div class="col-md-3 form-group">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </form>
-        </d>
+        </div>
         <div class="row mb-3">
             <div class="col">
                 <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#addaccountmodal">

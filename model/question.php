@@ -117,3 +117,23 @@ function getQuestions($page)
         echo $e->getMessage();
     }
 }
+
+function getNumberQuestionLevelByCategoryId($category_id)
+{
+    try {
+        $sql = "SELECT
+        l.level,
+        COUNT(q.question_level_id) AS count
+    FROM
+        questions q
+    LEFT JOIN question_levels l ON
+        l.id = q.question_level_id
+    WHERE
+        category_id = $category_id
+    GROUP BY
+        q.question_level_id;";
+        return pdo_query($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}

@@ -222,7 +222,7 @@ foreach ($configVariables as $variable) {
     <script src="../assets/js/script.min.js"></script>
 
     <!-- Validate form -->
-    <script src="../assets/js.validator.js"></script>
+    <script src="../assets/js/validator.js"></script>
 
 
 </body>

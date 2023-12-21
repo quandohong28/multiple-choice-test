@@ -156,9 +156,10 @@ function insertAccount($username, $password, $fullname, $avatar, $email, $addres
 {
     if (isset($_POST['btn_add'])) {
         try {
-            $sql2 = "INSERT INTO accounts (username, password, fullname, avatar, email, address, tel, role_id)
+            $sql = "INSERT INTO accounts (username, password, fullname, avatar, email, address, tel, role_id)
             VALUES ('$username', '$password', '$fullname', '$avatar', '$email', '$address', '$tel', $role_id);";
-            pdo_execute($sql2);
+
+            return pdo_execute($sql);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
@@ -191,4 +192,3 @@ function editProfile($id, $email, $introduce, $avatar, $fullname, $tel, $address
         echo $e->getMessage();
     }
 }
-
