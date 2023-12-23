@@ -420,13 +420,11 @@ function getPointRateFromSchedule($schedule_id)
 
 
 
-function getNumberScheduleFromCategory($category_id)
+function getNumberScheduleFromCategoryId($category_id)
 {
     try {
         $sql = "SELECT
-                    c.id AS category_id,
-                    c.name AS category_name,
-                    COUNT(s.id) AS total_schedules
+                    COUNT(DISTINCT s.id) AS total_schedules
                 FROM
                     categories c
                 LEFT JOIN exams e ON
@@ -435,6 +433,37 @@ function getNumberScheduleFromCategory($category_id)
                     e.schedule_id = s.id
                 WHERE
                     c.id = $category_id;";
+        return pdo_query_one($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function getCategoryQuestionStatsById($category_id)
+{
+    try {
+        $sql = "SELECT
+                    COUNT(q.id) AS total_questions,
+                    COUNT(
+                        CASE WHEN ql.id = 1 THEN q.id
+                    END
+                ) AS easy_questions,
+                COUNT(
+                    CASE WHEN ql.id = 2 THEN q.id
+                END
+                ) AS medium_questions,
+                COUNT(
+                    CASE WHEN ql.id = 3 THEN q.id
+                END
+                ) AS hard_questions
+                FROM
+                    questions q
+                INNER JOIN question_levels ql ON
+                    q.question_level_id = ql.id
+                INNER JOIN categories c ON
+                    q.category_id = c.id
+                WHERE
+                    c.id = '$category_id';";
         return pdo_query_one($sql);
     } catch (\Exception $e) {
         echo $e->getMessage();

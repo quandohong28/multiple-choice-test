@@ -161,12 +161,16 @@ foreach ($configVariables as $variable) {
                             include "./statistic/schedule.php";
                             break;
                         case 'statistic_category':
+                            $categories = getAllCategories();
+                            $number_category = getNumberCategory();
                             include './statistic/category.php';
                             break;
                         case 'statistic_result_detail':
                             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 $exam_code = $_POST['exam_code'];
                                 $result_detail = getResultDetailByExamCode($exam_code);
+                                $avg_exam_time = getAvgExamTimeMinutesByExamCode($exam_code);
+                                $avg_point = getAvgPoitExamByExamCode($exam_code);
                             }
                             include './statistic/result_detail.php';
                             break;

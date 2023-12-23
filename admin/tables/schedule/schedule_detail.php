@@ -216,7 +216,6 @@
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
                         <th scope="col">Mã thí sinh</th>
                         <th scope="col">Họ và tên thí sinh</th>
                         <th scope="col">Chức năng</th>
@@ -224,7 +223,6 @@
                 </thead>
                 <tfoot>
                     <tr>
-                        <th scope="col">ID</th>
                         <th scope="col">Mã thí sinh</th>
                         <th scope="col">Họ và tên thí sinh</th>
                         <th scope="col">Chức năng</th>
@@ -233,7 +231,6 @@
                 <tbody>
                     <?php foreach ($schedule_detail as $key => $value) : ?>
                         <tr class="">
-                            <td><?= $value['id'] ?></td>
                             <td><?= $value['account_id'] ?></td>
                             <td><?= $value['fullname'] ?></td>
                             <td class="col-1">

@@ -362,3 +362,37 @@ function calAvgPointByScheduleId($schedule_id)
         echo $e->getMessage();
     }
 }
+
+function getAvgExamTimeMinutesByExamCode($exam_code)
+{
+    try {
+        $sql = "SELECT
+                    AVG(TIME_TO_SEC(r.exam_time)) / 60 AS average_exam_time_minutes
+                FROM
+                    results r
+                INNER JOIN exams e ON
+                    r.exam_id = e.id
+                WHERE
+                    e.exam_code = '$exam_code';";
+        return pdo_query_one($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function getAvgPoitExamByExamCode($exam_code)
+{
+    try {
+        $sql = "SELECT
+                    AVG(points) AS average_points
+                FROM
+                    results r
+                INNER JOIN exams e ON
+                    r.exam_id = e.id
+                WHERE
+                    exam_code = '$exam_code';";
+        return pdo_query_one($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
