@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            <i class="fas fa-calendar-check fa-2x"></i>
                         </div>
                     </div>
                     <div class="text-center">
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <i class="fa-solid fa-clipboard-list fa-2x"></i>
                         </div>
                     </div>
                     <div class="text-center">
@@ -108,7 +108,7 @@
                         <div class="mb-3 form-group">
                             <label for="" class="form-label">Exam code</label>
                             <div class="input-group">
-                                <input type="text" name="exam_code" id="exam_code" class="form-control form-control-sm"
+                                <input type="text" name="exam_code" id="exam-code" class="form-control form-control-sm"
                                     placeholder="VD: PFNDIEK" aria-describedby="helpId">
                                 <button type="submit" class="btn btn-sm btn-primary">Thực hiện</button>
                             </div>
@@ -138,13 +138,13 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <p>Người dùng:
+                    <p>Người dùng :
                         <?= $number_user['number_user'] ?>
                     </p>
-                    <p>Chuyên mục:
+                    <p>Chuyên mục :
                         <?= $number_category['number_category'] ?>
                     </p>
-                    <p>Câu hỏi:
+                    <p>Câu hỏi :
                         <?= $number_question['number_question'] ?>
                     </p>
                 </div>

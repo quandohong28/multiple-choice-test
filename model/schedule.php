@@ -417,3 +417,55 @@ function getPointRateFromSchedule($schedule_id)
         echo $e->getMessage();
     }
 }
+
+
+
+function getNumberScheduleFromCategoryId($category_id)
+{
+    try {
+        $sql = "SELECT
+                    COUNT(DISTINCT s.id) AS total_schedules
+                FROM
+                    categories c
+                LEFT JOIN exams e ON
+                    c.id = e.category_id
+                LEFT JOIN schedules s ON
+                    e.schedule_id = s.id
+                WHERE
+                    c.id = $category_id;";
+        return pdo_query_one($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function getCategoryQuestionStatsById($category_id)
+{
+    try {
+        $sql = "SELECT
+                    COUNT(q.id) AS total_questions,
+                    COUNT(
+                        CASE WHEN ql.id = 1 THEN q.id
+                    END
+                ) AS easy_questions,
+                COUNT(
+                    CASE WHEN ql.id = 2 THEN q.id
+                END
+                ) AS medium_questions,
+                COUNT(
+                    CASE WHEN ql.id = 3 THEN q.id
+                END
+                ) AS hard_questions
+                FROM
+                    questions q
+                INNER JOIN question_levels ql ON
+                    q.question_level_id = ql.id
+                INNER JOIN categories c ON
+                    q.category_id = c.id
+                WHERE
+                    c.id = '$category_id';";
+        return pdo_query_one($sql);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+}

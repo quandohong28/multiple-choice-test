@@ -197,7 +197,7 @@ Validator.isNumber = function (selector, message) {
     };
 }
 
-Validate.max = function (selector, message, max) {
+Validator.max = function (selector, message, max) {
     return {
         selector: selector,
         test: function (value) {

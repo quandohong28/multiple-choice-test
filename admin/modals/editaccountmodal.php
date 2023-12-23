@@ -56,7 +56,7 @@
                                 <div class="col-12 mb-4 d-flex align-items-center">
                                     <div class="form-outline datepicker w-100">
                                         <label for="introduce" class="form-label">Giới thiệu</label>
-                                        <textarea readonly name="edit_introduce" cols="30" rows="3" value="" placeholder="" class="form-control form-control-sm" id="introduce"></textarea>
+                                        <textarea readonly name="edit_introduce" cols="30" rows="3" value="" placeholder="" class="form-control form-control-sm bg-white" id="introduce"></textarea>
                                     </div>
                                 </div>
                             </div>
