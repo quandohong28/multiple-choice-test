@@ -1,4 +1,4 @@
-<section class="bg-primary-gradient p-5"><!-- Start: Features Cards -->
+<section class="bg-primary-gradient p-5 rounded"><!-- Start: Features Cards -->
     <!-- filter -->
     <div class="filter px-5 py-3 mb-5 bg-white shadow rounded">
         <form action="">
@@ -50,57 +50,61 @@
                                 </a>
                             </th>
                             <th class="small p-2">
-                                <a href="?act=schedule&sortbylocation">
-                                    <span class="me-2">Thời gian kết thúc</span>
+                                <a href="?act=schedule&sortbydate">
+                                    <span class="me-2">Thời gian làm bài</span>
                                     <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
                             <th class="small p-2">
-                                <a href="?act=schedule&sortbyexam">
-                                    <span class="me-2">Tình trạng</span>
+                                <a href="?act=schedule&sortbydate">
+                                    <span class="me-2">Số lượng đề thi</span>
                                     <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
-                            <th class="small p-2">Chức năng</th>
+                            <th class="small p-2">Trạng thái</th>
+                            <th class="small p-2">Chi tiết</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($schedules as $schedule) : extract($schedule);
                             list($start_date, $start_time) = explode(" ", $time_start);
-                            list($exp_date, $exp_time) = explode(" ", $time_exp);
-                            $schedule_detail = getListExamByScheduleId($id);
+                            $exam = getExamByScheduleId($schedule_id); 
+                            $exam['status'] = $status;
+                            $exam['schedule_detail_status'] = $schedule_detail_status;
+                            $exam['exam_code'] = $exam_code;
+                            $exam['name_schedule'] = $name;
+                            $exam['exam_time_schedule'] = $exam_time;
                         ?>
                             <tr class="">
-                                <td><?= $id ?></td>
+                                <td><?= $schedule_id ?></td>
                                 <td class="small" scope="row"><?= $name ?></td>
                                 <td class="small" scope="row">
                                     <span>Ngày: <?= $start_date ?></span><br>
                                     <span>Thời gian: <?= $start_time ?></span>
                                 </td>
                                 <td class="small" scope="row">
-                                    <span>Ngày: <?= $exp_date ?></span><br>
-                                    <span>Thời gian: <?= $exp_time ?></span>
+                                    <?= $exam_time ?> Phút
+                                </td>
+                                <td class="small" scope="row">
+                                    <?= $number_exam ?> Mã đề
                                 </td>
                                 <td class="small" class="">
-                                    <span class="badge bg-warning p-2">
-                                        Chưa mở
-                                    </span>
-                                    <span class="badge bg-primary p-2">
-                                        Đang mở
-                                    </span>
-                                    <span class="badge bg-danger p-2">
-                                        Kết thúc
+                                    <span>
+                                        <?php
+                                        if ($status == 0) echo "<span class='text-danger'>Chưa mở</span>";
+                                        else if ($status == 1) echo "<span class='text-success'>Đang mở</span>";
+                                        else if ($status == 2) echo "<span class='text-warning'>Đang diễn ra</span>";
+                                        else echo "<span class='text-secondary'>Đã đóng</span>";
+                                        ?>
                                     </span>
                                 </td>
                                 <td class="small" class="">
-                                    <a class="badge bg-info px-3 py-2" type="button" data-bs-toggle="modal" data-bs-target="#scheduledeatilmodal" data-bs-value='<?php json_encode($schedule_detail)?>'>
+                                    <a class="badge bg-info px-3 py-2" type="button" data-bs-toggle="modal" data-bs-target="#scheduledeatilmodal" data-bs-value='<?= json_encode($exam) ?>'>
                                         <i class="fa-solid fa-circle-info fa-xl me-2"></i>
-                                        <span>Chi tiết</span>
+                                        <span>Xem chi tiết</span>
                                     </a>
-
                                 </td>
                             </tr>
-
                         <?php endforeach ?>
                     </tbody>
                 </table>
@@ -114,7 +118,7 @@
     </div>
 </section>
 
-<?php include 'scheduledeatilmodal.php'?>
+<?php include 'scheduledeatilmodal.php' ?>
 
 <!-- Button trigger modal -->
 

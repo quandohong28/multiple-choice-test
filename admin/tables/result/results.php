@@ -1,40 +1,87 @@
-<section class="bg-light p-5 rounded-3 mb-5 min-vh-100">
-    <h3 class="text-dark text-center mb-5">Danh sách kết quả thi</h3>
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">ID bài thi</th>
-                <th scope="col">Chức năng</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="">
-                <td>R1C1</td>
-                <td>R1C3</td>
-                <td class="d-flex gap-2">
-                    <a class="btn btn-success btn-sm mx-3" href="?act=tables&data=result_detail"><i class="fa-solid fa-circle-info"></i></a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <nav>
-        <ul class="pagination pagination-sm justify-content-end">
-            <li class="page-item disabled">
-                <a class="page-link px-3">
-                    <i class="fa-solid fa-caret-left"></i>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link px-3" href="#">
-                    <i class="fa-solid fa-caret-right"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
-
-</section>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách kết quả thi</h6>
+    </div>
+    <div class="card-body">
+        <div class="row mb-3">
+            <?php include 'tables/components/filter.php' ?>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+            </div>
+            <div class="col">
+                <?php include 'tables/components/data_export.php' ?>
+            </div>
+        </div>
+        <div class="table-responsive small">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">ID bài thi</th>
+                        <th scope="col">Loại bài thi</th>
+                        <th scope="col">Họ và tên thí sinh</th>
+                        <th scope="col">Điểm</th>
+                        <th scope="col">Thời gian bắt đầu</th>
+                        <th scope="col">Thời gian làm bài</th>
+                        <th scope="col">Chức năng</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">ID bài thi</th>
+                        <th scope="col">Loại bài thi</th>
+                        <th scope="col">Họ và tên thí sinh</th>
+                        <th scope="col">Điểm</th>
+                        <th scope="col">Thời gian bắt đầu</th>
+                        <th scope="col">Thời gian làm bài</th>
+                        <th scope="col">Chức năng</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <?php foreach ($results as $result):
+                        extract($result);
+                        list($start_date, $start_time) = explode(" ", $time_start);
+                        ?>
+                        <tr class="">
+                            <td class="align-middle">
+                                <?= $id ?>
+                            </td>
+                            <td class="align-middle">
+                                <?= $exam_code ?>
+                            </td>
+                            <td class="align-middle">
+                                <?= $exam_type ?>
+                            </td>
+                            <td class="align-middle">
+                                <?= $fullname ?>
+                            </td>
+                            <td class="align-middle">
+                                <?= $points ?>
+                            </td>
+                            <td class="align-middle">
+                                <span>
+                                    <?= 'Ngày : ' . $start_date ?>
+                                </span>
+                                <br>
+                                <span>
+                                    <?= 'Giờ : ' . $start_time ?>
+                                </span>
+                            </td>
+                            <td class="align-middle">
+                                <?= ($exam_time) ? $exam_time : '0' ?>
+                            </td>
+                            <td class="align-middle col-1">
+                                <a class="btn btn-success btn-sm mx-3"
+                                    href="?act=tables&data=result_detail&id=<?= $id ?>"><i
+                                        class="fa-solid fa-circle-info"></i></a>
+                            </td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+        <?php include 'tables/components/pagination.php' ?>
+    </div>
+</div>

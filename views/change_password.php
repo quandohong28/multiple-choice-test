@@ -31,18 +31,28 @@
                                     </path>
                                 </svg>
                             </div>
-                            <form method="post" data-bs-theme="light" action="./index.php?act=change_password">
+                            <form method="post" data-bs-theme="light" action="index.php?act=change_password_submit" onsubmit="return validateChangePasswordForm()">
                                 <div class="mb-3">
                                     <input class="form-control" type="text" name="old_password" placeholder="Mật khẩu cũ">
+                                    <div id="oldPasswordError" class="text-danger"></div>
+                                    <span class="text-danger">
+                                        <?php 
+                                            if (isset($_SESSION['error'])) {
+                                                echo $_SESSION['error']; 
+                                            }
+                                        ?>
+                                    </span>
                                 </div>
                                 <div class="mb-3">
                                     <input class="form-control" type="password" name="password" placeholder="Mật khẩu mới">
+                                    <div id="newPasswordError" class="text-danger"></div>
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="password" name="conf_pass" placeholder="Mật khẩu mới">
+                                    <input class="form-control" type="password" name="conf_pass" placeholder="Nhập lại mật khẩu">
+                                    <div id="confirmPasswordError" class="text-danger"></div>
                                 </div>
                                 <div class="mb-3">
-                                    <button class="btn btn-primary shadow d-block w-100" name="change_password_submit" type="submit">Xác nhận</button>
+                                    <button class="btn btn-primary shadow d-block w-100" name="submit" type="submit">Xác nhận</button>
                                 </div>
                             </form>
                             <p class="text-muted"><a href="../index.php">Quay lại</a></p>
@@ -58,3 +68,38 @@
 </body>
 
 </html>
+<!-- Thêm script sau body -->
+<script>
+    function validateChangePasswordForm() {
+        var oldPassword = document.getElementsByName("old_password")[0].value;
+        var newPassword = document.getElementsByName("password")[0].value;
+        var confirmPassword = document.getElementsByName("conf_pass")[0].value;
+
+        var isValid = true;
+
+        // Reset thông báo lỗi
+        document.getElementById("oldPasswordError").innerHTML = "";
+        document.getElementById("newPasswordError").innerHTML = "";
+        document.getElementById("confirmPasswordError").innerHTML = "";
+
+        // Kiểm tra mật khẩu cũ
+        if (oldPassword === "") {
+            document.getElementById("oldPasswordError").innerHTML = "Vui lòng nhập mật khẩu cũ";
+            isValid = false;
+        }
+
+        // Kiểm tra mật khẩu mới
+        if (newPassword === "") {
+            document.getElementById("newPasswordError").innerHTML = "Vui lòng nhập mật khẩu mới";
+            isValid = false;
+        }
+
+        // Kiểm tra nhập lại mật khẩu
+        if (newPassword !== confirmPassword) {
+            document.getElementById("confirmPasswordError").innerHTML = "Mật khẩu mới và nhập lại không khớp";
+            isValid = false;
+        }
+
+        return isValid;
+    }
+</script>

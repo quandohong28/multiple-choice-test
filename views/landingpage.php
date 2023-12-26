@@ -1,6 +1,6 @@
+<?php session_start()?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -21,12 +21,20 @@
         <header class="d-flex justify-content-between align-items-center px-5 gap-5">
             <img width="80" src="../assets/img/logo/logo.png" alt="">
             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start my-5">
-                <a class="btn btn-primary btn-lg btn-sm-sm px-5 py-3 fs-6 fw-bolder" href="./login.php">
-                    <span>Đăng nhập</span>
-                </a>
-                <a class="btn btn-outline-light btn-lg btn-sm-sm px-5 py-3 fs-6 fw-bolder" href="./signup.php">
-                    <span>Đăng ký</span>
-                </a>
+                <?php
+                if (!isset($_SESSION['user'])):
+                ?>
+                    <a class="btn btn-primary btn-lg btn-sm-sm px-5 py-3 fs-6 fw-bolder" href="./login.php">
+                        <span>Đăng nhập</span>
+                    </a>
+                    <a class="btn btn-outline-light btn-lg btn-sm-sm px-5 py-3 fs-6 fw-bolder" href="./signup.php">
+                        <span>Đăng ký</span>
+                    </a>
+                <?php  else: ?>
+                    <a class="btn btn-outline-light btn-lg btn-sm-sm px-5 py-3 fs-6 fw-bolder" href="../index.php?act=home">
+                        <span>Trang chủ</span>
+                    </a>
+                <?php endif; ?>
             </div>
         </header>
         <section class="py-5">
@@ -41,13 +49,7 @@
                             <h1 class="display-3 fw-bolder mb-5">
                                 <p class="text-dark">Trí tuệ của bạn</p>
                                 <p class="text-light">Hệ thống của chúng tôi!</p>
-                            </h1>
-                            <!-- <hr class="mb-5">
-                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-5">
-                                <a class="btn btn-light btn-lg px-5 py-3 fs-6 fw-bolder" href="./login.php">
-                                    <span>Đăng nhập</span>
-                                </a>
-                            </div> -->
+                            </h1> 
                         </div>
                     </div>
                 </div>
@@ -62,7 +64,7 @@
                             <div class="d-flex justify-content-center fs-2 gap-4">
                                 <a class="text-gradient" href="#!"><i class="bi bi-instagram"></i></a>
                                 <a class="text-gradient" href="#!"><i class="bi bi-linkedin"></i></a>
-                                <a class="text-gradient" href="#!"><i class="bi bi-facebook"></i></a>
+                                <a class="text-gradient" href="https://web.facebook.com/techquizhero/" target="_blank"><i class="bi bi-facebook"></i></a>
                             </div>
                         </div>
                     </div>

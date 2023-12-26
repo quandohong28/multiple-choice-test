@@ -36,9 +36,6 @@
                 <small class="text-muted">Giải pháp thi trắc nghiệm online tốt nhất cho mọi đối tượng</small>
             </div><!-- End: Social Icons -->
         </div>
-        <div>
-            <a href="?act=admin">Truy cập trang dành cho <span class="badge bg-primary">Quản trị viên</span></a>
-        </div>
         <hr>
         <div class="text-muted d-flex justify-content-between align-items-center pt-3">
             <p class="mb-0">Copyright © 2023 Brand</p>
