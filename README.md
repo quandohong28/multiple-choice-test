@@ -7,9 +7,9 @@
 
 - Auth: + Đỗ Hồng Quân
         + Trần Chung Hiếu
-        + Phạm Văn Thành
+        + Lê Văn Thành
 
-- Support: Long HH
+- Support: Hoàng Hải Long
 
 - Tên thương hiệu: TQH - Tech Quiz Hero - Thành Quân Hiếu
 ```

@@ -1,3 +1,26 @@
+<?php
+$teams = [
+    [
+        'fullname' => 'Đỗ Hồng Quân',
+        'image_url' => 'https://scontent.fhan14-2.fna.fbcdn.net/v/t39.30808-6/345202027_189994030631781_283479889532429484_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=783fdb&_nc_eui2=AeEGtW1AXp3ul9m2FFMIMjuQMdI4QLPzWpwx0jhAs_NanGfmxYUZu1ceEADZhe2Bp8j2Gu-fYHp3xGrwzCvUU8Az&_nc_ohc=vTWZNhimAAgAX_Ug3Hr&_nc_ht=scontent.fhan14-2.fna&oh=00_AfBvs7skr1nOrCwQx-jbGg7dHFkFw1taTPffVeivbyah3A&oe=658CE225',
+        'job_title' => 'Developer',
+        'bio' => 'Người đẹp trai nhất TEAM và cũng là người đẹp trai nhất thế giới',
+    ],
+    [
+        'fullname' => 'Trần Chung Hiếu',
+        'image_url' => 'https://scontent.fhan14-4.fna.fbcdn.net/v/t39.30808-6/413014775_330809436547663_3699078200550012817_n.jpg?stp=dst-jpg_s1080x2048&_nc_cat=109&ccb=1-7&_nc_sid=3635dc&_nc_ohc=2GKILSf4O34AX_GNORJ&_nc_ht=scontent.fhan14-4.fna&oh=00_AfC-pBQzd2sOBReoRP5qzx54cQfFQhycU1oMVJBYZsNs1Q&oe=658AFCC0',
+        'job_title' => 'Tester, Designer, Developer',
+        'bio' => 'Chăm chỉ, nhiệt tình, thân thiện, hòa đồng, dễ gần, dễ thương',
+    ],
+    [
+        'fullname' => 'Lê Văn Thành',
+        'image_url' => 'https://scontent.fhan14-3.fna.fbcdn.net/v/t39.30808-1/370569092_328953836229426_854951388401401113_n.jpg?stp=dst-jpg_p100x100&_nc_cat=104&ccb=1-7&_nc_sid=5740b7&_nc_ohc=szlf19molOoAX9U638k&_nc_ht=scontent.fhan14-3.fna&oh=00_AfDrM6TSyGuDoyxGFDww8rp-sqzUTrf-Vb4Oewq8derNIg&oe=658C23B7',
+        'job_title' => 'Developer, Team Leader',
+        'bio' => 'Hài hước, vui tính, thân thiện, hòa đồng, dễ gần, dễ thương',
+    ],
+]
+?>
+
 <section">
     <div class="bg-primary-gradient py-5 rounded">
         <div class="row">
@@ -76,16 +99,15 @@
         </div>
 
         <div class="container py-5">
-            <div class="mx-auto" style="max-width: 900px;">
-                <div class="row row-cols-1 row-cols-md-2 d-flex justify-content-center">
+            <div class="mx-auto">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 d-flex justify-content-center">
                     <?php foreach ($categories as $category) :
                     ?>
-                        <div class="col mb-5">
-                            <div class="card bg-gradient-light shadow">
-                                <div class="card-body text-center px-4 py-5 px-md-5">
-                                    <h5 class="fw-bold card-title mb-3"><?= $category['name'] ?></h5>
-                                    <button class="btn btn-sm btn-outline-dark" type="button">Xem chi tiết</button>
-                                </div>
+                        <div class="card text-dark bg-white mb-5 category-card">
+                            <img height="200px" class="card-img-top rounded" src="../assets/img/categories/<?= $category['image'] ?>" alt="<?= $category['name'] ?>" />
+                            <div class="card-body text-center">
+                                <h6 class="card-title fw-bold"><?= $category['name'] ?></h6>
+                                <button class="btn btn-sm btn-outline-dark" type="button"><small>Xem chi tiết</small></button>
                             </div>
                         </div>
                     <?php endforeach ?>
@@ -181,6 +203,38 @@
                                 <p class="text-muted mb-0">Toà nhà FPT đường Trịnh Văn Bô, Phương Canh, Nam Từ Liêm, Hà Nội</p>
                             </div>
                         </a>
+                    </div>
+                </div>
+
+                <div class="m-5">
+                    <div class="row m-5">
+                        <div class="col-md-8 col-xl-6 text-center mx-auto">
+                            <h2 class="fw-bold">Team</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php foreach ($teams as $member) : ?>
+                            <div class="col-lg-6 col-12">
+                                <div class="card card-profile overflow-hidden">
+                                    <div class="row row-cols-2 justify-content-center align-items-center">
+                                        <div class="col">
+                                            <a href="javascript:;">
+                                                <div class="p-5">
+                                                    <img class="rounded-circle object-fit-cover" src="<?= $member['image_url']?>" alt="image" height="200px" width="200px">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card-body">
+                                                <h5 class="mb-0"><?= $member['fullname']?></h5>
+                                                <h6 class="text-info"><?= $member['job_title']?></h6>
+                                                <p class="mb-0"><?= $member['bio']?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach ?>
                     </div>
                 </div>
             </div>

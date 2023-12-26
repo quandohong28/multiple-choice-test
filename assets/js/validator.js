@@ -197,11 +197,27 @@ Validator.isNumber = function (selector, message) {
     };
 }
 
-Validate.max = function (selector, message, max) {
+Validator.max = function (selector, message, max) {
     return {
         selector: selector,
         test: function (value) {
             return value <= max ? undefined : message || `Nhập giá trị nhỏ hơn ${max}`;
         }
     };
+}
+
+Validator.isPassword = function (selector, message, min) {
+    return {
+        selector: selector,
+        test: function (value) {
+            var regex = new RegExp(`/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{${min},}$/`);
+            if (!regex.test(value)) {
+                if (value.length < min) {
+                    return `Mật khẩu quá ngắn, cần tối thiểu ${min} ký tự`;
+                } else {
+                    return 'Mật khẩu cần chứa ít nhất một chữ số, một chữ cái viết thường và một chữ cái viết hoa';
+                }
+            }
+        }
+    }
 }

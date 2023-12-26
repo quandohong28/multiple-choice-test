@@ -1,4 +1,4 @@
-<section class="bg-primary-gradient p-5"><!-- Start: Features Cards -->
+<section class="bg-primary-gradient p-5 rounded"><!-- Start: Features Cards -->
     <!-- filter -->
     <div class="filter px-5 py-3 mb-5 bg-white shadow rounded">
         <form action="">
