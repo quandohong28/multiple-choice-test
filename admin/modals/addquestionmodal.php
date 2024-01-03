@@ -27,7 +27,7 @@
                             <select name="question_type_id" class="select form-control form-control-sm">
                                 <option value="?" selected>Chọn loại câu hỏi</option>
                                 <?php foreach ($question_type as $key => $value) : ?>
-                                    <option value="<?= $value['id'] ?>"><?= $value['type'] == "practice_test" ? "Thi thử" : "Thi thật" ?></option>
+                                    <option value="<?= $value['id'] ?>"><?= $value['type']?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>

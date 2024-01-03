@@ -189,6 +189,16 @@ if (isset($_GET['data'])) {
 					insertPracticeExam($schedule_id, $category_id, $exam_type_id, $number_easy_questions, $number_medium_questions, $number_hard_questions, $exam_time);
 				}
 
+				// Thêm thí sinh thủ công
+				// if (isset($_POST['all_account'])) {
+				// 	$accounts = getAllAccounts();
+				// 	foreach ($accounts as $account) {
+				// 		if ($account['role_id'] == 3) {
+				// 			addScheduleDetail($schedule_id, $account['username']);
+				// 		}
+				// 	}
+				// }
+
 				// xử lý thêm thí sinh từ file ở đây
 				$file = $_FILES['accounts'];
 				$file_name = $file['name'];

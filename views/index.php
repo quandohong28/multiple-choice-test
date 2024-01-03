@@ -65,9 +65,9 @@ if (isset($_GET['act']) && $_GET['act'] !== '') {
                     exit;
                 }
             }
-            break;
+            break; 
         default:
             # code...
             break;
     }
-}
+} 

@@ -54,16 +54,15 @@
         <div class="container-fuild">
             <?php foreach ($questions as $question) :
                 extract($question);
-                $answers = getAnswersByQuestionId($id);
-                // $getQuestion = [$question, $answers];
-            ?>
-
+                $answers = getAnswersByQuestionId($id); 
+                $getQuestion = $question + ['answers' => $answers]; 
+            ?> 
                 <div class="expandable-container border border-2 rounded my-3">
                     <div class="py-2 px-5 bg-light text-dark d-flex justify-content-between user-select-none">
                         <div id="toggleButton" class="content">
                             <p><?= $content ?></p>
                         </div>
-                        <div class="">
+                        <div class=""> 
                             <button type="button" class="btn btn-warning btn-sm btneditquestion" data-bs-toggle="modal" data-bs-target="#editquestionmodal" data-value='<?= json_encode($getQuestion) ?>'>
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
@@ -114,7 +113,7 @@
     <?php include 'modals/editquestionmodal.php' ?>
 </div>
 
-<script>
+<script> 
     const toggleButtons = document.querySelectorAll("#toggleButton");
     const expandableContents = document.querySelectorAll(".expandable");
     toggleButtons.forEach((toggleButton, index) => {

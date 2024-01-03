@@ -30,7 +30,7 @@
                             <option value="?" selected>Chọn loại câu hỏi</option>
                             <?php foreach ($question_type as $key => $value): ?>
                                 <option value="<?= $value['id'] ?>">
-                                    <?= $value['type'] == "practice_test" ? "Thi thử" : "Thi thật" ?>
+                                    <?= $value['type'] ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
@@ -126,23 +126,25 @@
         const button = event.relatedTarget
         const recipient = button.getAttribute('data-value')
 
-        const val = JSON.parse(recipient)
+        
+        const val = JSON.parse(recipient) 
+ 
+        console.log(val);
 
-        image.value = val[0].image;
-        id.value = val[0].id;
-        content.value = val[0].content;
-        question_type_id.value = val[0].question_type_id;
-        question_level_id.value = val[0].question_level_id;
-        category_id.value = val[0].category_id;
+        image.value = val.image;
+        id.value = val.id;
+        content.value = val.content;
+        question_type_id.value = val.question_type_id;
+        question_level_id.value = val.question_level_id;
+        category_id.value = val.category_id; 
 
-        for (let i = 0; i < val[1].length; i++) {
-            id_answer[i].value = val[1][i].id;
-            answer[i].value = val[1][i].content;
-            correct_answer[i].value = val[1][i].is_correct;
+        for (let i = 0; i < val.answers.length; i++) {
+            id_answer[i].value = val.answers[i].id;
+            answer[i].value = val.answers[i].content;
+            correct_answer[i].value = val.answers[i].is_correct;
             if (correct_answer[i].value == 1) {
                 checked_answer[i].checked = true;
-            }
-            console.log(id_answer[i].value);
+            } 
         }
 
     })

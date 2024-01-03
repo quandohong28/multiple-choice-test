@@ -94,23 +94,16 @@
         </div><!-- End: Features Cards -->
     </section>
     <section class="py-5 mt-5">
-        <div class="container py-5">
+        <div class="container py-5 text-center">
             <div class="row mb-5">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
                     <h3 class="fw-bold">Các câu hỏi thường gặp</h3>
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 d-sm-flex justify-content-sm-center">
-                <div class="col mb-4">
-                    <p class="rounded p-4 shadow">Nisi sit justo faucibus nec ornare amet, tortor torquent. Blandit class dapibus, aliquet morbi.</p>
-                </div>
-                <div class="col mb-4">
-                    <p class="rounded p-4 shadow">Nisi sit justo faucibus nec ornare amet, tortor torquent. Blandit class dapibus, aliquet morbi.</p>
-                </div>
-                <div class="col mb-4">
-                    <p class="rounded p-4 shadow">Nisi sit justo faucibus nec ornare amet, tortor torquent. Blandit class dapibus, aliquet morbi.</p>
-                </div>
-            </div>
+            <?php 
+            $FAQs = getFAQs(); 
+            include 'utilities/FAQ.php';
+            ?>
         </div><!-- End: Testimonials -->
     </section>
     <section class="py-5">

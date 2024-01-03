@@ -14,9 +14,9 @@ include '../model/schedule.php';
 include '../model/exam.php';
 include '../model/result.php';
 include '../model/answer.php';
+include '../model/FAQ.php';
 include '../functions/core.php';
-include '../model/notification.php';      
-
+include '../model/notification.php';
 ?>
 
 <!doctype html>
@@ -38,8 +38,10 @@ include '../model/notification.php';
     <script src="../assets/fontawesome/js/all.min.js"></script>
     <!-- select2 -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <!-- Print PDF  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-alpha2/html2canvas.js"></script>
+    <script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
     <style>
         #btn-back-to-top {
             position: fixed;
@@ -66,9 +68,9 @@ include '../model/notification.php';
             reloadStatusResult($_SESSION['user']['id']);
             if (isset($_GET['act'])) {
                 switch ($_GET['act']) {
-                    case 'home':
+                    case 'home': 
                         $categories = getAllCategories();
-                        if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
+                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             $from = $_POST['email'];
                             $to = 'techquizhero@gmail.com';
                             $content = $_POST['message'];
@@ -80,12 +82,11 @@ include '../model/notification.php';
                                 $attachment = null;
                                 $attachment_name = null;
                             }
-                            if(sendEmail($from, $to, $subject, $content, $attachment, $attachment_name)){
+                            if (sendEmail($from, $to, $subject, $content, $attachment, $attachment_name)) {
                                 $message = 'Gửi email thành công';
                             } else {
                                 $message = 'Gửi email thất bại';
                             }
-                            
                         }
                         include './utilities/home.php';
                         break;
@@ -292,7 +293,7 @@ include '../model/notification.php';
                         unset($_SESSION['user']);
                         // var_dump($_SESSION['user']);
                         echo '<meta http-equiv="refresh" content="0;url=../index.php">';
-                        break;
+                        break; 
                     default:
                         $categories = getAllCategories();
                         $colors = ['bg-primary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light'];
@@ -319,7 +320,6 @@ include '../model/notification.php';
     <button type="button" class="btn btn-light btn-floating " id="btn-back-to-top">
         <i class="fas fa-angle-up"></i>
     </button>
-
     <footer>
         <?php include './layouts/footer.php'; ?>
     </footer>
@@ -331,6 +331,7 @@ include '../model/notification.php';
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="../assets/js/script.min.js"></script>
     <script src="../assets/js/validator.js"></script>
+
     <script>
         var title = document.title;
         var act = '<?php echo $_GET['act']; ?>';

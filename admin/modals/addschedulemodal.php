@@ -139,13 +139,14 @@
                             <div class="md-6 mb-4 pb-2">
                                 <div class="form-outline">
                                     <label class="form-label" for="accounts">Tải lên file</label>
-                                    <input type="file" id="accounts" name="accounts" class="form-control form-control-sm" />
+                                    <input type="file" id="accounts" name="accounts"  onchange="checkFileUpload()" class="form-control form-control-sm" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="reset" class="btn btn-sm btn-outline-dark">Khôi phục</button>
                     <button type="button" class="btn btn-sm btn-secondary" data-bs-target="#addSchedule" data-bs-toggle="modal">Trở về</button>
                     <button class="btn btn-sm btn-primary" name="submit" type="submit">Xác nhận</button>
                 </div>
@@ -203,7 +204,7 @@
      * nếu ô input chọn tất cả được chọn thì ẩn hai trường thêm thủ công và tải lên file
      * ngược lại thì hiện hai trường thêm thủ công và tải lên file
      * 
-     * nếu ô thêm người dùng thủ công được chọn thì ẩn ô tải lên file và ngược lạik
+     * nếu ô thêm người dùng thủ công được chọn thì ẩn ô tải lên file và ngược lại
      */
 
     const allAccounts = document.querySelector('input[name="all_accounts"]');
@@ -219,6 +220,24 @@
             accounts.parentNode.style.display = 'block';
         }
     })
+
+    account.addEventListener('focus', function() {
+        accounts.parentNode.style.display = 'none';
+    })
+
+    account.addEventListener('blur', function() {
+        accounts.parentNode.style.display = 'block';
+    })
+
+    function checkFileUpload() { 
+        var uploadedFile = accounts.files[0];
+
+        if (uploadedFile) {
+            account.parentNode.style.display = 'none';
+        } else {
+            account.parentNode.style.display = 'block';
+        }
+    }
 
     account.addEventListener('change', function() {
         if (this.value.trim() == '') {

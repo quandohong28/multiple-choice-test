@@ -36,7 +36,7 @@ function getSchedulesByName($name)
     }
 }
 
-function updateStatusSchedule()
+function reloadStatusSchedule()
 {
     try {
         $sql = "SELECT * FROM schedules";
@@ -79,7 +79,7 @@ function updateStatusSchedule()
 function getScheduleByUserId($account_id)
 {
     try {
-        updateStatusSchedule();
+        reloadStatusSchedule();
 
         $sql = "SELECT
         s.id as schedule_id,
@@ -112,6 +112,16 @@ function updateStatusScheduleDetail($schedule_id, $account_id, $status)
         echo $e->getMessage();
     }
 }
+
+// function updateStatusSchedule($schedule_id, $status)
+// {
+//     try {
+//         $sql = "UPDATE schedules SET status = $status WHERE id = '$schedule_id';";
+//         pdo_execute($sql);
+//     } catch (Exception $e) {
+//         echo $e->getMessage();
+//     }
+// }
 
 function addSchedule($name, $time_start, $exam_time, $number_exam)
 {
@@ -219,7 +229,7 @@ function getScheduleThisWeek()
     INNER JOIN results r ON
         r.exam_id = e.id
     WHERE r.status = 1
-    AND (s.time_start BETWEEN DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY) AND CURDATE());time_start BETWEEN DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY) AND CURDATE();";
+    AND (s.time_start BETWEEN DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY) AND CURDATE())";
         return pdo_query_one($sql);
     } catch (Exception $e) {
         echo $e->getMessage();

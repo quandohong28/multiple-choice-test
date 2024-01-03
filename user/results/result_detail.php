@@ -1,8 +1,9 @@
 <section><!-- Start: Features Cards -->
     <div class="col-md-8 col-xl-6 text-center mx-auto">
         <h3 class="fw-bold">Kết quả bài thi</h3>
-    </div>  
-    <div class="container bg-primary-gradient p-lg-5 p-sm-2">
+    </div>
+    <?php include "components/data_export.php" ?>
+    <div id="contentToPrint" class="container bg-primary-gradient p-lg-5 p-sm-2">
         <div class="general-inf-user filter p-5 bg-white shadow rounded mb-5">
             <div class="row gap-5 justify-content-center align-items-center">
                 <div class="col-md-2">
@@ -70,5 +71,4 @@
             </li>
         </ul>
     </div>
-
 </section>
