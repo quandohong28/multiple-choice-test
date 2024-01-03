@@ -1,5 +1,5 @@
 <?php
-require './lib/PhpExcel/vendor/autoload.php';
+require '../lib/PhpExcel/vendor/autoload.php';
 
 // Hàm ghi dữ liệu vào file Excel
 function writeStudentsToExcel($students, $filename)
@@ -64,6 +64,9 @@ function readDataFromExcelBySheetName($filename, $sheetName)
     }
 }
 
-
-
-
+function getFirstSheetName($filename)
+{
+    $objPHPExcel = PHPExcel_IOFactory::load($filename);
+    $sheetNames = $objPHPExcel->getSheetNames();
+    return $sheetNames[0];
+}

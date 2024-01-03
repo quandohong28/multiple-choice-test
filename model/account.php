@@ -6,7 +6,8 @@ function hashPassword($password)
     } catch (Exception $e) {
         echo $e->getMessage();
     }
-};
+}
+;
 
 function verifyPassword($password, $hashedPassword)
 {
@@ -21,12 +22,24 @@ function getAllAccounts()
 {
     try {
         $sql = "SELECT a.id, a.username, a.fullname, a.avatar, a.email, a.address, a.tel, a.introduce, r.role 
-        FROM accounts a INNER JOIN roles r ON a.role_id = r.id ORDER BY a.id DESC;";
+        FROM accounts a INNER JOIN roles r ON a.role_id = r.id ORDER BY a.id ASC;";
         return pdo_query($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
 }
+
+function getAccounts($page)
+{
+    try {
+        $sql = "SELECT a.id, a.username, a.fullname, a.avatar, a.email, a.address, a.tel, a.introduce, r.role 
+        FROM accounts a INNER JOIN roles r ON a.role_id = r.id ORDER BY a.id ASC LIMIT $page,10 ;";
+        return pdo_query($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
 
 function getAccountById($id)
 {
@@ -74,14 +87,14 @@ function login($username, $password)
     }
 }
 
-function signup($email, $username, $password)
+function signup($email, $username, $password, $avatar)
 {
     try {
         $hashedPassword = hashPassword($password);
         $sql = "INSERT INTO
-        accounts (email, username, password)
+        accounts (email, username, password, avatar)
         VALUES
-        ('$email', '$username', '$hashedPassword');";
+        ('$email', '$username', '$hashedPassword', '$avatar');";
         pdo_execute($sql);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -144,9 +157,10 @@ function insertAccount($username, $password, $fullname, $avatar, $email, $addres
 {
     if (isset($_POST['btn_add'])) {
         try {
-            $sql2 = "INSERT INTO accounts (username, password, fullname, avatar, email, address, tel, role_id)
+            $sql = "INSERT INTO accounts (username, password, fullname, avatar, email, address, tel, role_id)
             VALUES ('$username', '$password', '$fullname', '$avatar', '$email', '$address', '$tel', $role_id);";
-            pdo_execute($sql2);
+
+            return pdo_execute($sql);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
@@ -159,6 +173,75 @@ function getRoles()
         $sql1 = "SELECT * FROM roles";
         return pdo_query($sql1);
     } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function editProfile($id, $email, $introduce, $avatar, $fullname, $tel, $address)
+{
+    try {
+        $sql = "UPDATE accounts
+        SET email = '$email',
+        introduce = '$introduce',
+        avatar = '$avatar',
+        fullname = '$fullname',
+        tel = '$tel',
+        address = '$address'
+        WHERE id = $id";
+        pdo_execute($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+function filterAccount($filterByCategory, $filterByLetter, $search, $page)
+{
+    try {
+        $sql = "SELECT a.id, a.username, a.fullname, a.avatar, a.email, a.address, a.tel, a.introduce, r.role 
+        FROM accounts a 
+        INNER JOIN roles r ON a.role_id = r.id ";
+
+        if (!is_null($search) && $search != "") {
+            $sql .= " WHERE a.username LIKE '%$search%' OR a.fullname LIKE '%$search%' OR a.id LIKE '%$search%' OR a.email LIKE '%$search%'";
+        }
+
+        if ($filterByCategory != "id") {
+            if ($filterByCategory == "username") {
+                $sql .= "ORDER BY a.username";
+
+                $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+            }
+            if ($filterByCategory == "fullname") {
+                $sql .= "ORDER BY a.fullname";
+
+                $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+            }
+            if ($filterByCategory == "role") {
+                $sql .= "ORDER BY r.role";
+
+                $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+            }
+        } else {
+            $sql .= "ORDER BY a.id";
+            $sql .= ($filterByLetter != "a-z") ? " DESC" : " ASC";
+        }
+
+        $sql .= " LIMIT $page,10 ;";
+
+
+        return pdo_query($sql);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+
+}
+function getNumberUser()
+{
+    try {
+        $sql = "SELECT COUNT(*) AS number_user 
+                FROM accounts 
+                WHERE role_id = 1;";
+        return pdo_query_one($sql);
+    } catch (\Exception $e) {
         echo $e->getMessage();
     }
 }

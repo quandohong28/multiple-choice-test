@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +8,7 @@
     <meta name="description" content="" />
     <meta name="author" content="quandohong28 chunghieu vanthanh" />
     <title>Landing Page</title>
+    <link rel="icon" type="image/png" href="../assets/img/logo/favicon.ico"> 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
@@ -21,12 +23,20 @@
         <header class="d-flex justify-content-between align-items-center px-5 gap-5">
             <img width="80" src="../assets/img/logo/logo.png" alt="">
             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start my-5">
-                <a class="btn btn-primary btn-lg btn-sm-sm px-5 py-3 fs-6 fw-bolder" href="./login.php">
-                    <span>Đăng nhập</span>
-                </a>
-                <a class="btn btn-outline-light btn-lg btn-sm-sm px-5 py-3 fs-6 fw-bolder" href="./signup.php">
-                    <span>Đăng ký</span>
-                </a>
+                <?php
+                if (!isset($_SESSION['user'])) :
+                ?>
+                    <a class="btn btn-primary btn-lg btn-sm-sm px-5 py-3 fs-6 fw-bolder" href="./login.php">
+                        <span>Đăng nhập</span>
+                    </a>
+                    <a class="btn btn-outline-light btn-lg btn-sm-sm px-5 py-3 fs-6 fw-bolder" href="./signup.php">
+                        <span>Đăng ký</span>
+                    </a>
+                <?php else : ?>
+                    <a class="btn btn-outline-light btn-lg btn-sm-sm px-5 py-3 fs-6 fw-bolder" href="../index.php?act=home">
+                        <span>Trang chủ</span>
+                    </a>
+                <?php endif; ?>
             </div>
         </header>
         <section class="py-5">
@@ -42,12 +52,6 @@
                                 <p class="text-dark">Trí tuệ của bạn</p>
                                 <p class="text-light">Hệ thống của chúng tôi!</p>
                             </h1>
-                            <!-- <hr class="mb-5">
-                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-5">
-                                <a class="btn btn-light btn-lg px-5 py-3 fs-6 fw-bolder" href="./login.php">
-                                    <span>Đăng nhập</span>
-                                </a>
-                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -62,7 +66,7 @@
                             <div class="d-flex justify-content-center fs-2 gap-4">
                                 <a class="text-gradient" href="#!"><i class="bi bi-instagram"></i></a>
                                 <a class="text-gradient" href="#!"><i class="bi bi-linkedin"></i></a>
-                                <a class="text-gradient" href="#!"><i class="bi bi-facebook"></i></a>
+                                <a class="text-gradient" href="https://web.facebook.com/techquizhero/" target="_blank"><i class="bi bi-facebook"></i></a>
                             </div>
                         </div>
                     </div>

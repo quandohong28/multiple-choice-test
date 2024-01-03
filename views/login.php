@@ -1,8 +1,9 @@
 <head>
-	<title>Trang chủ</title>
+	<title>Login | TechQuizHero</title>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" type="image/png" href="../assets/img/logo/favicon.ico">
 
 	<!-- Bootstrap CSS v5.2.1 -->
 	<link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css?h=a36b09c30de7308fcdcc873e9287b73a">
@@ -30,7 +31,7 @@
 									<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z">
 									</path>
 								</svg></div>
-							<form method="post" data-bs-theme="light" action="./index.php?act=login">
+							<form method="post" data-bs-theme="light" action="./index.php?act=login" onsubmit="return validateLoginForm()" name="loginForm">
 								<div class="mb-3">
 									<input class="form-control" type="text" name="username" placeholder="Tên đăng nhập">
 								</div>
@@ -40,6 +41,7 @@
 								<div class="mb-3">
 									<button class="btn btn-primary shadow d-block w-100" name="login_submit" type="submit">Đăng nhập</button>
 								</div>
+								<span id="loginMessage" class="text-danger mb-3"></span>
 							</form>
 							<p class="text-muted">Bạn chưa có tài khoản? <a href="./signup.php">Đăng ký</a></p>
 							<p class="text-muted">Bạn quên mật khẩu? <a href="./forgot_password.php">Quên mật khẩu</a></p>
@@ -52,6 +54,26 @@
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
 	<script src="../assets/js/script.min.js?h=4733a5aa722c9ef5669b270bcebbcdbf"></script>
+	<script>
+		function validateLoginForm() {
+			var username = document.forms["loginForm"]["username"].value;
+			var password = document.forms["loginForm"]["password"].value;
+			var messageElement = document.getElementById("loginMessage");
+
+			if (username === "" || password === "") {
+				messageElement.innerHTML = "Vui lòng điền đầy đủ tên đăng nhập và mật khẩu.";
+				return false;
+			}
+
+			if (password.length < 8) {
+				messageElement.innerHTML = "Mật khẩu phải có ít nhất 8 ký tự.";
+				return false;
+			}
+			return true;
+		}
+	</script>
+
+
 </body>
 
 </html>

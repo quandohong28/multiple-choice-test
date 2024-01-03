@@ -1,4 +1,4 @@
-<section"><!-- Start: Features Cards -->
+<section">
     <div class="bg-primary-gradient py-5 rounded">
         <div class="row">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
@@ -63,15 +63,14 @@
                                 </svg></div>
                             <h5 class="fw-bold card-title">Thông tin phúc khảo</h5>
                             <p class="text-muted card-text mb-4">Thông tin phúc khảo liên quan đến quá trình bạn yêu cầu kiểm tra lại kết quả hoặc điểm số sau khi kết quả đã được công bố.</p>
-                            <a href="?act=help" class="btn btn-sm btn-outline-dark shadow">Trợ giúp</a>
+                            <a href="?act=support" class="btn btn-sm btn-outline-dark shadow">Trợ giúp</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div><!-- End: Features Cards -->
-    </section>
-    <section><!-- Start: Features Cards -->
+    </div>
+    <section>
         <div class="col-md-8 col-xl-6 text-center mx-auto my-5">
             <h3 class="fw-bold">Chuyên mục</h3>
         </div>
@@ -80,14 +79,11 @@
             <div class="mx-auto" style="max-width: 900px;">
                 <div class="row row-cols-1 row-cols-md-2 d-flex justify-content-center">
                     <?php foreach ($categories as $category) :
-                        extract($category);
-                        $colorRand = rand(0, $count - 1);
                     ?>
-                        <div class="col mb-4">
-                            <div class="card <?= $colors[$colorRand] ?>">
+                        <div class="col mb-5">
+                            <div class="card bg-gradient-light shadow">
                                 <div class="card-body text-center px-4 py-5 px-md-5">
-                                    <p class="fw-bold text-dark card-text mb-2">Fully Managed</p>
-                                    <h5 class="fw-bold card-title mb-3"><?= $name ?></h5>
+                                    <h5 class="fw-bold card-title mb-3"><?= $category['name'] ?></h5>
                                     <button class="btn btn-sm btn-outline-dark" type="button">Xem chi tiết</button>
                                 </div>
                             </div>
@@ -97,45 +93,62 @@
             </div>
         </div><!-- End: Features Cards -->
     </section>
-    <section class="py-5 mt-5"><!-- Start: Testimonials -->
-        <div class="container py-5">
+    <section class="py-5 mt-5">
+        <div class="container py-5 text-center">
             <div class="row mb-5">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
                     <h3 class="fw-bold">Các câu hỏi thường gặp</h3>
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 d-sm-flex justify-content-sm-center">
-                <div class="col mb-4">
-                    <p class="rounded p-4 shadow">Nisi sit justo faucibus nec ornare amet, tortor torquent. Blandit class dapibus, aliquet morbi.</p>
-                </div>
-                <div class="col mb-4">
-                    <p class="rounded p-4 shadow">Nisi sit justo faucibus nec ornare amet, tortor torquent. Blandit class dapibus, aliquet morbi.</p>
-                </div>
-                <div class="col mb-4">
-                    <p class="rounded p-4 shadow">Nisi sit justo faucibus nec ornare amet, tortor torquent. Blandit class dapibus, aliquet morbi.</p>
-                </div>
-            </div>
+            <?php 
+            $FAQs = getFAQs(); 
+            include 'utilities/FAQ.php';
+            ?>
         </div><!-- End: Testimonials -->
-    </section><!-- Start: Contact Details -->
+    </section>
     <section class="py-5">
-        <div class="container">
+        <a href="#f-contact"></a>
+        <div id="f-contact" class="container">
             <div class="row mb-5">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
                     <p class="fw-bold text-success mb-2">Liên hệ trực tiếp</p>
                     <h2 class="fw-bold">Bạn không tìm thấy vấn đề đang gặp phải?</h2>
                 </div>
             </div>
+            <?php
+            if ($message) :
+                echo '<meta http-equiv="refresh" content="0;url=?act=home#f-contact">';
+            ?>
+                <div class="col-md-8 col-xl-6 text-center mx-auto">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?= $message ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            <?php endif ?>
             <div class="row d-flex justify-content-center">
                 <div class="col-md-6 col-xl-4">
                     <div>
-                        <form class="p-3 p-xl-4" method="post" data-bs-theme="light"><!-- Start: Success Example -->
-                            <div class="mb-3">
-                                <input class="form-control" type="text" name="name" placeholder="Họ và tên" value="<?= $_SESSION['user']['fullname'] ?>">
+                        <form class="p-3 p-xl-4" method="post" data-bs-theme="light" id="form-support" enctype="multipart/form-data" action="">
+                            <div class="mb-3 form-group">
+                                <input id="fullname" class="form-control" type="text" name="name" placeholder="Họ và tên" value="<?= $_SESSION['user']['fullname'] ?>">
+                                <span class="form-message text-danger"></span>
                             </div>
-                            <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email" value="<?= $_SESSION['user']['email'] ?>">
-                            </div><!-- End: Error Example -->
-                            <div class="mb-3"><textarea class="form-control" name="message" rows="6" placeholder="Miêu tả cho chúng tôi vấn đề của bạn"></textarea></div>
-                            <div><button class="btn btn-primary shadow d-block w-100" type="submit">Gửi</button></div>
+                            <div class="mb-3 form-group">
+                                <input id="email" class="form-control" type="email" name="email" placeholder="Email" value="<?= $_SESSION['user']['email'] ?>">
+                                <span class="form-message text-danger"></span>
+                            </div>
+                            <div class="mb-3 form-group">
+                                <textarea id="message" class="form-control" name="message" rows="6" placeholder="Miêu tả cho chúng tôi vấn đề của bạn"></textarea>
+                                <span class="form-message text-danger"></span>
+                            </div>
+                            <div class="mb-3 form-group">
+                                <input type="file" name="attachment" id="" class="form-control mb-2">
+                                <small class="text-end">Upload file của bạn (nếu có)</small>
+                            </div>
+                            <div>
+                                <button name="sendEmail" class="btn btn-primary shadow d-block w-100" type="submit">Gửi</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -174,11 +187,29 @@
                             </div>
                             <div class="px-2">
                                 <h6 class="fw-bold mb-0">Địa chỉ</h6>
-                                <p class="text-muted mb-0">Nhà hát lon</p>
+                                <p class="text-muted mb-0">Toà nhà FPT đường Trịnh Văn Bô, Phương Canh, Nam Từ Liêm, Hà Nội</p>
                             </div>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-    </section><!-- End: Contact Details -->
+    </section>
+    </section>
+
+    <script>
+        // Validate form
+        document.addEventListener('DOMContentLoaded', function() {
+            Validator({
+                form: '#form-support',
+                formGroupSelector: '.form-group',
+                errorSelector: '.form-message',
+                rules: [
+                    Validator.isRequired('#fullname', 'Vui lòng nhập đầy đủ họ và tên'),
+                    Validator.isRequired('#email', 'Vui lòng nhập email'),
+                    Validator.isEmail('#email', 'Email không hợp lệ'),
+                    Validator.isRequired('#message', 'Vui lòng mô tả vấn đề của bạn'),
+                ]
+            });
+        });
+    </script>

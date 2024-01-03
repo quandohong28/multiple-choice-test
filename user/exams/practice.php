@@ -14,12 +14,14 @@
                                 Tất cả
                             </button>
                             <div class="collapse ps-5 show" id="home-collapse">
-
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                     <?php foreach ($categories as $category) :
                                         extract($category);
                                     ?>
-                                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#practiceConfigModal" class="link-dark">• <?= $name ?></a></li>
+                                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#practiceConfigModal" class="link-dark">•
+                                                <?= $name ?>
+                                            </a>
+                                        </li>
                                     <?php endforeach ?>
                                 </ul>
                             </div>
@@ -35,10 +37,13 @@
                             </button>
                             <div class="collapse ps-5" id="orders-collapse">
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="#" class="link-dark">Danh sách những bài thi thử đang làm dở...</a></li>
-                                    <li><a href="#" class="link-dark">Danh sách những bài thi thử đang làm dở...</a></li>
-                                    <li><a href="#" class="link-dark">Danh sách những bài thi thử đang làm dở...</a></li>
-                                    <li><a href="#" class="link-dark">Danh sách những bài thi thử đang làm dở...</a></li>
+                                    <?php foreach ($doingExams as $doingExam) :
+                                        extract($doingExam) ?>
+                                        <li><a href="?act=doing_exam&exam_code=<?= $exam_code ?>" class="link-dark">
+                                                <?= $exam_code ?>
+                                            </a>
+                                        </li>
+                                    <?php endforeach ?>
                                 </ul>
                             </div>
                         </li>
@@ -89,8 +94,12 @@
                     <div class="row gx-5">
                         <div class="">
                             <!-- Chuyên mục -->
-                            <?php foreach ($categories as $category) :
+                            <?php foreach ($categories as &$category) :
                                 extract($category);
+                                $question_levels = getNumberQuestionLevelByCategoryId($id);
+                                $category['easy'] = $question_levels[0]['count'];
+                                $category['medium'] = $question_levels[1]['count'];
+                                $category['hard'] = $question_levels[2]['count'];
                                 $category_image = '../assets/img/categories/';
                                 $quantity = getQuantityOfQuestions($id);
                             ?>
@@ -99,30 +108,13 @@
                                     <div class="card-body p-0">
                                         <div class="d-flex align-items-start justify-content-between">
                                             <div class="p-5">
-                                                <h5 class="fw-bolder"><?= $name ?></h5>
+                                                <h5 class="fw-bolder">
+                                                    <?= $name ?>
+                                                </h5>
                                                 <ul class="mb-4">
-                                                    <li><?= $quantity['value'] ?> câu hỏi khác nhau</li>
-                                                    <li>
-                                                        <?php foreach ($question_levels as $level) : ?>
-                                                            <span class="badge <?php
-                                                                                switch ($level['level']) {
-                                                                                    case 'Dễ':
-                                                                                        echo 'bg-success';
-                                                                                        break;
-                                                                                    case 'Trung bình':
-                                                                                        echo 'bg-warning';
-                                                                                        break;
-                                                                                    case 'Khó':
-                                                                                        echo 'bg-danger';
-                                                                                        break;
-                                                                                    default:
-                                                                                        break;
-                                                                                }
-                                                                                ?>"><?= $level['level'] ?></span>
-                                                        <?php endforeach ?>
-                                                    </li>
+                                                    <?= $quantity['value'] ?> câu hỏi khác nhau
                                                 </ul>
-                                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#practiceConfigModal">
+                                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#practiceConfigModal" data-bs-value='<?= json_encode($category) ?>'>
                                                     Thử ngay
                                                 </button>
 
@@ -138,7 +130,7 @@
                 </div>
                 <!-- pagination -->
                 <nav>
-                    <?php include "./user/components/pagination.php" ?>
+                    <?php include "components/pagination.php" ?>
                 </nav>
             </div>
         </div>
@@ -146,4 +138,8 @@
 
     <?php include 'components/modals/practice_config_modal.php' ?>
 
-</section>
+</section> 
+
+<script>
+
+</script>

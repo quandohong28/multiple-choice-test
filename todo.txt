@@ -1,0 +1,68 @@
+- Thống kê chi tiết 
+*Admin: 
+*User: 
+- canh bao chong gian lan (optional)
+- cho phep xem dap an hay khong (setting)
+- In danh sách kết quả thi - (responsive)
+- Hỗ trợ
+	+ Tạo form gửi hỗ trợ
+	+ Đặt câu hỏi 
+- Trang 404 (exception)  
+
+*Chung: 
+- Validate form
+- Gửi thông báo khi có một sự kiện gì đó xảy ra
+    - người dùng: sắp có lịch thi mới
+    - admin: có người dùng vừa hoàn thành một bài thi
+    - tạo mới một tài khoản
+- Alert - thông báo khi tạo mới, sửa, xoá cái gì đó
+- Tìm kiếm 
+- Dark mode, light mode
+- Responsive 
+#Sau khi thi xong lập tức chuyển đổi trạng thái của lịch thi là đóng(cần xem lại)
+
+Pending:
+- Validate:
+	+ Form tìm kiếm một mã đề thi để xem đề thi chi tiết - dashboard
+	+ Form thêm tài khoản
+	+ Đổi mật khẩu
+	+ đăng xuất, đăng nhập
+- Kiểm tra số lượng câu hỏi tối đã khi tạo lịch thi (validate form)
+
+- Thêm thí sinh bằng cách thủ công (Chọn từng sinh viên hoặc thêm tất cả)- Kiểm tra lại phần thêm thí sinh thủ công
+(*) nên để chọn nhiêu thí sinh chứ chọn có 1 thằng xong nộp luôn thì hơi ô dề
+- Thống kê chi tiết
+- Gửi mail
+- Team  
+
+Đã xong: 
+- reload lai trang
+- theo doi diem : phan theo de thi 
+- ben nguoi dung: nut chuc nang sua thanh dang thi chua thi va da thi (<>15')
+- hien thi cac bai dang lam do ( thi that va thi thu)
+- thi mot lan va cap nhat trang thai thi
+- lich thi chi tiet: model them ten lich thi va cac thong tin lien quan
+- set thoi gian bat dau, den thoi gian thi thi lich thi moi dc thi
+- gop theo doi diem va de thi vao phan lich thi(lich thi -> de thi -> chi tiet de -> cau hoi)
+- cho lich thi moi nhat len dau
+- kiem tra thi 2/3 tgian thi ket thuc + status khi thang nguoi dung bam nut nop bai
+- phan trang ket qua cau hoi
+- Sửa chuyên mục: thêm hình ảnh trong modal sửa chuyên mục
+- Validate form
+	+ form update tài khoản
+	+ thêm mới lịch thi
+- Sửa lịch thi
+- Footer - gán link Social media
+- Scroll to top
+- Favicon
+- Footer - link đến các action
+- Gửi mail (Thắc mắc người dùng)
+- Meta tiltle
+- Xử lý nếu một lịch thi chưa có kết quả thì hiện ra cái gì
+- Thống kê chi tiết (thống kê theo chuyên mục)
+- Chuyên mục (detail) 
+- Sửa câu hỏi   
+- Các câu hỏi thường gặp 
+
+
+

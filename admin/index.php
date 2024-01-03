@@ -1,9 +1,47 @@
 <?php
 session_start();
 if (!isset($_SESSION['user']) || $_SESSION['user']['role_id'] != 0) {
-    header("location: ../index.php");
+    header('location: ../index.php');
 }
 $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
+
+// Include Model
+include '../model/pdo.php';
+include '../model/account.php';
+include '../model/category.php';
+include '../model/schedule.php';
+include '../model/question.php';
+include '../model/answer.php';
+include '../model/result.php';
+include '../model/exam.php';
+include '../model/excel.php';
+include '../model/notification.php';
+require '../lib/PhpExcel/vendor/autoload.php';
+include '../functions/core.php';
+
+// Xử lý lấy ra các config trong file config
+// Đường dẫn đến file .config
+$configFilePath = '../.config';
+
+// Đọc file .config và lấy nội dung
+$configContent = file_get_contents($configFilePath);
+
+// Phân tích nội dung để lấy các biến môi trường và giá trị tương ứng
+$configVariables = explode("\n", $configContent);
+
+// Tạo một mảng để lưu trữ các biến môi trường
+$config = [];
+foreach ($configVariables as $variable) {
+    // Tách biến và giá trị tương ứng
+    $parts = explode('=', $variable, 2);
+    if (count($parts) === 2) {
+        // Gán giá trị biến môi trường vào mảng
+        $config[$parts[0]] = $parts[1];
+    }
+}
+
+
+// Số lượng lịch thi trong tháng này
 
 ?>
 
@@ -11,7 +49,8 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
 <html lang="en">
 
 <head>
-    <title>Trang quản trị</title>
+    <title></title>
+    <link rel="shortcut icon" type="image/png" href="../assets/img/logo/favicon.ico">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,118 +58,197 @@ $action = isset($_GET['act']) ? $_GET['act'] : 'dashboard';
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/styles.admin.css">
-    <!-- CSS thuần -->
     <!-- Goole font -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- font-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Chart js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body class="overflow-x-hidden">
-    <div class="row">
-        <div class="col-2">
-            <?php include "./layouts/sidebar.php" ?>
-        </div>
-        <section class="col">
-            <header>
-                <?php include "./layouts/header.php" ?>
-            </header>
-            <div>
-                <?php switch ($action) {
-                    case 'dashboard':
-                    case 'home':
-                        include "./dashboard.php";
-                        break;
-                    case 'search':
-                        include "./search.php";
-                        break;
-                    case 'notification':
-                        include "./notification.php";
-                        break;
-                    case 'message':
-                        include "./message.php";
-                        break;
-                    case 'profile':
-                        include "./profile.php";
-                        break;
-                    case 'setting':
-                        include "./setting.php";
-                        break;
-                    case 'userlog':
-                        include "./userlog.php";
-                        break;
-                    case 'signout':
-                        unset($_SESSION['user']);
-                        echo '<meta http-equiv="refresh" content="0;url=../index.php">';
-                        break;
-                    case 'signin':
-                        include "./signin.php";
-                        break;
-                    case 'signup':
-                        include "./signup.php";
-                        break;
-                    case 'tables':
-                        include "./tables/index.php";
-                        break;
-                    default:
-                        include "./dashboard.php";
-                        break;
-                } ?>
-                <?php include "./modal/logoutmodal.php" ?>
-                <!-- Scroll to Top Button-->
-                <a class="scroll-to-top rounded" href="#">
-                    <i class="fas fa-angle-up"></i>
-                </a>
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <?php include 'layouts/sidebar.php'; ?>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <?php
+                // $notifications = getNotificationsByUserId($_SESSION['user']['id']);
+                // $number_notification = getNumberNotification($_SESSION['user']['id']);
+                include 'layouts/header.php';
+                ?>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <?php switch ($action) {
+                        case 'dashboard':
+                            $schedules = getLimitShedule(10);
+                            $categories = getAllCategories();
+                            $number_schedule = getScheduleThisWeek();
+                            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                $interval = $_POST['interval'];
+                                if ($interval == 'this-week') {
+                                    $number_schedule = getScheduleThisWeek();
+                                } elseif ($interval == 'this-month') {
+                                    $number_schedule = getScheduleThisMonth();
+                                } elseif ($interval == 'this-year') {
+                                    $number_schedule = getScheduleThisYear();
+                                } else {
+                                    $start_date = $_POST['start_date'];
+                                    $end_date = $_POST['end_date'];
+                                    $number_schedule = getScheduleByTimePeriod($start_date, $end_date);
+                                }
+                            }
+                            $number_schedule6month = getNumbersScheduleLast6Month();
+                            $number_user = getNumberUser();
+                            $number_category = getNumberCategory();
+                            $number_question = getNumberQuestion();
+                            include "./dashboard.php";
+                            $values = getNumberFinishedExamThisMonth();
+                            break;
+                        case 'search':
+                            include './search.php';
+                            break;
+                        case 'notification':
+                            include './notification.php';
+                            break;
+                        case 'message':
+                            include './message.php';
+                            break;
+                        case 'profile':
+                            include './profile.php';
+                            break;
+                        case 'setting':
+                            include './setting/setting.php';
+                            break;
+                        case 'userlog':
+                            include './userlog.php';
+                            break;
+                        case 'signout':
+                            unset($_SESSION['user']);
+                            echo '<meta http-equiv="refresh" content="0;url=../index.php">';
+                            break;
+                        case 'signin':
+                            include './signin.php';
+                            break;
+                        case 'signup':
+                            include './signup.php';
+                            break;
+                        case 'tables':
+                            include './tables/index.php';
+                            break;
+                        case 'user_page':
+                            echo '<meta http-equiv="refresh" content="0;url=../user/index.php">';
+                            break;
+                        case 'statistic_schedule':
+                            $schedule_id = $_GET['schedule_id'];
+                            $number_cadidate = getNumberCandidateOfSchedule($schedule_id)['number'];
+                            $number_exam = getScheduleById($schedule_id)['number_exam'];
+                            $exam_time = getScheduleById($schedule_id)['exam_time'];
+                            $pointRate = getPointRateFromSchedule($schedule_id);
+                            $avgPoint = calAvgPointByScheduleId($schedule_id);
+                            // var_dump($avgPoint);die;
+                            include "./statistic/schedule.php";
+                            break;
+                        case 'statistic_category':
+                            $categories = getAllCategories();
+                            $number_category = getNumberCategory();
+                            include './statistic/category.php';
+                            break;
+                        case 'statistic_result_detail':
+                            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                $exam_code = $_POST['exam_code'];
+                                $result_detail = getResultDetailByExamCode($exam_code);
+                                $avg_exam_time = getAvgExamTimeMinutesByExamCode($exam_code);
+                                $avg_point = getAvgPoitExamByExamCode($exam_code);
+                            }
+                            include './statistic/result_detail.php';
+                            break;
+                        default:
+                            $schedules = getLimitShedule(10);
+                            $categories = getAllCategories();
+                            $number_schedule = getScheduleThisWeek();
+
+                            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                $interval = $_POST['interval'];
+                                if ($interval == 'this-week') {
+                                    $number_schedule = getScheduleThisWeek();
+                                } elseif ($interval == 'this-month') {
+                                    $number_schedule = getScheduleThisMonth();
+                                } elseif ($interval == 'this-year') {
+                                    $number_schedule = getScheduleThisYear();
+                                } else {
+                                    $start_date = $_POST['start_date'];
+                                    $end_date = $_POST['end_date'];
+                                    $number_schedule = getScheduleByTimePeriod($start_date, $end_date);
+                                }
+                            }
+                            $number_schedule6month = getNumbersScheduleLast6Month();
+                            $number_user = getNumberUser();
+                            $number_category = getNumberCategory();
+                            $number_question = getNumberQuestion();
+                            include "./dashboard.php";
+                            break;
+                    } ?>
+                </div>
+                <!-- /.container-fluid -->
+
             </div>
-        </section>
+            <!-- End of Main Content -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
     </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
     <footer>
-        <?php include "./layouts/footer.php" ?>
+        <?php include './layouts/footer.php'; ?>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
     </script>
-    <script src="../assets/vendor/jquery/jquery.min.js"></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
+    <script src="../assets/vendor/jquery/jquery.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="../assets/vendor/jquery-easing/jquery.easing.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="../assets/js/script.admin.js"></script>
     <script src="../assets/js/script.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="../assets/vendor/chart.js/Chart.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../assets/js/demo/chart-area-demo.js"></script>
-    <script src="../assets/js/demo/chart-pie-demo.js"></script>
+    <!-- Validate form -->
+    <script src="../assets/js/validator.js"></script>
     <script>
-        function openFullscreen(element) {
-            if (element.requestFullscreen) {
-                element.requestFullscreen();
-            } else if (element.mozRequestFullScreen) {
-                /* Firefox */
-                element.mozRequestFullScreen();
-            } else if (element.webkitRequestFullscreen) {
-                /* Chrome, Safari, and Opera */
-                element.webkitRequestFullscreen();
-            } else if (element.msRequestFullscreen) {
-                /* IE/Edge */
-                element.msRequestFullscreen();
-            }
+        var title = document.title;
+        var act = '<?php echo $_GET['act']; ?>';
+        if (act != "tables") {
+            document.title = act.charAt(0).toUpperCase() + act.slice(1) + ' | TechQuizHero ';
+        } else {
+            var data = '<?php echo $_GET['data']; ?>';
+            document.title = data.charAt(0).toUpperCase() + data.slice(1) + ' | TechQuizHero ';
         }
-
-        const images = document.querySelectorAll('img');
-
-        images.forEach((image) => {
-            image.addEventListener('click', () => {
-                openFullscreen(image);
-            })
-        })
     </script>
+
 </body>
 
 </html>

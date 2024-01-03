@@ -55,8 +55,8 @@
                             <div class="row">
                                 <div class="col-12 mb-4 d-flex align-items-center">
                                     <div class="form-outline datepicker w-100">
-                                        <label for="introduce" class="form-label">Mô tả</label>
-                                        <textarea name="edit_introduce" cols="30" rows="3" value="" placeholder="" class="form-control form-control-sm" id="introduce"></textarea>
+                                        <label for="introduce" class="form-label">Giới thiệu</label>
+                                        <textarea readonly name="edit_introduce" cols="30" rows="3" value="" placeholder="" class="form-control form-control-sm bg-white" id="introduce"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -66,6 +66,7 @@
                                     <div class="form-outline">
                                         <label class="form-label" for="avatar">Ảnh đại diện</label>
                                         <input class="form-control form-control-sm" id="avatar" name="edit_avatar" type="file" />
+                                        <input class="form-control form-control-sm" id="avatar" name="edit_avatar" type="hidden" />
                                     </div>
                                 </div>
                             </div>
@@ -100,6 +101,7 @@
         const recipient = button.getAttribute('data-value')
 
         const val = JSON.parse(recipient)
+        // console.log(val);
 
         username.setAttribute('value', val.username);
         fullname.setAttribute('value', val.fullname);
